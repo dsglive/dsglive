@@ -1,7 +1,7 @@
 <template>
   <v-app 
-    standalone 
-    v-cloak
+    v-cloak 
+    standalone
   >
     <main>
       <v-container 

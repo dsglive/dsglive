@@ -1,13 +1,15 @@
 <template>
   <v-navigation-drawer
-    fixed
     v-model="drawer"
-    class="blue-grey"
     :clipped="$vuetify.breakpoint.width <= 1264 && true"
+    fixed
+    class="blue-grey"
     hide-overlay
     app
   >
-    <v-list dense class="blue-grey">
+    <v-list 
+      dense 
+      class="blue-grey">
       <!-- V-For Links From Menu -->
       <!-- Individual Link (Custom Additional) -->
       <v-link 
@@ -19,8 +21,8 @@
         icon-color="#fafafa"
       />
       <v-link 
-        title="Support" 
         :href="'/support'" 
+        title="Support" 
         icon="message"
         link-color="white"
         active-color="#4db6ac"
@@ -90,37 +92,42 @@
 </template>
 
 <script>
-import VLink from '../components/VLink.vue'
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('auth')
+import VLink from "../components/VLink.vue";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("auth");
 
 export default {
-    components: {
-        VLink
-    },
-    data: () => ({
-        drawer: false
-    }),
-    computed: {
-        ...mapState({
-            isAuthenticated: 'isAuthenticated'
-        })
-    },
-    created () {
-        let self = this
-        switch (self.$vuetify.breakpoint.name) {
-        case 'xs': return self.drawer = false
-        case 'sm': return self.drawer = false
-        case 'md': return self.drawer = true
-        case 'lg': return self.drawer = true
-        case 'xl': return self.drawer = true
-        }
-    },
-    mounted () {
-        let self = this
-        Bus.$on('toggleDrawer', function () {
-            self.drawer = !self.drawer
-        })
+  components: {
+    VLink
+  },
+  data: () => ({
+    drawer: false
+  }),
+  computed: {
+    ...mapState({
+      isAuthenticated: "isAuthenticated"
+    })
+  },
+  created() {
+    let self = this;
+    switch (self.$vuetify.breakpoint.name) {
+      case "xs":
+        return (self.drawer = false);
+      case "sm":
+        return (self.drawer = false);
+      case "md":
+        return (self.drawer = true);
+      case "lg":
+        return (self.drawer = true);
+      case "xl":
+        return (self.drawer = true);
     }
-}
+  },
+  mounted() {
+    let self = this;
+    Bus.$on("toggleDrawer", function() {
+      self.drawer = !self.drawer;
+    });
+  }
+};
 </script>

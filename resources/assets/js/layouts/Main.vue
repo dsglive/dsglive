@@ -18,15 +18,15 @@
 </template>
 
 <script>
-import AppFooter from '../partials/AppFooter.vue'
-import AppNavBar from '../partials/AppNavBar.vue'
-import LeftSideBar from '../partials/LeftSideBar.vue'
+import AppFooter from "../partials/AppFooter.vue";
+import AppNavBar from "../partials/AppNavBar.vue";
+import LeftSideBar from "../partials/LeftSideBar.vue";
 
 export default {
-    components: {
-        AppFooter,
-        AppNavBar,
-        LeftSideBar
-    }
-}
+  components: {
+    AppFooter,
+    AppNavBar,
+    LeftSideBar
+  }
+};
 </script>

@@ -61,46 +61,46 @@
                         <form @submit.prevent="submit">
                           <p class="headline accent--text">Ask Questions</p>
                           <v-text-field
+                            v-validate="'required'"
+                            v-model="name"
+                            :error-messages="errors.collect('name')"
                             light
                             name="name"
                             label="Full Name"
-                            v-model="name"
-                            :error-messages="errors.collect('name')"
-                            v-validate="'required'"
                             data-vv-name="name"
                           />
                           <v-text-field
+                            v-validate="'required|email'"
+                            v-model="email"
+                            :error-messages="errors.collect('email')"
                             light
                             name="email"
                             label="Email"
-                            v-model="email"
-                            :error-messages="errors.collect('email')"
-                            v-validate="'required|email'"
                             data-vv-name="email"
                           />
                           <v-text-field
+                            v-validate="'required'"
+                            v-model="subject"
+                            :error-messages="errors.collect('subject')"
                             light
                             name="subject"
                             label="Subject"
-                            v-model="subject"
-                            :error-messages="errors.collect('subject')"
-                            v-validate="'required'"
                             data-vv-name="subject"
                           />
                           <v-text-field
+                            v-validate="'required'"
+                            v-model="message"
+                            :error-messages="errors.collect('message')"
                             light
                             name="message"
                             label="Message"
-                            v-model="message"
-                            :error-messages="errors.collect('message')"
-                            v-validate="'required'"
                             data-vv-name="message"
                             multi-line
                           />
                           <v-btn 
-                            block 
                             :loading="contactForm.busy" 
                             :disabled="errors.any()" 
+                            block 
                             type="submit" 
                             color="primary"
                           >
@@ -164,54 +164,54 @@
 </template>
 
 <script>
-import ModalLayout from 'Layouts/ModalLayout.vue'
+import ModalLayout from "Layouts/ModalLayout.vue";
 
 export default {
-    components: {
-        ModalLayout
-    },
-    data: () => ({
-        contentClass: { 'grey': true, 'lighten-4': true, 'accent--text': true },
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        contactForm: new AppForm(App.forms.contactForm),
-        site: {
-            email: 'suppor@mail.com'
-        }
-    }),
-    methods: {
-        resetForm () {
-            this.contactForm = new AppForm(App.forms.contactForm)
-        },
-        submit () {
-            let self = this
-            self.contactForm.name = self.name
-            self.contactForm.email = self.email
-            self.contactForm.subject = self.subject
-            self.contactForm.message = self.message
-            self.$validator.validateAll()
-            if (!self.errors.any()) {
-                axios.post(route('api.@contact'), self.contactForm)
-                    .then(() => {
-                        self.resetForm()
-                        self.$router.push('/')
-                    }).catch(() => {
-                    })
-            }
-            
-        },
-        redirectBack () {
-            let self = this
-            return self.$nextTick(() => self.$router.go(-1))
-        },
-        goHome () {
-            let self = this
-            self.$nextTick(() => self.$router.push({name: 'home'}))
-        }
+  components: {
+    ModalLayout
+  },
+  data: () => ({
+    contentClass: { grey: true, "lighten-4": true, "accent--text": true },
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    contactForm: new AppForm(App.forms.contactForm),
+    site: {
+      email: "suppor@mail.com"
     }
-}
+  }),
+  methods: {
+    resetForm() {
+      this.contactForm = new AppForm(App.forms.contactForm);
+    },
+    submit() {
+      let self = this;
+      self.contactForm.name = self.name;
+      self.contactForm.email = self.email;
+      self.contactForm.subject = self.subject;
+      self.contactForm.message = self.message;
+      self.$validator.validateAll();
+      if (!self.errors.any()) {
+        axios
+          .post(route("api.@contact"), self.contactForm)
+          .then(() => {
+            self.resetForm();
+            self.$router.push("/");
+          })
+          .catch(() => {});
+      }
+    },
+    redirectBack() {
+      let self = this;
+      return self.$nextTick(() => self.$router.go(-1));
+    },
+    goHome() {
+      let self = this;
+      self.$nextTick(() => self.$router.push({ name: "home" }));
+    }
+  }
+};
 </script>
 
 

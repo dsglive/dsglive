@@ -44,12 +44,12 @@
                 offset-xl4
               >
                 <v-text-field
+                  v-validate="'required|email'"
+                  v-model="passwordResetForm.email"
+                  :error-messages="errors.collect('email')"
                   class="primary--text"
                   name="email"
                   label="Your Registered Email"
-                  v-model="passwordResetForm.email"
-                  :error-messages="errors.collect('email')"
-                  v-validate="'required|email'"
                   data-vv-name="email"
                   prepend-icon="email"
                   counter="255"
@@ -68,16 +68,16 @@
                 offset-xl4
               >
                 <v-text-field
-                  class="primary--text"
-                  name="password"
-                  label="New Password"
+                  v-validate="'required|min:6|confirmed:password_confirmation'"
                   v-model="passwordResetForm.password"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  v-validate="'required|min:6|confirmed:password_confirmation'"
-                  data-vv-name="password"
                   :error-messages="errors.collect('password')"
+                  class="primary--text"
+                  name="password"
+                  label="New Password"
+                  data-vv-name="password"
                   prepend-icon="fa-key"
                   counter="255"
                 />
@@ -96,13 +96,13 @@
               >
 
                 <v-text-field
-                  class="primary--text"
-                  name="password_confirmation"
-                  label="Confirm Password"
                   v-model="passwordResetForm.password_confirmation"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
+                  class="primary--text"
+                  name="password_confirmation"
+                  label="Confirm Password"
                   prepend-icon="fa-copy"
                   counter="255"
                 />
@@ -121,9 +121,9 @@
               <v-btn 
                 :loading="passwordResetForm.busy" 
                 :disabled="errors.any()" 
+                :class="{primary: !passwordResetForm.busy, error: passwordResetForm.busy}" 
                 type="submit" 
-                block 
-                :class="{primary: !passwordResetForm.busy, error: passwordResetForm.busy}"
+                block
               >
                 Reset
               </v-btn>
@@ -137,64 +137,62 @@
 </template>
 
 <script>
-import ModalLayout from 'Layouts/ModalLayout.vue'
-import { createNamespacedHelpers } from 'vuex'
-const { mapGetters, mapActions } = createNamespacedHelpers('auth')
+import ModalLayout from "Layouts/ModalLayout.vue";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("auth");
 
 export default {
-    components: {
-        ModalLayout
-    },
-    props:{
-        token: {
-            type: String,
-            required: true
-        }
-    },
-    data: () => ({
-        passwordResetForm: new AppForm(App.forms.passwordResetForm),
-        password_visible: false
-    }),
-    computed: {
-        icon () {
-            return this.password_visible ? 'visibility' : 'visibility_off'
-        },
-        ...mapGetters({
-            isAuthenticated: 'isAuthenticated'
-        })
-    },
-    mounted () {
-        let self = this
-        /* Make Sure We Only Load Reset Password Page If Not Authenticated */
-        if (self.isAuthenticated) {
-            /* nextick make sure our modal wount be visible before redirect */
-            return self.$nextTick(() => self.$router.go(-1))
-        }
-        self.passwordResetForm.token = self.token
-    },
-    methods: {
-        ...mapActions({
-            submit: 'passwordreset',
-            fetchMe: 'fetchMe'
-        }),
-        goHome () {
-            let self = this
-            self.$nextTick(() => self.$router.push({name: 'home'}))
-        },
-        redirectBack () {
-            let self = this
-            return self.$nextTick(() => self.$router.go(-1))
-        },
-        async resetPassword () {
-            let self = this
-            self.$validator.validateAll()
-            if (!self.errors.any()) {
-                await self.submit(self.passwordResetForm)
-            }
-            self.$router.push({ name: 'dashboard' })
-
-        }
-            
+  components: {
+    ModalLayout
+  },
+  props: {
+    token: {
+      type: String,
+      required: true
     }
-}
+  },
+  data: () => ({
+    passwordResetForm: new AppForm(App.forms.passwordResetForm),
+    password_visible: false
+  }),
+  computed: {
+    icon() {
+      return this.password_visible ? "visibility" : "visibility_off";
+    },
+    ...mapGetters({
+      isAuthenticated: "isAuthenticated"
+    })
+  },
+  mounted() {
+    let self = this;
+    /* Make Sure We Only Load Reset Password Page If Not Authenticated */
+    if (self.isAuthenticated) {
+      /* nextick make sure our modal wount be visible before redirect */
+      return self.$nextTick(() => self.$router.go(-1));
+    }
+    self.passwordResetForm.token = self.token;
+  },
+  methods: {
+    ...mapActions({
+      submit: "passwordreset",
+      fetchMe: "fetchMe"
+    }),
+    goHome() {
+      let self = this;
+      self.$nextTick(() => self.$router.push({ name: "home" }));
+    },
+    redirectBack() {
+      let self = this;
+      return self.$nextTick(() => self.$router.go(-1));
+    },
+    async resetPassword() {
+      let self = this;
+      self.$validator.validateAll();
+      if (!self.errors.any()) {
+        await self.submit(self.passwordResetForm);
+      }
+      self.$router.push({ name: "dashboard" });
+    }
+  }
+};
 </script>

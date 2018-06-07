@@ -49,9 +49,9 @@
               <!-- Image -->
               <!-- Gallery -->
               <v-container 
+                v-if="photos !== null && photos !== undefined && photos.length > 0" 
                 fill-height 
-                fluid 
-                v-if="photos !== null && photos !== undefined && photos.length > 0"
+                fluid
               >
                 <v-layout fill-height>
                   <v-flex
@@ -60,11 +60,11 @@
                     flexbox
                   >
                     <div
-                      class="image"
                       v-for="(image,key) in photos"
                       :key="key"
-                      @click="setCurrentImage(key)"
                       :style="{ backgroundImage: 'url(' + image + ')', width: imageHeight, height: imageWidth }"
+                      class="image"
+                      @click="setCurrentImage(key)"
                     />
                   </v-flex>
                 </v-layout>
@@ -90,11 +90,11 @@
         >
           <!-- Feature Lists -->
           <v-flex
-            d-flex 
-            xs12
+            v-for="card in features" 
             v-bind="{ [`xs${card.xs}`]: true, [`sm${card.sm}`]: true, [`md${card.md}`]: true,[`lg${card.lg}`]: true,[`xl${card.xl}`]: true }"
-            v-for="card in features"
             :key="card.title"
+            d-flex
+            xs12
             class="pa-2"
           >
 
@@ -140,8 +140,8 @@
                             <v-spacer/>
                             <v-btn 
                               icon 
-                              @click.native="card.show = !card.show" 
-                              class="accent--text"
+                              class="accent--text" 
+                              @click.native="card.show = !card.show"
                             >
                               <v-icon>{{ card.show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                             </v-btn>
@@ -155,9 +155,9 @@
                           <v-slide-y-transition>
                             <v-card-text 
                               v-show="card.show" 
-                              v-text="card.tagline"
-                              class="accent--text" 
                               :class="[taglineSize]"
+                              class="accent--text" 
+                              v-text="card.tagline"
                             />
                           </v-slide-y-transition>
                         </v-flex>
@@ -179,65 +179,122 @@
 
 <script>
 export default {
-    data: () => ({
-        title: '<h1 class="accent--text">Everything You Need To Start </br><strong class="primary--text">In Building Single Page Apps</strong></h1>',
-        'current_image': '/svg/website-svgrepo-com.svg',
-        features: [
-            { show: true, title: 'Easy Scaffolding', tagline: 'Added New Artisan Commands To Help You Get Up and Running', src: '/svg/command-window-svgrepo-com.svg', xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
-            { show: true, title: 'Easily Add Components', tagline: 'Need More Components? Add Them As A New Service in Your Plugins.js', src: '/svg/usb-svgrepo-com.svg', xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
-            { show: true, title: 'Deploy Easily On Cloud', tagline: 'Deploy Your Containers with Dockers at Digital Ocean', src: '/svg/cloud-computing-svgrepo-com.svg', xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
-            { show: true, title: 'Modular State Management', tagline: 'Few Modules Are Built In For You To Handle State On Front End', src: '/svg/database-svgrepo-com.svg', xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }
-        ],
-        photos: [
-        ]
-    }),
-    computed: {
-        imageHeight () {
-            let height = window.innerWidth * 0.07
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return `${height}px`
-            case 'sm': return `${height}px`
-            case 'md': return `${height}px`
-            case 'lg': return `${height}px`
-            case 'xl': return `${height}px`
-            }
-        },
-        imageWidth () {
-            let width = window.innerWidth * 0.07
-
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return `${width}px`
-            case 'sm': return `${width}px`
-            case 'md': return `${width}px`
-            case 'lg': return `${width}px`
-            case 'xl': return `${width}px`
-            }
-        },
-        taglineSize () {
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return {}
-            case 'sm': return {}
-            case 'md': return {title: true}
-            case 'lg': return {title: true}
-            case 'xl': return {title: true}
-            }
-        }
+  data: () => ({
+    title:
+      '<h1 class="accent--text">Everything You Need To Start </br><strong class="primary--text">In Building Single Page Apps</strong></h1>',
+    current_image: "/svg/website-svgrepo-com.svg",
+    features: [
+      {
+        show: true,
+        title: "Easy Scaffolding",
+        tagline: "Added New Artisan Commands To Help You Get Up and Running",
+        src: "/svg/command-window-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12
+      },
+      {
+        show: true,
+        title: "Easily Add Components",
+        tagline:
+          "Need More Components? Add Them As A New Service in Your Plugins.js",
+        src: "/svg/usb-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12
+      },
+      {
+        show: true,
+        title: "Deploy Easily On Cloud",
+        tagline: "Deploy Your Containers with Dockers at Digital Ocean",
+        src: "/svg/cloud-computing-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12
+      },
+      {
+        show: true,
+        title: "Modular State Management",
+        tagline:
+          "Few Modules Are Built In For You To Handle State On Front End",
+        src: "/svg/database-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12
+      }
+    ],
+    photos: []
+  }),
+  computed: {
+    imageHeight() {
+      let height = window.innerWidth * 0.07;
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return `${height}px`;
+        case "sm":
+          return `${height}px`;
+        case "md":
+          return `${height}px`;
+        case "lg":
+          return `${height}px`;
+        case "xl":
+          return `${height}px`;
+      }
     },
-    methods: {
-        setCurrentImage (index) {
-            this.current_image = this.photos[index]
-        }
+    imageWidth() {
+      let width = window.innerWidth * 0.07;
+
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return `${width}px`;
+        case "sm":
+          return `${width}px`;
+        case "md":
+          return `${width}px`;
+        case "lg":
+          return `${width}px`;
+        case "xl":
+          return `${width}px`;
+      }
+    },
+    taglineSize() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return {};
+        case "sm":
+          return {};
+        case "md":
+          return { title: true };
+        case "lg":
+          return { title: true };
+        case "xl":
+          return { title: true };
+      }
     }
-}
+  },
+  methods: {
+    setCurrentImage(index) {
+      this.current_image = this.photos[index];
+    }
+  }
+};
 </script>
 
 <style scoped>
 .image {
-    float: left;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #ebebeb;
-    margin: 5px;
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
 }
 </style>

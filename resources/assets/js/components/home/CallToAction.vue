@@ -11,7 +11,7 @@
       pa-0 
       ma-0
     >
-      <v-flex 
+      <v-flex
         xs12 
         text-xs-center 
         pa-0
@@ -36,8 +36,8 @@
         pb-5
       >
         <v-btn 
-          color="primary" 
-          :href="link"
+          :href="link" 
+          color="primary"
         >
           <span class="white--text">
             Clone The Repository
@@ -55,22 +55,21 @@
 </template>
 
 <script>
-import Acl from '../../mixins/acl'
+import Acl from "../../mixins/acl";
 
 export default {
-    mixins: [Acl],
-    data: () => ({
-        link: 'https://github.com/codeitlikemiley/vuetified'
-    }),
-    mounted () {
-        let self = this
-        if (self.isLoggedIn()) {
-            self.link = 'https://github.com/codeitlikemiley/vuetified'
-        }
+  mixins: [Acl],
+  data: () => ({
+    link: "https://github.com/codeitlikemiley/vuetified"
+  }),
+  mounted() {
+    let self = this;
+    if (self.isLoggedIn()) {
+      self.link = "https://github.com/codeitlikemiley/vuetified";
     }
-}
+  }
+};
 </script>
 
 <style>
-
 </style>

@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(AdminSeeder::class);
         \Artisan::call('passport:client', [
-        '--password' => true,
-        '-n'    => true,
+            '--password' => true,
+            '-n'         => true
         ]);
         /* Can Uncomment The Seeder Below This In Production */
         $this->call(DummyUserSeeder::class);

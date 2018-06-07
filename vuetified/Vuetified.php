@@ -5,8 +5,8 @@ namespace Vuetified;
 class Vuetified
 {
     use Configuration\ProvidesScriptVariables,
-        Configuration\CallsInteractions,
-        Configuration\ManageModelOptions;
+    Configuration\CallsInteractions,
+    Configuration\ManageModelOptions;
 
     /**
      * The Vuetified version.

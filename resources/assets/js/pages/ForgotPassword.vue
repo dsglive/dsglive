@@ -39,14 +39,14 @@
                 offset-xl4
               >
                 <v-text-field
+                  v-validate="'required|email'"
+                  v-model="resetForm.username"
+                  :error-messages="errors.collect('username')"
                   class="primary--text"
                   name="username"
                   label="Type Your Registered Email"
-                  v-model="resetForm.username"
                   prepend-icon="email"
-                  v-validate="'required|email'"
                   data-vv-name="username"
-                  :error-messages="errors.collect('username')"
                   counter="255"
                 />
               </v-flex>
@@ -64,9 +64,9 @@
               <v-btn 
                 :disabled="errors.any()" 
                 :loading="resetForm.busy" 
+                :class="{primary: !resetForm.busy, error: resetForm.busy}" 
                 type="submit" 
-                block 
-                :class="{primary: !resetForm.busy, error: resetForm.busy}"
+                block
               >
                 Send Password Reset Email
               </v-btn>
@@ -80,53 +80,55 @@
 </template>
 
 <script>
-import ModalLayout from 'Layouts/ModalLayout.vue'
-import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('auth')
+import ModalLayout from "Layouts/ModalLayout.vue";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("auth");
 
 export default {
-    components: {
-        ModalLayout
-    },
-    data: () => ({
-        resetForm: new AppForm(App.forms.resetForm)
-    }),
-    computed: {
-        ...mapState({
-            isAuthenticated: 'isAuthenticated'
-        })
-    },
-    mounted () {
-        let self = this
-        /* Make Sure We Only Load Forgot Password Page If Not Authenticated */
-        if (self.isAuthenticated) {
-            /* nextick make sure our modal wount be visible before redirect */
-            return self.$nextTick(() => self.$router.go(-1))
-        }
-    },
-    methods: {
-        goHome () {
-            let self = this
-            self.$nextTick(() => self.$router.push({name: 'home'}))
-        },
-        redirectBack () {
-            let self = this
-            return self.$nextTick(() => self.$router.go(-1))
-        },
-        async sendEmail () {
-            let self = this
-            self.$validator.validateAll()
-            if (!self.errors.any()) {
-                self.resetForm.busy = true
-                await axios.post(route('api.auth.forgotpassword'), self.resetForm).then(() => {
-                    self.resetForm.busy = false
-                    self.$router.push({ name: 'home' })
-                }).catch(() => {
-                    self.resetForm.busy = false
-                })
-            }
-        }
+  components: {
+    ModalLayout
+  },
+  data: () => ({
+    resetForm: new AppForm(App.forms.resetForm)
+  }),
+  computed: {
+    ...mapState({
+      isAuthenticated: "isAuthenticated"
+    })
+  },
+  mounted() {
+    let self = this;
+    /* Make Sure We Only Load Forgot Password Page If Not Authenticated */
+    if (self.isAuthenticated) {
+      /* nextick make sure our modal wount be visible before redirect */
+      return self.$nextTick(() => self.$router.go(-1));
     }
-   
-}
+  },
+  methods: {
+    goHome() {
+      let self = this;
+      self.$nextTick(() => self.$router.push({ name: "home" }));
+    },
+    redirectBack() {
+      let self = this;
+      return self.$nextTick(() => self.$router.go(-1));
+    },
+    async sendEmail() {
+      let self = this;
+      self.$validator.validateAll();
+      if (!self.errors.any()) {
+        self.resetForm.busy = true;
+        await axios
+          .post(route("api.auth.forgotpassword"), self.resetForm)
+          .then(() => {
+            self.resetForm.busy = false;
+            self.$router.push({ name: "home" });
+          })
+          .catch(() => {
+            self.resetForm.busy = false;
+          });
+      }
+    }
+  }
+};
 </script>

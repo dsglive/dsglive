@@ -13,7 +13,9 @@
             href="#account" 
             class="accent--text"
           >
-            <v-icon color="indigo" large>fa-user</v-icon>
+            <v-icon 
+              color="indigo" 
+              large>fa-user</v-icon>
             <span 
               :class="$vuetify.breakpoint.width >= 600 && 'title'"
             >
@@ -24,7 +26,9 @@
             href="#profile" 
             class="accent--text"
           >
-            <v-icon color="teal" large>fa-address-card</v-icon>
+            <v-icon 
+              color="teal" 
+              large>fa-address-card</v-icon>
             <span 
               :class="$vuetify.breakpoint.width >= 600 && 'title'"
             >
@@ -35,7 +39,9 @@
             href="#referral-link" 
             class="accent--text"
           >
-            <v-icon color="cyan" large>link</v-icon>
+            <v-icon 
+              color="cyan" 
+              large>link</v-icon>
             <span 
               :class="$vuetify.breakpoint.width >= 600 && 'title'"
             >
@@ -57,20 +63,20 @@
 </template>
 
 <script>
-import MainLayout from 'Layouts/Main.vue'
-import Account from 'Components/settings/Account.vue'
-import Profile from 'Components/settings/Profile.vue'
-import ReferralLink from 'Components/settings/ReferralLink.vue'
+import MainLayout from "Layouts/Main.vue";
+import Account from "Components/settings/Account.vue";
+import Profile from "Components/settings/Profile.vue";
+import ReferralLink from "Components/settings/ReferralLink.vue";
 
 export default {
-    components: {
-        MainLayout,
-        Account,
-        Profile,
-        ReferralLink
-    },
-    data: () => ({
-        contentClass: { 'grey': true, 'lighten-4': true, 'accent--text': true }
-    })
-}
+  components: {
+    MainLayout,
+    Account,
+    Profile,
+    ReferralLink
+  },
+  data: () => ({
+    contentClass: { grey: true, "lighten-4": true, "accent--text": true }
+  })
+};
 </script>

@@ -8,8 +8,8 @@
       wrap
     >
       <v-flex
-        v-bind="{ [`xs${card.xs}`]: true, [`sm${card.sm}`]: true, [`md${card.md}`]: true,[`lg${card.lg}`]: true,[`xl${card.xl}`]: true }"
         v-for="card in showcase"
+        v-bind="{ [`xs${card.xs}`]: true, [`sm${card.sm}`]: true, [`md${card.md}`]: true,[`lg${card.lg}`]: true,[`xl${card.xl}`]: true }"
         :key="card.title"
         class="pa-2"
       >
@@ -38,16 +38,42 @@
 
 <script>
 export default {
-    data: () => ({
-        showcase: [
-            { show: true, title: 'Laravel Echo Notifications', src: '/svg/announcement-svgrepo-com.svg', xs: 12, sm: 12, md: 4, lg: 4, xl: 4 },
-            { show: true, title: 'Laravel Passport Auth Scaffold', src: '/svg/fingerprint-scan-svgrepo-com.svg', xs: 12, sm: 12, md: 4, lg: 4, xl: 4 },
-            { show: true, title: 'Vuetify Themes', src: '/svg/browsers-svgrepo-com.svg', xs: 12, sm: 12, md: 4, lg: 4, xl: 4 }
-        ]
-    })
-}
+  data: () => ({
+    showcase: [
+      {
+        show: true,
+        title: "Laravel Echo Notifications",
+        src: "/svg/announcement-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 4,
+        lg: 4,
+        xl: 4
+      },
+      {
+        show: true,
+        title: "Laravel Passport Auth Scaffold",
+        src: "/svg/fingerprint-scan-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 4,
+        lg: 4,
+        xl: 4
+      },
+      {
+        show: true,
+        title: "Vuetify Themes",
+        src: "/svg/browsers-svgrepo-com.svg",
+        xs: 12,
+        sm: 12,
+        md: 4,
+        lg: 4,
+        xl: 4
+      }
+    ]
+  })
+};
 </script>
 
 <style>
-
 </style>

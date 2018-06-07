@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import AppFooter from '../partials/AppFooter.vue'
-import HomeNavBar from '../partials/HomeNavBar'
+import AppFooter from "../partials/AppFooter.vue";
+import HomeNavBar from "../partials/HomeNavBar";
 
 export default {
-    components: {
-        AppFooter,
-        HomeNavBar
-    }
-}
+  components: {
+    AppFooter,
+    HomeNavBar
+  }
+};
 </script>

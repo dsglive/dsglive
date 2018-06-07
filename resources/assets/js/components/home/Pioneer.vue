@@ -87,9 +87,9 @@
               <!-- Image -->
               <!-- Gallery -->
               <v-container 
+                v-if="photos !== null && photos !== undefined && photos.length > 0" 
                 fill-height 
-                fluid 
-                v-if="photos !== null && photos !== undefined && photos.length > 0"
+                fluid
               >
                 <v-layout fill-height>
                   <v-flex 
@@ -98,11 +98,11 @@
                     flexbox
                   >
                     <div
-                      class="image"
                       v-for="(image,key) in photos"
                       :key="key"
-                      @click="setCurrentImage(key)"
                       :style="{ backgroundImage: 'url(' + image + ')', width: imageHeight, height: imageWidth }"
+                      class="image"
+                      @click="setCurrentImage(key)"
                     />
                   </v-flex>
                 </v-layout>
@@ -120,52 +120,62 @@
 
 <script>
 export default {
-    data: () => ({
-        title: '<h1 class="accent--text">Scaffold Your Laravel and Vue Apps </br> <strong class="primary--text">Vuetified Your App</strong></h1>',
-        subtitle: 'Starting a New Project Is Hard, We Already Do The Heavy Lifting For You. Many Small Details Things You Will Love Such as Vue Linting and Autofix in VS Code Editor, Ready Built Auth Scaffold To Realtime BroadCasting and Modular State Management.',
-        'current_image': '/svg/spa-svgrepo-com.svg',
-        photos: [
-
-        ]
-    }),
-    computed: {
-        imageHeight () {
-            let height = window.innerWidth * 0.07
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return `${height}px`
-            case 'sm': return `${height}px`
-            case 'md': return `${height}px`
-            case 'lg': return `${height}px`
-            case 'xl': return `${height}px`
-            }
-        },
-        imageWidth () {
-            let width = window.innerWidth * 0.07
-
-            switch (this.$vuetify.breakpoint.name) {
-            case 'xs': return `${width}px`
-            case 'sm': return `${width}px`
-            case 'md': return `${width}px`
-            case 'lg': return `${width}px`
-            case 'xl': return `${width}px`
-            }
-        }
+  data: () => ({
+    title:
+      '<h1 class="accent--text">Scaffold Your Laravel and Vue Apps </br> <strong class="primary--text">Vuetified Your App</strong></h1>',
+    subtitle:
+      "Starting a New Project Is Hard, We Already Do The Heavy Lifting For You. Many Small Details Things You Will Love Such as Vue Linting and Autofix in VS Code Editor, Ready Built Auth Scaffold To Realtime BroadCasting and Modular State Management.",
+    current_image: "/svg/spa-svgrepo-com.svg",
+    photos: []
+  }),
+  computed: {
+    imageHeight() {
+      let height = window.innerWidth * 0.07;
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return `${height}px`;
+        case "sm":
+          return `${height}px`;
+        case "md":
+          return `${height}px`;
+        case "lg":
+          return `${height}px`;
+        case "xl":
+          return `${height}px`;
+      }
     },
-    methods: {
-        setCurrentImage (index) {
-            this.current_image = this.photos[index]
-        }
+    imageWidth() {
+      let width = window.innerWidth * 0.07;
+
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return `${width}px`;
+        case "sm":
+          return `${width}px`;
+        case "md":
+          return `${width}px`;
+        case "lg":
+          return `${width}px`;
+        case "xl":
+          return `${width}px`;
+      }
     }
-}
+  },
+  methods: {
+    setCurrentImage(index) {
+      this.current_image = this.photos[index];
+    }
+  }
+};
 </script>
 
 <style scoped>
 .image {
-    float: left;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #ebebeb;
-    margin: 5px;
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
 }
 </style>
