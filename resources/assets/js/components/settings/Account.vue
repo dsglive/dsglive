@@ -70,11 +70,11 @@
       >
         <v-text-field
           v-validate="{ min: 6,regex: /^([a-zA-Z0-9@*#]{6,15})$/ }"
-          v-model="password"
           :append-icon="icon"
           :append-icon-cb="() => (password_visible = !password_visible)"
           :type="!password_visible ? 'password' : 'text'"
           :error-messages="errors.collect('new password')"
+          v-model="password"
           label="New Password"
           name="password"
           prepend-icon="fiber_new"
@@ -117,79 +117,79 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapGetters, mapMutations } = createNamespacedHelpers('auth');
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapMutations } = createNamespacedHelpers("auth");
 
 export default {
-    data: () => ({
-        accountForm: new AppForm(App.forms.accountForm),
-        name: null,
-        email: null,
-        username: null,
-        old_password: null,
-        password: null,
-        password_confirmation: null,
-        password_visible: false
+  data: () => ({
+    accountForm: new AppForm(App.forms.accountForm),
+    name: null,
+    email: null,
+    username: null,
+    old_password: null,
+    password: null,
+    password_confirmation: null,
+    password_visible: false
+  }),
+  computed: {
+    ...mapGetters({
+      getMe: "getMe"
     }),
-    computed: {
-        ...mapGetters({
-            getMe: 'getMe'
-        }),
-        icon() {
-            return this.password_visible ? 'visibility' : 'visibility_off';
-        }
-    },
-    mounted() {
-        let self = this;
-        self.name = self.getMe.name;
-        self.email = self.getMe.email;
-        self.username = self.getMe.username;
-    },
-    methods: {
-        ...mapMutations({
-            setMe: 'setMe'
-        }),
-        prepareAccountForm() {
-            let self = this;
-            self.accountForm.name = self.name;
-            self.accountForm.username = self.username;
-            self.accountForm.email = self.email;
-            self.accountForm.old_password = self.old_password;
-            self.accountForm.password = self.password;
-            self.accountForm.password_confirmation = self.password_confirmation;
-            if (self.old_password === null) {
-                delete self.accountForm.old_password;
-                delete self.accountForm.password;
-                delete self.accountForm.password_confirmation;
-            }
-        },
-        resetAccountForm() {
-            let self = this;
-            self.accountForm = new AppForm(App.forms.accountForm);
-        },
-        async updateAccount() {
-            let self = this;
-            self.accountForm.busy = true;
-            self.prepareAccountForm();
-            try {
-                const payload = await App.post(
-                    route('api.user.updateAccount'),
-                    self.accountForm
-                );
-                self.resetAccountForm();
-                self.setMe(payload.data);
-                self.old_password = null;
-                self.password = null;
-                self.password_confirmation = null;
-            } catch ({ errors, message }) {
-                self.accountForm.errors.set(errors);
-                self.accountForm.busy = false;
-                /* for wrong password */
-                if (errors.old_password[0]) {
-                } else {
-                }
-            }
-        }
+    icon() {
+      return this.password_visible ? "visibility" : "visibility_off";
     }
+  },
+  mounted() {
+    let self = this;
+    self.name = self.getMe.name;
+    self.email = self.getMe.email;
+    self.username = self.getMe.username;
+  },
+  methods: {
+    ...mapMutations({
+      setMe: "setMe"
+    }),
+    prepareAccountForm() {
+      let self = this;
+      self.accountForm.name = self.name;
+      self.accountForm.username = self.username;
+      self.accountForm.email = self.email;
+      self.accountForm.old_password = self.old_password;
+      self.accountForm.password = self.password;
+      self.accountForm.password_confirmation = self.password_confirmation;
+      if (self.old_password === null) {
+        delete self.accountForm.old_password;
+        delete self.accountForm.password;
+        delete self.accountForm.password_confirmation;
+      }
+    },
+    resetAccountForm() {
+      let self = this;
+      self.accountForm = new AppForm(App.forms.accountForm);
+    },
+    async updateAccount() {
+      let self = this;
+      self.accountForm.busy = true;
+      self.prepareAccountForm();
+      try {
+        const payload = await App.post(
+          route("api.user.updateAccount"),
+          self.accountForm
+        );
+        self.resetAccountForm();
+        self.setMe(payload.data);
+        self.old_password = null;
+        self.password = null;
+        self.password_confirmation = null;
+      } catch ({ errors, message }) {
+        self.accountForm.errors.set(errors);
+        self.accountForm.busy = false;
+        /* for wrong password */
+        if (errors.old_password[0]) {
+        } else {
+        }
+      }
+    }
+  }
 };
 </script>

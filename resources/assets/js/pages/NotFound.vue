@@ -547,25 +547,25 @@
 </template>
 
 <script>
-import ModalLayout from 'Layouts/ModalLayout.vue';
+import ModalLayout from "Layouts/ModalLayout.vue";
 
 export default {
-    components: {
-        ModalLayout
-    },
-    mounted() {
+  components: {
+    ModalLayout
+  },
+  mounted() {
     // let self = this
+  },
+  methods: {
+    redirectBack() {
+      let self = this;
+      self.$router.go(-2);
     },
-    methods: {
-        redirectBack() {
-            let self = this;
-            self.$router.go(-2);
-        },
-        goHome() {
-            let self = this;
-            self.$router.push({ name: 'home' });
-        }
+    goHome() {
+      let self = this;
+      self.$router.push({ name: "home" });
     }
+  }
 };
 </script>
 <style scoped>
