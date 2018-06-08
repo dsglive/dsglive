@@ -87,7 +87,7 @@
                             label="Subject"
                             data-vv-name="subject"
                           />
-                          <v-text-field
+                          <v-textarea
                             v-validate="'required'"
                             v-model="message"
                             :error-messages="errors.collect('message')"
@@ -95,7 +95,6 @@
                             name="message"
                             label="Message"
                             data-vv-name="message"
-                            multi-line
                           />
                           <v-btn 
                             :loading="contactForm.busy" 
