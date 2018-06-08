@@ -39,14 +39,14 @@
                 offset-xl4
               >
                 <v-text-field
-                  v-validate="'required|email'"
+                  v-validate="'required|alpha_dash|min:6'"
                   v-model="loginForm.username"
                   :error-messages="errors.collect('username')"
                   class="primary--text"
                   name="username"
-                  label="Type Your Account Email"
+                  label="Type Your Username"
                   data-vv-name="username"
-                  prepend-icon="email"
+                  prepend-icon="fa-at"
                   counter="255"
                 />
               </v-flex>

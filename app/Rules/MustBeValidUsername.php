@@ -37,7 +37,7 @@ class MustBeValidUsername implements Rule
     public function passes($attribute, $value)
     {
         $user = new User;
-        $user = $user->findForPassport(value);
+        $user = $user->findForPassport($value);
         return null !== $user;
     }
 }

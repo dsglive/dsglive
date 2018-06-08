@@ -3,12 +3,15 @@
 namespace App\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Exceptions\InvalidCredentials;
+use App\Exceptions\UserIsNotYetActive;
 
 trait IssueTokenTrait
 {
     /**
-     * @param Request $request
+     * @param Request      $request
      * @param $grantType
      * @param $scope
      */
@@ -18,20 +21,24 @@ trait IssueTokenTrait
             'grant_type'    => $grantType,
             'client_id'     => $this->client->id,
             'client_secret' => $this->client->secret,
-            'scope'         => $scope
+            'scope'         => $scope,
+            'username'      => $request->username
         ];
+        $credentials   = $request->only(['username', 'password']);
+        $authenticated = Auth::attempt($credentials);
 
-        if ('social' !== $grantType) {
-            $params['username'] = $request->username;
-        } else {
-            //? add logic here for social to save also scope and access token in Social Accounts table
-            //! Save Access Token, Refresh Token, Username, Expires At, Type, and Scope
+        if (!$authenticated) {
+            throw new InvalidCredentials;
         }
 
-        $request->request->add($params);
+        $user = Auth::user();
 
-        $proxy = Request::create('oauth/token', 'POST');
+        if ($user->active) {
+            $request->request->add($params);
+            $proxy = Request::create('oauth/token', 'POST');
+            return Route::dispatch($proxy);
+        }
 
-        return Route::dispatch($proxy);
+        throw new UserIsNotYetActive;
     }
 }

@@ -9,7 +9,6 @@ use App\Traits\IssueTokenTrait;
 use App\Rules\MustBeValidUsername;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Exceptions\UserIsNotYetActive;
 
 class LoginController extends Controller
 {
@@ -50,13 +49,7 @@ class LoginController extends Controller
             ],
             'password' => 'required|min:6'
         ]);
-        $user = User::findByUsername($request->username);
-
-        if ($user->active) {
-            return $this->issueToken($request, 'password');
-        } else {
-            throw new UserIsNotYetActive;
-        }
+        return $this->issueToken($request, 'password');
     }
 
     /**

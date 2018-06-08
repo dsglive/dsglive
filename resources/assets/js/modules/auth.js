@@ -39,16 +39,17 @@ const actions = {
   async login({ commit, dispatch }, form) {
     form.busy = true;
     try {
-      await vueAuth.login(form).then(() => {
+      await vueAuth.login(form).then((response) => {
+        console.log(response.data)
         commit("isAuthenticated", {
           isAuthenticated: vueAuth.isAuthenticated()
         });
       });
 
-      await dispatch("fetchMe");
+      // await dispatch("fetchMe");
 
       form.busy = false;
-      vm.$router.push({ name: "dashboard" });
+      // vm.$router.push({ name: "dashboard" });
     } catch ({ errors, message }) {
       form.errors.set(errors);
       form.busy = false;
