@@ -37,7 +37,6 @@
               <v-checkbox
                 :input-value="props.all"
                 :indeterminate="props.indeterminate"
-                light
                 primary
                 hide-details
                 @click.native="toggleAll"
@@ -46,28 +45,30 @@
             <th 
               v-for="header in props.headers" 
               :key="header.text"
-              :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'name' : '', {'text-xs-left': header.align === 'left', 'text-xs-right': header.align === 'right', 'text-xs-center': header.align === 'center'},$vuetify.breakpoint.width >= 600 && 'title']"
+              :class="['column sortable', pagination.descending ? 'desc' : 'asc', 
+                       header.value === pagination.sortBy ? 'name' : '', 
+                       {'text-xs-left': header.align === 'left', 
+                        'text-xs-right': header.align === 'right', 
+                        'text-xs-center': header.align === 'center'},
+                       $vuetify.breakpoint.width >= 600 && 'title']"
               @click="changeSort(header.value)"
             >
-              <v-icon>arrow_upward</v-icon>
-              {{ header.text }}
-            </th>
-            <th text-xs-right>
               <span 
-                v-if="selected.length < 1"
-                :class="$vuetify.breakpoint.width >= 600 && 'title'"
+                v-if="header.text === 'Actions' && selected.length >0"
               >
-                Actions
+                <v-btn 
+                  :disabled="!can('manage_users')" 
+                  flat 
+                  color="error" 
+                  @click="deleteSelected()"
+                >
+                  Delete Selected
+                </v-btn>
               </span>
-              <v-btn
-                v-else 
-                flat 
-                icon 
-                color="error" 
-                @click.native="deleteSelected()"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
+              <span v-else>
+                <v-icon>arrow_upward</v-icon>
+                {{ header.text }}
+              </span>
             </th>
           </tr>
         </template>
@@ -370,6 +371,14 @@
             </v-card>
           </v-container>
         </template>
+        <template slot="no-data">
+          <v-alert 
+            :value="true" 
+            color="error" 
+            icon="warning">
+            Opps!!! Create a New User! :(
+          </v-alert>
+        </template>
 
       </v-data-table>
     </v-container>
@@ -399,7 +408,8 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Roles", value: "roles", align: "left", sortable: false }
+      { text: "Roles", value: "roles", align: "left", sortable: false },
+      { text: "Actions", value: "actions", align: "right", sortable: false },
     ],
     items: [],
     selected: [],
@@ -573,7 +583,15 @@ export default {
     toggleAll() {
       if (this.selected.length) this.selected = [];
       else this.selected = this.items.slice();
-    }
+    },
+    changeSort (column) {
+        if (this.pagination.sortBy === column) {
+          this.pagination.descending = !this.pagination.descending
+        } else {
+          this.pagination.sortBy = column
+          this.pagination.descending = false
+        }
+      }
   }
 };
 </script>
