@@ -7613,6 +7613,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@^7.19.3:
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.22.0.tgz#3b4c049ae2bf7c4a4bdd45241d509e23eaaa6059"
+
 table@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/table/-/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"
@@ -8092,6 +8096,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vform@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vform/-/vform-1.0.0.tgz#8bca811f6380d64089972f3f4a1d9adb35bc0273"
+
 vinyl-assign@^1.0.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/vinyl-assign/-/vinyl-assign-1.2.1.tgz#4d198891b5515911d771a8cd9c5480a46a074a45"
@@ -8239,7 +8247,7 @@ vue@^2.5.16, vue@^2.5.2:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
-vuetify@1.1.0-Beta.2:
+vuetify@^1.1.0-Beta.2:
   version "1.1.0-beta.2"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.1.0-beta.2.tgz#834339b16dab94ca9f47c4acfee7b61d2ec5300a"
 

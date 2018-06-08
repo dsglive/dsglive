@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { VueAuthenticate } from "vue-authenticate";
 import providers from "Services/providers";
+import swal from "sweetalert2";
 const vueAuth = new VueAuthenticate(Vue.prototype.$http, providers);
 
 const state = {
@@ -38,20 +39,37 @@ const actions = {
   /* form : username ,password */
   async login({ commit, dispatch }, form) {
     form.busy = true;
+    form.clear();
     try {
-      await vueAuth.login(form).then((response) => {
-        console.log(response.data)
+      await vueAuth.login(form).then(response => {
         commit("isAuthenticated", {
           isAuthenticated: vueAuth.isAuthenticated()
         });
       });
 
-      // await dispatch("fetchMe");
+      await dispatch("fetchMe");
 
       form.busy = false;
-      // vm.$router.push({ name: "dashboard" });
-    } catch ({ errors, message }) {
-      form.errors.set(errors);
+      vm.$router.push({ name: "dashboard" });
+    } catch ({ response, message }) {
+      if (response.status === 400) {
+        const loginModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        loginModal({
+          title: "Bad Request! " + response.status + " ERROR",
+          html: '<p class="title">' + response.data.message + "</p>",
+          type: "warning",
+          confirmButtonText: "Ok",
+          footer:
+            '<a href="/register" style="color:red;" class="subheading">No Account Yet? Register First</a>'
+        });
+      }
+      if (response.status === 422) {
+        form.errors.set(response.data.errors);
+      }
+
       form.busy = false;
     }
   },
@@ -124,29 +142,6 @@ const actions = {
       form.busy = false;
     }
   }
-  //! Not working as expected only showing empty popup
-  /* form : name,email ,provider(fb),provider_user_id(fb_id) */
-  /* async oauthLogin ({ commit, dispatch,state }, { provider, form, redirectUri } = payload) {
-        form.busy = true
-        let user = state.me
-        vueAuth.options.providers[provider].url = `/auth/${provider}/user/${user.id}/login`
-        let requestOptions = {}
-        requestOptions.method = 'POST'
-        // vueAuth.options.providers[provider].redirectUri = redirectUri
-        vueAuth.options.providers[provider].popupOptions = { width: 0, height: 0 }
-        try {
-            await vueAuth.authenticate(provider,form,requestOptions).then((response) => {
-                console.log(response)
-            })
-            form.busy = false
-            vm.$popup({ message: 'Successfully Logged In!', backgroundColor: '#4db6ac', delay: 5, color: '#fffffa' })
-        } catch ({errors, message}) {
-            form.errors.set(errors)
-            form.busy = false
-            vm.$popup({ message: message, backgroundColor: '#e57373', delay: 5, color: '#fffffa' })
-        }
-    }
-    */
 };
 
 const mutations = {

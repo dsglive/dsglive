@@ -40,8 +40,9 @@
               >
                 <v-text-field
                   v-validate="'required|alpha_dash|min:6'"
-                  v-model="loginForm.username"
+                  v-model="form.username"
                   :error-messages="errors.collect('username')"
+                  :class="{ 'error--text': form.errors.has('username') }"
                   class="primary--text"
                   name="username"
                   label="Type Your Username"
@@ -49,7 +50,13 @@
                   prepend-icon="fa-at"
                   counter="255"
                 />
+                <has-error 
+                  :form="form" 
+                  class="error--text pl-5" 
+                  field="username"
+                />
               </v-flex>
+              
             </v-layout>
             <v-layout row>
               <v-flex 
@@ -64,7 +71,7 @@
               >
                 <v-text-field
                   v-validate="'required|min:6'"
-                  v-model="loginForm.password"
+                  v-model="form.password"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
@@ -78,6 +85,7 @@
                   prepend-icon="fa-key"
                 />
               </v-flex>
+              
             </v-layout>
             <v-flex 
               xs12 
@@ -91,7 +99,7 @@
               text-xs-center
             >
               <v-btn 
-                :loading="loginForm.busy" 
+                :loading="form.busy" 
                 :disabled="errors.any()" 
                 block 
                 type="submit" 
@@ -146,6 +154,7 @@
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import { createNamespacedHelpers } from "vuex";
+import { Form } from "vform";
 const { mapActions, mapState } = createNamespacedHelpers("auth");
 
 export default {
@@ -153,7 +162,10 @@ export default {
     ModalLayout
   },
   data: () => ({
-    loginForm: new AppForm(App.forms.loginForm),
+    form: new Form({
+      username: "",
+      password: ""
+    }),
     password_visible: false
   }),
   computed: {
@@ -193,7 +205,7 @@ export default {
       let self = this;
       self.$validator.validateAll();
       if (!self.errors.any()) {
-        self.submit(self.loginForm);
+        self.submit(self.form);
       }
     },
     ...mapActions({
