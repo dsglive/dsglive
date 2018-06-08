@@ -39,7 +39,7 @@
                 offset-xl4
               >
                 <v-text-field
-                  v-validate="'required|max:255|min:6'"
+                  v-validate="'required|max:255|min:6|alpha_dash'"
                   v-model="registerForm.username"
                   :error-messages="errors.collect('username')"
                   class="primary--text"
@@ -87,7 +87,7 @@
                 offset-xl4
               >
                 <v-text-field
-                  v-validate="'required|min:6'"
+                  v-validate="'required|min:6|confirmed:confirmation'"
                   v-model="registerForm.password"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
@@ -114,6 +114,7 @@
                 offset-xl4
               >
                 <v-text-field
+                  ref="confirmation"
                   v-model="registerForm.password_confirmation"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
