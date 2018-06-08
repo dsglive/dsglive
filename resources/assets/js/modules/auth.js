@@ -19,6 +19,7 @@ const actions = {
   /* form : name, email ,password, password_confirmation */
   async register({ commit, dispatch }, form) {
     form.busy = true;
+    form.clear();
     try {
       await vueAuth.register(form).then(() => {
         commit("isAuthenticated", {
@@ -30,8 +31,24 @@ const actions = {
 
       form.busy = false;
       vm.$router.push({ name: "dashboard" });
-    } catch ({ errors, message }) {
-      form.errors.set(errors);
+    } catch ({ response }) {
+      if (response.status === 400) {
+        const registerModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        registerModal({
+          title: "Bad Request! " + response.status + " ERROR",
+          html: '<p class="title">' + response.data.message + "</p>",
+          type: "warning",
+          confirmButtonText: "Ok",
+          footer:
+            '<a href="/login" style="color:blue;" class="subheading">Already Have An Account?</a>'
+        });
+      }
+      if (response.status === 422) {
+        form.errors.set(response.data.errors);
+      }
       form.busy = false;
     }
   },
@@ -51,7 +68,7 @@ const actions = {
 
       form.busy = false;
       vm.$router.push({ name: "dashboard" });
-    } catch ({ response, message }) {
+    } catch ({ response }) {
       if (response.status === 400) {
         const loginModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",

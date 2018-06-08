@@ -62,8 +62,8 @@
                           fluid
                         >
                           <img 
-                            :src="user.photo_url" 
-                            :alt="user.name"
+                            :src="user.avatar" 
+                            :alt="user.company_name"
                           >
                         </v-avatar>
                       </v-flex>
@@ -103,8 +103,8 @@
                     No, I Want To Stay
                   </v-btn>
                   <v-btn
-                    :loading="logoutForm.busy"
-                    :disabled="logoutForm.busy"
+                    :loading="form.busy"
+                    :disabled="form.busy"
                     block
                     flat
                     color="red lighten-2"
@@ -125,9 +125,8 @@
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapGetters, mapMutations } = createNamespacedHelpers(
-  "auth"
-);
+const { mapActions, mapGetters } = createNamespacedHelpers("auth");
+import { Form } from "vform";
 
 export default {
   components: {
@@ -136,7 +135,9 @@ export default {
   data: () => ({
     tile: false,
     avatarSize: "200px",
-    logoutForm: new AppForm(App.forms.logoutForm),
+    form: new Form({
+      submit: true,
+    }),
     visible: false
   }),
   computed: {
@@ -161,17 +162,10 @@ export default {
     },
     logout() {
       let self = this;
-      self.logoutForm.busy = true;
-      return self.$nextTick(() => self.submit(self.logoutForm));
+      return self.$nextTick(() => self.submit(self.form));
     },
     ...mapActions({
       submit: "logout"
-    }),
-    ...mapMutations({
-      setToken: "setToken",
-      setRefreshToken: "setRefreshToken",
-      setExpiration: "setExpiration",
-      setMe: "setMe"
     })
   }
 };

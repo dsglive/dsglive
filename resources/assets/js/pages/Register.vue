@@ -40,7 +40,7 @@
               >
                 <v-text-field
                   v-validate="'required|max:255|min:6|alpha_dash'"
-                  v-model="registerForm.username"
+                  v-model="form.username"
                   :error-messages="errors.collect('username')"
                   class="primary--text"
                   name="username"
@@ -48,6 +48,11 @@
                   data-vv-name="username"
                   counter="255"
                   prepend-icon="fa-user"
+                />
+                <has-error 
+                  :form="form" 
+                  class="error--text pl-5" 
+                  field="username"
                 />
               </v-flex>
             </v-layout>
@@ -64,7 +69,7 @@
               >
                 <v-text-field
                   v-validate="'required|email'"
-                  v-model="registerForm.email"
+                  v-model="form.email"
                   :error-messages="errors.collect('email')"
                   class="primary--text"
                   name="email"
@@ -72,6 +77,11 @@
                   data-vv-name="email"
                   prepend-icon="email"
                   counter="255"
+                />
+                <has-error 
+                  :form="form" 
+                  class="error--text pl-5" 
+                  field="email"
                 />
               </v-flex>
             </v-layout>
@@ -88,7 +98,7 @@
               >
                 <v-text-field
                   v-validate="'required|min:6|confirmed:confirmation'"
-                  v-model="registerForm.password"
+                  v-model="form.password"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
@@ -99,6 +109,11 @@
                   data-vv-name="password"
                   prepend-icon="fa-key"
                   counter="255"
+                />
+                <has-error 
+                  :form="form" 
+                  class="error--text pl-5" 
+                  field="password"
                 />
               </v-flex>
             </v-layout>
@@ -115,7 +130,7 @@
               >
                 <v-text-field
                   ref="confirmation"
-                  v-model="registerForm.password_confirmation"
+                  v-model="form.password_confirmation"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
@@ -124,6 +139,11 @@
                   label="Confirm Password"
                   prepend-icon="fa-copy"
                   counter="255"
+                />
+                <has-error 
+                  :form="form" 
+                  class="error--text pl-5" 
+                  field="password_confirmation"
                 />
               </v-flex>
             </v-layout>
@@ -138,9 +158,9 @@
               offset-xl4
             >
               <v-btn 
-                :loading="registerForm.busy" 
-                :disabled="errors.any()" 
-                :class="{primary: !registerForm.busy, error: registerForm.busy}" 
+                :loading="form.busy" 
+                :disabled="form.errors.any()" 
+                :class="{primary: !form.busy, error: form.busy}" 
                 type="submit" 
                 block
               >
@@ -168,13 +188,20 @@
 import ModalLayout from "Layouts/ModalLayout.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("auth");
+import { Form } from "vform";
 
 export default {
   components: {
     ModalLayout
   },
   data: () => ({
-    registerForm: new AppForm(App.forms.registerForm),
+    form: new Form({
+      email: null,
+      password: null,
+      username: null,
+      password_confirmation: null,
+      role: null
+    }),
     password_visible: false
   }),
   computed: {
@@ -192,7 +219,7 @@ export default {
       /* nextick make sure our modal would not be visible before redirect */
       return self.$nextTick(() => self.$router.go(-1));
     }
-    self.registerForm.role = "customer";
+    self.form.role = "customer";
   },
   methods: {
     ...mapActions({
@@ -214,7 +241,7 @@ export default {
       let self = this;
       self.$validator.validateAll();
       if (!self.errors.any()) {
-        self.submit(self.registerForm);
+        self.submit(self.form);
       }
     }
   }

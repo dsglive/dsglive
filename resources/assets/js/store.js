@@ -4,14 +4,12 @@ import createPersistedState from "vuex-persistedstate";
 import auth from "Modules/auth";
 import acl from "Modules/acl";
 import permission from "Modules/permission";
-import referral from "Modules/referral";
 
 export default new Store({
   modules: {
     auth,
     acl,
-    permission,
-    referral
+    permission
     /* add other modules here */
   },
 
@@ -21,7 +19,7 @@ export default new Store({
       /* https://github.com/robinvdvleuten/vuex-persistedstate#createpersistedstateoptions */
       key: "vuex-ls",
       // Declare All The State We Want to Persist (use dot anotation for object.key)
-      paths: ["auth", "permission", "referral", "acl"]
+      paths: ["auth", "permission", "acl"]
     })
   ]
 });
