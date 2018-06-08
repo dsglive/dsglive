@@ -8,7 +8,7 @@ use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Rules\MustMatchPassword;
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\AccountResource;
 
 class AccountController extends Controller
 {
@@ -49,7 +49,7 @@ class AccountController extends Controller
         $save = $user->save();
 
         if ($save) {
-            return (new UserResource($user->load('profile', 'referralLink')))->additional(['message' => 'Account Updated!']);
+            return (new AccountResource($user->load('profile')))->additional(['message' => 'Account Updated!']);
         }
     }
 
@@ -110,7 +110,7 @@ class AccountController extends Controller
         $updated = $profile->update($data);
 
         if ($updated) {
-            return (new UserResource($user->load('profile', 'referralLink')))
+            return (new AccountResource($user->load('profile')))
                 ->additional(['message' => 'Profile Updated!']);
         }
     }
@@ -132,7 +132,7 @@ class AccountController extends Controller
         $updated = $link->update($data);
 
         if ($updated) {
-            return (new UserResource($user->load('profile', 'referralLink')))
+            return (new AccountResource($user->load('profile')))
                 ->additional(['message' => 'Referral Link Updated!']);
         }
     }

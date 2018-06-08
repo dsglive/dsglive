@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Exceptions\UsernameNotFound;
 use App\Exceptions\UserTokenNotFound;
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\AccountResource;
 
 class UsersController extends Controller
 {
@@ -27,7 +27,7 @@ class UsersController extends Controller
             throw new UsernameNotFound;
         }
 
-        return new UserResource($user->load('profile'));
+        return new AccountResource($user->load('profile'));
     }
 
     /**
@@ -35,7 +35,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return UserResource::collection(User::with(['profile'])->paginate(10));
+        return AccountResource::collection(User::with(['profile'])->paginate(10));
     }
 
     /**
@@ -49,6 +49,6 @@ class UsersController extends Controller
             throw new UserTokenNotFound;
         }
 
-        return new UserResource($user->load('profile'));
+        return new AccountResource($user->load('profile'));
     }
 }
