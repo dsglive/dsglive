@@ -3,7 +3,7 @@ import VeeValidate from "vee-validate"; /* Form Validation */
 
 /* Form Validation Config */
 const veeConfig = {
-  errorBagName: "errors", // change if property conflicts.
+  errorBagName: "validationerrors", // change if property conflicts.
   fieldsBagName: "fields",
   delay: 0,
   locale: "en",

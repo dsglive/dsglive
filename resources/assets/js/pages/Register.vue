@@ -41,7 +41,8 @@
                 <v-text-field
                   v-validate="'required|max:255|min:6|alpha_dash'"
                   v-model="form.username"
-                  :error-messages="errors.collect('username')"
+                  :error-messages="validationerrors.collect('username')"
+                  :class="{ 'error--text': validationerrors.has('username') }"
                   class="primary--text"
                   name="username"
                   label="Username"
@@ -70,7 +71,8 @@
                 <v-text-field
                   v-validate="'required|email'"
                   v-model="form.email"
-                  :error-messages="errors.collect('email')"
+                  :error-messages="validationerrors.collect('email')"
+                  :class="{ 'error--text': validationerrors.has('email') }"
                   class="primary--text"
                   name="email"
                   label="Email"
@@ -102,7 +104,8 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  :error-messages="errors.collect('password')"
+                  :error-messages="validationerrors.collect('password')"
+                  :class="{ 'error--text': validationerrors.has('password') }"
                   class="primary--text"
                   name="password"
                   label="Password"
@@ -134,6 +137,8 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
+                  :error-messages="validationerrors.collect('password_confirmation')"
+                  :class="{ 'error--text': validationerrors.has('password_confirmation') }"
                   class="primary--text"
                   name="password_confirmation"
                   label="Confirm Password"
@@ -159,7 +164,7 @@
             >
               <v-btn 
                 :loading="form.busy" 
-                :disabled="form.errors.any()" 
+                :disabled="validationerrors.any()" 
                 :class="{primary: !form.busy, error: form.busy}" 
                 type="submit" 
                 block
@@ -240,7 +245,7 @@ export default {
     register() {
       let self = this;
       self.$validator.validateAll();
-      if (!self.errors.any()) {
+      if (!self.validationerrors.any()) {
         self.submit(self.form);
       }
     }

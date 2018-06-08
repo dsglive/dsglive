@@ -41,8 +41,8 @@
                 <v-text-field
                   v-validate="'required|alpha_dash|min:6'"
                   v-model="form.username"
-                  :error-messages="errors.collect('username')"
-                  :class="{ 'error--text': form.errors.has('username') }"
+                  :error-messages="validationerrors.collect('username')"
+                  :class="{ 'error--text': validationerrors.has('username') }"
                   class="primary--text"
                   name="username"
                   label="Type Your Username"
@@ -75,7 +75,7 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  :error-messages="errors.collect('password')"
+                  :error-messages="validationerrors.collect('password')"
                   class="primary--text"
                   name="password"
                   label="Enter your password"
@@ -100,7 +100,7 @@
             >
               <v-btn 
                 :loading="form.busy" 
-                :disabled="errors.any()" 
+                :disabled="validationerrors.any()" 
                 block 
                 type="submit" 
                 color="primary"
@@ -204,7 +204,7 @@ export default {
     login() {
       let self = this;
       self.$validator.validateAll();
-      if (!self.errors.any()) {
+      if (!self.validationerrors.any()) {
         self.submit(self.form);
       }
     },
