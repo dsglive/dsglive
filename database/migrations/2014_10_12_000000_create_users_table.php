@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('name');
             $table->string('email')->unique()->nullable();
-            $table->string('password', 60);
+            $table->string('password', 98);
             $table->unsignedTinyInteger('resent')->default(0);
             $table->rememberToken();
             $table->timestamps();
