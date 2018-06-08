@@ -5,15 +5,6 @@ namespace App\Traits\User;
 trait Methods
 {
     /**
-     * Add findByEmail Method
-     *
-     */
-    public static function findByEmail($email)
-    {
-        return self::whereEmail($email)->first();
-    }
-
-    /**
      * Add findByUsername Method
      *
      */
@@ -28,7 +19,7 @@ trait Methods
      */
     public function findForPassport($identifier)
     {
-        return $this->orWhere('email', $identifier)->orWhere('username', $identifier)->first();
+        return $this->where('username', $identifier)->first();
     }
 
     /**

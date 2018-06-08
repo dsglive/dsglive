@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 });
 /* Can Be Accessed Without Access Token */
 //? Router For Authentication
-Route::post('/auth/register', 'Auth\RegisterConzzztroller@register')->name('api.auth.register');
+Route::post('/auth/register', 'Auth\RegisterController@register')->name('api.auth.register');
 Route::post('/auth/login', 'Auth\LoginController@login')->name('api.auth.login');
 Route::post('/auth/refresh', 'Auth\LoginController@refresh')->name('api.auth.refresh');
 Route::post('/auth/social', 'Auth\SocialAuthController@socialAuth')->name('api.auth.social');

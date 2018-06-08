@@ -111,7 +111,7 @@ class AccountController extends Controller
 
         if ($updated) {
             return (new UserResource($user->load('profile', 'referralLink')))
-            ->additional(['message' => 'Profile Updated!']);
+                ->additional(['message' => 'Profile Updated!']);
         }
     }
 
@@ -133,7 +133,7 @@ class AccountController extends Controller
 
         if ($updated) {
             return (new UserResource($user->load('profile', 'referralLink')))
-            ->additional(['message' => 'Referral Link Updated!']);
+                ->additional(['message' => 'Referral Link Updated!']);
         }
     }
 }

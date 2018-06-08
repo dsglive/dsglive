@@ -3,13 +3,14 @@
 namespace Api\Auth;
 
 use Api\Controller;
-use App\Models\Link;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Profile;
-use App\Rules\CheckSponsor;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
 use App\Traits\IssueTokenTrait;
+use Illuminate\Support\Facades\DB;
+use App\Exceptions\AccountCreationFailed;
 
 class RegisterController extends Controller
 {
@@ -33,46 +34,50 @@ class RegisterController extends Controller
     {
         /* validate request input */
         request()->validate([
-            'name'                  => 'required',
-            'username'              => 'required|email',
+            'username'              => 'required|unique:users',
+            'email'                 => 'required|email|unique:profiles',
             'password'              => 'required|min:6|confirmed',
             'password_confirmation' => 'required',
             'role'                  => [
                 'sometimes',
                 'required',
                 'exists:roles,name'
-            ],
-            'sponsor'               => [
-                'sometimes',
-                'required',
-                /* will check for userid if correct */
-                new CheckSponsor
             ]
         ]);
         /* create user account */
+        DB::beginTransaction();
         $user = User::create([
-            'name'     => request('name'),
-            'email'    => request('username'),
+            'username' => request('username'),
             'password' => request('password')
         ]);
 
         /* create an empty profile */
-        $profile = new Profile();
+        $profile        = new Profile();
+        $profile->email = request('email');
         $user->profile()->save($profile);
-
-        /* attach specific role */
-        if ($request->has('role')) {
-            $user->assignRole(request('role'));
+        $roles = Role::all()->pluck('name');
+        $role = request('role');
+        // Check if has Role and is Inside the Database
+        if ($role && $roles->contains($role)) {
+            /* Set Role */
+            $user->assignRole($role);
         } else {
             /* attach default role */
             $user->assignRole('customer');
         }
 
-        /* create a new link for this account */
-        $link       = new Link();
-        $link->link = $user->username;
-        $user->referralLink()->save($link);
-        /* issue new access_token */
+        /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
+        try {
+            if (!$user && !$profile) {
+                throw new AccountCreationFailed;
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => $e->getMessage()], 400); // Failed Creation
+        }
+
+        // Account Successfully Created
+        DB::commit();
         return $this->issueToken($request, 'password');
     }
 }

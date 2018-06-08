@@ -8,13 +8,15 @@ use App\Traits\User\Mutators;
 use App\Traits\GenerateUniqueID;
 use App\Traits\User\Relationships;
 use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Cviebrock\EloquentSluggable\Sluggable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Notifications\PasswordResetNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use
     Scopes,
@@ -25,7 +27,7 @@ class User extends Authenticatable
     Relationships,
     HasRoles,
     Notifiable,
-        Sluggable;
+        HasMediaTrait;
 
     /**
      * @var mixed
@@ -35,7 +37,7 @@ class User extends Authenticatable
     /**
      * @var array
      */
-    protected $appends = ['all_permissions', 'can', 'all_roles'];
+    protected $appends = ['avatar'];
 
     /**
      * The attributes that should be casted by Carbon
@@ -50,7 +52,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username'
+        'password', 'username'
     ];
 
     /**
@@ -62,39 +64,33 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
+    protected $casts = [
+        'active' => 'boolean'
+    ];
+
     /**
      * @var string
      */
     protected $table = 'users';
 
-    /**
-     * Check For Sponsor During Account Creation
-     * If Theres Non Use First User as Default
-     * Note : First User Should Be Seed as User with ID : 1
-     *
-     */
-    public static function boot()
+    public function registerMediaCollections()
     {
-        parent::boot();
+        // enable single file
+        $this
+            ->addMediaCollection('avatar')
+            ->singleFile();
+    }
 
-        static::creating(function ($user) {
-            /* Our Default Referral Link if No Cookie Is Present */
-            $user->sp_id = optional(self::first())->id;
-            /* change this */
-            $sponsorID = \Cookie::get('sponsor');
-
-/* if cookie is present */
-            if ($sponsorID) {
-                $sponsor     = self::find($sponsorID);
-                $user->sp_id = $sponsor->id;
-            }
-
-/* override cookie with current request */
-            if ($sponsorID = request()->sponsor_id) {
-                $sponsor     = self::find($sponsorID);
-                $user->sp_id = $sponsor->id;
-            }
-        });
+    /**
+     * @param Media $media
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        // convert user avatar to 200x200 pixel
+        $this->addMediaConversion('avatar')
+             ->width(200)
+             ->height(200)
+             ->nonQueued();
     }
 
     /**
@@ -107,15 +103,14 @@ class User extends Authenticatable
     }
 
     /**
-     * The attributes that should be Slugify
-     *
+     * @param  $id
+     * @param  $pathToImage
+     * @return mixed
      */
-    public function sluggable()
+    public static function uploadAvatar($id, $pathToImage): string
     {
-        return [
-            'username' => [
-                'source' => 'name'
-            ]
-        ];
+        $user = self::find($id);
+        $user->addMedia($pathToImage)->toMediaCollection('avatar');
+        return $user->getFirstMediaUrl('avatar'); // will return an url to the `$pathToImage` file
     }
 }

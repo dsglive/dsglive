@@ -1,5 +1,4 @@
 <?php
-use App\Models\Link;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
@@ -15,24 +14,15 @@ class AdminSeeder extends Seeder
     {
         $user = User::create([
             'id'       => 1,
-            'name'     => config('admin.name'),
-            'email'    => config('admin.email'),
             'password' => config('admin.password'),
-            'username' => config('admin.username')
+            'username' => config('admin.username'),
+            'active'   => 1
         ]);
 
         $user->assignRole('admin');
-        $link                 = new Link();
-        $link->id             = 1;
-        $link->link           = $user->username;
-        $link->active         = true;
-        $link->date_activated = \Carbon\Carbon::now();
 
-        $user->referralLink()->save($link);
-        $link->save();
-        $link->sp_user_id = null;
-        $link->save();
         $profile = Profile::create([
+            'email'      => config('admin.email'),
             'first_name' => 'Super',
             'last_name'  => 'Admin'
         ]);

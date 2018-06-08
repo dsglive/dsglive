@@ -21,18 +21,15 @@ App.forms = {
   },
   loginForm: {
     username: "",
-    email: "",
     password: "",
     remember: false
   },
   registerForm: {
     username: "",
-    name: "",
     email: "",
     password: "",
     password_confirmation: "",
     role: "",
-    sponsor_id: ""
   },
   toggleForm: {
     toggle: false
@@ -45,22 +42,20 @@ App.forms = {
     password_confirmation: null
   },
   profileForm: {
+    company_name: null,
     first_name: null,
     last_name: null,
-    contact_no: null,
+    phone: null,
+    email: null,
     address_1: null,
     address_2: null,
     city: null,
+    state: null,
+    zip: null,
     country: null,
-    zip_code: null,
-    state_province: null
+    notes:null,
   },
   usersForm: {},
-  linkForm: {
-    link: "",
-    link_id: "",
-    user_id: ""
-  },
   rolesForm: {
     roles: []
   },

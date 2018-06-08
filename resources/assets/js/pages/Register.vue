@@ -39,13 +39,13 @@
                 offset-xl4
               >
                 <v-text-field
-                  v-validate="'required|max:255'"
-                  v-model="registerForm.name"
-                  :error-messages="errors.collect('name')"
+                  v-validate="'required|max:255|min:6'"
+                  v-model="registerForm.username"
+                  :error-messages="errors.collect('username')"
                   class="primary--text"
-                  name="name"
-                  label="Full Name"
-                  data-vv-name="name"
+                  name="username"
+                  label="Username"
+                  data-vv-name="username"
                   counter="255"
                   prepend-icon="fa-user"
                 />
@@ -64,7 +64,7 @@
               >
                 <v-text-field
                   v-validate="'required|email'"
-                  v-model="registerForm.username"
+                  v-model="registerForm.email"
                   :error-messages="errors.collect('email')"
                   class="primary--text"
                   name="email"
@@ -87,7 +87,7 @@
                 offset-xl4
               >
                 <v-text-field
-                  v-validate="'required|min:6|confirmed:password_confirmation'"
+                  v-validate="'required|min:6'"
                   v-model="registerForm.password"
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
@@ -192,8 +192,6 @@ export default {
       return self.$nextTick(() => self.$router.go(-1));
     }
     self.registerForm.role = "customer";
-    self.registerForm.sponsor_id =
-      self.$store.getters["referral/getSponsor"]["user_id"];
   },
   methods: {
     ...mapActions({

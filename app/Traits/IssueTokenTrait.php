@@ -22,9 +22,9 @@ trait IssueTokenTrait
         ];
 
         if ('social' !== $grantType) {
-            $params['username'] = $request->username ?? $request->email;
+            $params['username'] = $request->username;
         } else {
-        //? add logic here for social to save also scope and access token in Social Accounts table
+            //? add logic here for social to save also scope and access token in Social Accounts table
             //! Save Access Token, Refresh Token, Username, Expires At, Type, and Scope
         }
 

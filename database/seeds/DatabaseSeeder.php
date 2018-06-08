@@ -11,13 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(RolesSeeder::class);
         $this->call(AdminSeeder::class);
         \Artisan::call('passport:client', [
             '--password' => true,
             '-n'         => true
         ]);
         /* Can Uncomment The Seeder Below This In Production */
-        $this->call(DummyUserSeeder::class);
     }
 }
