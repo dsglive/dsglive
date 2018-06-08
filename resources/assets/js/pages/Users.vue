@@ -256,7 +256,7 @@
                     wrap
                   >
                     <v-flex xs12>
-                      <v-select
+                      <v-autocomplete
                         :items="roles"
                         :disabled="props.item.id === 1"
                         v-model="props.item.roles"
@@ -287,7 +287,7 @@
                             {{ data.item }}
                           </v-chip>
                         </template>
-                      </v-select>
+                      </v-autocomplete>
                     </v-flex>
                   </v-layout>
                   <p 
@@ -308,7 +308,7 @@
                         clearable
                         @input="changePermissions(props.item)"
                         -->
-                      <v-select
+                      <v-autocomplete
                         :items="permissions"
                         v-model="props.item.permissions"
                         color="brown"
@@ -338,7 +338,7 @@
                             {{ data.item }}
                           </v-chip>
                         </template>
-                      </v-select>
+                      </v-autocomplete>
                     </v-flex>
                   </v-layout>
                   <p 

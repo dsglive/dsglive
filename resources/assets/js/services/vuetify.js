@@ -25,7 +25,8 @@ import {
   VTabs,
   VAlert,
   VBreadcrumbs,
-  VParallax
+  VParallax,
+  VAutocomplete
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -52,7 +53,8 @@ Vue.use(Vuetify, {
     VTabs,
     VAlert,
     VBreadcrumbs,
-    VParallax
+    VParallax,
+    VAutocomplete
   },
   //! Define Your Theme Here
   theme: {
