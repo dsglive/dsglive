@@ -12,7 +12,7 @@ class RevokeAdminUpdate extends \Exception
     public function render(Request $request)
     {
         if ($request->wantsJson()) {
-            return response()->json(['message' => 'Modifying Super Admin is Not Allowed!'], 404);
+            return response()->json(['message' => 'You Have Been Forbidden To Modify Admin Account'], 403);
         }
 
         return redirect(\Config::get('app.url'));

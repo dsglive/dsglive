@@ -11,6 +11,6 @@ class SlugNotFound extends \Exception
      */
     public function render(Request $request)
     {
-        return response()->json(['message' => 'Slug Not Found Exception: '.$request->slug.' slug not found.'], 404);
+        return response()->json(['message' => 'Slug : ***'.$request->slug.'*** not found.'], 404);
     }
 }

@@ -12,8 +12,8 @@ class AccountCreationFailed extends \Exception
      */
     public function render(Request $request)
     {
-        $message = 'Account Creation Failed!';
+        $message = 'Server Too Busy! Account Creation Failed!';
         Log::critical($message);
-        return response()->json(['message' => $message], 404);
+        return response()->json(['message' => $message], 500);
     }
 }

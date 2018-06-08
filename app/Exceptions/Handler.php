@@ -23,13 +23,15 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        AccountCreationFailed::class,
         EmailNotFound::class,
-        LinkNotFound::class,
+        InvalidCredentials::class,
         RevokeAdminUpdate::class,
+        SlugNotFound::class,
+        UserIsNotYetActive::class,
         UsernameNotFound::class,
         UserNotFound::class,
         UserTokenNotFound::class,
-        SlugNotFound::class
     ];
 
     /**

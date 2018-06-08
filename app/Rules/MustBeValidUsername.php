@@ -24,7 +24,7 @@ class MustBeValidUsername implements Rule
      */
     public function message()
     {
-        return 'You Must Enter an Unused Valid Username';
+        return 'Username Is Not Registered!';
     }
 
     /**
