@@ -1,14 +1,13 @@
 <template>
   <v-card flat>
-    <v-layout
-      row
+    <v-layout 
+      row 
       wrap
     >
       <v-flex 
-        xs12 
+        xs12
         md8 
         offset-md2
-        text-xs-center
       >
         <v-alert 
           :value="true" 
@@ -18,6 +17,15 @@
         >
           Note: This Will be Used as Default for Billing Details
         </v-alert>
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.company_name"
+          :error-messages="errorMessages('company_name')"
+          :class="{ 'error--text': hasErrors('company_name') }"
+          label="Company Name"
+          prepend-icon="domain"
+          data-vv-name="company_name"
+        />
       </v-flex>
       <v-flex 
         xs12 
@@ -25,15 +33,133 @@
         offset-md2
       >
         <v-text-field
-          v-validate="{ required: true, regex: /^[a-zA-Z0-9 +@#]+$/ }"
-          v-for="(value,key,index) in profile"
-          :label="toProperCase(key)"
-          v-model="profile[key]" 
-          :key="key" 
-          :index="index"
-          :error-messages="errors.collect(toProperCase(key))"
-          :data-vv-name="toProperCase(key)"
-          light
+          v-validate="{ required: true, email: true }"
+          v-model="form.email"
+          :error-messages="errorMessages('email')"
+          :class="{ 'error--text': hasErrors('email') }"
+          label="Email"
+          prepend-icon="mail"
+          data-vv-name="email"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
+          v-model="form.first_name"
+          :error-messages="errorMessages('first_name')"
+          :class="{ 'error--text': hasErrors('first_name') }"
+          label="First Name"
+          prepend-icon="person"
+          data-vv-name="first_name"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
+          v-model="form.last_name"
+          :error-messages="errorMessages('last_name')"
+          :class="{ 'error--text': hasErrors('last_name') }"
+          label="Last Name"
+          prepend-icon="people"
+          data-vv-name="last_name"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.phone"
+          :error-messages="errorMessages('phone')"
+          :class="{ 'error--text': hasErrors('phone') }"
+          label="Phone"
+          prepend-icon="phone"
+          data-vv-name="phone"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.address_1"
+          :error-messages="errorMessages('address_1')"
+          :class="{ 'error--text': hasErrors('address_1') }"
+          label="Address 1"
+          prepend-icon="looks_one"
+          data-vv-name="address_1"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.address_2"
+          :error-messages="errorMessages('address_2')"
+          :class="{ 'error--text': hasErrors('address_2') }"
+          label="Address 2"
+          prepend-icon="looks_two"
+          data-vv-name="address_2"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.city"
+          :error-messages="errorMessages('city')"
+          :class="{ 'error--text': hasErrors('city') }"
+          label="City"
+          prepend-icon="location_city"
+          data-vv-name="city"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.state"
+          :error-messages="errorMessages('state')"
+          :class="{ 'error--text': hasErrors('state') }"
+          label="State"
+          prepend-icon="map"
+          data-vv-name="state"
+        />
+      </v-flex>
+      <v-flex 
+        xs12 
+        md8 
+        offset-md2
+      >
+        <v-text-field
+          v-validate="{ required: true }"
+          v-model="form.zip"
+          :error-messages="errorMessages('zip')"
+          :class="{ 'error--text': hasErrors('zip') }"
+          label="Zip"
+          prepend-icon="markunread_mailbox"
+          data-vv-name="zip"
         />
       </v-flex>
       <v-flex 
@@ -55,12 +181,28 @@
 </template>
 
 <script>
+import validationError from "Mixins/validation-error";
+import { Form } from "vform";
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters, mapMutations } = createNamespacedHelpers("auth");
 
 export default {
+  mixins: [validationError],
   data: () => ({
-    profileForm: new AppForm(App.forms.profileForm),
+    form: new Form({
+        company_name: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+    }),
     profile: {}
   }),
   computed: {
@@ -76,63 +218,36 @@ export default {
     ...mapMutations({
       setMe: "setMe"
     }),
-    prepareProfileForm() {
+    resetform() {
       let self = this;
-      self.profileForm.first_name = self.profile.first_name;
-      if (self.profile.first_name === null) {
-        delete self.profileForm.first_name;
-      }
-      self.profileForm.last_name = self.profile.last_name;
-      if (self.profile.last_name === null) {
-        delete self.profileForm.last_name;
-      }
-      self.profileForm.contact_no = self.profile.contact_no;
-      if (self.profile.contact_no === null) {
-        delete self.profileForm.contact_no;
-      }
-      self.profileForm.address_1 = self.profile.address_1;
-      if (self.profile.address_1 === null) {
-        delete self.profileForm.address_1;
-      }
-      self.profileForm.address_2 = self.profile.address_2;
-      if (self.profile.address_2 === null) {
-        delete self.profileForm.address_2;
-      }
-      self.profileForm.city = self.profile.city;
-      if (self.profile.city === null) {
-        delete self.profileForm.city;
-      }
-      self.profileForm.country = self.profile.country;
-      if (self.profile.country === null) {
-        delete self.profileForm.country;
-      }
-      self.profileForm.zip_code = self.profile.zip_code;
-      if (self.profile.zip_code === null) {
-        delete self.profileForm.zip_code;
-      }
-      self.profileForm.state_province = self.profile.state_province;
-      if (self.profile.state_province === null) {
-        delete self.profileForm.state_province;
-      }
-    },
-    resetProfileForm() {
-      let self = this;
-      self.profileForm = new AppForm(App.forms.profileForm);
+      self.form = new Form({
+        company_name: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+    });
     },
     async updateProfile() {
       let self = this;
-      self.prepareProfileForm();
-      self.profileForm.busy = true;
+      self.form.busy = true;
       try {
         const payload = await App.post(
           route("api.user.updateProfile"),
-          self.profileForm
+          self.form
         );
-        self.resetProfileForm();
+        self.resetform();
         self.setMe(payload.data);
       } catch ({ errors, message }) {
-        self.profileForm.errors.set(errors);
-        self.profileForm.busy = false;
+        self.form.errors.set(errors);
+        self.form.busy = false;
       }
     },
     toProperCase(key) {

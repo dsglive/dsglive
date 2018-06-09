@@ -50,11 +50,6 @@
                   counter="255"
                   prepend-icon="fa-user"
                 />
-                <has-error 
-                  :form="form" 
-                  class="error--text pl-5" 
-                  field="username"
-                />
               </v-flex>
             </v-layout>
             <v-layout row>
@@ -79,11 +74,6 @@
                   data-vv-name="email"
                   prepend-icon="email"
                   counter="255"
-                />
-                <has-error 
-                  :form="form" 
-                  class="error--text pl-5" 
-                  field="email"
                 />
               </v-flex>
             </v-layout>
@@ -113,11 +103,6 @@
                   prepend-icon="fa-key"
                   counter="255"
                 />
-                <has-error 
-                  :form="form" 
-                  class="error--text pl-5" 
-                  field="password"
-                />
               </v-flex>
             </v-layout>
             <v-layout row>
@@ -144,11 +129,6 @@
                   label="Confirm Password"
                   prepend-icon="fa-copy"
                   counter="255"
-                />
-                <has-error 
-                  :form="form" 
-                  class="error--text pl-5" 
-                  field="password_confirmation"
                 />
               </v-flex>
             </v-layout>

@@ -22,19 +22,12 @@ class AccountController extends Controller
      */
     public function updateAccount(Request $request)
     {
-        $user = $request->user_id ? User::find($request->user_id) : $request->user();
+        $user = $request->user();
 
         $data = request()->validate([
-            'email'                 => [
-                'sometimes',
-                'required',
-                'email',
-                Rule::unique('users')->ignore($user->id)
-            ],
             'username'              => [
-                'sometimes',
                 'required',
-                Rule::unique('users')->ignore($user->id)
+                'exists:users'
             ],
             'old_password'          => [
                 'sometimes',
@@ -45,11 +38,11 @@ class AccountController extends Controller
             'password_confirmation' => 'required_with:password'
         ]);
         // fill will only assign those in the fillable fields of user
-        $user->fill($data);
-        $save = $user->save();
+        $user->password = $request->password;
+        $save           = $user->save();
 
         if ($save) {
-            return (new AccountResource($user->load('profile')))->additional(['message' => 'Account Updated!']);
+            return response()->json(['message' => 'Password Successfully Changed!']);
         }
     }
 

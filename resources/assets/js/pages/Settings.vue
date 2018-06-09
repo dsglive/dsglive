@@ -33,19 +33,6 @@
           Profile
         </span>
       </v-tab>
-      <v-tab
-        href="#referral-link" 
-        class="accent--text"
-      >
-        <v-icon 
-          color="cyan" 
-          large>link</v-icon>
-        <span 
-          :class="$vuetify.breakpoint.width >= 600 && 'title'"
-        >
-          Referral Link
-        </span>
-      </v-tab>
       <!-- contents -->
       <v-tabs-items>
         <v-tab-item id="account">
@@ -53,9 +40,6 @@
         </v-tab-item>
         <v-tab-item id="profile">
           <profile/>
-        </v-tab-item>
-        <v-tab-item id="referral-link">
-          <referral-link/>
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
@@ -66,14 +50,12 @@
 import MainLayout from 'Layouts/Main.vue';
 import Account from 'Components/settings/Account.vue';
 import Profile from 'Components/settings/Profile.vue';
-import ReferralLink from 'Components/settings/ReferralLink.vue';
 
 export default {
     components: {
         MainLayout,
         Account,
         Profile,
-        ReferralLink
     },
     data: () => ({
         contentClass: { grey: true, 'lighten-4': true, 'accent--text': true }
