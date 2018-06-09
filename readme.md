@@ -1,7 +1,7 @@
-# Vuetified 
-## Laravel Vuetify Real Time Starter App
+# Dsg Live 
+## Official Repo
 
-![vuetified](https://user-images.githubusercontent.com/28816690/34463373-b7649ca8-ee94-11e7-9dbc-a97de8574279.png)
+![vuetified](https://user-images.githubusercontent.com/28816690/41192924-49ea0560-6c38-11e8-99df-b83164b0e426.png)
 
 # Table of Contents
 1. [Requirements](#requirements)
@@ -16,7 +16,7 @@
 
 
 ## Requirements
-- PHP 7.1+
+- PHP 7.2+
 - Composer
 - Node JS
 - NPM
@@ -25,12 +25,12 @@
 - Laravel Valet (NGINX) or use Laradock or Homestead
 
 ## Installation
-1. git clone https://github.com/codeitlikemiley/vuetified YOURPROJECTNAME
-2. cd YOURPROJECTNAME
+1. git clone https://github.com/codeitlikemiley/dsg YOURPROJECTNAME
+2. cd dsg
 3. composer install
 4. yarn
 5. cp env.example .env
-6. php artisan passport:install
+6. php artisan passport:keys
 7. echo:generate
 8. set your .env
 - if you want to use laravel echo then change this to true
@@ -39,11 +39,11 @@ ECHO_ON=false
 ```
 9. php artisan migrate:fresh --seed
 10. node websocket
-11. Serve Your Site
-    - laravel valet - valet link YOURSITE
+11. Serve Your Site [dsglive.test](dsglive.test)
+    - laravel valet - valet link 
     - laradock - docker-compose up -d nginx redis mysql
     - homestead - homestead up
-    [yourprojectname.test/](yourprojectname.test)
+
 ## Stacks Used
 - Laravel 
 - Vue
@@ -76,12 +76,9 @@ import './services/echo' //! Websocket
 import './services/initial-state' //! Seed Initial Data To Your App 
 //! @ Vuetified/Configuration/ProvidesScriptVariables.php
 
-import('./services/forms') //! Declare Your Global Form Object Here
-
 import './services/vee-validate' //! Form Validation
 
 import './services/youtube' //! Youtube Component
-
 
 //! Secondary Services That Depends On the Primary Services
 //! i.e: Vuex in our ACL Service
@@ -115,8 +112,7 @@ public static function scriptVariables()
         return [
             'csrfToken' => csrf_token(),
             'env' => config('app.env'),
-            'api_endpoint' => config('app.api'),
-            'sponsor' => self::getSponsor()
+            'api_endpoint' => config('app.api')
         ];
     }
 ```
