@@ -62,7 +62,7 @@ export default {
     showLogo: false,
     logo: "/img/logo.png",
     showIcon: false,
-    title: "TITLE"
+    title: "DSG Live"
   }),
   created() {
     /* Emit On a Child Component If You Want This To Be Visible */
