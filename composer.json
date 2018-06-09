@@ -7,7 +7,6 @@
     "require": {
         "php": ">=7.2.0",
         "barryvdh/laravel-cors": "^0.11.0",
-        "cviebrock/eloquent-sluggable": "4.5.*",
         "doctrine/dbal": "^2.7",
         "fideloper/proxy": "^4.0",
         "gladcodes/keygen": "dev-v1.2.0-alpha",
