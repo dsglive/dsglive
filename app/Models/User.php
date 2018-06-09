@@ -12,7 +12,6 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use App\Notifications\PasswordResetNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasMedia
@@ -25,7 +24,7 @@ class User extends Authenticatable implements HasMedia
     HasApiTokens,
     Relationships,
     HasRoles,
-    HasMediaTrait;
+        HasMediaTrait;
 
     /**
      * @var mixed
@@ -36,6 +35,13 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $appends = ['avatar'];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean'
+    ];
 
     /**
      * The attributes that should be casted by Carbon
@@ -60,10 +66,6 @@ class User extends Authenticatable implements HasMedia
      */
     protected $hidden = [
         'password', 'remember_token'
-    ];
-
-    protected $casts = [
-        'active' => 'boolean'
     ];
 
     /**
