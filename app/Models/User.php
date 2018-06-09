@@ -34,7 +34,7 @@ class User extends Authenticatable implements HasMedia
     /**
      * @var array
      */
-    protected $appends = ['avatar'];
+    protected $appends = [];
 
     /**
      * @var array
@@ -65,7 +65,10 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token', 'resent', 'active',
+        'roles', 'permissions',
+        'role_list', 'permission_list',
+        'profile', 'media', 'avatar'
     ];
 
     /**

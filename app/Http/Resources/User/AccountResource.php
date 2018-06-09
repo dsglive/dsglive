@@ -16,6 +16,7 @@ class AccountResource extends Resource
     {
         return [
             'id'           => $this->id,
+            'active'       => $this->active,
             'username'     => $this->username,
             'email'        => optional($this->profile)->email,
             'avatar'       => $this->avatar,

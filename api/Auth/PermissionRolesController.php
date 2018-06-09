@@ -9,7 +9,7 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Exceptions\UserNotFound;
 use App\Exceptions\RevokeAdminUpdate;
-use App\Http\Resources\User\UserResouce;
+use App\Http\Resources\User\AccountResource;
 
 class PermissionRolesController extends Controller
 {
@@ -44,7 +44,8 @@ class PermissionRolesController extends Controller
 
         if ($user) {
             $user->syncPermissions($request->permissions);
-            return (new UserResouce($user->load('profile', 'referralLink', 'roles', 'permissions')))->additional(['message' => 'Permissions Updated!']);
+            return (new AccountResource($user->load('profile', 'roles', 'permissions')))
+                ->additional(['message' => 'Permissions Updated!']);
         } else {
             throw new UserNotFound;
         }
@@ -64,7 +65,8 @@ class PermissionRolesController extends Controller
 
         if ($user) {
             $user->syncRoles($request->roles);
-            return (new UserResouce($user->load('profile', 'referralLink', 'roles', 'permissions')))->additional(['message' => 'Roles Updated!']);
+            return (new AccountResource($user->load('profile', 'roles', 'permissions')))
+                ->additional(['message' => 'Roles Updated!']);
         } else {
             throw new UserNotFound;
         }
