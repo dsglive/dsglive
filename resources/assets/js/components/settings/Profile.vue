@@ -190,18 +190,18 @@ export default {
   mixins: [validationError],
   data: () => ({
     form: new Form({
-        company_name: null,
-        first_name: null,
-        last_name: null,
-        email: null,
-        phone: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        notes: null
+      company_name: null,
+      first_name: null,
+      last_name: null,
+      email: null,
+      phone: null,
+      address_1: null,
+      address_2: null,
+      city: null,
+      state: null,
+      zip: null,
+      country: null,
+      notes: null
     }),
     profile: {}
   }),
@@ -212,7 +212,18 @@ export default {
   },
   mounted() {
     let self = this;
-    self.profile = self.getMe.profile;
+    self.form.company_name = self.getMe.company_name;
+    self.form.first_name = self.getMe.first_name;
+    self.form.last_name = self.getMe.last_name;
+    self.form.email = self.getMe.email;
+    self.form.phone = self.getMe.phone;
+    self.form.address_1 = self.getMe.address_1;
+    self.form.address_2 = self.getMe.address_2;
+    self.form.city = self.getMe.city;
+    self.form.state = self.getMe.state;
+    self.form.zip = self.getMe.zip;
+    self.form.country = self.getMe.country;
+    self.form.notes = self.getMe.notes;
   },
   methods: {
     ...mapMutations({
@@ -233,27 +244,6 @@ export default {
         zip: null,
         country: null,
         notes: null
-    });
-    },
-    async updateProfile() {
-      let self = this;
-      self.form.busy = true;
-      try {
-        const payload = await App.post(
-          route("api.user.updateProfile"),
-          self.form
-        );
-        self.resetform();
-        self.setMe(payload.data);
-      } catch ({ errors, message }) {
-        self.form.errors.set(errors);
-        self.form.busy = false;
-      }
-    },
-    toProperCase(key) {
-      let newStr = key.replace(/_/g, " ");
-      return newStr.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     }
   }
