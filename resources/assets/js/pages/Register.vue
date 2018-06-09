@@ -41,8 +41,8 @@
                 <v-text-field
                   v-validate="'required|max:255|min:6|alpha_dash'"
                   v-model="form.username"
-                  :error-messages="validationerrors.collect('username')"
-                  :class="{ 'error--text': validationerrors.has('username') }"
+                  :error-messages="errorMessages('username')"
+                  :class="{ 'error--text': hasErrors('username') }"
                   class="primary--text"
                   name="username"
                   label="Username"
@@ -71,8 +71,8 @@
                 <v-text-field
                   v-validate="'required|email'"
                   v-model="form.email"
-                  :error-messages="validationerrors.collect('email')"
-                  :class="{ 'error--text': validationerrors.has('email') }"
+                  :error-messages="errorMessages('email')"
+                  :class="{ 'error--text': hasErrors('email') }"
                   class="primary--text"
                   name="email"
                   label="Email"
@@ -104,8 +104,8 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  :error-messages="validationerrors.collect('password')"
-                  :class="{ 'error--text': validationerrors.has('password') }"
+                  :error-messages="errorMessages('password')"
+                  :class="{ 'error--text': hasErrors('password') }"
                   class="primary--text"
                   name="password"
                   label="Password"
@@ -137,8 +137,8 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  :error-messages="validationerrors.collect('password_confirmation')"
-                  :class="{ 'error--text': validationerrors.has('password_confirmation') }"
+                  :error-messages="errorMessages('password_confirmation')"
+                  :class="{ 'error--text': hasErrors('password_confirmation') }"
                   class="primary--text"
                   name="password_confirmation"
                   label="Confirm Password"
@@ -164,7 +164,7 @@
             >
               <v-btn 
                 :loading="form.busy" 
-                :disabled="validationerrors.any()" 
+                :disabled="errors.any()" 
                 :class="{primary: !form.busy, error: form.busy}" 
                 type="submit" 
                 block
@@ -191,6 +191,7 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
+import validationError from "Mixins/validation-error"
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("auth");
 import { Form } from "vform";
@@ -199,6 +200,7 @@ export default {
   components: {
     ModalLayout
   },
+  mixins: [validationError],
   data: () => ({
     form: new Form({
       email: null,
@@ -245,7 +247,7 @@ export default {
     register() {
       let self = this;
       self.$validator.validateAll();
-      if (!self.validationerrors.any()) {
+      if (!self.errors.any()) {
         self.submit(self.form);
       }
     }

@@ -41,19 +41,14 @@
                 <v-text-field
                   v-validate="'required|alpha_dash|min:6'"
                   v-model="form.username"
-                  :error-messages="validationerrors.collect('username')"
-                  :class="{ 'error--text': validationerrors.has('username') }"
+                  :error-messages="errorMessages('username')"
+                  :class="{ 'error--text': hasErrors('username') }"
                   class="primary--text"
                   name="username"
                   label="Type Your Username"
                   data-vv-name="username"
                   prepend-icon="fa-at"
                   counter="255"
-                />
-                <has-error 
-                  :form="form" 
-                  class="error--text pl-5" 
-                  field="username"
                 />
               </v-flex>
               
@@ -75,7 +70,8 @@
                   :append-icon="icon"
                   :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
-                  :error-messages="validationerrors.collect('password')"
+                  :error-messages="errorMessages('password')"
+                  :class="{ 'error--text': hasErrors('password') }"
                   class="primary--text"
                   name="password"
                   label="Enter your password"
@@ -100,7 +96,7 @@
             >
               <v-btn 
                 :loading="form.busy" 
-                :disabled="validationerrors.any()" 
+                :disabled="errors.any()"
                 block 
                 type="submit" 
                 color="primary"
@@ -153,6 +149,7 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
+import validationError from "Mixins/validation-error"
 import { createNamespacedHelpers } from "vuex";
 import { Form } from "vform";
 const { mapActions, mapState } = createNamespacedHelpers("auth");
@@ -161,7 +158,9 @@ export default {
   components: {
     ModalLayout
   },
+  mixins: [validationError],
   data: () => ({
+    /* Always Declare Your Form Object */
     form: new Form({
       username: "",
       password: ""
@@ -204,13 +203,16 @@ export default {
     login() {
       let self = this;
       self.$validator.validateAll();
-      if (!self.validationerrors.any()) {
+      if (!self.errors.any()) {
         self.submit(self.form);
       }
     },
+    /* act  as method we can execute , from our vuex store auth module */
     ...mapActions({
+        /* rename store.auth action login to submit */
       submit: "login"
     })
   }
+  
 };
 </script>
