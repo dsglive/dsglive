@@ -4,7 +4,7 @@ import "./services/vuetify";
 import "./services/vue-axios";
 import "./services/bus";
 import "./services/vuex";
-import "./services/echo";
+// import "./services/echo";
 import "./services/initial-state";
 import "./services/vee-validate";
 import "./services/youtube";
