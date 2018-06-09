@@ -16,7 +16,6 @@ $factory->define(Profile::class, function (Faker $faker) {
         'state'          => $faker->state,
         'zip'            => $faker->postcode,
         'country'        => $faker->country,
-        'state_province' => $faker->state,
         'notes'           => $faker->sentence($nbWords = 10, $variableNbWords = true)
     ];
 });

@@ -3,7 +3,7 @@ use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
 
-class AdminSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,21 +12,29 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        $this->createUser('warehouse');
+        $this->createUser('customer');
+    }
+
+    /**
+     * @param $role
+     */
+    protected function createUser($role)
+    {
         $faker = \Faker\Factory::create();
         $user  = User::create([
-            'id'       => 1,
-            'password' => config('admin.password'),
-            'username' => config('admin.username'),
+            'password' => 'secret',
+            'username' => $role,
             'active'   => 1
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole($role);
 
         $profile = Profile::create([
             'company_name' => $faker->company,
             'first_name'   => $faker->firstNameMale,
             'last_name'    => $faker->lastName,
-            'email'        => config('admin.email'),
+            'email'        => $faker->unique()->safeEmail,
             'phone'        => $faker->isbn10,
             'address_1'    => $faker->streetAddress,
             'address_2'    => $faker->secondaryAddress,
@@ -38,6 +46,5 @@ class AdminSeeder extends Seeder
         ]);
         $user->profile()->save($profile);
         $user->save();
-
     }
 }
