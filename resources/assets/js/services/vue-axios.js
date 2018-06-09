@@ -5,18 +5,9 @@ import swal from "sweetalert2";
 Vue.use(VueAxios, axios);
 
 window.axios = axios;
+Vue.axios.defaults.baseURL = 'http://dsglive.test';
 
-/* Allows Us To Authorized Api Request If Authenticated Using Web Middleware */
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-/* Set The Token if Present So We Can Authorize Request */
-let token = document.head.querySelector('meta[name="csrf-token"]');
-if (token) {
-  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
-} else {
-  console.error(
-    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
-  );
-}
+// axios.defaults.baseURL = 'http://dsglive.test/api';
 
 window.axios.interceptors.response.use(
   response => {
