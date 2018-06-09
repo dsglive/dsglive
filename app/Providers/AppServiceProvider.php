@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Link;
 use App\Models\User;
-use App\Observers\LinkObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
@@ -21,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //* Auto Generate ID
         User::observe(UserObserver::class);
-        Link::observe(LinkObserver::class);
 
         //* Ensure We Rollback Failed Jobs
         Queue::looping(function () {
