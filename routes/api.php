@@ -42,9 +42,5 @@ Route::group(['middleware' => ['auth:api']], function () {
 //? Router For Authentication
 Route::post('/auth/register', 'Auth\RegisterController@register')->name('api.auth.register');
 Route::post('/auth/login', 'Auth\LoginController@login')->name('api.auth.login');
-Route::post('/auth/refresh', 'Auth\LoginController@refresh')->name('api.auth.refresh');
-Route::post('/auth/social', 'Auth\SocialAuthController@socialAuth')->name('api.auth.social');
-Route::post('/sendResetEmail', 'Auth\ForgotPasswordController@sendResetEmail')->name('api.auth.forgotpassword');
-Route::post('/resetPassword', 'Auth\ResetPasswordController@resetPassword')->name('api.auth.reset-password');
 //? Router For Sending Customer Email
 Route::post('/@contact', 'Homepage\ContactUsController@contact')->name('api.@contact');

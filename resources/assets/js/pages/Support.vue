@@ -63,7 +63,8 @@
                           <v-text-field
                             v-validate="'required'"
                             v-model="name"
-                            :error-messages="errors.collect('name')"
+                            :error-messages="errorMessages('name')"
+                            :class="{ 'error--text': hasErrors('name') }"
                             light
                             name="name"
                             label="Full Name"
@@ -72,7 +73,8 @@
                           <v-text-field
                             v-validate="'required|email'"
                             v-model="email"
-                            :error-messages="errors.collect('email')"
+                            :error-messages="errorMessages('email')"
+                            :class="{ 'error--text': hasErrors('email') }"
                             light
                             name="email"
                             label="Email"
@@ -81,7 +83,8 @@
                           <v-text-field
                             v-validate="'required'"
                             v-model="subject"
-                            :error-messages="errors.collect('subject')"
+                            :error-messages="errorMessages('subject')"
+                            :class="{ 'error--text': hasErrors('subject') }"
                             light
                             name="subject"
                             label="Subject"
@@ -90,14 +93,15 @@
                           <v-textarea
                             v-validate="'required'"
                             v-model="message"
-                            :error-messages="errors.collect('message')"
+                            :error-messages="errorMessages('message')"
+                            :class="{ 'error--text': hasErrors('message') }"
                             light
                             name="message"
                             label="Message"
                             data-vv-name="message"
                           />
                           <v-btn 
-                            :loading="contactForm.busy" 
+                            :loading="form.busy" 
                             :disabled="errors.any()" 
                             block 
                             type="submit" 
@@ -134,19 +138,22 @@
                   >
                     <v-card-title class="headline accent--text">Contact Details</v-card-title>
                     <v-card-text class="headline accent--text">
-                      <v-icon color="red">place</v-icon> 1120 5TH Street
+                      <v-icon color="red">place</v-icon> 225 Pineda St. - Unit 127
                     </v-card-text>
                     <v-card-text class="headline accent--text">
-                      <v-icon color="indigo">location_city</v-icon> Alexandria
+                      <v-icon color="indigo">location_city</v-icon> Longwood
                     </v-card-text>
                     <v-card-text class="headline accent--text">
-                      <v-icon color="info">map</v-icon> Louisiana 71301
+                      <v-icon color="info">map</v-icon> FL 32750
                     </v-card-text>
                     <v-card-text class="headline accent--text">
                       <v-icon color="light-blue">fa-fa</v-icon> United States
                     </v-card-text>
                     <v-card-text class="headline accent--text">
-                      <v-icon color="brown">phone</v-icon>+1 (318) 290-3674
+                      <v-icon color="brown">phone</v-icon>(407) 331-1200
+                    </v-card-text>
+                    <v-card-text class="headline accent--text">
+                      <v-icon color="grey">local_printshop</v-icon>(407) 331-0870
                     </v-card-text>
                     <v-card-text class="headline accent--text">
                       <v-icon color="yellow darken-2">mail</v-icon><span v-text="site.email"/>
@@ -164,36 +171,49 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
+import validationError from "Mixins/validation-error"
+import { Form } from "vform";
 
 export default {
   components: {
     ModalLayout
   },
+  mixins: [validationError],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     name: "",
     email: "",
     subject: "",
     message: "",
-    contactForm: new AppForm(App.forms.contactForm),
+    form: new Form({
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    }),
     site: {
-      email: "suppor@mail.com"
+      email: "support@dsglive.com"
     }
   }),
   methods: {
     resetForm() {
-      this.contactForm = new AppForm(App.forms.contactForm);
+      this.form = new Form({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
     },
     submit() {
       let self = this;
-      self.contactForm.name = self.name;
-      self.contactForm.email = self.email;
-      self.contactForm.subject = self.subject;
-      self.contactForm.message = self.message;
+      self.form.name = self.name;
+      self.form.email = self.email;
+      self.form.subject = self.subject;
+      self.form.message = self.message;
       self.$validator.validateAll();
       if (!self.errors.any()) {
         axios
-          .post(route("api.@contact"), self.contactForm)
+          .post(route("api.@contact"), self.form)
           .then(() => {
             self.resetForm();
             self.$router.push("/");

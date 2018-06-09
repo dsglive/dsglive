@@ -111,32 +111,24 @@
             wrap
           >
             <v-flex 
-              xs6 
-              md2 
+              xs12 
+              sm12 
+              md4 
               offset-md4 
-              pa-0
+              lg4 
+              offset-lg4 
+              xl4 
+              offset-xl4 
+              text-xs-center
             >
               <v-btn 
-                dark 
                 block 
-                color="secondary" 
+                flat 
+                class="white--text" 
+                color="teal lighten-2"
                 @click.native="goToRegister()"
               >
                 No Account Yet?
-              </v-btn>
-            </v-flex>
-            <v-flex 
-              xs6 
-              md2 
-              pa-0
-            >
-              <v-btn 
-                dark 
-                block
-                color="error" 
-                @click.native="resetPassword()"
-              >
-                Forgot Password?
               </v-btn>
             </v-flex>
           </v-layout>
@@ -150,8 +142,8 @@
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error"
-import { createNamespacedHelpers } from "vuex";
 import { Form } from "vform";
+import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("auth");
 
 export default {
@@ -184,10 +176,6 @@ export default {
     }
   },
   methods: {
-    resetPassword() {
-      let self = this;
-      self.$nextTick(() => self.$router.push({ name: "forgotpassword" }));
-    },
     goHome() {
       let self = this;
       self.$nextTick(() => self.$router.push({ name: "home" }));

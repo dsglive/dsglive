@@ -68,19 +68,6 @@ class LoginController extends Controller
     }
 
     /**
-     * @param  Request $request
-     * @return mixed
-     */
-    public function refresh(Request $request)
-    {
-        request()->validate([
-            'refresh_token' => 'required'
-        ]);
-
-        return $this->issueToken($request, 'refresh_token');
-    }
-
-    /**
      * Override Email As Default Username
      */
     public function username()

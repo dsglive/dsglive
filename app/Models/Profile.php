@@ -48,4 +48,9 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function findByEmail($email)
+    {
+        return self::whereEmail($email)->first();
+    }
 }

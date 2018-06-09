@@ -10,7 +10,6 @@ use App\Traits\User\Relationships;
 use Laravel\Passport\HasApiTokens;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Notifications\PasswordResetNotification;
@@ -26,8 +25,7 @@ class User extends Authenticatable implements HasMedia
     HasApiTokens,
     Relationships,
     HasRoles,
-    Notifiable,
-        HasMediaTrait;
+    HasMediaTrait;
 
     /**
      * @var mixed
@@ -91,15 +89,6 @@ class User extends Authenticatable implements HasMedia
              ->width(200)
              ->height(200)
              ->nonQueued();
-    }
-
-    /**
-     * Override Password Reset Default Built in Laravel
-     *
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new PasswordResetNotification($token));
     }
 
     /**
