@@ -25,7 +25,7 @@
 - Laravel Valet (NGINX) or use Laradock or Homestead
 
 ## Installation
-1. git clone https://github.com/codeitlikemiley/dsg YOURPROJECTNAME
+1. git clone https://github.com/codeitlikemiley/dsg
 2. cd dsg
 3. composer install
 4. yarn
