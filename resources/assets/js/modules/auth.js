@@ -80,7 +80,7 @@ const actions = {
           type: "warning",
           confirmButtonText: "Ok",
           footer:
-            '<a href="/register" style="color:red;" class="subheading">No Account Yet? Register First</a>'
+            '<a href="/support" style="color:red;" class="subheading">Forgot Your Password? Contact Support</a>'
         });
       }
       if (response.status === 422) {

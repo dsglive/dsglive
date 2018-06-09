@@ -26,8 +26,7 @@
         ma-0
       >
         <v-card-text class="headline white--text">
-          <p><em>I would like to save Hours Of Prototyping and Scaffolding My Next Big Idea </em></p>
-          <p><em>And Use Vuetified To Save Tons Of Hours Experimenting What Works and Not.</em></p>
+          <p><em>I would like to Be One Of Your Happy Customer </em></p>
         </v-card-text>
       </v-flex>
       <v-flex 
@@ -40,13 +39,13 @@
           color="primary"
         >
           <span class="white--text">
-            Clone The Repository
+            Register As New Customer
           </span>
           <v-icon 
             right 
             dark
           >
-            fa-code-fork
+            fa-user-plus
           </v-icon>
         </v-btn>
       </v-flex>
@@ -60,12 +59,12 @@ import Acl from "../../mixins/acl";
 export default {
   mixins: [Acl],
   data: () => ({
-    link: "https://github.com/codeitlikemiley/vuetified"
+    link: "/register"
   }),
   mounted() {
     let self = this;
     if (self.isLoggedIn()) {
-      self.link = "https://github.com/codeitlikemiley/vuetified";
+      self.link = "/register";
     }
   }
 };

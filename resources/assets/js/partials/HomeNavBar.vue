@@ -130,7 +130,7 @@ export default {
     showLogo: false,
     logo: "/img/logo.png",
     showIcon: false,
-    title: "Vuetified"
+    title: "DSG Live"
   }),
   computed: {
     ...mapState({

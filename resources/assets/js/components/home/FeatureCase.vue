@@ -181,14 +181,14 @@
 export default {
   data: () => ({
     title:
-      '<h1 class="accent--text">Everything You Need To Start </br><strong class="primary--text">In Building Single Page Apps</strong></h1>',
-    current_image: "/svg/website-svgrepo-com.svg",
+      '<h1 class="accent--text">Complete Warehouse Facilities </br><strong class="primary--text">To Manage Your Cargo Securely</strong></h1>',
+    current_image: "/svg/warehouse.svg",
     features: [
       {
         show: true,
-        title: "Easy Scaffolding",
-        tagline: "Added New Artisan Commands To Help You Get Up and Running",
-        src: "/svg/command-window-svgrepo-com.svg",
+        title: "We Have Our Own Crane",
+        tagline: "To Handle Big Containers",
+        src: "/svg/crane.svg",
         xs: 12,
         sm: 12,
         md: 12,
@@ -197,10 +197,10 @@ export default {
       },
       {
         show: true,
-        title: "Easily Add Components",
+        title: "We Have Our Own Conveyor",
         tagline:
-          "Need More Components? Add Them As A New Service in Your Plugins.js",
-        src: "/svg/usb-svgrepo-com.svg",
+          "Easily Receive Incoming Packages",
+        src: "/svg/conveyor.svg",
         xs: 12,
         sm: 12,
         md: 12,
@@ -209,9 +209,9 @@ export default {
       },
       {
         show: true,
-        title: "Deploy Easily On Cloud",
-        tagline: "Deploy Your Containers with Dockers at Digital Ocean",
-        src: "/svg/cloud-computing-svgrepo-com.svg",
+        title: "We Have Our Own Forklifts",
+        tagline: "To Move Cargo Anywhere",
+        src: "/svg/forklift.svg",
         xs: 12,
         sm: 12,
         md: 12,
@@ -220,10 +220,10 @@ export default {
       },
       {
         show: true,
-        title: "Modular State Management",
+        title: "We Have Sturdy Storage Area",
         tagline:
-          "Few Modules Are Built In For You To Handle State On Front End",
-        src: "/svg/database-svgrepo-com.svg",
+          "To Store Cargo For Long Period of Time",
+        src: "/svg/stowage.svg",
         xs: 12,
         sm: 12,
         md: 12,

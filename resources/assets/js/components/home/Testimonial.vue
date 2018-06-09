@@ -51,7 +51,7 @@ export default {
     avatar: "/svg/employee-svgrepo-com.svg",
     name: "-Happy User",
     testimonial:
-      '<h1 class="primary--text">With Vuetified I can Easily Start My New Big Idea</h1><h1 class="accent--text"> <strong>Using Laravel and Vue To Build Single Page Apps</strong></h1>'
+      '<h1 class="primary--text">Thumbs Up For DSG Live</h1><h1 class="accent--text"> <strong>Your Service Rocks!</strong></h1>'
   })
 };
 </script>

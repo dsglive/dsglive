@@ -15,8 +15,8 @@ export default {
   data: () => ({
     footerClass: { "white--text": true, red: true, "lighten-2": true },
     year: new Date().getFullYear(),
-    domain: "Mydomain.com",
-    trademark: "mytrademark"
+    domain: "dsglive.com",
+    trademark: "All Rights Reserved."
   }),
   created() {
     /* Emit On a Child Component If You Want This To Be Visible */

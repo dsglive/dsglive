@@ -122,10 +122,10 @@
 export default {
   data: () => ({
     title:
-      '<h1 class="accent--text">Scaffold Your Laravel and Vue Apps </br> <strong class="primary--text">Vuetified Your App</strong></h1>',
+      '<h1 class="accent--text">DSG Live</br> <strong class="primary--text">About Our Company</strong></h1>',
     subtitle:
-      "Starting a New Project Is Hard, We Already Do The Heavy Lifting For You. Many Small Details Things You Will Love Such as Vue Linting and Autofix in VS Code Editor, Ready Built Auth Scaffold To Realtime BroadCasting and Modular State Management.",
-    current_image: "/svg/spa-svgrepo-com.svg",
+      "As a company, we are constantly redefining our objectives, expectations, and limits. Our people are our lifeblood. We strive to create an atmosphere that appreciates, inspires, and enables everyone to transcend their potentials",
+    current_image: "/svg/handle-with-care.svg",
     photos: []
   }),
   computed: {

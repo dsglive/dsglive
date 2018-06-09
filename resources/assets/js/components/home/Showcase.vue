@@ -42,8 +42,8 @@ export default {
     showcase: [
       {
         show: true,
-        title: "Laravel Echo Notifications",
-        src: "/svg/announcement-svgrepo-com.svg",
+        title: "Top Notch Storage",
+        src: "/svg/package-priority.svg",
         xs: 12,
         sm: 12,
         md: 4,
@@ -52,8 +52,8 @@ export default {
       },
       {
         show: true,
-        title: "Laravel Passport Auth Scaffold",
-        src: "/svg/fingerprint-scan-svgrepo-com.svg",
+        title: "Customer Satisfaction",
+        src: "/svg/rating.svg",
         xs: 12,
         sm: 12,
         md: 4,
@@ -62,8 +62,8 @@ export default {
       },
       {
         show: true,
-        title: "Vuetify Themes",
-        src: "/svg/browsers-svgrepo-com.svg",
+        title: "Great Customer Support",
+        src: "/svg/operator.svg",
         xs: 12,
         sm: 12,
         md: 4,

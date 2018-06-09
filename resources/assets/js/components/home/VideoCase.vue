@@ -12,7 +12,7 @@
         text-xs-center
       >
         <h1 class="primary--text">Watch Videos</h1>
-        <h2 class="headline accent--text">Click The Image To Lazy Load The Video</h2>
+        <h2 class="headline accent--text">Take A Free Tour Inside Our Company</h2>
       </v-flex>
     </v-layout>
     <v-layout
@@ -71,21 +71,21 @@ export default {
   data: () => ({
     videos: [
       {
-        title: "One Piece 819",
+        title: "Facilities",
         href: "https://www.youtube.com/watch?v=L0ZHk0JD5yE",
         type: "text/html",
         youtube: "L0ZHk0JD5yE",
         poster: "/svg/video-play-svgrepo-com.svg"
       },
       {
-        title: "One Piece Commercial",
+        title: "Equipments",
         href: "https://www.youtube.com/watch?v=5TrI6b4gc9c",
         type: "text/html",
         youtube: "5TrI6b4gc9c",
         poster: "/svg/video-play-svgrepo-com.svg"
       },
       {
-        title: "One Piece Coca Cola Ads",
+        title: "Storage Rooms",
         href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
         type: "text/html",
         youtube: "SV1Z2kpzjQk",

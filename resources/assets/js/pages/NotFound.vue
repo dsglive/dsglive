@@ -2,28 +2,28 @@
   <modal-layout>
     <v-toolbar 
       slot="toolbar" 
-      class="accent"
+      class="primary"
     >
       <v-btn 
         flat 
         icon 
-        color="primary" 
+        color="white" 
         @click.native="redirectBack()"
       >
         <v-icon >arrow_back</v-icon>
       </v-btn>
       <v-spacer/>
-      <v-toolbar-title class="text-xs-center primary--text">PAGE NOT FOUND</v-toolbar-title>
+      <v-toolbar-title class="text-xs-center white--text">PAGE NOT FOUND</v-toolbar-title>
       <v-spacer/>
       <v-toolbar-items>
         <v-btn 
-          class="primary--text" 
+          class="white--text" 
           flat 
           @click.native="goHome()"
         >
           <v-icon 
             right 
-            color="primary"
+            color="white"
           >
             home
           </v-icon>
