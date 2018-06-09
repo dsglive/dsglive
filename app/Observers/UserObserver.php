@@ -14,7 +14,7 @@ class UserObserver
      */
     public function creating(User $user)
     {
-    // If We Didnt Passed Any  Id On user Creation then We Generate One
+        // If We Didnt Passed Any  Id On user Creation then We Generate One
         if (null === $user->id && !is_numeric($user->id)) {
             $user->id = User::generateUniqueID();
         }
