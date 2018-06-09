@@ -1,5 +1,4 @@
 const Home = () => import("Pages/Home.vue");
-const About = () => import("Pages/About.vue");
 const Support = () => import("Pages/Support.vue");
 
 export default [
