@@ -128,7 +128,7 @@
                 color="teal lighten-2"
                 @click.native="goToRegister()"
               >
-                No Account Yet?
+                New Customer?
               </v-btn>
             </v-flex>
           </v-layout>
