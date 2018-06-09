@@ -48,16 +48,6 @@ class RouteServiceProvider extends ServiceProvider
 
             throw new UserNameNotFound;
         });
-        Route::pattern('referrallink', '[a-z0-9_-]{3,16}');
-        Route::bind('referrallink', function ($value) {
-            $link = Link::findByLink($value);
-
-            if (optional($link)->active) {
-                return $link;
-            } else {
-                throw new LinkNotFound;
-            }
-        });
         Route::pattern('name', '[a-z]+');
         Route::model('user', User::class);
         Route::pattern('user', '[0-9]+');
