@@ -1,8 +1,5 @@
 import Vue from "vue";
-import { VueAuthenticate } from "vue-authenticate";
-import providers from "Services/providers";
 import swal from "sweetalert2";
-const vueAuth = new VueAuthenticate(Vue.prototype.$http, providers);
 
 const state = {
   me: null,
@@ -11,7 +8,7 @@ const state = {
 
 const getters = {
   getMe: state => state.me,
-  isAuthenticated: () => vueAuth.isAuthenticated()
+  isAuthenticated: () => vm.$auth.check()
 };
 
 const actions = {
@@ -21,22 +18,24 @@ const actions = {
     form.busy = true;
     form.clear();
     try {
-      await vm.$auth.register({
-        data: form
-      }).then(response => {
-        const registeredModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
+      await vm.$auth
+        .register({
+          data: form
+        })
+        .then(response => {
+          const registeredModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          registeredModal({
+            title: "Congrats!!!",
+            html: `<p class="title">You Have Successfully Registered!</p>`,
+            type: "success",
+            confirmButtonText: "Close",
+            footer:
+              '<p style="color:blue;" class="subheading">You may Logged In Now.</p>'
+          });
         });
-        registeredModal({
-          title: "Congrats!!!",
-          html: `<p class="title">You Have Successfully Registered!</p>`,
-          type: "success",
-          confirmButtonText: "Close",
-          footer:
-            '<p style="color:blue;" class="subheading">You may Logged In Now.</p>'
-        });
-      });
 
       form.busy = false;
     } catch ({ response }) {
@@ -108,7 +107,7 @@ const actions = {
     try {
       await App.post(route("api.auth.social"), form).then(() => {
         commit("isAuthenticated", {
-          isAuthenticated: vueAuth.isAuthenticated()
+          isAuthenticated: vm.$auth.check()
         });
       });
 
@@ -150,8 +149,7 @@ const actions = {
           html: `<p class="title">${response.data.message}</p>`,
           type: "warning",
           confirmButtonText: "Ok",
-          footer:
-            `<a href="/support" style="color:red;" class="subheading">Contact Your System Administrator</a>`
+          footer: `<a href="/support" style="color:red;" class="subheading">Contact Your System Administrator</a>`
         });
       }
       form.busy = false;
@@ -179,7 +177,7 @@ const actions = {
     try {
       await App.post(route("api.auth.reset-password"), form).then(() => {
         commit("isAuthenticated", {
-          isAuthenticated: vueAuth.isAuthenticated()
+          isAuthenticated: vm.$auth.check()
         });
         form.busy = false;
       });

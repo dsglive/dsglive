@@ -6,8 +6,6 @@ import auth from "Modules/auth";
 export default new Store({
   modules: {
     auth,
-    acl,
-    permission
     /* add other modules here */
   },
 
