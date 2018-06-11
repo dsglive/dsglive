@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\UsernameNotFound;
 use App\Exceptions\UserTokenNotFound;
 use App\Http\Resources\User\AccountResource;
+use App\Http\Resources\User\UserResource;
 
 class UsersController extends Controller
 {
@@ -35,7 +36,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return AccountResource::collection(User::with(['profile'])->paginate(10));
+        return UserResource::collection(User::with(['profile'])->get()); // remove pagination
     }
 
     /**

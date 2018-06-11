@@ -57,7 +57,7 @@
                 v-if="header.text === 'Actions' && selected.length >0"
               >
                 <v-btn 
-                  :disabled="!can('manage_users')" 
+                  :disabled="!$auth.check('admin')" 
                   flat 
                   color="error" 
                   @click="deleteSelected()"
@@ -90,29 +90,20 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.name }}
             </td>
+
             <td class="title text-xs-left accent--text">
-              <v-avatar v-if="props.item.sponsor">
+              {{ props.item.email }}
+            </td>
+            <td class="title text-xs-left accent--text">
+              <v-avatar>
                 <img 
-                  :src="props.item.sponsor.photo_url" 
-                  :alt="props.item.sponsor.name"
+                  :src="props.item.avatar" 
+                  :alt="props.item.username"
                 >
               </v-avatar>
-              <span v-if="props.item.sponsor">{{ props.item.sponsor.name }}</span>
+              {{ props.item.username }}
             </td>
-
-            <td class="title text-xs-left accent--text">
-              <v-btn 
-                v-if="activeLink(props.item.referral_link.active)" 
-                :href="`http://${ props.item.referral_link.link }.${ domain }`"
-                flat
-                color="cyan"
-                target="_blank"
-              >
-                <v-icon left>fa-link</v-icon>
-                <span>{{ props.item.referral_link.link }}</span>
-              </v-btn>
-
-            </td>
+            
             <td class="title text-xs-left accent--text">
               <v-chip
                 v-for="(role,key) in props.item.roles"
@@ -121,11 +112,10 @@
               >
                 <v-avatar
                   :class="{
-                    'error': (role === 'admin'),
+                    'primary': (role === 'admin'),
                     'white--text': true,
-                    accent: (role === 'customer'),
-                    brown: (role === 'merchant'),
-                    'blue-grey': (role === 'reseller')
+                    warning: (role === 'warehouse'),
+                    'blue': (role === 'customer')
                   }"
                 >
                   <span class="headline">{{ role.charAt(0).toUpperCase() }}</span>
@@ -145,7 +135,7 @@
                 <v-icon v-if="props.expanded">fa-compress</v-icon>
               </v-btn>
               <v-btn 
-                :disabled="!can('manage_users')" 
+                :disabled="!$auth.check('admin')" 
                 flat 
                 icon 
                 color="error" 
@@ -190,7 +180,7 @@
                     >
                       <v-avatar text-xs-left>
                         <img 
-                          :src="props.item.photo_url" 
+                          :src="props.item.avatar" 
                           :alt="props.item.name"
                         >
                       </v-avatar>
@@ -199,26 +189,6 @@
                   </v-layout>
                 </v-container>
               </v-card-media>
-              <v-card-actions>
-                <v-btn 
-                  v-if="!props.item.referral_link.active" 
-                  flat 
-                  color="success" 
-                  @click="activateLink(props.item)"
-                >
-                  Activate Link 
-                  <v-icon right>done_all</v-icon>
-                </v-btn>
-                <v-btn 
-                  v-if="props.item.referral_link.active" 
-                  flat 
-                  color="error" 
-                  @click="deactivateLink(props.item)"
-                >
-                  Deactivate Link 
-                  <v-icon right>fa-ban </v-icon>
-                </v-btn>
-              </v-card-actions>
               <v-card-title>
                 <v-container fluid>
                   <p class="title accent--text">Account Details</p>
@@ -237,6 +207,15 @@
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field
+                        label="Company Name"
+                        :value="props.item.company_name"
+                        light
+                        readonly
+                        prepend-icon="domain"
+                      />
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field
                         v-model="props.item.email"
                         label="Email"
                         prepend-icon="fa-envelope"
@@ -244,12 +223,127 @@
                         readonly
                       />
                     </v-flex>
+                    <v-flex xs12>
+                      <v-text-field
+                        label="Phone"
+                        v-model="props.item.phone"
+                        light
+                        readonly
+                        prepend-icon="phone"
+                      />
+                    </v-flex>
+                  </v-layout>
+                  <p 
+                    class="title accent--text"
+                  >
+                    Profile Details
+                  </p>
+                  <v-layout 
+                    row 
+                    wrap
+                  >
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="First Name"
+                        :value="props.item.first_name"
+                        light
+                        readonly
+                        prepend-icon="person"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="Last Name"
+                        :value="props.item.last_name"
+                        light
+                        readonly
+                        prepend-icon="people"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="Address 1"
+                        :value="props.item.address_1"
+                        light
+                        readonly
+                        prepend-icon="looks_one"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="Address 2"
+                        :value="props.item.address_2"
+                        light
+                        readonly
+                        prepend-icon="looks_two"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="City"
+                        :value="props.item.city"
+                        light
+                        readonly
+                        prepend-icon="location_city"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="State"
+                        :value="props.item.state"
+                        light
+                        readonly
+                        prepend-icon="map"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="Zip"
+                        :value="props.item.zip"
+                        light
+                        readonly
+                        prepend-icon="markunread_mailbox"
+                      />
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-text-field
+                        label="Country"
+                        :value="props.item.country"
+                        light
+                        readonly
+                        prepend-icon="flag"
+                      />
+                    </v-flex>
                   </v-layout>
                   <p 
                     v-if="props.item.roles" 
                     class="title accent--text"
                   >
-                    Assigned Roles
+                    Account Type
                   </p>
                   <v-layout 
                     row 
@@ -290,80 +384,6 @@
                       </v-autocomplete>
                     </v-flex>
                   </v-layout>
-                  <p 
-                    v-if="props.item.permissions" 
-                    class="title accent--text"
-                  >
-                    Role Inherited Permissions
-                  </p>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex xs12>
-                      <!-- Enable update permissions -->
-                      <!--
-                        chips
-                        deletable-chips
-                        clearable
-                        @input="changePermissions(props.item)"
-                        -->
-                      <v-autocomplete
-                        :items="permissions"
-                        v-model="props.item.permissions"
-                        color="brown"
-                        light
-                        disabled
-                        tags
-                        prepend-icon="fa-tags"
-                      >
-                        <template 
-                          slot="selection" 
-                          slot-scope="data"
-                        >
-                          <!-- Enable update permissions -->
-                          <!--
-                            close
-                            @input="removePermission(data.item,props.item.permissions)"
-                            -->
-                          <v-chip
-                            :selected="data.selected"
-                            light
-                          >
-                            <v-avatar
-                              class="primary white--text"
-                            >
-                              <span class="headline">{{ data.item.charAt(0).toUpperCase() }}</span>
-                            </v-avatar>
-                            {{ data.item }}
-                          </v-chip>
-                        </template>
-                      </v-autocomplete>
-                    </v-flex>
-                  </v-layout>
-                  <p 
-                    v-if="props.item.profile" 
-                    class="title accent--text"
-                  >
-                    Profile Details
-                  </p>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex 
-                      v-for="(profile,key) in props.item.profile" 
-                      :key="key"
-                      xs12
-                    >
-                      <v-text-field
-                        :label="toProperCase(key)"
-                        :value="profile"
-                        light
-                        readonly
-                      />
-                    </v-flex>
-                  </v-layout>
 
                 </v-container>
               </v-card-title>
@@ -376,10 +396,12 @@
             :value="true" 
             color="error" 
             icon="warning">
-            Opps!!! Create a New User! :(
+            Opps!!! Nothing To Display! :(
           </v-alert>
         </template>
-
+        <v-alert slot="no-results" :value="true" color="blue-grey" icon="warning">
+        Your search for "{{ search }}" found no results.
+        </v-alert>
       </v-data-table>
     </v-container>
   </main-layout>
@@ -387,13 +409,14 @@
 
 <script>
 import MainLayout from "Layouts/Main.vue";
-import Acl from "../mixins/acl";
+import validationError from "Mixins/validation-error";
+import { Form } from "vform";
 
 export default {
   components: {
     MainLayout
   },
-  mixins: [Acl],
+  mixins: [validationError],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -401,29 +424,44 @@ export default {
     headers: [
       { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
-      { text: "Sponsor", value: "sponsor.name", align: "left", sortable: true },
-      {
-        text: "Referrak Link",
-        value: "referral_link.link",
-        align: "left",
-        sortable: true
-      },
+      { text: "Email", value: "email", align: "left", sortable: true },
+      { text: "Username", value: "username", align: "left", sortable: true },
       { text: "Roles", value: "roles", align: "left", sortable: false },
-      { text: "Actions", value: "actions", align: "right", sortable: false },
+      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
+    meta:{
+        current_page: null,
+        from: null,
+        last_page: null,
+        path: null,
+        per_page:null,
+        to: null,
+        total: null,
+    },
+    links: {
+        first: null,
+        last:null,
+        next:null,
+        prev:null
+    },
     selected: [],
     pagination: {
       sortBy: "name"
     },
-    current_user: {},
-    usersForm: new AppForm(App.forms.usersForm),
-    toggleForm: new AppForm(App.forms.toggleForm),
+    usersForm: new Form({}),
+    toggleForm: new Form({
+      toggle: false
+    }),
     search: "",
     roles: [],
     permissions: [],
-    rolesForm: new AppForm(App.forms.rolesForm),
-    permissionsForm: new AppForm(App.forms.permissionsForm),
+    rolesForm: new Form({
+      roles: []
+    }),
+    permissionsForm: new Form({
+      permissions: []
+    }),
     domain: window.location.hostname
   }),
   watch: {
@@ -437,35 +475,10 @@ export default {
   mounted() {
     let self = this;
     self.fetchRoles();
-    self.fetchPermissions();
     self.fetchUsers();
   },
   methods: {
-    activeLink(link) {
-      return !!link;
-    },
-    async activateLink(user) {
-      try {
-        let payload = await axios.get(
-          route("api.user.link.activate", { id: user.id })
-        );
-        user.referral_link.active = true;
-      } catch ({ message }) {
-        if (message) {
-        }
-      }
-    },
-    async deactivateLink(user) {
-      try {
-        let payload = await axios.get(
-          route("api.user.link.deactivate", { id: user.id })
-        );
-        user.referral_link.active = false;
-      } catch ({ message }) {
-        if (message) {
-        }
-      }
-    },
+    
     async fetchRoles() {
       let self = this;
       try {
@@ -480,27 +493,18 @@ export default {
         }
       }
     },
-    async fetchPermissions() {
-      let self = this;
-      try {
-        const payload = await axios.get(route("api.permissions.index"));
-        self.permissions = payload.data;
-      } catch ({ errors, message }) {
-        if (errors) {
-          console.log("fetchRoles:errors", errors);
-        }
-        if (message) {
-          console.log("fetchRoles:error-message", message);
-        }
-      }
-    },
     async fetchUsers() {
       let self = this;
       self.usersForm.busy = true;
       try {
-        const payload = await App.post(route("api.user.index"), self.usersForm);
-        self.items = payload.data;
-        self.usersForm = new AppForm(App.forms.usersForm);
+        const payload = await axios.post(
+          route("api.user.index"),
+          self.usersForm
+        );
+        self.items = payload.data.data;
+        self.links = payload.data.links;
+        self.meta = payload.data.meta;
+        self.usersForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {
           self.usersForm.errors.set(errors);
@@ -536,7 +540,9 @@ export default {
         );
         item.permissions = payload.data.permissions;
         self.rolesForm.busy = false;
-        self.rolesForm = new AppForm(App.forms.rolesForm);
+        self.rolesForm = new Form({
+            roles: []
+        });
       } catch ({ message }) {
         if (message) {
         }
@@ -546,28 +552,6 @@ export default {
     removeRole(role, roles) {
       roles.splice(roles.indexOf(role), 1);
       roles = [...roles];
-    },
-    async changePermissions(item) {
-      /* make ajax call to update permissions to this user */
-      let self = this;
-      self.permissionsForm.permissions = item.permissions;
-      try {
-        self.permissionsForm.busy = true;
-        const payload = await App.post(
-          route("api.user.permissions.sync", { id: item.id }),
-          self.permissionsForm
-        );
-        self.permissionsForm.busy = false;
-        self.permissionsForm = new AppForm(App.forms.permissionsForm);
-      } catch ({ message }) {
-        if (message) {
-        }
-        self.permissionsForm.busy = false;
-      }
-    },
-    removePermission(permission, permissions) {
-      permissions.splice(permissions.indexOf(permission), 1);
-      permissions = [...permissions];
     },
     deleteAll() {
       this.items = [];
@@ -584,14 +568,14 @@ export default {
       if (this.selected.length) this.selected = [];
       else this.selected = this.items.slice();
     },
-    changeSort (column) {
-        if (this.pagination.sortBy === column) {
-          this.pagination.descending = !this.pagination.descending
-        } else {
-          this.pagination.sortBy = column
-          this.pagination.descending = false
-        }
+    changeSort(column) {
+      if (this.pagination.sortBy === column) {
+        this.pagination.descending = !this.pagination.descending;
+      } else {
+        this.pagination.sortBy = column;
+        this.pagination.descending = false;
       }
+    }
   }
 };
 </script>
