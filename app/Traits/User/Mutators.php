@@ -23,7 +23,7 @@ trait Mutators
      */
     public function getRoleListAttribute()
     {
-        return $this->roles->pluck('name');
+        return $this->getRoleNames();
     }
 
     public function getAvatarAttribute()

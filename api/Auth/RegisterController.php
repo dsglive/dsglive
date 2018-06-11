@@ -7,24 +7,11 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use Laravel\Passport\Client;
-use App\Traits\IssueTokenTrait;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\AccountCreationFailed;
 
 class RegisterController extends Controller
 {
-    use IssueTokenTrait;
-
-    /**
-     * @var mixed
-     */
-    private $client;
-
-    public function __construct()
-    {
-        $this->client = Client::first();
-    }
 
     /**
      * @param  Request $request
@@ -76,8 +63,8 @@ class RegisterController extends Controller
             return response()->json(['message' => $e->getMessage()], 400); // Failed Creation
         }
 
-        // Account Successfully Created
         DB::commit();
-        return $this->issueToken($request, 'password');
+        // Account Successfully Created
+        return response()->json(['status' => 'success']);
     }
 }

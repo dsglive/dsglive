@@ -2,8 +2,6 @@ import { Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 /* Add Below All Your Modules */
 import auth from "Modules/auth";
-import acl from "Modules/acl";
-import permission from "Modules/permission";
 
 export default new Store({
   modules: {
@@ -19,7 +17,7 @@ export default new Store({
       /* https://github.com/robinvdvleuten/vuex-persistedstate#createpersistedstateoptions */
       key: "vuex-ls",
       // Declare All The State We Want to Persist (use dot anotation for object.key)
-      paths: ["auth", "permission", "acl"]
+      paths: ["auth"]
     })
   ]
 });

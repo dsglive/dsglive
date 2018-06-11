@@ -8,28 +8,19 @@ export default [
     path: "/login",
     component: Login,
     name: "login",
-    meta: {
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: false}
   },
   {
     path: "/logout",
     component: Logout,
     name: "logout",
-    meta: {
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: ['admin', 'warehouse','customer']},
   },
   {
     path: "/register",
     component: Register,
     name: "register",
-    meta: {
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: false}
   }
   /* End Authentication Routes */
 ];

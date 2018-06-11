@@ -7,18 +7,10 @@ export default [
     path: "/",
     name: "home",
     component: Home,
-    meta: {
-      permission: "guest",
-      fail: "/404.html"
-    }
   },
   {
     path: "/support",
     component: Support,
     name: "support",
-    meta: {
-      permission: "guest",
-      fail: "/404.html"
-    }
   }
 ];

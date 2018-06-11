@@ -10,17 +10,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/users/{id}/syncRoles', 'Auth\PermissionRolesController@syncRoles')->name('api.user.roles.sync');
     Route::post('/users/{id}/syncPermissions', 'Auth\PermissionRolesController@syncPermissions')
         ->name('api.user.permissions.sync');
-    Route::get('/users/{id}/activateLink', 'Link\ActivationController@activateLink')
-        ->name('api.user.link.activate');
-    Route::get('/users/{id}/deactivateLink', 'Link\ActivationController@deactivateLink')
-        ->name('api.user.link.deactivate');
     //? Settings Page
     Route::post('/users/settings/updateAccount', 'Account\AccountController@updateAccount')
         ->name('api.user.updateAccount');
     Route::post('/users/settings/updateProfile', 'Account\AccountController@updateProfile')
         ->name('api.user.updateProfile');
-    Route::post('/users/settings/updateReferralLink', 'Account\AccountController@updateReferralLink')
-        ->name('api.user.updateReferralLink');
     //? Router Check For Auth User
     Route::post('/auth/check', 'Auth\LoginController@check')->name('api.auth.check');
     //? Helpers We Can Use For Permission and Roles

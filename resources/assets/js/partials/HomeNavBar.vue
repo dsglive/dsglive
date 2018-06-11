@@ -130,11 +130,12 @@ export default {
     showLogo: false,
     logo: "/img/logo.png",
     showIcon: false,
-    title: "DSG Live"
+    title: "DSG Live",
+
   }),
   computed: {
     ...mapState({
-      isAuthenticated: "isAuthenticated"
+      isAuthenticated: 'isAuthenticated'
     })
   },
   created() {

@@ -21,16 +21,24 @@ const actions = {
     form.busy = true;
     form.clear();
     try {
-      await vueAuth.register(form).then(() => {
-        commit("isAuthenticated", {
-          isAuthenticated: vueAuth.isAuthenticated()
+      await vm.$auth.register({
+        data: form
+      }).then(response => {
+        const registeredModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        registeredModal({
+          title: "Congrats!!!",
+          html: `<p class="title">You Have Successfully Registered!</p>`,
+          type: "success",
+          confirmButtonText: "Close",
+          footer:
+            '<p style="color:blue;" class="subheading">You may Logged In Now.</p>'
         });
       });
 
-      await dispatch("fetchMe");
-
       form.busy = false;
-      vm.$router.push({ name: "dashboard" });
     } catch ({ response }) {
       if (response.status === 400) {
         const registerModal = swal.mixin({
@@ -39,7 +47,7 @@ const actions = {
         });
         registerModal({
           title: "Bad Request! " + response.status + " ERROR",
-          html: '<p class="title">' + response.data.message + "</p>",
+          html: `<p class="title">${response.data.message}</p>`,
           type: "warning",
           confirmButtonText: "Ok",
           footer:
@@ -58,13 +66,17 @@ const actions = {
     form.busy = true;
     form.clear();
     try {
-      await vueAuth.login(form).then(response => {
-        commit("isAuthenticated", {
-          isAuthenticated: vueAuth.isAuthenticated()
+      await vm.$auth
+        .login({
+          data: form
+        })
+        .then(response => {
+          commit("isAuthenticated", {
+            isAuthenticated: vm.$auth.check()
+          });
+          vm.$auth.user(response.data.data);
+          commit("setMe", vm.$auth.user());
         });
-      });
-
-      await dispatch("fetchMe");
 
       form.busy = false;
       vm.$router.push({ name: "dashboard" });
@@ -114,16 +126,34 @@ const actions = {
   async logout({ commit }, form) {
     form.busy = true;
     try {
-      await vueAuth.logout().then(() => {
-        commit("isAuthenticated", {
-          isAuthenticated: vueAuth.isAuthenticated()
+      await vm.$auth
+        .logout({
+          // make api call
+          makeRequest: true
+        })
+        .then(() => {
+          commit("isAuthenticated", {
+            isAuthenticated: vm.$auth.check()
+          });
+          commit("setMe", null);
         });
-        commit("setMe", null);
-      });
-
       form.busy = false;
       vm.$router.push({ name: "home" });
-    } catch ({ errors, message }) {
+    } catch ({ response }) {
+      if (response.status >= 500) {
+        const logoutModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        logoutModal({
+          title: "Server Error: " + response.status,
+          html: `<p class="title">${response.data.message}</p>`,
+          type: "warning",
+          confirmButtonText: "Ok",
+          footer:
+            `<a href="/support" style="color:red;" class="subheading">Contact Your System Administrator</a>`
+        });
+      }
       form.busy = false;
     }
   },

@@ -18,20 +18,7 @@ const router = new VueRouter({
     }
   }
 });
-
-/* Middlewares */
-router.beforeEach((to, from, next) => {
-  /* for all authenticated routes */
-  if (to.matched.some(m => m.meta.requiresAuth)) {
-    /* Check For Laravel Passport Access Token Cookie */
-    if (to.matched.some(m => m.meta.requiresAuth)) {
-      return axios.post(route("api.auth.check")).then(() => {
-        return next();
-      });
-    }
-  }
-  /* If No Middleware, Then Just Proceed As Normal */
-  return next();
-});
+// fix for  vue-router.2.x.js : Vue.router must be set.
+Vue.router = router
 
 export default router;

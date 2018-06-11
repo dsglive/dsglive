@@ -1,6 +1,5 @@
 <template>
   <modal-layout 
-    v-if="visible" 
     class="white">
     <v-card :flat="true">
       <v-toolbar class="primary">
@@ -125,7 +124,7 @@
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapGetters } = createNamespacedHelpers("auth");
+const { mapActions } = createNamespacedHelpers("auth");
 import { Form } from "vform";
 
 export default {
@@ -138,22 +137,12 @@ export default {
     form: new Form({
       submit: true,
     }),
-    visible: false
+    visible: false,
+    isAuthenticated: !!vm.$auth.token(),
+    user: vm.$auth.user()
   }),
-  computed: {
-    ...mapGetters({
-      isAuthenticated: "isAuthenticated",
-      user: "getMe"
-    })
-  },
   mounted() {
-    let self = this;
-    /* Make Sure We Only Show Logout Page If Authenticated */
-    if (!self.isAuthenticated) {
-      /* nextick make sure our modal wount be visible before redirect */
-      return self.$nextTick(() => self.$router.go(-1));
-    }
-    self.visible = true;
+
   },
   methods: {
     redirectBack() {

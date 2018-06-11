@@ -5,9 +5,8 @@ import swal from "sweetalert2";
 Vue.use(VueAxios, axios);
 
 window.axios = axios;
-Vue.axios.defaults.baseURL = 'http://dsglive.test';
 
-// axios.defaults.baseURL = 'http://dsglive.test/api';
+axios.defaults.baseURL = 'http://dsglive.test/api';
 
 window.axios.interceptors.response.use(
   response => {

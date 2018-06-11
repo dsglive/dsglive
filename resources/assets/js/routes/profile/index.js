@@ -8,31 +8,19 @@ export default [
     path: "/dashboard",
     component: Dashboard,
     name: "dashboard",
-    meta: {
-      requiresAuth: true,
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: ['admin', 'warehouse','customer']},
   },
   {
     path: "/settings",
     component: Settings,
     name: "settings",
-    meta: {
-      requiresAuth: true,
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: ['admin', 'warehouse','customer']},
   },
   {
     path: "/users",
     component: Users,
     name: "users",
-    meta: {
-      requiresAuth: true,
-      permission: "guest",
-      fail: "/404.html"
-    }
+    meta: {auth: ['admin','warehouse','customer']},
   }
   /* End Authenticated Routes */
 ];

@@ -3,26 +3,14 @@
 namespace Api\Auth;
 
 use Api\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Passport\Client;
-use App\Traits\IssueTokenTrait;
 use App\Rules\MustBeValidUsername;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\User\AccountResource;
 
 class LoginController extends Controller
 {
-    use IssueTokenTrait;
-
-    /**
-     * @var mixed
-     */
-    private $client;
-
-    public function __construct()
-    {
-        $this->client = Client::first();
-    }
 
     /**
      * @param Request $request
@@ -49,7 +37,11 @@ class LoginController extends Controller
             ],
             'password' => 'required|min:6'
         ]);
-        return $this->issueToken($request, 'password');
+        $user = User::findByUsername($request->username);
+        $user = new AccountResource($user->load('profile'));
+        $token = $user->createToken('DSG Login')->accessToken;
+        // Manually Create A Token and Attach it To Header
+        return response()->json(['status' => 'success', 'data' => $user])->header('Authorization', $token);
     }
 
     /**
