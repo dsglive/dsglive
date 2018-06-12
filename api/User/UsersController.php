@@ -69,7 +69,7 @@ class UsersController extends Controller
         $profile->state        = request('state');
         $profile->zip          = request('zip');
         $profile->company_name = request('company_name');
-        $profile->notes = request('notes');
+        $profile->notes        = request('notes');
 
         $user->profile()->save($profile);
         $roles = Role::all()->pluck('name');
@@ -93,6 +93,17 @@ class UsersController extends Controller
         }
 
         DB::commit();
+    }
+
+    public function delete(Request $request)
+    {
+        if (1 === $request->user_id) {
+            return response()->json(['message' => 'You Cannot Delete Super Admin!'], 400);
+        }
+
+        $user = User::find($request->user_id);
+        $deleted = $user->delete();
+        return response()->json(['status' => $deleted], 200);
     }
 
     /**
@@ -124,7 +135,7 @@ class UsersController extends Controller
     {
         $ids   = $this->selectExceptSuperAdmin();
         $users = User::whereIn('id', $ids)->update(['active' => true]);
-        return response()->json(['message' => 'Selected Users Activated!']);
+        return response()->json(['message' => 'Selected Users Activated!', 'updated' => $ids]);
     }
 
     /**
@@ -134,7 +145,7 @@ class UsersController extends Controller
     {
         $ids   = $this->selectExceptSuperAdmin();
         $users = User::whereIn('id', $ids)->update(['active' => false]);
-        return response()->json(['message' => 'Selected Users Deactivated!']);
+        return response()->json(['message' => 'Selected Users Deactivated!', 'updated' => $ids]);
     }
 
     /**
@@ -149,6 +160,22 @@ class UsersController extends Controller
         }
 
         return new AccountResource($user->load('profile'));
+    }
+
+    /**
+     * @param  Request $request
+     * @return mixed
+     */
+    public function toggleStatus(Request $request)
+    {
+        if (1 === $request->user_id) {
+            return response()->json(['message' => 'You Cannot Modify Super Admin!'], 400);
+        }
+
+        $user         = User::find($request->user_id);
+        $user->active = $request->toggle;
+        $user->save();
+        return response()->json(['status' => $user->active], 200);
     }
 
     /**

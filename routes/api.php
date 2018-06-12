@@ -7,6 +7,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/users/massActivate', 'User\UsersController@massActivate')->name('api.user.massActivate');
     Route::post('/users/massDeactivate', 'User\UsersController@massDeactivate')->name('api.user.massDeactivate');
     Route::post('/users/create', 'User\UsersController@create')->name('api.user.create');
+    Route::post('/users/toggleStatus', 'User\UsersController@toggleStatus')->name('api.user.toggleStatus');
+    Route::post('/users/delete', 'User\UsersController@delete')->name('api.user.delete');
+
+
 
     // Route::post('/users/username/{username}', 'User\UsersController@findByUsername')->name('api.user.findByUsername');
     // Route::post('/users/email/{email}', 'User\UsersController@findByEmail')->name('api.user.findByEmail');

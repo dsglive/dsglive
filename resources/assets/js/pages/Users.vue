@@ -276,12 +276,19 @@
               </v-card-media>
               <v-card-title>
                 <v-container fluid>
-                  <p class="title accent--text">Account Details</p>
+                  
+                  <p 
+                    class="title accent--text"
+                  >
+                    Account Details
+                  </p>
                   <v-layout 
                     row 
                     wrap
                   >
-                    <v-flex xs12>
+                    <v-flex 
+                      xs6
+                      px-1>
                       <v-text-field
                         v-model="props.item.username"
                         label="Username"
@@ -290,7 +297,9 @@
                         readonly
                       />
                     </v-flex>
-                    <v-flex xs12>
+                    <v-flex 
+                      xs6
+                      px-1>
                       <v-text-field
                         :value="props.item.company_name"
                         label="Company Name"
@@ -299,7 +308,9 @@
                         prepend-icon="domain"
                       />
                     </v-flex>
-                    <v-flex xs12>
+                    <v-flex 
+                      xs6
+                      px-1>
                       <v-text-field
                         v-model="props.item.email"
                         label="Email"
@@ -308,7 +319,9 @@
                         readonly
                       />
                     </v-flex>
-                    <v-flex xs12>
+                    <v-flex 
+                      xs6
+                      px-1>
                       <v-text-field
                         v-model="props.item.phone"
                         label="Phone"
@@ -317,16 +330,6 @@
                         prepend-icon="phone"
                       />
                     </v-flex>
-                  </v-layout>
-                  <p 
-                    class="title accent--text"
-                  >
-                    Profile Details
-                  </p>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
                     <v-flex 
                       xs6
                       px-1
@@ -424,29 +427,23 @@
                       />
                     </v-flex>
                   </v-layout>
-                  <p 
-                    v-if="props.item.roles" 
-                    class="title accent--text"
-                  >
-                    Account Type
-                  </p>
                   <v-layout 
                     row 
                     wrap
                   >
-                    <v-flex xs12>
+                    <v-flex 
+                      xs6 
+                      px-1>
                       <v-autocomplete
                         :items="roles"
-                        :disabled="props.item.id === 1"
                         v-model="props.item.roles"
-                        color="blue-grey"
+                        readonly
+                        label="Account Type"
+                        color="primary"
                         light
                         chips
                         tags
-                        clearable
-                        deletable-chips
                         prepend-icon="fa-tags"
-                        @input="changeRoles(props.item)"
                       >
                         <template 
                           slot="selection" 
@@ -455,8 +452,6 @@
                           <v-chip
                             :selected="data.selected"
                             light
-                            close
-                            @input="removeRole(data.item,props.item.roles)"
                           >
                             <v-avatar
                               class="blue-grey white--text"
@@ -467,6 +462,27 @@
                           </v-chip>
                         </template>
                       </v-autocomplete>
+                    </v-flex>
+                    <v-flex 
+                      xs6
+                      px-1
+                    >
+                      <v-switch
+                        v-model="props.item.active"
+                        :label="getStatus(props.item.active)"
+                        readonly
+                      />
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-textarea
+                        v-model="props.item.notes"
+                        color="primary"
+                        readonly
+                      >
+                        <div slot="label">
+                          <span class="title">Notes: </span>
+                        </div>
+                      </v-textarea>
                     </v-flex>
                   </v-layout>
 
@@ -502,10 +518,11 @@
 import MainLayout from "Layouts/Main.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
+import swal from "sweetalert2";
 
 export default {
   components: {
-    MainLayout,
+    MainLayout
   },
   mixins: [validationError],
   data: () => ({
@@ -528,7 +545,8 @@ export default {
     },
     usersForm: new Form({}),
     toggleForm: new Form({
-      toggle: false
+      toggle: false,
+      user_id: null
     }),
     search: "",
     roles: [],
@@ -536,8 +554,8 @@ export default {
     rolesForm: new Form({
       roles: []
     }),
-    permissionsForm: new Form({
-      permissions: []
+    deleteUserForm: new Form({
+      user_id: null
     }),
     domain: window.location.hostname
   }),
@@ -555,11 +573,44 @@ export default {
     self.fetchUsers();
   },
   methods: {
-    createUser(){
-        vm.$router.push({ name: "create-user" });
+    createUser() {
+      vm.$router.push({ name: "create-user" });
     },
-    toggleStatus(user){
-        console.log('status', user)
+    toggleStatus(user) {
+      let self = this;
+      self.toggleForm.toggle = user.active;
+      self.toggleForm.user_id = user.id;
+      if(user.id === 1){
+          let toggleModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Oops! Forbidden Action!",
+            html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+          user.active = true
+          return
+      }
+      axios
+        .post(route("api.user.toggleStatus"), self.toggleForm)
+        .then(response => {
+          console.log(response.data);
+        }).catch( errors => {
+            let toggleModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+
+        });
     },
     getStatus(status) {
       if (status) {
@@ -607,8 +658,27 @@ export default {
       // you cant delete an admin account
       // but we can only downgrade it to other role
       // except if your email is = admin@
+      self.deleteUserForm.user_id = user.id;
       let index = _.findIndex(self.items, { id: user.id });
-      self.$delete(self.items, index);
+      axios
+        .post(route("api.user.delete"), self.deleteUserForm)
+        .then(response => {
+          if (response.data.status === true) {
+            self.$delete(self.items, index);
+          }
+        })
+        .catch(errors => {
+          const deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        });
     },
     toProperCase(key) {
       let newStr = key.replace(/_/g, " ");
@@ -646,9 +716,9 @@ export default {
     },
     async massDeactivate() {
       let self = this;
-      let selected = _.map(self.selected, 'id') 
+      let selected = _.map(self.selected, "id");
       let toggleStatusForm = new Form({
-        selected,
+        selected
       });
 
       try {
@@ -656,7 +726,12 @@ export default {
           route("api.user.massDeactivate"),
           toggleStatusForm
         );
-        console.log(payload.data);
+        let updated = payload.data.updated
+        console.log(updated)
+        _.map(updated,(id) => {
+            let index = _.findIndex(self.items, { id });
+       self.items[index].active = false
+        })
       } catch ({ errors, message }) {
         if (errors) {
           console.log(errors);
@@ -668,9 +743,9 @@ export default {
     },
     async massActivate() {
       let self = this;
-      let selected = _.map(self.selected, 'id') 
+      let selected = _.map(self.selected, "id");
       let toggleStatusForm = new Form({
-        selected,
+        selected
       });
 
       try {
@@ -678,7 +753,12 @@ export default {
           route("api.user.massActivate"),
           toggleStatusForm
         );
-        console.log(payload.data);
+        let updated = payload.data.updated
+        console.log(updated)
+        _.map(updated,(id) => {
+        let index = _.findIndex(self.items, { id });
+       self.items[index].active = true
+        })
       } catch ({ errors, message }) {
         if (errors) {
           console.log(errors);
