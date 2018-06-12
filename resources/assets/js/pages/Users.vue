@@ -185,7 +185,7 @@
               <v-switch
                 v-model="props.item.active"
                 :label="getStatus(props.item.active)"
-                @input="toggleStatus(props.item)"
+                @change="toggleStatus(props.item)"
               />
             </td>
             
@@ -580,26 +580,27 @@ export default {
       let self = this;
       self.toggleForm.toggle = user.active;
       self.toggleForm.user_id = user.id;
-      if(user.id === 1){
-          let toggleModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Oops! Forbidden Action!",
-            html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-          user.active = true
-          return
+      if (user.id === 1) {
+        let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Oops! Forbidden Action!",
+          html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
+          type: "warning",
+          confirmButtonText: "Back"
+        });
+        user.active = true;
+        return;
       }
       axios
         .post(route("api.user.toggleStatus"), self.toggleForm)
         .then(response => {
           console.log(response.data);
-        }).catch( errors => {
-            let toggleModal = swal.mixin({
+        })
+        .catch(errors => {
+          let toggleModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -609,7 +610,6 @@ export default {
             type: "warning",
             confirmButtonText: "Back"
           });
-
         });
     },
     getStatus(status) {
@@ -654,10 +654,6 @@ export default {
     },
     deleteUser(user) {
       let self = this;
-      /* delete item */
-      // you cant delete an admin account
-      // but we can only downgrade it to other role
-      // except if your email is = admin@
       self.deleteUserForm.user_id = user.id;
       let index = _.findIndex(self.items, { id: user.id });
       axios
@@ -665,6 +661,16 @@ export default {
         .then(response => {
           if (response.data.status === true) {
             self.$delete(self.items, index);
+            let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Success",
+          html: `<p class="title">User Deleted!</p>`,
+          type: "success",
+          confirmButtonText: "Back"
+        });
           }
         })
         .catch(errors => {
@@ -726,12 +732,22 @@ export default {
           route("api.user.massDeactivate"),
           toggleStatusForm
         );
-        let updated = payload.data.updated
-        console.log(updated)
-        _.map(updated,(id) => {
-            let index = _.findIndex(self.items, { id });
-       self.items[index].active = false
-        })
+        let updated = payload.data.updated;
+        console.log(updated);
+        _.map(updated, id => {
+          let index = _.findIndex(self.items, { id });
+          self.items[index].active = false;
+        });
+        let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Success",
+          html: `<p class="title">${payload.data.message}</p>`,
+          type: "success",
+          confirmButtonText: "Back"
+        });
       } catch ({ errors, message }) {
         if (errors) {
           console.log(errors);
@@ -753,12 +769,22 @@ export default {
           route("api.user.massActivate"),
           toggleStatusForm
         );
-        let updated = payload.data.updated
-        console.log(updated)
-        _.map(updated,(id) => {
-        let index = _.findIndex(self.items, { id });
-       self.items[index].active = true
-        })
+        let updated = payload.data.updated;
+        console.log(updated);
+        _.map(updated, id => {
+          let index = _.findIndex(self.items, { id });
+          self.items[index].active = true;
+        });
+        let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Success",
+          html: `<p class="title">${payload.data.message}</p>`,
+          type: "success",
+          confirmButtonText: "Back"
+        });
       } catch ({ errors, message }) {
         if (errors) {
           console.log(errors);
