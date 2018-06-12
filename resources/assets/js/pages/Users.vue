@@ -1,22 +1,109 @@
 <template>
   <main-layout>
     <v-container fluid>
-      <!-- User Main Detail -->
-      <v-card 
-        light 
-        flat
-      >
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            append-icon="search"
-            label="Search Users"
-            single-line
-            hide-details
-            light
-          />
-        </v-card-title>
-      </v-card>
+      <!-- Search and Action Buttons -->
+      <v-layout 
+        row 
+        wrap>
+        <v-flex 
+          d-flex 
+          xs12 
+          sm7>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex d-flex>
+              <v-card 
+                light 
+                flat
+              >
+                <v-card-title>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="search"
+                    label="Search Users"
+                    single-line
+                    hide-details
+                    light
+                  />
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+        <v-flex 
+          d-flex 
+          xs12 
+          sm5 
+          child-flex>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex 
+              xs12 
+              class="white"
+              d-flex>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                block 
+                color="primary" 
+                dark
+                flat
+                @click="createUser">
+                Create New Account
+                <v-icon
+                  right
+                  color="primary" 
+                >
+                  fa-user-plus
+                </v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex 
+              xs12 
+              d-flex>
+              <v-flex class="xs6 white">
+                <v-btn 
+                  v-if="selected.length > 0"
+                  :disabled="!$auth.check('admin')" 
+                  block 
+                  color="blue darken-4" 
+                  dark
+                  flat
+                  @click="massActivate">
+                  <v-icon
+                    large
+                    color="blue darken-4" 
+                  >
+                    link
+                  </v-icon>
+                  Activate Selected
+                </v-btn>
+              </v-flex>
+              <v-flex class="xs6 white">
+                <v-btn 
+                  v-if="selected.length > 0"
+                  :disabled="!$auth.check('admin')" 
+                  block 
+                  flat
+                  color="error" 
+                  dark
+                  @click="massDeactivate">
+                  <v-icon
+                    large
+                    color="error" 
+                  >
+                    link_off
+                  </v-icon>
+                  Deactivate Selected
+                </v-btn>
+              </v-flex>
+            </v-flex>
+          </v-layout>
+          
+        </v-flex>
+      </v-layout>
+      <!-- User Data Table -->
       <v-data-table
         v-model="selected"
         :headers="headers"
@@ -24,10 +111,10 @@
         :search="search"
         :pagination.sync="pagination"
         select-all
-        light
         item-key="id"
         expand
       >
+        <!-- Header Section -->
         <template
           slot="headers" 
           slot-scope="props"
@@ -53,25 +140,14 @@
                        $vuetify.breakpoint.width >= 600 && 'title']"
               @click="changeSort(header.value)"
             >
-              <span 
-                v-if="header.text === 'Actions' && selected.length >0"
-              >
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  color="error" 
-                  @click="deleteSelected()"
-                >
-                  Delete Selected
-                </v-btn>
-              </span>
-              <span v-else>
+              <span>
                 <v-icon>arrow_upward</v-icon>
                 {{ header.text }}
               </span>
             </th>
           </tr>
         </template>
+        <!-- Row Section -->
         <template 
           slot="items" 
           slot-scope="props"
@@ -155,14 +231,14 @@
             </td>
           </tr>
         </template>
-
+        <!-- Pagination Section -->
         <template 
           slot="pageText"
           slot-scope="{ pageStart, pageStop }"
         >
           From {{ pageStart }} to {{ pageStop }}
         </template>
-
+        <!-- Expand Section -->
         <template 
           slot="expand" 
           slot-scope="props"
@@ -400,6 +476,7 @@
             </v-card>
           </v-container>
         </template>
+        <!-- No Data Section -->
         <template slot="no-data">
           <v-alert 
             :value="true" 
@@ -408,6 +485,7 @@
             Opps!!! Nothing To Display! :(
           </v-alert>
         </template>
+        <!-- No Search Result Section -->
         <v-alert 
           slot="no-results" 
           :value="true" 
@@ -427,7 +505,7 @@ import { Form } from "vform";
 
 export default {
   components: {
-    MainLayout
+    MainLayout,
   },
   mixins: [validationError],
   data: () => ({
@@ -477,8 +555,11 @@ export default {
     self.fetchUsers();
   },
   methods: {
-    toggleStatus(user) {
-        console.log('status',user)
+    createUser(){
+        vm.$router.push({ name: "create-user" });
+    },
+    toggleStatus(user){
+        console.log('status', user)
     },
     getStatus(status) {
       if (status) {
@@ -563,6 +644,50 @@ export default {
       this.items = [];
       this.selected = [];
     },
+    async massDeactivate() {
+      let self = this;
+      let selected = _.map(self.selected, 'id') 
+      let toggleStatusForm = new Form({
+        selected,
+      });
+
+      try {
+        const payload = await axios.post(
+          route("api.user.massDeactivate"),
+          toggleStatusForm
+        );
+        console.log(payload.data);
+      } catch ({ errors, message }) {
+        if (errors) {
+          console.log(errors);
+        }
+        if (message) {
+          console.log(message);
+        }
+      }
+    },
+    async massActivate() {
+      let self = this;
+      let selected = _.map(self.selected, 'id') 
+      let toggleStatusForm = new Form({
+        selected,
+      });
+
+      try {
+        const payload = await axios.post(
+          route("api.user.massActivate"),
+          toggleStatusForm
+        );
+        console.log(payload.data);
+      } catch ({ errors, message }) {
+        if (errors) {
+          console.log(errors);
+        }
+        if (message) {
+          console.log(message);
+        }
+      }
+    },
     deleteSelected() {
       let self = this;
       let newItems = _.difference(self.items, self.selected);
@@ -585,3 +710,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.noHover {
+  pointer-events: none;
+}
+</style>

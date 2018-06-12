@@ -97,6 +97,17 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @param $query
+     * @param $type
+     * @return mixed
+     * $users = App\Models\User::ofType('admin')->get();
+     */
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    /**
      * @param  $id
      * @param  $pathToImage
      * @return mixed
