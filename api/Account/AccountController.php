@@ -6,6 +6,7 @@ use Api\Controller;
 use App\Models\User;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Rules\MustMatchPassword;
 use App\Http\Resources\User\AccountResource;
 
@@ -26,7 +27,7 @@ class AccountController extends Controller
         $data = request()->validate([
             'username'              => [
                 'required',
-                'exists:users'
+                Rule::unique('users')->ignore($user->id)
             ],
             'old_password'          => [
                 'sometimes',
@@ -37,6 +38,7 @@ class AccountController extends Controller
             'password_confirmation' => 'required_with:password'
         ]);
         // fill will only assign those in the fillable fields of user
+        $user->username = $request->username;
         $user->password = $request->password;
         $save           = $user->save();
 
@@ -50,60 +52,32 @@ class AccountController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        $user = $request->user_id ? \User::find($request->user_id) : $request->user();
+        $user = $request->user();
         $data = request()->validate([
-            'first_name'     => [
-                'sometimes',
+            'company_name' => 'required',
+            'email'        => [
                 'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
+                Rule::unique('profiles')->ignore($user->id, 'user_id')
             ],
-            'last_name'      => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'contact_no'     => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'address_1'      => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'address_2'      => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'city'           => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'country'        => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ],
-            'zip_code'       => [
-                'sometimes',
+            'first_name'   => 'required',
+            'last_name'    => 'required',
+            'phone'        => 'required',
+            'address_1'    => 'required',
+            'address_2'    => 'required',
+            'city'         => 'required',
+            'state'        => 'required',
+            'zip'          => [
                 'required',
                 new ValidateZip
             ],
-            'state_province' => [
-                'sometimes',
-                'required',
-                'regex:/(^[A-Za-z0-9 ]+$)+/'
-            ]
+            'country' => 'sometimes|required',
+            'notes'        => 'nullable|max:255',
         ]);
         $profile = $user->profile;
         $updated = $profile->update($data);
 
         if ($updated) {
-            return (new AccountResource($user->load('profile')))
-                ->additional(['message' => 'Profile Updated!']);
+            return new AccountResource($user->load('profile'));
         }
     }
 }

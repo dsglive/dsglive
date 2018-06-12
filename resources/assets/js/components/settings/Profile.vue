@@ -168,8 +168,10 @@
         offset-md2
       >
         <v-btn 
+          :loading="form.busy" 
+          :disabled="errors.any() || form.busy || form.errors.any()" 
           block 
-          color="accent" 
+          color="accent"
           dark
           @click="updateProfile()"
         >
@@ -183,6 +185,7 @@
 <script>
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
+import swal from "sweetalert2";
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters, mapMutations } = createNamespacedHelpers("auth");
 
@@ -229,22 +232,54 @@ export default {
     ...mapMutations({
       setMe: "setMe"
     }),
-    resetform() {
+    submit() {
       let self = this;
-      self.form = new Form({
-        company_name: null,
-        first_name: null,
-        last_name: null,
-        email: null,
-        phone: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        notes: null
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          // eslint-disable-next-line
+          self.updateProfile();
+        } else {
+          const validationModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          validationModal({
+            title: `Validation Error`,
+            html: `<p class="title">Please Fix Form Errors</p>`,
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        }
       });
+    },
+    async updateProfile() {
+      let self = this;
+      try {
+        const payload = await axios.post(
+          route("api.user.updateProfile"),
+          self.form
+        );
+        self.$validator.reset();
+        const successModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        successModal({
+          title: "Success!",
+          html: `<p class="title">Profile Updated!</p>`,
+          type: "success",
+          confirmButtonText: "Ok"
+        });
+        vm.$auth.user(payload.data.data);
+        self.setMe(vm.$auth.user());
+      } catch ({ errors, message }) {
+        if (errors) {
+          console.log("updateProfile:errors", errors);
+        }
+        if (message) {
+          console.log("updateProfile:error-message", message);
+        }
+      }
     }
   }
 };

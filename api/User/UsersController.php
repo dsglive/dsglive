@@ -209,6 +209,7 @@ class UsersController extends Controller
                 'required',
                 Rule::unique('users')->ignore($user->id)
             ],
+            'active'                => 'required|boolean',
             'password'              => 'nullable|min:6|confirmed',
             'password_confirmation' => 'required_with:password',
             'company_name'          => 'required',
@@ -227,19 +228,21 @@ class UsersController extends Controller
                 'required',
                 new ValidateZip
             ],
+            'country' => 'sometimes|required',
             'notes'                 => 'nullable|max:255',
             'roles'                 => [
-                'sometimes',
                 'required',
                 'exists:roles,name'
             ]
         ]);
+
         // Only Update Password If password is filled with confirmation
         if ($request->password && $request->password_confirmation) {
             $user->password = $request->password;
         }
 
         $user->username = $request->username;
+
         // avoid deactivating superadmin
         if (1 === $user->id) {
             $user->active = true;
@@ -266,7 +269,7 @@ class UsersController extends Controller
             }
         }
 
-// Avoid Deleting Super Admin as Admin!
+        // Avoid Deleting Super Admin as Admin!
         if (1 === $user->id) {
             if (!in_array('admin', $syncRoles, true)) {
                 array_push($syncRoles, 'admin');
@@ -286,7 +289,7 @@ class UsersController extends Controller
     {
         $ids = request()->input('selected');
 
-// remove the superadmin on being toggle
+        // remove the superadmin on being toggle
         if (($key = array_search('1', $ids)) !== false) {
             unset($ids[$key]);
         }
