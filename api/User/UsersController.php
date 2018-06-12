@@ -36,7 +36,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return UserResource::collection(User::with(['profile'])->get()); // remove pagination
+        return UserResource::collection(User::with(['profile','media','roles'])->get()); // remove pagination
     }
 
     /**
