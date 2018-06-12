@@ -1,7 +1,8 @@
 <template>
   <v-list 
     v-if="$auth.check('admin')" 
-    class="blue-grey white--text"
+    class="blue-grey"
+    dark
   >
     <v-list-group
       v-for="item in items"
@@ -70,5 +71,7 @@ export default {
 </script>
 
 <style>
-
+.v-list__group__header__append-icon{
+    color: #ffffff !important;
+}
 </style>
