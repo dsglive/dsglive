@@ -711,34 +711,6 @@ export default {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     },
-    async changeRoles(item) {
-      let self = this;
-      self.rolesForm.roles = item.roles;
-      try {
-        self.rolesForm.busy = true;
-        const payload = await App.post(
-          route("api.user.roles.sync", { id: item.id }),
-          self.rolesForm
-        );
-        item.permissions = payload.data.permissions;
-        self.rolesForm.busy = false;
-        self.rolesForm = new Form({
-          roles: []
-        });
-      } catch ({ message }) {
-        if (message) {
-        }
-        self.rolesForm.busy = false;
-      }
-    },
-    removeRole(role, roles) {
-      roles.splice(roles.indexOf(role), 1);
-      roles = [...roles];
-    },
-    deleteAll() {
-      this.items = [];
-      this.selected = [];
-    },
     async massDeactivate() {
       let self = this;
       let selected = _.map(self.selected, "id");
@@ -836,8 +808,3 @@ export default {
 };
 </script>
 
-<style>
-.noHover {
-  pointer-events: none;
-}
-</style>
