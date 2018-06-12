@@ -32,18 +32,84 @@
       <v-subheader class="white--text">Members Area</v-subheader>
       <!-- Admin Only Accessible -->
       <v-link 
-        v-if="isAuthenticated" 
-        title="User Management" 
+        v-if="$auth.check('admin')"
+        title="Users" 
         href="/users" 
-        icon="supervisor_account"
+        icon="supervised_user_circle"
         link-color="white"
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
-      <!-- Normal User Links -->
       <v-link 
-        v-if="isAuthenticated" 
-        title="Dashboard" 
+        v-if="$auth.check('admin')"
+        title="Receiving" 
+        href="/receiving" 
+        icon="receipt"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Shippers" 
+        href="/shippers" 
+        icon="local_shipping"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Invoicing" 
+        href="/invoicing" 
+        icon="fa-money"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Logistics" 
+        href="/logistics" 
+        icon="fa-sitemap"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <inventory-links/>
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Rates" 
+        href="/rates" 
+        icon="attach_money"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <!-- Warehouse Type Account -->
+      <v-link 
+        v-if="$auth.check(['admin', 'warehouse'])"
+        title="Warehouse"
+        href="/warehouse"
+        icon="location_city"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <!-- Customer Account Type -->
+      <v-link 
+        v-if="$auth.check(['admin', 'warehouse'])"
+        title="Clients"
+        href="/clients"
+        icon="business_center"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <!-- All User Types -->
+      <v-link 
+        v-if="isAuthenticated"
+        title="Dashboard"
         href="/dashboard" 
         icon="fa-tachometer"
         link-color="white"
@@ -51,7 +117,7 @@
         icon-color="#fafafa"
       />
       <v-link 
-        v-if="isAuthenticated" 
+        v-if="isAuthenticated"
         title="Settings" 
         href="/settings" 
         icon="fa-cogs"
@@ -95,10 +161,12 @@
 import VLink from "../components/VLink.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("auth");
+import InventoryLinks from "../components/InventoryLinks"
 
 export default {
   components: {
-    VLink
+    VLink,
+    InventoryLinks
   },
   data: () => ({
     drawer: false
