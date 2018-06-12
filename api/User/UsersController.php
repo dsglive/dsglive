@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\UsernameNotFound;
 use App\Exceptions\UserTokenNotFound;
@@ -95,15 +96,31 @@ class UsersController extends Controller
         DB::commit();
     }
 
+    /**
+     * @param Request $request
+     */
     public function delete(Request $request)
     {
         if (1 === $request->user_id) {
             return response()->json(['message' => 'You Cannot Delete Super Admin!'], 400);
         }
 
-        $user = User::find($request->user_id);
+        $user    = User::find($request->user_id);
         $deleted = $user->delete();
         return response()->json(['status' => $deleted], 200);
+    }
+
+    /**
+     * @param  Request $request
+     * @return mixed
+     */
+    public function edit(User $user)
+    {
+        if (!$user) {
+            return response()->json(['message' => 'Cant Find User With ID of '.$request->id]);
+        }
+
+        return new AccountResource($user->load('profile'));
     }
 
     /**
@@ -176,6 +193,90 @@ class UsersController extends Controller
         $user->active = $request->toggle;
         $user->save();
         return response()->json(['status' => $user->active], 200);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function update(User $user, Request $request)
+    {
+        if (!$user) {
+            return response()->json(['message' => 'Cant Find User With ID of '.$request->id]);
+        }
+
+        $data = $request->validate([
+            'username'              => [
+                'required',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'password'              => 'nullable|min:6|confirmed',
+            'password_confirmation' => 'required_with:password',
+            'company_name'          => 'required',
+            'email'                 => [
+                'required',
+                Rule::unique('profiles')->ignore($user->id, 'user_id')
+            ],
+            'first_name'            => 'required',
+            'last_name'             => 'required',
+            'phone'                 => 'required',
+            'address_1'             => 'required',
+            'address_2'             => 'required',
+            'city'                  => 'required',
+            'state'                 => 'required',
+            'zip'                   => [
+                'required',
+                new ValidateZip
+            ],
+            'notes'                 => 'nullable|max:255',
+            'roles'                 => [
+                'sometimes',
+                'required',
+                'exists:roles,name'
+            ]
+        ]);
+        // Only Update Password If password is filled with confirmation
+        if ($request->password && $request->password_confirmation) {
+            $user->password = $request->password;
+        }
+
+        $user->username = $request->username;
+        // avoid deactivating superadmin
+        if (1 === $user->id) {
+            $user->active = true;
+        } else {
+            // Update Other User Status
+            $user->active = $request->active;
+        }
+
+        // Update  User
+        $user->save();
+
+        $profile = $user->profile;
+        // Update Profile
+        $updated = $profile->update($data);
+
+        $registeredRoles = Role::all()->pluck('name');
+        $roles           = request('roles');
+        $syncRoles       = [];
+
+        foreach ($roles as $key => $value) {
+            if ($registeredRoles->contains($value)) {
+                /* Push to New Array! */
+                array_push($syncRoles, $value);
+            }
+        }
+
+// Avoid Deleting Super Admin as Admin!
+        if (1 === $user->id) {
+            if (!in_array('admin', $syncRoles, true)) {
+                array_push($syncRoles, 'admin');
+            }
+        }
+
+        // Update Roles
+        $user->syncRoles($syncRoles);
+
+        return response()->json(['message' => 'User Account Updated!']);
     }
 
     /**

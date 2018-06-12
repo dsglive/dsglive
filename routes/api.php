@@ -9,6 +9,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/users/create', 'User\UsersController@create')->name('api.user.create');
     Route::post('/users/toggleStatus', 'User\UsersController@toggleStatus')->name('api.user.toggleStatus');
     Route::post('/users/delete', 'User\UsersController@delete')->name('api.user.delete');
+    Route::get('/users/{user}/edit', 'User\UsersController@edit')->name('api.user.edit');
+    Route::post('/users/{user}/update', 'User\UsersController@update')->name('api.user.update');
+
+
 
 
 

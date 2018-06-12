@@ -228,7 +228,7 @@
                   flat 
                   icon 
                   color="blue" 
-                  @click="deleteUser(props.item)"
+                  @click="editUser(props.item)"
                 >
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
@@ -589,6 +589,9 @@ export default {
     self.fetchUsers();
   },
   methods: {
+    editUser(user){
+        vm.$router.push({name: "edit-user", params: { id: `${user.id}` }});
+    },
     createUser() {
       vm.$router.push({ name: "create-user" });
     },

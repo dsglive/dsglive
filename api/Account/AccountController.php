@@ -6,7 +6,6 @@ use Api\Controller;
 use App\Models\User;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Rules\MustMatchPassword;
 use App\Http\Resources\User\AccountResource;
 
@@ -105,28 +104,6 @@ class AccountController extends Controller
         if ($updated) {
             return (new AccountResource($user->load('profile')))
                 ->additional(['message' => 'Profile Updated!']);
-        }
-    }
-
-    /**
-     * @param Request $request
-     */
-    public function updateReferralLink(Request $request)
-    {
-        $user = $request->user_id ? User::find($request->user_id) : $request->user();
-        $link = $user->referralLink;
-        $data = request()->validate([
-            'link' => [
-                'regex:/^[a-zA-Z0-9 +@#]+$/',
-                Rule::unique('links')->ignore($link->id)
-            ]
-        ]);
-
-        $updated = $link->update($data);
-
-        if ($updated) {
-            return (new AccountResource($user->load('profile')))
-                ->additional(['message' => 'Referral Link Updated!']);
         }
     }
 }
