@@ -27,7 +27,8 @@ import {
   VBreadcrumbs,
   VParallax,
   VAutocomplete,
-  VTextarea
+  VTextarea,
+  VSwitch
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -56,7 +57,8 @@ Vue.use(Vuetify, {
     VBreadcrumbs,
     VParallax,
     VAutocomplete,
-    VTextarea
+    VTextarea,
+    VSwitch
   },
   //! Define Your Theme Here
   theme: {

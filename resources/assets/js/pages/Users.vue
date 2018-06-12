@@ -95,13 +95,22 @@
               {{ props.item.email }}
             </td>
             <td class="title text-xs-left accent--text">
-              <v-avatar>
-                <img 
-                  :src="props.item.avatar" 
-                  :alt="props.item.username"
-                >
-              </v-avatar>
-              {{ props.item.username }}
+              <v-chip>
+                <v-avatar>
+                  <img 
+                    :src="props.item.avatar" 
+                    :alt="props.item.username"
+                  >
+                </v-avatar>
+                {{ props.item.username }}
+              </v-chip>
+            </td>
+            <td class="title text-xs-left accent--text">
+              <v-switch
+                v-model="props.item.active"
+                :label="getStatus(props.item.active)"
+                @input="toggleStatus(props.item)"
+              />
             </td>
             
             <td class="title text-xs-left accent--text">
@@ -207,8 +216,8 @@
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field
-                        label="Company Name"
                         :value="props.item.company_name"
+                        label="Company Name"
                         light
                         readonly
                         prepend-icon="domain"
@@ -225,8 +234,8 @@
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field
-                        label="Phone"
                         v-model="props.item.phone"
+                        label="Phone"
                         light
                         readonly
                         prepend-icon="phone"
@@ -247,8 +256,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="First Name"
                         :value="props.item.first_name"
+                        label="First Name"
                         light
                         readonly
                         prepend-icon="person"
@@ -259,8 +268,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="Last Name"
                         :value="props.item.last_name"
+                        label="Last Name"
                         light
                         readonly
                         prepend-icon="people"
@@ -271,8 +280,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="Address 1"
                         :value="props.item.address_1"
+                        label="Address 1"
                         light
                         readonly
                         prepend-icon="looks_one"
@@ -283,8 +292,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="Address 2"
                         :value="props.item.address_2"
+                        label="Address 2"
                         light
                         readonly
                         prepend-icon="looks_two"
@@ -295,8 +304,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="City"
                         :value="props.item.city"
+                        label="City"
                         light
                         readonly
                         prepend-icon="location_city"
@@ -307,8 +316,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="State"
                         :value="props.item.state"
+                        label="State"
                         light
                         readonly
                         prepend-icon="map"
@@ -319,8 +328,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="Zip"
                         :value="props.item.zip"
+                        label="Zip"
                         light
                         readonly
                         prepend-icon="markunread_mailbox"
@@ -331,8 +340,8 @@
                       px-1
                     >
                       <v-text-field
-                        label="Country"
                         :value="props.item.country"
+                        label="Country"
                         light
                         readonly
                         prepend-icon="flag"
@@ -399,8 +408,12 @@
             Opps!!! Nothing To Display! :(
           </v-alert>
         </template>
-        <v-alert slot="no-results" :value="true" color="blue-grey" icon="warning">
-        Your search for "{{ search }}" found no results.
+        <v-alert 
+          slot="no-results" 
+          :value="true" 
+          color="blue-grey" 
+          icon="warning">
+          Your search for "{{ search }}" found no results.
         </v-alert>
       </v-data-table>
     </v-container>
@@ -426,25 +439,11 @@ export default {
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Email", value: "email", align: "left", sortable: true },
       { text: "Username", value: "username", align: "left", sortable: true },
+      { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Roles", value: "roles", align: "left", sortable: false },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
-    meta:{
-        current_page: null,
-        from: null,
-        last_page: null,
-        path: null,
-        per_page:null,
-        to: null,
-        total: null,
-    },
-    links: {
-        first: null,
-        last:null,
-        next:null,
-        prev:null
-    },
     selected: [],
     pagination: {
       sortBy: "name"
@@ -478,7 +477,16 @@ export default {
     self.fetchUsers();
   },
   methods: {
-    
+    toggleStatus(user) {
+        console.log('status',user)
+    },
+    getStatus(status) {
+      if (status) {
+        return "Active";
+      } else {
+        return "Inactive";
+      }
+    },
     async fetchRoles() {
       let self = this;
       try {
@@ -502,8 +510,6 @@ export default {
           self.usersForm
         );
         self.items = payload.data.data;
-        self.links = payload.data.links;
-        self.meta = payload.data.meta;
         self.usersForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {
@@ -541,7 +547,7 @@ export default {
         item.permissions = payload.data.permissions;
         self.rolesForm.busy = false;
         self.rolesForm = new Form({
-            roles: []
+          roles: []
         });
       } catch ({ message }) {
         if (message) {
