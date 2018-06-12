@@ -209,25 +209,41 @@
               </v-chip>
             </td>
             <td class="title text-xs-center">
-              <v-btn 
-                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                light 
-                flat 
-                icon 
-                @click="props.expanded = !props.expanded"
-              >
-                <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                <v-icon v-if="props.expanded">fa-compress</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="error" 
-                @click="deleteUser(props.item)"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
+              <v-flex class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                  light 
+                  flat 
+                  icon 
+                  @click="props.expanded = !props.expanded"
+                >
+                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                  <v-icon v-if="props.expanded">fa-compress</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="blue" 
+                  @click="deleteUser(props.item)"
+                >
+                  <v-icon>fa-pencil</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="error" 
+                  @click="deleteUser(props.item)"
+                >
+                  <v-icon>fa-trash</v-icon>
+                </v-btn>
+              </v-flex>
             </td>
           </tr>
         </template>
