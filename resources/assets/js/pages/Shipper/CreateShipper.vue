@@ -11,10 +11,10 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Client Creation Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Shipper Creation Page</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no Client Account Login Yet Redirect to Authentication Page -->
+          <!-- If There is no Shipper Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
             :disabled="errors.any() || form.busy || form.errors.any()"
@@ -41,8 +41,8 @@
             v-model="form.name"
             :error-messages="errorMessages('name')"
             :class="{ 'error--text': hasErrors('name') }"
-            label="Client Name"
-            prepend-icon="fa-user"
+            label="Name"
+            prepend-icon="fa-ship"
             data-vv-name="name"
           />
         </v-flex>
@@ -234,7 +234,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.createClient();
+          self.createShipper();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -249,7 +249,7 @@ export default {
         }
       });
     },
-    createClient() {
+    createShipper() {
       let self = this;
       self.form.busy = true;
 
@@ -264,7 +264,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Client Has Been Created!</p>`,
+            html: `<p class="title">Shipper Has Been Created!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });

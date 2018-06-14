@@ -55,7 +55,13 @@
                   right
                   color="primary" 
                 >
-                  fa-user-plus
+                  fa-ship
+                </v-icon>
+                <v-icon
+                  right
+                  color="primary" 
+                >
+                  fa-plus-circle
                 </v-icon>
               </v-btn>
             </v-flex>

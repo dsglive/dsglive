@@ -11,10 +11,10 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Edit Client</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Edit Shipper</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no Client Account Login Yet Redirect to Authentication Page -->
+          <!-- If There is no Shipper Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
             :disabled="errors.any() || form.busy || form.errors.any()"
@@ -41,8 +41,8 @@
             v-model="form.name"
             :error-messages="errorMessages('name')"
             :class="{ 'error--text': hasErrors('name') }"
-            label="Client Name"
-            prepend-icon="fa-user"
+            label="Name"
+            prepend-icon="fa-ship"
             data-vv-name="name"
           />
         </v-flex>
@@ -228,7 +228,7 @@ export default {
   }),
   mounted() {
     let self = this;
-    self.fetchClient();
+    self.fetchShipper();
   },
   methods: {
     getStatus(status) {
@@ -243,7 +243,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.updateClient();
+          self.updateShipper();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -258,7 +258,7 @@ export default {
         }
       });
     },
-    updateClient() {
+    updateShipper() {
       let self = this;
       let id = self.id;
       self.form.busy = true;
@@ -274,7 +274,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Client Updated!</p>`,
+            html: `<p class="title">Shipper Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
@@ -282,7 +282,7 @@ export default {
         })
         .catch(errors => {});
     },
-    async fetchClient() {
+    async fetchShipper() {
       let id = this.id;
       let self = this;
       try {
@@ -302,10 +302,10 @@ export default {
         self.form.password_confirmation = ''
       } catch ({ errors, message }) {
         if (errors) {
-          console.log("fetchClient:errors", errors);
+          console.log("fetchShipper:errors", errors);
         }
         if (message) {
-          console.log("fetchClient:error-message", message);
+          console.log("fetchShipper:error-message", message);
         }
       }
     },

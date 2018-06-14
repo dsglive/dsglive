@@ -53,7 +53,7 @@
         v-if="$auth.check('admin')"
         title="Shippers" 
         href="/shippers" 
-        icon="local_shipping"
+        icon="fa-ship"
         link-color="white"
         active-color="#4db6ac"
         icon-color="#fafafa"
