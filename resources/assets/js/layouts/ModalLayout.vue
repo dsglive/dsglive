@@ -3,22 +3,18 @@
     v-cloak 
     standalone
   >
-    <main>
+    <v-content class="white">
       <v-container 
         transition="slide-x-transition" 
         fluid 
-        class="pa-0 ma-0 white"
+        class="pa-0 ma-0"
       >
-
         <v-card :flat="true">
           <slot name="toolbar"/>
-
           <slot/>
-
-          <slot name="footer"/>
         </v-card>
-
       </v-container>
-    </main>
+      <slot name="footer"/>
+    </v-content>
   </v-app>
 </template>

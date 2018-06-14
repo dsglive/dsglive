@@ -10,6 +10,7 @@
       fluid
       pa-0
       ma-0
+      class="white"
     >
       <slot/>
     </v-content>
