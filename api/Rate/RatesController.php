@@ -24,13 +24,14 @@ class RatesController extends Controller
         $data = request()->validate([
             'name'   => 'required',
             'amount' => [
+                'required',
                 'numeric',
                 new RateMustBeAFloat
             ],
             'type'   =>
             [
                 'required',
-                Rule::in([' handling ', ' storage '])
+                Rule::in(['handling', 'storage'])
             ],
             'active' => 'boolean'
         ]);

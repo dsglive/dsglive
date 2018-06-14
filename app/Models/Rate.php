@@ -22,14 +22,21 @@ class Rate extends Model
      */
     protected $dates = ['deleted_at'];
 
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'amount', 'type', 'active'
+    ];
+
     public static function archived()
     {
         return self::onlyTrashed()->get();
     }
 
     /**
-     * @param $id
      * useful for finding rate that has been archived!
+     * @param $id
      */
     public static function findRate($id)
     {

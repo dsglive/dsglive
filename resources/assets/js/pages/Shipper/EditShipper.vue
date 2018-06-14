@@ -17,7 +17,7 @@
           <!-- If There is no Shipper Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
-            :disabled="errors.any() || form.busy || form.errors.any()"
+            :disabled="errors.any() || form.busy"
             flat 
             color="white" 
             @click.native="submit()"
@@ -181,7 +181,7 @@
         >
           <v-btn 
             :loading="form.busy" 
-            :disabled="errors.any() || form.busy || form.errors.any()"
+            :disabled="errors.any() || form.busy"
             block
             color="accent"
             @click="submit()"

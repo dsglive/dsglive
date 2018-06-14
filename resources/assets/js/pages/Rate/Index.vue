@@ -177,6 +177,9 @@
               {{ props.item.amount }}
             </td>
             <td class="title text-xs-left accent--text">
+              {{ props.item.type }}
+            </td>
+            <td class="title text-xs-left accent--text">
               <v-switch
                 v-model="props.item.active"
                 :label="getStatus(props.item.active)"
@@ -270,6 +273,7 @@ export default {
       { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Amount", value: "amount", align: "left", sortable: true },
+      { text: "Type", value: "type", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
