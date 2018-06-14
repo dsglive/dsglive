@@ -8,7 +8,6 @@ window.axios = axios;
 
 axios.defaults.baseURL = `${window.location.protocol}//${ window.location.hostname }/api`;
 
-
 window.axios.interceptors.response.use(
   response => {
     return response;
