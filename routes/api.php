@@ -2,6 +2,17 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    // ? Shipper Management
+    Route::post('/shippers', 'Shipper\ShippersController@index')->name('api.shipper.index');
+    Route::post('/shippers/massActivate', 'Shipper\ShippersController@massActivate')->name('api.shipper.massActivate');
+    Route::post('/shippers/massDeactivate', 'Shipper\ShippersController@massDeactivate')
+        ->name('api.shipper.massDeactivate');
+    Route::post('/shippers/create', 'Shipper\ShippersController@create')->name('api.shipper.create');
+    Route::post('/shippers/toggleStatus', 'Shipper\ShippersController@toggleStatus')->name('api.shipper.toggleStatus');
+    Route::post('/shippers/delete', 'Shipper\ShippersController@delete')->name('api.shipper.delete');
+    Route::get('/shippers/{shipper}/edit', 'Shipper\ShippersController@edit')->name('api.shipper.edit');
+    Route::post('/shippers/{shipper}/update', 'Shipper\ShippersController@update')->name('api.shipper.update');
+
     // ? Clients Management Api
     Route::post('/clients', 'Client\ClientsController@index')->name('api.client.index');
     Route::post('/clients/massActivate', 'Client\ClientsController@massActivate')->name('api.client.massActivate');
