@@ -6,6 +6,7 @@ use Api\Controller;
 use App\Models\Client;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\User\ClientResource;
 
@@ -132,10 +133,13 @@ class ClientsController extends Controller
         if (!$client) {
             return response()->json(['message' => 'Cant Find Client With ID of '.$request->id]);
         }
-
+        $user = $request->user();
         $data = $request->validate([
             'name'      => 'required',
-            'email'     => 'required|email|unique:clients',
+            'email' => [
+                'required',
+                Rule::unique('clients')->ignore($user->id, 'user_id')
+            ],
             'phone'     => 'required',
             'address_1' => 'required',
             'address_2' => 'required',

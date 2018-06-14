@@ -11,10 +11,10 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">User Creation Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Client Creation Page</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no User Account Login Yet Redirect to Authentication Page -->
+          <!-- If There is no Client Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
             :disabled="errors.any() || form.busy || form.errors.any()"
@@ -32,105 +32,29 @@
         wrap
       >
         <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="'required|max:255|min:6|alpha_dash'"
-            v-model="form.username"
-            :error-messages="errorMessages('username')"
-            :class="{ 'error--text': hasErrors('username') }"
-            class="primary--text"
-            name="username"
-            label="Username"
-            data-vv-name="username"
-            counter="255"
-            prepend-icon="fa-user"
-          />
-        </v-flex>
-
-        <v-flex class="xs6 md4 offset-md2">
-          <v-autocomplete
-            v-validate="'required'"
-            :items="roles"
-            v-model="form.roles"
-            :error-messages="errorMessages('roles')"
-            :class="{ 'error--text': hasErrors('roles') }"
-            required
-            color="blue-grey"
-            label="Select Account Type"
-            light
-            chips
-            tags
-            clearable
-            deletable-chips
-            prepend-icon="fa-tags"
-            data-vv-name="roles"
-          />
-        </v-flex>
-        <v-flex class="xs6 md4">
-          <v-switch
-            v-model="form.active"
-            :label="getStatus(form.active)"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="'min:6|confirmed:confirmation'"
-            v-model="form.password"
-            :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
-            :type="!password_visible ? 'password' : 'text'"
-            :error-messages="errorMessages('password')"
-            :class="{ 'error--text': hasErrors('password') }"
-            class="primary--text"
-            name="password"
-            label="Password"
-            data-vv-name="password"
-            prepend-icon="fa-key"
-            counter="255"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            ref="confirmation"
-            v-model="form.password_confirmation"
-            :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
-            :type="!password_visible ? 'password' : 'text'"
-            :error-messages="errorMessages('password_confirmation')"
-            :class="{ 'error--text': hasErrors('password_confirmation') }"
-            class="primary--text"
-            name="password_confirmation"
-            label="Confirm Password"
-            prepend-icon="fa-copy"
-            counter="255"
-          />
-        </v-flex>
-        <v-flex 
           xs12
           md8 
           offset-md2
         >
           <v-text-field
             v-validate="{ required: true }"
-            v-model="form.company_name"
-            :error-messages="errorMessages('company_name')"
-            :class="{ 'error--text': hasErrors('company_name') }"
-            label="Company Name"
-            prepend-icon="domain"
-            data-vv-name="company_name"
+            v-model="form.name"
+            :error-messages="errorMessages('name')"
+            :class="{ 'error--text': hasErrors('name') }"
+            label="Client Name"
+            prepend-icon="fa-user"
+            data-vv-name="name"
           />
         </v-flex>
+        <v-flex 
+          class="md8 
+          offset-md2">
+          <v-switch
+            v-model="form.active"
+            :label="getStatus(form.active)"
+          />
+        </v-flex>
+        
         <v-flex 
           xs12 
           md8 
@@ -144,36 +68,6 @@
             label="Email"
             prepend-icon="mail"
             data-vv-name="email"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
-            v-model="form.first_name"
-            :error-messages="errorMessages('first_name')"
-            :class="{ 'error--text': hasErrors('first_name') }"
-            label="First Name"
-            prepend-icon="person"
-            data-vv-name="first_name"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
-            v-model="form.last_name"
-            :error-messages="errorMessages('last_name')"
-            :class="{ 'error--text': hasErrors('last_name') }"
-            label="Last Name"
-            prepend-icon="people"
-            data-vv-name="last_name"
           />
         </v-flex>
         <v-flex 
@@ -319,14 +213,8 @@ export default {
   data: () => ({
     /* Always Declare Your Form Object */
     form: new Form({
-      username: null,
       active: false,
-      roles: [],
-      password: null,
-      password_confirmation: null,
-      company_name: null,
-      first_name: null,
-      last_name: null,
+      name: null,
       email: null,
       phone: null,
       address_1: null,
@@ -337,18 +225,10 @@ export default {
       country: null,
       notes: null
     }),
-    roles: [],
-    password_visible: false
   }),
-  computed: {
-    icon() {
-      return this.password_visible ? "visibility" : "visibility_off";
-    }
-  },
   mounted() {
     let self = this;
-    self.fetchRoles();
-    self.fetchUser();
+    self.fetchClient();
   },
   methods: {
     getStatus(status) {
@@ -363,7 +243,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.updateUser();
+          self.updateClient();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -378,13 +258,13 @@ export default {
         }
       });
     },
-    updateUser() {
+    updateClient() {
       let self = this;
       let id = self.id;
       self.form.busy = true;
 
       self.form
-        .post(route("api.user.update", { id }), self.form)
+        .post(route("api.client.update", { id }), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -394,40 +274,21 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">User Updated!</p>`,
+            html: `<p class="title">Client Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "users" }));
+          self.$nextTick(() => self.$router.push({ name: "clients" }));
         })
         .catch(errors => {});
     },
-    async fetchRoles() {
-      let self = this;
-      try {
-        const payload = await axios.get(route("api.roles.index"));
-        self.roles = payload.data;
-      } catch ({ errors, message }) {
-        if (errors) {
-          console.log("fetchRoles:errors", errors);
-        }
-        if (message) {
-          console.log("fetchRoles:error-message", message);
-        }
-      }
-    },
-    async fetchUser() {
+    async fetchClient() {
       let id = this.id;
       let self = this;
       try {
-        const payload = await axios.get(route("api.user.edit", { id }));
-        self.user = payload.data.data;
-        self.form.username = payload.data.data.username;
+        const payload = await axios.get(route("api.client.edit", { id }));
+        self.form.name = payload.data.data.name;
         self.form.active = payload.data.data.active;
-        self.form.roles = payload.data.data.roles;
-        self.form.company_name = payload.data.data.company_name;
-        self.form.first_name = payload.data.data.first_name;
-        self.form.last_name = payload.data.data.last_name;
         self.form.email = payload.data.data.email;
         self.form.phone = payload.data.data.phone;
         self.form.address_1 = payload.data.data.address_1;
@@ -441,16 +302,16 @@ export default {
         self.form.password_confirmation = ''
       } catch ({ errors, message }) {
         if (errors) {
-          console.log("fetchRoles:errors", errors);
+          console.log("fetchClient:errors", errors);
         }
         if (message) {
-          console.log("fetchRoles:error-message", message);
+          console.log("fetchClient:error-message", message);
         }
       }
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "users" }));
+      self.$nextTick(() => self.$router.push({ name: "clients" }));
     }
   }
 };

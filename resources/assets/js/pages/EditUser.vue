@@ -441,10 +441,10 @@ export default {
         self.form.password_confirmation = ''
       } catch ({ errors, message }) {
         if (errors) {
-          console.log("fetchRoles:errors", errors);
+          console.log("fetchUsers:errors", errors);
         }
         if (message) {
-          console.log("fetchRoles:error-message", message);
+          console.log("fetchUsers:error-message", message);
         }
       }
     },

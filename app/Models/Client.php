@@ -18,7 +18,8 @@ class Client extends Model
         'state',
         'zip',
         'country',
-        'notes'
+        'notes',
+        'active'
     ];
 
     /**
