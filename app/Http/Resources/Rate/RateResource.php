@@ -17,7 +17,7 @@ class RateResource extends Resource
         return [
             'id' => $this->id,
             'name' => $this->name ?? 'Custom Rate',
-            'amount' => floatvat($this->amount),
+            'amount' => $this->amount,
             'type' => $this->type,
             'active' => $this->active,
         ];

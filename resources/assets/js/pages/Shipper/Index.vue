@@ -402,19 +402,18 @@
         <template slot="no-data">
           <v-alert 
             :value="true" 
-            color="error" 
+            color="blue-grey" 
             icon="warning">
             Opps! No Shipper Yet!, 
             <v-btn 
               :disabled="!$auth.check('admin')" 
-              color="primary" 
+              color="white" 
               flat
               dark
               @click="createShipper">
               Create New Shipper
               <v-icon
                 right
-                color="primary" 
               >
                 fa-user-plus
               </v-icon>
@@ -467,11 +466,6 @@ export default {
       shipper_id: null
     }),
     search: "",
-    roles: [],
-    permissions: [],
-    rolesForm: new Form({
-      roles: []
-    }),
     deleteShipperForm: new Form({
       shipper_id: null
     }),
@@ -498,20 +492,6 @@ export default {
       let self = this;
       self.toggleForm.toggle = shipper.active;
       self.toggleForm.shipper_id = shipper.id;
-      if (shipper.id === 1) {
-        let toggleModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Oops! Forbidden Action!",
-          html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-        shipper.active = true;
-        return;
-      }
       axios
         .post(route("api.shipper.toggleStatus"), self.toggleForm)
         .then(response => {

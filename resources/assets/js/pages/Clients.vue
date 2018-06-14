@@ -461,11 +461,6 @@ export default {
       client_id: null
     }),
     search: "",
-    roles: [],
-    permissions: [],
-    rolesForm: new Form({
-      roles: []
-    }),
     deleteClientForm: new Form({
       client_id: null
     }),
@@ -492,20 +487,6 @@ export default {
       let self = this;
       self.toggleForm.toggle = client.active;
       self.toggleForm.client_id = client.id;
-      if (client.id === 1) {
-        let toggleModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Oops! Forbidden Action!",
-          html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-        client.active = true;
-        return;
-      }
       axios
         .post(route("api.client.toggleStatus"), self.toggleForm)
         .then(response => {

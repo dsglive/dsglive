@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Shippers"
+                    label="Search Rates"
                     single-line
                     hide-details
                     light
@@ -49,13 +49,13 @@
                 color="primary" 
                 dark
                 flat
-                @click="createShipper">
-                Create New Shipper
+                @click="createRate">
+                Create New Rate
                 <v-icon
                   right
                   color="primary" 
                 >
-                  fa-ship
+                  attach_money
                 </v-icon>
                 <v-icon
                   right
@@ -109,7 +109,7 @@
           
         </v-flex>
       </v-layout>
-      <!-- Shipper Data Table -->
+      <!-- Rate Data Table -->
       <v-data-table
         v-model="selected"
         :headers="headers"
@@ -174,7 +174,7 @@
             </td>
 
             <td class="title text-xs-left accent--text">
-              {{ props.item.email }}
+              {{ props.item.amount }}
             </td>
             <td class="title text-xs-left accent--text">
               <v-switch
@@ -187,23 +187,10 @@
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
-                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                  light 
-                  flat 
-                  icon 
-                  @click="props.expanded = !props.expanded"
-                >
-                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                  <v-icon v-if="props.expanded">fa-compress</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
                   flat 
                   icon 
                   color="blue" 
-                  @click="editShipper(props.item)"
+                  @click="editRate(props.item)"
                 >
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
@@ -214,7 +201,7 @@
                   flat 
                   icon 
                   color="error" 
-                  @click="deleteShipper(props.item)"
+                  @click="deleteRate(props.item)"
                 >
                   <v-icon>fa-trash</v-icon>
                 </v-btn>
@@ -229,192 +216,22 @@
         >
           From {{ pageStart }} to {{ pageStop }}
         </template>
-        <!-- Expand Section -->
-        <template 
-          slot="expand" 
-          slot-scope="props"
-        >
-          <v-container fluid>
-            <v-card 
-              light 
-              flat 
-              text-xs-center
-            >
-              <v-card-media
-                class="white--text blue-grey"
-                height="75px"
-              >
-                <v-container 
-                  fill-height 
-                  fluid
-                >
-                  <v-layout fill-height>
-                    <v-flex 
-                      xs12 
-                      align-end 
-                      flexbox
-                    >
-                      <span class="headline">{{ props.item.name }}</span>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-media>
-              <v-card-title>
-                <v-container fluid>
-                  
-                  <p 
-                    class="title accent--text"
-                  >
-                    Account Details
-                  </p>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        v-model="props.item.email"
-                        label="Email"
-                        prepend-icon="fa-envelope"
-                        light
-                        readonly
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        v-model="props.item.phone"
-                        label="Phone"
-                        light
-                        readonly
-                        prepend-icon="phone"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.address_1"
-                        label="Address 1"
-                        light
-                        readonly
-                        prepend-icon="looks_one"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.address_2"
-                        label="Address 2"
-                        light
-                        readonly
-                        prepend-icon="looks_two"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.city"
-                        label="City"
-                        light
-                        readonly
-                        prepend-icon="location_city"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.state"
-                        label="State"
-                        light
-                        readonly
-                        prepend-icon="map"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.zip"
-                        label="Zip"
-                        light
-                        readonly
-                        prepend-icon="markunread_mailbox"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.country"
-                        label="Country"
-                        light
-                        readonly
-                        prepend-icon="flag"
-                      />
-                    </v-flex>
-                  </v-layout>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex 
-                      xs12
-                    >
-                      <v-switch
-                        v-model="props.item.active"
-                        :label="getStatus(props.item.active)"
-                        readonly
-                      />
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-textarea
-                        v-model="props.item.notes"
-                        color="primary"
-                        readonly
-                      >
-                        <div slot="label">
-                          <span class="title">Notes: </span>
-                        </div>
-                      </v-textarea>
-                    </v-flex>
-                  </v-layout>
-
-                </v-container>
-              </v-card-title>
-
-            </v-card>
-          </v-container>
-        </template>
         <!-- No Data Section -->
         <template slot="no-data">
           <v-alert 
             :value="true" 
-            color="error" 
+            color="blue-grey" 
             icon="warning">
-            Opps! No Shipper Yet!, 
+            Opps! No Rate Yet!, 
             <v-btn 
               :disabled="!$auth.check('admin')" 
-              color="primary" 
+              color="white" 
               flat
               dark
-              @click="createShipper">
-              Create New Shipper
+              @click="createRate">
+              Create New Rate
               <v-icon
                 right
-                color="primary" 
               >
                 fa-user-plus
               </v-icon>
@@ -452,7 +269,7 @@ export default {
     headers: [
       { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
-      { text: "Email", value: "email", align: "left", sortable: true },
+      { text: "Amount", value: "amount", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
@@ -461,19 +278,14 @@ export default {
     pagination: {
       sortBy: "name"
     },
-    shippersForm: new Form({}),
+    ratesForm: new Form({}),
     toggleForm: new Form({
       toggle: false,
-      shipper_id: null
+      rate_id: null
     }),
     search: "",
-    roles: [],
-    permissions: [],
-    rolesForm: new Form({
-      roles: []
-    }),
-    deleteShipperForm: new Form({
-      shipper_id: null
+    deleteRateForm: new Form({
+      rate_id: null
     }),
     domain: window.location.hostname
   }),
@@ -485,35 +297,21 @@ export default {
   },
   mounted() {
     let self = this;
-    self.fetchShippers();
+    self.fetchRates();
   },
   methods: {
-    editShipper(shipper) {
-      vm.$router.push({ name: "edit-shipper", params: { id: `${shipper.id}` } });
+    editRate(rate) {
+      vm.$router.push({ name: "edit-rate", params: { id: `${rate.id}` } });
     },
-    createShipper() {
-      vm.$router.push({ name: "create-shipper" });
+    createRate() {
+      vm.$router.push({ name: "create-rate" });
     },
-    toggleStatus(shipper) {
+    toggleStatus(rate) {
       let self = this;
-      self.toggleForm.toggle = shipper.active;
-      self.toggleForm.shipper_id = shipper.id;
-      if (shipper.id === 1) {
-        let toggleModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Oops! Forbidden Action!",
-          html: `<p class="title">Cannot Modify Super Admin Account Type!</p>`,
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-        shipper.active = true;
-        return;
-      }
+      self.toggleForm.toggle = rate.active;
+      self.toggleForm.rate_id = rate.id;
       axios
-        .post(route("api.shipper.toggleStatus"), self.toggleForm)
+        .post(route("api.rate.toggleStatus"), self.toggleForm)
         .then(response => {
           console.log(response.data);
         })
@@ -537,31 +335,31 @@ export default {
         return "Inactive";
       }
     },
-    async fetchShippers() {
+    async fetchRates() {
       let self = this;
-      self.shippersForm.busy = true;
+      self.ratesForm.busy = true;
       try {
         const payload = await axios.post(
-          route("api.shipper.index"),
-          self.shippersForm
+          route("api.rate.index"),
+          self.ratesForm
         );
         self.items = payload.data.data;
-        self.shippersForm = new Form({});
+        self.ratesForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {
-          self.shippersForm.errors.set(errors);
+          self.ratesForm.errors.set(errors);
         }
         if (message) {
         }
-        self.shippersForm.busy = false;
+        self.ratesForm.busy = false;
       }
     },
-    deleteShipper(shipper) {
+    deleteRate(rate) {
       let self = this;
-      self.deleteShipperForm.shipper_id = shipper.id;
-      let index = _.findIndex(self.items, { id: shipper.id });
+      self.deleteRateForm.rate_id = rate.id;
+      let index = _.findIndex(self.items, { id: rate.id });
       axios
-        .post(route("api.shipper.delete"), self.deleteShipperForm)
+        .post(route("api.rate.delete"), self.deleteRateForm)
         .then(response => {
           if (response.data.status === true) {
             self.$delete(self.items, index);
@@ -571,7 +369,7 @@ export default {
             });
             toggleModal({
               title: "Success",
-              html: `<p class="title">Shipper Deleted!</p>`,
+              html: `<p class="title">Rate Deleted!</p>`,
               type: "success",
               confirmButtonText: "Back"
             });
@@ -599,7 +397,7 @@ export default {
 
       try {
         const payload = await axios.post(
-          route("api.shipper.massDeactivate"),
+          route("api.rate.massDeactivate"),
           toggleStatusForm
         );
         let updated = payload.data.updated;
@@ -636,7 +434,7 @@ export default {
 
       try {
         const payload = await axios.post(
-          route("api.shipper.massActivate"),
+          route("api.rate.massActivate"),
           toggleStatusForm
         );
         let updated = payload.data.updated;
