@@ -11,7 +11,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Client Creation Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Edit Client</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <!-- If There is no Client Account Login Yet Redirect to Authentication Page -->

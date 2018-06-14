@@ -11,7 +11,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">User Creation Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Edit User</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <!-- If There is no User Account Login Yet Redirect to Authentication Page -->
@@ -421,7 +421,6 @@ export default {
       let self = this;
       try {
         const payload = await axios.get(route("api.user.edit", { id }));
-        self.user = payload.data.data;
         self.form.username = payload.data.data.username;
         self.form.active = payload.data.data.active;
         self.form.roles = payload.data.data.roles;
