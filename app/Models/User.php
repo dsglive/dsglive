@@ -118,4 +118,12 @@ class User extends Authenticatable implements HasMedia
         $user->addMedia($pathToImage)->toMediaCollection('avatar');
         return $user->getFirstMediaUrl('avatar'); // will return an url to the `$pathToImage` file
     }
+
+    /**
+     * @return mixed
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

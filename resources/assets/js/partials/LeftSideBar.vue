@@ -98,7 +98,7 @@
       />
       <!-- Customer Account Type -->
       <v-link 
-        v-if="$auth.check(['admin', 'warehouse'])"
+        v-if="$auth.check(['customer'])"
         title="Clients"
         href="/clients"
         icon="business_center"

@@ -657,7 +657,7 @@ export default {
       self.usersForm.busy = true;
       try {
         const payload = await axios.post(
-          route("api.user.index"),
+          route("api.client.index"),
           self.usersForm
         );
         self.items = payload.data.data;

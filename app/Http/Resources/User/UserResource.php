@@ -15,9 +15,11 @@ class UserResource extends Resource
     public function toArray($request)
     {
         $name = 'Unknown';
-        if(optional($this->profile)->first_name && optional($this->profile)->last_name){
-            $name = $this->profile->first_name. ' '. $this->profile->last_name;
+
+        if (optional($this->profile)->first_name && optional($this->profile)->last_name) {
+            $name = $this->profile->first_name.' '.$this->profile->last_name;
         }
+
         return [
             'id'           => $this->id,
             'active'       => $this->active,

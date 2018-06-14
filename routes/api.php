@@ -2,6 +2,17 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    // ? Clients Management Api
+    Route::post('/clients', 'Client\ClientsController@index')->name('api.client.index');
+    Route::post('/clients/massActivate', 'Client\ClientsController@massActivate')->name('api.client.massActivate');
+    Route::post('/clients/massDeactivate', 'Client\ClientsController@massDeactivate')
+        ->name('api.client.massDeactivate');
+    Route::post('/clients/create', 'Client\ClientsController@create')->name('api.client.create');
+    Route::post('/clients/toggleStatus', 'Client\ClientsController@toggleStatus')->name('api.client.toggleStatus');
+    Route::post('/clients/delete', 'Client\ClientsController@delete')->name('api.client.delete');
+    Route::get('/clients/{client}/edit', 'Client\ClientsController@edit')->name('api.client.edit');
+    Route::post('/clients/{client}/update', 'Client\ClientsController@update')->name('api.client.update');
+
     // ? Users Management Api
     Route::post('/users', 'User\UsersController@index')->name('api.user.index');
     Route::post('/users/massActivate', 'User\UsersController@massActivate')->name('api.user.massActivate');
