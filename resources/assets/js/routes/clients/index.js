@@ -13,7 +13,7 @@ export default [
   {
     path: "/clients/create",
     component: CreateClient,
-    name: "create-user",
+    name: "create-client",
     meta: { auth: ["customer"] }
   },
   {

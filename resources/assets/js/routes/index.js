@@ -1,7 +1,7 @@
 import auth from "Routes/auth";
 import home from "Routes/home";
 import profile from "Routes/profile";
-import clients from "Routes/client";
+import clients from "Routes/clients";
 import users from "Routes/users";
 import errors from "Routes/errors";
 
