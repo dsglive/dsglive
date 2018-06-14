@@ -40,7 +40,7 @@ class ClientsController extends Controller
         DB::beginTransaction();
         $client = Client::create($data);
         $user   = $request->user();
-        $user->client()->save($client);
+        $user->clients()->save($client);
 
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
@@ -53,7 +53,7 @@ class ClientsController extends Controller
         }
 
         DB::commit();
-        return response()->json(['message' => 'Client Has Been Created!'], 400);
+        return response()->json(['message' => 'Client Has Been Created!'], 200);
     }
 
     /**
