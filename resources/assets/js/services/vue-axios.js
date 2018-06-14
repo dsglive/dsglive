@@ -6,7 +6,7 @@ Vue.use(VueAxios, axios);
 
 window.axios = axios;
 
-axios.defaults.baseURL = 'http://dsglive.test/api';
+axios.defaults.baseURL = 'https://dsglive.com/api';
 
 window.axios.interceptors.response.use(
   response => {
