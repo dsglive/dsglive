@@ -115,19 +115,20 @@ class RatesController extends Controller
         $data = request()->validate([
             'name'   => 'required',
             'amount' => [
+                'required',
                 'numeric',
                 new RateMustBeAFloat
             ],
             'type'   =>
             [
                 'required',
-                Rule::in([' handling ', ' storage '])
+                Rule::in(['handling', 'storage'])
             ],
             'active' => 'boolean'
         ]);
 
-        $shipper->update($data);
+        $rate->update($data);
 
-        return response()->json(['message' => 'Shipper Account Updated!']);
+        return response()->json(['message' => 'Rate Account Updated!']);
     }
 }

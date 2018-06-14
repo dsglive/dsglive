@@ -11,13 +11,12 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Edit Shipper</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Edit Rate</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no Shipper Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
-            :disabled="errors.any() || form.busy || form.errors.any()"
+            :disabled="errors.any() || form.busy"
             flat 
             color="white" 
             @click.native="submit()"
@@ -42,137 +41,53 @@
             :error-messages="errorMessages('name')"
             :class="{ 'error--text': hasErrors('name') }"
             label="Name"
-            prepend-icon="fa-ship"
+            prepend-icon="fa-percent"
             data-vv-name="name"
           />
         </v-flex>
         <v-flex 
-          class="md8 
-          offset-md2">
+          xs12 
+          md8 
+          offset-md2
+        >
+          <v-text-field
+            v-validate="{ required: true }"
+            v-model="form.amount"
+            :error-messages="errorMessages('amount')"
+            :class="{ 'error--text': hasErrors('amount') }"
+            label="Amount"
+            prepend-icon="attach_money"
+            data-vv-name="amount"
+          />
+        </v-flex>
+        <v-flex 
+          xs12 
+          md8 
+          offset-md2
+        >
+          <v-autocomplete
+            :items="types"
+            v-model="form.type"
+            :error-messages="errorMessages('type')"
+            :class="{ 'error--text': hasErrors('type') }"
+            color="blue-grey"
+            light
+            clearable
+            label="Select Rate Type"
+            required
+            prepend-icon="fa-tags"
+            data-vv-name="roles"
+          />
+        </v-flex>
+        <v-flex 
+          xs12 
+          md8 
+          offset-md2
+        >
           <v-switch
             v-model="form.active"
             :label="getStatus(form.active)"
           />
-        </v-flex>
-        
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true, email: true }"
-            v-model="form.email"
-            :error-messages="errorMessages('email')"
-            :class="{ 'error--text': hasErrors('email') }"
-            label="Email"
-            prepend-icon="mail"
-            data-vv-name="email"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.phone"
-            :error-messages="errorMessages('phone')"
-            :class="{ 'error--text': hasErrors('phone') }"
-            label="Phone"
-            prepend-icon="phone"
-            data-vv-name="phone"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.address_1"
-            :error-messages="errorMessages('address_1')"
-            :class="{ 'error--text': hasErrors('address_1') }"
-            label="Address 1"
-            prepend-icon="looks_one"
-            data-vv-name="address_1"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.address_2"
-            :error-messages="errorMessages('address_2')"
-            :class="{ 'error--text': hasErrors('address_2') }"
-            label="Address 2"
-            prepend-icon="looks_two"
-            data-vv-name="address_2"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.city"
-            :error-messages="errorMessages('city')"
-            :class="{ 'error--text': hasErrors('city') }"
-            label="City"
-            prepend-icon="location_city"
-            data-vv-name="city"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.state"
-            :error-messages="errorMessages('state')"
-            :class="{ 'error--text': hasErrors('state') }"
-            label="State"
-            prepend-icon="map"
-            data-vv-name="state"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.zip"
-            :error-messages="errorMessages('zip')"
-            :class="{ 'error--text': hasErrors('zip') }"
-            label="Zip"
-            prepend-icon="markunread_mailbox"
-            data-vv-name="zip"
-          />
-        </v-flex>
-        <v-flex 
-          xs12 
-          md8 
-          offset-md2
-        >
-          <v-textarea
-            v-model="form.notes"
-            color="teal"
-          >
-            <div slot="label">
-              Notes <small>(optional)</small>
-            </div>
-          </v-textarea>
         </v-flex>
         <v-flex 
           xs12 
@@ -181,7 +96,7 @@
         >
           <v-btn 
             :loading="form.busy" 
-            :disabled="errors.any() || form.busy || form.errors.any()"
+            :disabled="errors.any() || form.busy"
             block
             color="accent"
             @click="submit()"
@@ -213,22 +128,16 @@ export default {
   data: () => ({
     /* Always Declare Your Form Object */
     form: new Form({
+      name: false,
+      amount: null,
+      type: null,
       active: false,
-      name: null,
-      email: null,
-      phone: null,
-      address_1: null,
-      address_2: null,
-      city: null,
-      state: null,
-      zip: null,
-      country: null,
-      notes: null
     }),
+    types:['handling','storage']
   }),
   mounted() {
     let self = this;
-    self.fetchShipper();
+    self.fetchRate();
   },
   methods: {
     getStatus(status) {
@@ -243,7 +152,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.updateShipper();
+          self.updateRate();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -258,13 +167,13 @@ export default {
         }
       });
     },
-    updateShipper() {
+    updateRate() {
       let self = this;
       let id = self.id;
       self.form.busy = true;
 
       self.form
-        .post(route("api.shipper.update", { id }), self.form)
+        .post(route("api.rate.update", { id }), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -274,44 +183,35 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Shipper Updated!</p>`,
+            html: `<p class="title">Rate Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "shippers" }));
+          self.$nextTick(() => self.$router.push({ name: "rates" }));
         })
         .catch(errors => {});
     },
-    async fetchShipper() {
+    async fetchRate() {
       let id = this.id;
       let self = this;
       try {
-        const payload = await axios.get(route("api.shipper.edit", { id }));
+        const payload = await axios.get(route("api.rate.edit", { id }));
         self.form.name = payload.data.data.name;
+        self.form.amount = payload.data.data.amount;
+        self.form.type = payload.data.data.type;
         self.form.active = payload.data.data.active;
-        self.form.email = payload.data.data.email;
-        self.form.phone = payload.data.data.phone;
-        self.form.address_1 = payload.data.data.address_1;
-        self.form.address_2 = payload.data.data.address_2;
-        self.form.city = payload.data.data.city;
-        self.form.state = payload.data.data.state;
-        self.form.zip = payload.data.data.zip;
-        self.form.country = payload.data.data.country;
-        self.form.notes = payload.data.data.notes;
-        self.form.password = '',
-        self.form.password_confirmation = ''
       } catch ({ errors, message }) {
         if (errors) {
-          console.log("fetchShipper:errors", errors);
+          console.log("fetchRate:errors", errors);
         }
         if (message) {
-          console.log("fetchShipper:error-message", message);
+          console.log("fetchRate:error-message", message);
         }
       }
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "shippers" }));
+      self.$nextTick(() => self.$router.push({ name: "rates" }));
     }
   }
 };
