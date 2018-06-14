@@ -17,13 +17,9 @@ class ClientResource extends Resource
         return [
             'id'           => $this->id,
             'active'       => $this->active,
-            'username'     => $this->username,
             'name'         => $this->name ?? 'Unknown',
             'email'        => $this->email,
             'phone'        => $this->phone,
-            'company_name' => $this->company_name,
-            'first_name'   => $this->first_name,
-            'last_name'    => $this->last_name,
             'address_1'    => $this->address_1,
             'address_2'    => $this->address_2,
             'city'         => $this->city,
