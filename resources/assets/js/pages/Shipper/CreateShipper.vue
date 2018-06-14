@@ -254,7 +254,7 @@ export default {
       self.form.busy = true;
 
       self.form
-        .post(route("api.client.create"), self.form)
+        .post(route("api.shipper.create"), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -268,7 +268,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "clients" }));
+          self.$nextTick(() => self.$router.push({ name: "shippers" }));
         })
         .catch(errors => {});
     },
@@ -290,7 +290,7 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "clients" }));
+      self.$nextTick(() => self.$router.push({ name: "shippers" }));
     }
   }
 };
