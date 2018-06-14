@@ -2,6 +2,18 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //?  Rate Management
+    //?  Rate Management
+    Route::post('/rates', 'Rate\RatesController@index')->name('api.rate.index');
+    Route::post('/rates/massActivate', 'Shipper\RatesController@massActivate')->name('api.rate.massActivate');
+    Route::post('/rates/massDeactivate', 'Shipper\RatesController@massDeactivate')
+        ->name('api.rate.massDeactivate');
+    Route::post('/rates/create', 'Shipper\RatesController@create')->name('api.rate.create');
+    Route::post('/rates/toggleStatus', 'Shipper\RatesController@toggleStatus')->name('api.rate.toggleStatus');
+    Route::post('/rates/delete', 'Shipper\RatesController@delete')->name('api.rate.delete');
+    Route::get('/rates/{rate}/edit', 'Shipper\RatesController@edit')->name('api.rate.edit');
+    Route::post('/rates/{rate}/update', 'Shipper\RatesController@update')->name('api.rate.update');
+
     // ? Shipper Management
     Route::post('/shippers', 'Shipper\ShippersController@index')->name('api.shipper.index');
     Route::post('/shippers/massActivate', 'Shipper\ShippersController@massActivate')->name('api.shipper.massActivate');

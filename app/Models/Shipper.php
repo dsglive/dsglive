@@ -9,6 +9,13 @@ class Shipper extends Model
     /**
      * @var array
      */
+    protected $casts = [
+        'active' => 'boolean'
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = ['name',
         'email',
         'phone',

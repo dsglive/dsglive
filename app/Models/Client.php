@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean'
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name',
         'email',
@@ -26,6 +36,14 @@ class Client extends Model
     protected $table = 'clients';
 
     /**
+     * @param $email
+     */
+    public static function findByEmail($email)
+    {
+        return self::whereEmail($email)->first();
+    }
+
+    /**
      * @param $value
      */
     public function setEmailAttribute($value)
@@ -43,10 +61,5 @@ class Client extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public static function findByEmail($email)
-    {
-        return self::whereEmail($email)->first();
     }
 }
