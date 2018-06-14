@@ -2,6 +2,7 @@
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Profile;
+use App\Models\Shipper;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -17,6 +18,7 @@ class UsersSeeder extends Seeder
 
         $customer = $this->createUser('customer');
         $this->createClient($customer, 10);
+        $this->createShipper(10);
     }
 
     /**
@@ -75,6 +77,29 @@ class UsersSeeder extends Seeder
                 'notes'     => $faker->sentence($nbWords = 10, $variableNbWords = true)
             ]);
             $user->clients()->save($client);
+        }
+    }
+
+    /**
+     * @param $count
+     */
+    private function createShipper($count)
+    {
+        for ($i = 0; $i < $count; $i++) {
+            $faker = \Faker\Factory::create();
+
+            Shipper::create([
+                'name'      => $faker->name,
+                'email'     => $faker->unique()->safeEmail,
+                'phone'     => $faker->isbn10,
+                'address_1' => $faker->streetAddress,
+                'address_2' => $faker->secondaryAddress,
+                'city'      => $faker->city,
+                'state'     => $faker->state,
+                'zip'       => $faker->postcode,
+                'country'   => $faker->country,
+                'notes'     => $faker->sentence($nbWords = 10, $variableNbWords = true)
+            ]);
         }
     }
 }
