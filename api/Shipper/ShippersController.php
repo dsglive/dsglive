@@ -1,20 +1,20 @@
 <?php
 
-namespace Api\Client;
+namespace Api\Shipper;
 
 use Api\Controller;
-use App\Models\Client;
+use App\Models\Shipper;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\User\ClientResource;
+use App\Http\Resources\User\ShipperResource;
 
-class ClientsController extends Controller
+class ShippersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:customer']);
+        $this->middleware(['role:admin']);
     }
 
     /**
@@ -24,7 +24,7 @@ class ClientsController extends Controller
     {
         $data = request()->validate([
             'name'      => 'required',
-            'email'     => 'required|email|unique:clients',
+            'email'     => 'required|email|unique:shippers',
             'phone'     => 'required',
             'address_1' => 'required',
             'address_2' => 'required',
@@ -38,13 +38,11 @@ class ClientsController extends Controller
 
         ]);
         DB::beginTransaction();
-        $client = Client::create($data);
-        $user   = $request->user();
-        $user->clients()->save($client);
+        $shipper = Shipper::create($data);
 
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
-            if (!$client) {
+            if (!$shipper) {
                 throw new AccountCreationFailed;
             }
         } catch (\Exception $e) {
@@ -53,7 +51,7 @@ class ClientsController extends Controller
         }
 
         DB::commit();
-        return response()->json(['message' => 'Client Has Been Created!'], 200);
+        return response()->json(['message' => 'Shipper Has Been Created!'], 200);
     }
 
     /**
@@ -61,8 +59,8 @@ class ClientsController extends Controller
      */
     public function delete(Request $request)
     {
-        $client  = Client::find($request->client_id);
-        $deleted = $client->delete();
+        $shipper  = Shipper::find($request->shipper_id);
+        $deleted = $shipper->delete();
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -70,13 +68,13 @@ class ClientsController extends Controller
      * @param  Request $request
      * @return mixed
      */
-    public function edit(Client $client)
+    public function edit(Shipper $shipper)
     {
-        if (!$client) {
-            return response()->json(['message' => 'Cant Find Client With ID of '.$request->id]);
+        if (!$shipper) {
+            return response()->json(['message' => 'Cant Find Shipper With ID of '.$request->id]);
         }
 
-        return new ClientResource($client);
+        return new ShipperResource($shipper);
     }
 
     /**
@@ -84,9 +82,8 @@ class ClientsController extends Controller
      */
     public function index(Request $request)
     {
-        $user    = $request->user();
-        $clients = $user->clients;
-        return ClientResource::collection($clients); // remove pagination
+        $shippers = Shipper::all();
+        return ShipperResource::collection($shippers); // remove pagination
     }
 
     /**
@@ -95,9 +92,8 @@ class ClientsController extends Controller
     public function massActivate(Request $request)
     {
         $ids     = request()->input('selected');
-        $clients = $request->user()->clients();
-        $clients->whereIn('id', $ids)->update(['active' => true]);
-        return response()->json(['message' => 'Selected Clients Activated!', 'updated' => $ids]);
+        Shipper::whereIn('id', $ids)->update(['active' => true]);
+        return response()->json(['message' => 'Selected Shippers Activated!', 'updated' => $ids]);
     }
 
     /**
@@ -106,9 +102,8 @@ class ClientsController extends Controller
     public function massDeactivate(Request $request)
     {
         $ids     = request()->input('selected');
-        $clients = $request->user()->clients();
-        $clients = $clients->whereIn('id', $ids)->update(['active' => false]);
-        return response()->json(['message' => 'Selected Clients Deactivated!', 'updated' => $ids]);
+        Shipper::whereIn('id', $ids)->update(['active' => false]);
+        return response()->json(['message' => 'Selected Shippers Deactivated!', 'updated' => $ids]);
     }
 
     /**
@@ -117,29 +112,27 @@ class ClientsController extends Controller
      */
     public function toggleStatus(Request $request)
     {
-        $user = $request->user();
 
-        $client         = Client::where('user_id', $user->id)->find($request->client_id);
-        $client->active = $request->toggle;
-        $client->save();
-        return response()->json(['status' => $client->active], 200);
+        $shipper = Shipper::find($request->shipper_id);
+        $shipper->active = $request->toggle;
+        $shipper->save();
+        return response()->json(['status' => $shipper->active], 200);
     }
 
     /**
-     * @param Client $client
+     * @param User $user
      */
-    public function update(Client $client, Request $request)
+    public function update(Shipper $shipper, Request $request)
     {
-        if (!$client) {
-            return response()->json(['message' => 'Cant Find Client With ID of '.$request->id]);
+        if (!$shipper) {
+            return response()->json(['message' => 'Cant Find Shipper With ID of '.$request->id]);
         }
 
-        $user = $request->user();
         $data = $request->validate([
             'name'      => 'required',
             'email'     => [
                 'required',
-                Rule::unique('clients')->ignore($user->id, 'user_id')
+                Rule::unique('shippers')->ignore($shipper->id, 'id')
             ],
             'phone'     => 'required',
             'address_1' => 'required',
@@ -153,8 +146,8 @@ class ClientsController extends Controller
             'active'    => 'boolean'
         ]);
 
-        $client->update($data);
+        $shipper->update($data);
 
-        return response()->json(['message' => 'Client Account Updated!']);
+        return response()->json(['message' => 'Shipper Account Updated!']);
     }
 }
