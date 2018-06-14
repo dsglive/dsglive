@@ -93,6 +93,7 @@ class ClientsController extends Controller
      */
     public function massActivate(Request $request)
     {
+        $ids = request()->input('selected');
         $clients = $request->user()->clients();
         $clients->whereIn('id', $ids)->update(['active' => true]);
         return response()->json(['message' => 'Selected Clients Activated!', 'updated' => $ids]);
@@ -103,6 +104,7 @@ class ClientsController extends Controller
      */
     public function massDeactivate(Request $request)
     {
+        $ids = request()->input('selected');
         $clients = $request->user()->clients();
         $clients = $clients->whereIn('id', $ids)->update(['active' => false]);
         return response()->json(['message' => 'Selected Users Deactivated!', 'updated' => $ids]);

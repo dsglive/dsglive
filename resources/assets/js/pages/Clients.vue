@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Users"
+                    label="Search Clients"
                     single-line
                     hide-details
                     light
@@ -44,18 +44,18 @@
               class="white"
               d-flex>
               <v-btn 
-                :disabled="!$auth.check('admin')" 
+                :disabled="!$auth.check('customer')" 
                 block 
                 color="primary" 
                 dark
                 flat
-                @click="createUser">
-                Create New Account
+                @click="createClient">
+                Create New Client
                 <v-icon
                   right
                   color="primary" 
                 >
-                  fa-user-plus
+                  fa-client-plus
                 </v-icon>
               </v-btn>
             </v-flex>
@@ -65,7 +65,7 @@
               <v-flex class="xs6 white">
                 <v-btn 
                   v-if="selected.length > 0"
-                  :disabled="!$auth.check('admin')" 
+                  :disabled="!$auth.check('customer')" 
                   block 
                   color="blue darken-4" 
                   dark
@@ -83,7 +83,7 @@
               <v-flex class="xs6 white">
                 <v-btn 
                   v-if="selected.length > 0"
-                  :disabled="!$auth.check('admin')" 
+                  :disabled="!$auth.check('customer')" 
                   block 
                   flat
                   color="error" 
@@ -103,7 +103,7 @@
           
         </v-flex>
       </v-layout>
-      <!-- User Data Table -->
+      <!-- Client Data Table -->
       <v-data-table
         v-model="selected"
         :headers="headers"
@@ -171,47 +171,16 @@
               {{ props.item.email }}
             </td>
             <td class="title text-xs-left accent--text">
-              <v-chip>
-                <v-avatar>
-                  <img 
-                    :src="props.item.avatar" 
-                    :alt="props.item.username"
-                  >
-                </v-avatar>
-                {{ props.item.username }}
-              </v-chip>
-            </td>
-            <td class="title text-xs-left accent--text">
               <v-switch
                 v-model="props.item.active"
                 :label="getStatus(props.item.active)"
                 @change="toggleStatus(props.item)"
               />
             </td>
-            
-            <td class="title text-xs-left accent--text">
-              <v-chip
-                v-for="(role,key) in props.item.roles"
-                :key="key" 
-                dark
-              >
-                <v-avatar
-                  :class="{
-                    'primary': (role === 'admin'),
-                    'white--text': true,
-                    warning: (role === 'warehouse'),
-                    'blue': (role === 'customer')
-                  }"
-                >
-                  <span class="headline">{{ role.charAt(0).toUpperCase() }}</span>
-                </v-avatar>
-                {{ role }}
-              </v-chip>
-            </td>
             <td class="title text-xs-center">
               <v-flex class="xs12">
                 <v-btn 
-                  :disabled="!$auth.check('admin')" 
+                  :disabled="!$auth.check('customer')" 
                   :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
                   light 
                   flat 
@@ -224,22 +193,22 @@
               </v-flex>
               <v-flex class="xs12">
                 <v-btn 
-                  :disabled="!$auth.check('admin')" 
+                  :disabled="!$auth.check('customer')" 
                   flat 
                   icon 
                   color="blue" 
-                  @click="editUser(props.item)"
+                  @click="editClient(props.item)"
                 >
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
               </v-flex>
               <v-flex class="xs12">
                 <v-btn 
-                  :disabled="!$auth.check('admin')" 
+                  :disabled="!$auth.check('customer')" 
                   flat 
                   icon 
                   color="error" 
-                  @click="deleteUser(props.item)"
+                  @click="deleteClient(props.item)"
                 >
                   <v-icon>fa-trash</v-icon>
                 </v-btn>
@@ -279,12 +248,6 @@
                       align-end 
                       flexbox
                     >
-                      <v-avatar text-xs-left>
-                        <img 
-                          :src="props.item.avatar" 
-                          :alt="props.item.name"
-                        >
-                      </v-avatar>
                       <span class="headline">{{ props.item.name }}</span>
                     </v-flex>
                   </v-layout>
@@ -306,28 +269,6 @@
                       xs6
                       px-1>
                       <v-text-field
-                        v-model="props.item.username"
-                        label="Username"
-                        prepend-icon="fa-at"
-                        light
-                        readonly
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        :value="props.item.company_name"
-                        label="Company Name"
-                        light
-                        readonly
-                        prepend-icon="domain"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
                         v-model="props.item.email"
                         label="Email"
                         prepend-icon="fa-envelope"
@@ -344,30 +285,6 @@
                         light
                         readonly
                         prepend-icon="phone"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.first_name"
-                        label="First Name"
-                        light
-                        readonly
-                        prepend-icon="person"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.last_name"
-                        label="Last Name"
-                        light
-                        readonly
-                        prepend-icon="people"
                       />
                     </v-flex>
                     <v-flex 
@@ -448,40 +365,7 @@
                     wrap
                   >
                     <v-flex 
-                      xs6 
-                      px-1>
-                      <v-autocomplete
-                        :items="roles"
-                        v-model="props.item.roles"
-                        readonly
-                        label="Account Type"
-                        color="primary"
-                        light
-                        chips
-                        tags
-                        prepend-icon="fa-tags"
-                      >
-                        <template 
-                          slot="selection" 
-                          slot-scope="data"
-                        >
-                          <v-chip
-                            :selected="data.selected"
-                            light
-                          >
-                            <v-avatar
-                              class="blue-grey white--text"
-                            >
-                              <span class="headline">{{ data.item.charAt(0).toUpperCase() }}</span>
-                            </v-avatar>
-                            {{ data.item }}
-                          </v-chip>
-                        </template>
-                      </v-autocomplete>
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
+                      xs12
                     >
                       <v-switch
                         v-model="props.item.active"
@@ -514,7 +398,21 @@
             :value="true" 
             color="error" 
             icon="warning">
-            Opps!!! Nothing To Display! :(
+            Opps! No Client Yet!, 
+            <v-btn 
+              :disabled="!$auth.check('customer')" 
+              color="primary" 
+              flat
+              dark
+              @click="createClient">
+              Create New Client
+              <v-icon
+                right
+                color="primary" 
+              >
+                fa-client-plus
+              </v-icon>
+            </v-btn>
           </v-alert>
         </template>
         <!-- No Search Result Section -->
@@ -549,9 +447,7 @@ export default {
       { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Email", value: "email", align: "left", sortable: true },
-      { text: "Username", value: "username", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
-      { text: "Roles", value: "roles", align: "left", sortable: false },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
@@ -559,10 +455,10 @@ export default {
     pagination: {
       sortBy: "name"
     },
-    usersForm: new Form({}),
+    clientsForm: new Form({}),
     toggleForm: new Form({
       toggle: false,
-      user_id: null
+      client_id: null
     }),
     search: "",
     roles: [],
@@ -570,8 +466,8 @@ export default {
     rolesForm: new Form({
       roles: []
     }),
-    deleteUserForm: new Form({
-      user_id: null
+    deleteClientForm: new Form({
+      client_id: null
     }),
     domain: window.location.hostname
   }),
@@ -579,27 +475,24 @@ export default {
     items: {
       handler: function(newValue) {},
       deep: true
-    },
-    roles(newValue) {},
-    permissions(newValue) {}
+    }
   },
   mounted() {
     let self = this;
-    self.fetchRoles();
-    self.fetchUsers();
+    self.fetchClients();
   },
   methods: {
-    editUser(user){
-        vm.$router.push({name: "edit-user", params: { id: `${user.id}` }});
+    editClient(client) {
+      vm.$router.push({ name: "edit-client", params: { id: `${client.id}` } });
     },
-    createUser() {
-      vm.$router.push({ name: "create-user" });
+    createClient() {
+      vm.$router.push({ name: "create-client" });
     },
-    toggleStatus(user) {
+    toggleStatus(client) {
       let self = this;
-      self.toggleForm.toggle = user.active;
-      self.toggleForm.user_id = user.id;
-      if (user.id === 1) {
+      self.toggleForm.toggle = client.active;
+      self.toggleForm.client_id = client.id;
+      if (client.id === 1) {
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
@@ -610,11 +503,11 @@ export default {
           type: "warning",
           confirmButtonText: "Back"
         });
-        user.active = true;
+        client.active = true;
         return;
       }
       axios
-        .post(route("api.user.toggleStatus"), self.toggleForm)
+        .post(route("api.client.toggleStatus"), self.toggleForm)
         .then(response => {
           console.log(response.data);
         })
@@ -638,58 +531,44 @@ export default {
         return "Inactive";
       }
     },
-    async fetchRoles() {
+    async fetchClients() {
       let self = this;
-      try {
-        const payload = await axios.get(route("api.roles.index"));
-        self.roles = payload.data;
-      } catch ({ errors, message }) {
-        if (errors) {
-          console.log("fetchRoles:errors", errors);
-        }
-        if (message) {
-          console.log("fetchRoles:error-message", message);
-        }
-      }
-    },
-    async fetchUsers() {
-      let self = this;
-      self.usersForm.busy = true;
+      self.clientsForm.busy = true;
       try {
         const payload = await axios.post(
           route("api.client.index"),
-          self.usersForm
+          self.clientsForm
         );
         self.items = payload.data.data;
-        self.usersForm = new Form({});
+        self.clientsForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {
-          self.usersForm.errors.set(errors);
+          self.clientsForm.errors.set(errors);
         }
         if (message) {
         }
-        self.usersForm.busy = false;
+        self.clientsForm.busy = false;
       }
     },
-    deleteUser(user) {
+    deleteClient(client) {
       let self = this;
-      self.deleteUserForm.user_id = user.id;
-      let index = _.findIndex(self.items, { id: user.id });
+      self.deleteClientForm.client_id = client.id;
+      let index = _.findIndex(self.items, { id: client.id });
       axios
-        .post(route("api.user.delete"), self.deleteUserForm)
+        .post(route("api.client.delete"), self.deleteClientForm)
         .then(response => {
           if (response.data.status === true) {
             self.$delete(self.items, index);
             let toggleModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Success",
-          html: `<p class="title">User Deleted!</p>`,
-          type: "success",
-          confirmButtonText: "Back"
-        });
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">Client Deleted!</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
           }
         })
         .catch(errors => {
@@ -705,12 +584,6 @@ export default {
           });
         });
     },
-    toProperCase(key) {
-      let newStr = key.replace(/_/g, " ");
-      return newStr.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    },
     async massDeactivate() {
       let self = this;
       let selected = _.map(self.selected, "id");
@@ -720,7 +593,7 @@ export default {
 
       try {
         const payload = await axios.post(
-          route("api.user.massDeactivate"),
+          route("api.client.massDeactivate"),
           toggleStatusForm
         );
         let updated = payload.data.updated;
@@ -757,7 +630,7 @@ export default {
 
       try {
         const payload = await axios.post(
-          route("api.user.massActivate"),
+          route("api.client.massActivate"),
           toggleStatusForm
         );
         let updated = payload.data.updated;
@@ -784,13 +657,6 @@ export default {
           console.log(message);
         }
       }
-    },
-    deleteSelected() {
-      let self = this;
-      let newItems = _.difference(self.items, self.selected);
-      self.items = newItems;
-      self.selected = [];
-      //! Send Api Call To Delete The Social Account
     },
     toggleAll() {
       if (this.selected.length) this.selected = [];

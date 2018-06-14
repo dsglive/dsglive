@@ -21,7 +21,6 @@ class ClientResource extends Resource
             'name'         => $this->name ?? 'Unknown',
             'email'        => $this->email,
             'phone'        => $this->phone,
-            'avatar'       => $this->avatar,
             'company_name' => $this->company_name,
             'first_name'   => $this->first_name,
             'last_name'    => $this->last_name,
