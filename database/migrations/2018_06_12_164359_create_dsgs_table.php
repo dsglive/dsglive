@@ -14,7 +14,7 @@ class CreateDsgsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dsgs');
+        Schema::dropIfExists('dsg');
     }
 
     /**
@@ -24,7 +24,7 @@ class CreateDsgsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dsgs', function (Blueprint $table) {
+        Schema::create('dsg', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique()->index();
             // Customer = users:id,roles:customer
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
@@ -65,6 +65,5 @@ class CreateDsgsTable extends Migration
         });
         // set dsg number starting id number
         DB::statement('ALTER TABLE dsg AUTO_INCREMENT = 100000;');
-
     }
 }

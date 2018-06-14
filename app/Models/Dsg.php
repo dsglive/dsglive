@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dsg extends Model
 {
+    protected $table ='dsg';
     /**
      * @var array
      */

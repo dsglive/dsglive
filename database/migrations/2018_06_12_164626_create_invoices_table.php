@@ -30,8 +30,8 @@ class CreateInvoicesTable extends Migration
             $table->unsignedInteger('client_id')->nullable()->index()->comment('id from clients table');
             // if start and end date !== then we will use it for billing cycle
             // if === then we set it as misc invoice
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             // $table->float('amount', 8, 2);
             $table->text('notes');
             $table->timestamps();
