@@ -410,7 +410,7 @@
                 right
                 color="primary" 
               >
-                fa-client-plus
+                fa-user-plus
               </v-icon>
             </v-btn>
           </v-alert>
