@@ -29,7 +29,7 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('client_id')->nullable()->index()->comment('id from clients table');
             $table->unsignedInteger('bin_id')->nullable()->comment('Item Has One Bin');
             $table->string('description');
-
+            
             $table->json('volume')->nullable()
                   ->comment('if computed is true we use lxwxh in computation of our cube');
 
