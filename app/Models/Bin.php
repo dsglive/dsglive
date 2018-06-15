@@ -3,15 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bin extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var array
      */
     protected $casts = [
         'active' => 'boolean'
     ];
+
+    /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * @var array
@@ -26,6 +34,11 @@ class Bin extends Model
      */
     protected $table = 'bins';
 
+    public static function archived()
+    {
+        return self::onlyTrashed()->get();
+    }
+
     /**
      * Return DSG Record By Bin Code
      * @return mixed
@@ -33,6 +46,26 @@ class Bin extends Model
     public function dsg()
     {
         return $this->hasMany(Dsg::class);
+    }
+
+    /**
+     * @param $id
+     */
+    public static function findBin($id)
+    {
+        return self::withTrashed()
+            ->where('id', $id)
+            ->get();
+    }
+
+    /**
+     * @param $code
+     */
+    public static function findBinByCode($code)
+    {
+        return self::withTrashed()
+            ->where('code', $code)
+            ->get();
     }
 
     /**

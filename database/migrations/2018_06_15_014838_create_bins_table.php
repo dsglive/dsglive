@@ -15,8 +15,9 @@ class CreateBinsTable extends Migration
     {
         Schema::create('bins', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->unique()->index();
+            $table->string('code');
             $table->boolean('active')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

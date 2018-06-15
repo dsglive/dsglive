@@ -167,9 +167,6 @@
               />
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.id }}
-            </td>
-            <td class="title text-xs-left accent--text">
               {{ props.item.code }}
             </td>
             <td class="title text-xs-left accent--text">
@@ -179,29 +176,26 @@
                 @change="toggleStatus(props.item)"
               />
             </td>
-            <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editBin(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteBin(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
+            <td class="title text-xs-right">
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                @click="editBin(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                @click="deleteBin(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
+              
             </td>
           </tr>
         </template>
@@ -263,8 +257,7 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "ID", value: "id", align: "left", sortable: true },
-      { text: "Code", value: "code", align: "left", sortable: true },
+      { text: "Bin #", value: "code", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],

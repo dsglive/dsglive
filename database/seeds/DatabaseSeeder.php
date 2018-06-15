@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(RateSeeder::class);
+        $this->call(BinSeeder::class);
         if (App::environment(['local', 'staging'])) {
             // This Seeder Would Not Be Run on Production
             $this->call(DummyUsersSeeder::class);
-            $this->call(DummyBinSeeder::class);
+            // $this->call(DummyBinSeeder::class);
         }
     }
 
