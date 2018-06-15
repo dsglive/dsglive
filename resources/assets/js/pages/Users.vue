@@ -512,9 +512,22 @@
         <template slot="no-data">
           <v-alert 
             :value="true" 
-            color="error" 
+            color="blue-grey" 
             icon="warning">
-            Opps!!! Nothing To Display! :(
+            Opps!!! No User Yet!
+            <v-btn 
+              :disabled="!$auth.check('admin')" 
+              color="white" 
+              flat
+              dark
+              @click="createUser">
+              Create New User
+              <v-icon
+                right
+              >
+                fa-user-plus
+              </v-icon>
+            </v-btn>
           </v-alert>
         </template>
         <!-- No Search Result Section -->
