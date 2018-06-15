@@ -29,7 +29,24 @@
         icon-color="#fafafa"
       />
       <!-- Expandable Group Links from Group Link -->
-      <v-subheader class="white--text">Members Area</v-subheader>
+      <v-subheader 
+        v-if="$auth.check('admin')" 
+        class="white--text">Admin Area</v-subheader>
+      <v-subheader 
+        v-if="$auth.check('warehouse')" 
+        class="white--text">Warehouse Area</v-subheader>
+      <v-subheader 
+        v-if="$auth.check('customer')" 
+        class="white--text">Customer Area</v-subheader>
+      <v-link 
+        v-if="isAuthenticated"
+        title="Dashboard"
+        href="/dashboard" 
+        icon="fa-tachometer"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <!-- Admin Only Accessible -->
       <v-link 
         v-if="$auth.check('admin')"
@@ -118,15 +135,7 @@
         icon-color="#fafafa"
       />
       <!-- All User Types -->
-      <v-link 
-        v-if="isAuthenticated"
-        title="Dashboard"
-        href="/dashboard" 
-        icon="fa-tachometer"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
+      
       <v-link 
         v-if="isAuthenticated"
         title="Settings" 
