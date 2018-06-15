@@ -2,6 +2,17 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //?  Bin Management
+    Route::post('/bins', 'Bin\BinsController@index')->name('api.bin.index');
+    Route::post('/bins/massActivate', 'Bin\BinsController@massActivate')->name('api.bin.massActivate');
+    Route::post('/bins/massDeactivate', 'Bin\BinsController@massDeactivate')
+        ->name('api.bin.massDeactivate');
+    Route::post('/bins/create', 'Bin\BinsController@create')->name('api.bin.create');
+    Route::post('/bins/toggleStatus', 'Bin\BinsController@toggleStatus')->name('api.bin.toggleStatus');
+    Route::post('/bins/delete', 'Bin\BinsController@delete')->name('api.bin.delete');
+    Route::get('/bins/{bin}/edit', 'Bin\BinsController@edit')->name('api.bin.edit');
+    Route::post('/bins/{bin}/update', 'Bin\BinsController@update')->name('api.bin.update');
+
     //?  Rate Management
     Route::post('/rates', 'Rate\RatesController@index')->name('api.rate.index');
     Route::post('/rates/massActivate', 'Rate\RatesController@massActivate')->name('api.rate.massActivate');

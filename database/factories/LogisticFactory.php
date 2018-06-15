@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Logistic::class, function (Faker $faker) {
+$factory->define(App\Models\Logistic::class, function (Faker $faker) {
     return [
         //
     ];

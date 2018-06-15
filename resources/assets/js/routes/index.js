@@ -4,7 +4,8 @@ import profile from "Routes/profile";
 import clients from "Routes/clients";
 import users from "Routes/users";
 import shippers from "Routes/shippers";
-import rates from "Routes/rates"
+import rates from "Routes/rates";
+import bins from "Routes/bins";
 import errors from "Routes/errors";
 
 let routeFiles = [];
@@ -17,7 +18,8 @@ const routes = routeFiles.concat(
   clients,
   users,
   shippers,
-  rates
+  rates,
+  bins
   /* add here Other Routes File */
 );
 export default routes;

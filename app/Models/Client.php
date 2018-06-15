@@ -62,4 +62,12 @@ class Client extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return mixed
+     */
+    public function dsg()
+    {
+        return $this->hasMany(Dsg::class);
+    }
 }

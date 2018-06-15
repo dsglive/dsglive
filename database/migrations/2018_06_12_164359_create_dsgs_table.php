@@ -59,6 +59,7 @@ class CreateDsgsTable extends Migration
             $table->timestamp('date_received')->nullable();
             $table->timestamp('date_processed')->nullable();
              */
+            $table->float('receiving_amount', 8, 4)->nullable();
             $table->boolean('active')->default(0)
                   ->comment('if not active then we query it on warehouse data table, active for receiving');
             $table->timestamps();

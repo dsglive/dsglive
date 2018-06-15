@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RateSeeder::class);
         if (App::environment(['local', 'staging'])) {
             // This Seeder Would Not Be Run on Production
-            $this->call(UsersSeeder::class);
+            $this->call(DummyUsersSeeder::class);
+            $this->call(DummyBinSeeder::class);
         }
     }
 

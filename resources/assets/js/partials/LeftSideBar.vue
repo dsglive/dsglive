@@ -86,6 +86,15 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Bins" 
+        href="/bins" 
+        icon="view_module"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <!-- Warehouse Type Account -->
       <v-link 
         v-if="$auth.check(['admin', 'warehouse'])"

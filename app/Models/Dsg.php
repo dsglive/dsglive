@@ -61,6 +61,22 @@ class Dsg extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function bin()
+    {
+        return $this->belongsTo(Bin::class);
+    }
+
+    /**
      * @param  $query
      * @return mixed
      * Query For DSG that is in receiving!
