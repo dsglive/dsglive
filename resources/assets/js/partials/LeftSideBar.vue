@@ -42,15 +42,6 @@
       />
       <v-link 
         v-if="$auth.check('admin')"
-        title="Receiving" 
-        href="/receiving" 
-        icon="receipt"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <v-link 
-        v-if="$auth.check('admin')"
         title="Shippers" 
         href="/shippers" 
         icon="fa-ship"
@@ -58,25 +49,7 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
-      <v-link 
-        v-if="$auth.check('admin')"
-        title="Invoicing" 
-        href="/invoicing" 
-        icon="fa-money"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <v-link 
-        v-if="$auth.check('admin')"
-        title="Logistics" 
-        href="/logistics" 
-        icon="fa-sitemap"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <inventory-links/>
+      
       <v-link 
         v-if="$auth.check('admin')"
         title="Rates" 
@@ -95,9 +68,38 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Receiving" 
+        href="/receiving" 
+        icon="receipt"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <!-- Collapsible Menu -->
+      <inventory-links/>
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Logistics" 
+        href="/logistics" 
+        icon="fa-sitemap"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Invoicing" 
+        href="/invoicing" 
+        icon="fa-money"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <!-- Warehouse Type Account -->
       <v-link 
-        v-if="$auth.check(['admin', 'warehouse'])"
+        v-if="$auth.check(['warehouse'])"
         title="Warehouse"
         href="/warehouse"
         icon="location_city"
