@@ -18,6 +18,11 @@ class DummyUsersSeeder extends Seeder
 
         $customer = $this->createUser('customer');
         $this->createClient($customer, 10);
+        $customer = $this->createUser('customer');
+        $this->createClient($customer, 10);
+        $customer = $this->createUser('customer');
+        $this->createClient($customer, 10);
+
         $this->createShipper(10);
     }
 
@@ -29,7 +34,7 @@ class DummyUsersSeeder extends Seeder
         $faker = \Faker\Factory::create();
         $user  = User::create([
             'password' => 'secret',
-            'username' => $role,
+            'username' => $faker->userName,
             'active'   => 1
         ]);
 
