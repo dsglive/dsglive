@@ -13,13 +13,13 @@ export default [
   {
     path: "/dsg/create",
     component: CreateDsg,
-    name: "create-client",
+    name: "create-dsg",
     meta: { auth: ["admin"] }
   },
   {
     path: "/dsg/:id",
     component: EditDsg,
-    name: "edit-client",
+    name: "edit-dsg",
     meta: { auth: ["admin"] },
     props: true
   }

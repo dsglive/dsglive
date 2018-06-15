@@ -2,6 +2,18 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Dsg Management
+
+    Route::post('/dsg', 'Dsg\DsgController@index')->name('api.dsg.index');
+    Route::post('/dsg/massActivate', 'Dsg\DsgController@massActivate')->name('api.dsg.massActivate');
+    Route::post('/dsg/massDeactivate', 'Dsg\DsgController@massDeactivate')
+        ->name('api.dsg.massDeactivate');
+    Route::post('/dsg/create', 'Dsg\DsgController@create')->name('api.dsg.create');
+    Route::post('/dsg/toggleStatus', 'Dsg\DsgController@toggleStatus')->name('api.dsg.toggleStatus');
+    Route::post('/dsg/delete', 'Dsg\DsgController@delete')->name('api.dsg.delete');
+    Route::get('/dsg/{dsg}/edit', 'Dsg\DsgController@edit')->name('api.dsg.edit');
+    Route::post('/dsg/{dsg}/update', 'Dsg\DsgController@update')->name('api.dsg.update');
+
     //?  Bin Management
     Route::post('/bins', 'Bin\BinsController@index')->name('api.bin.index');
     Route::post('/bins/massActivate', 'Bin\BinsController@massActivate')->name('api.bin.massActivate');
