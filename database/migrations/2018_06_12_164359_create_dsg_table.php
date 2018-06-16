@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDsgsTable extends Migration
+class CreateDsgTable extends Migration
 {
     /**
      * Reverse the migrations.
@@ -60,11 +60,12 @@ class CreateDsgsTable extends Migration
             $table->string('located_by_name')->nullable();
             // To be Updated During Items Creation or Deletion
             $table->unsignedInteger('total_pieces')->nullable();
-            $table->unsignedInteger('total_cube')->nullable();
+            $table->float('total_cube', 8, 4)->nullable();
             $table->float('receiving_amount', 8, 4)->nullable();
             // Responsible For Warehouse
             $table->boolean('active')->default(0)
                   ->comment('if not active then we query it on warehouse data table, active for receiving');
+            $table->softDeletes();
             $table->timestamps();
         });
         // set dsg number starting id number
