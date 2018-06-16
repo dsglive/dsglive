@@ -2,62 +2,49 @@
 
 namespace App\Models;
 
-use App\Item;
-use App\Rate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dsg extends Model
 {
-    protected $table ='dsg';
-    /**
-     * @var array
-     */
-    protected $appends = ['total_cube', 'total_pieces', 'receiving_amount'];
+    use SoftDeletes;
 
     /**
      * @var array
      */
     protected $casts = [
-        'active'       => 'boolean',
-        'activated_at' => 'datetime:Y-m-d' // default is false meaning this is the warehouse
+        'active'           => 'boolean',
+        'receiving_amount' => 'float',
+        'total_pieces'     => 'integer',
+        'total_cube'       => 'float'
     ];
 
-    // $dsg->items
-    public function getReceivingAmountAttribute()
+    /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * @var array
+     */
+    protected $guarded = ['id', 'deleted_at','created_at','updated_at'];
+
+    /**
+     * @var string
+     */
+    protected $table = 'dsg';
+
+    public static function archived()
     {
-        //'receiving_amount === sum of rate of each item';
-        $receiving_amount = 0;
-        $this->items()->map(function ($item) {
-            $receiving_amount += $item->rates->sum('amount');
-        });
-        return $receiving_amount;
+        return self::onlyTrashed()->get();
     }
 
     /**
      * @return mixed
      */
-    public function getTotalCubeAttribute()
+    public function bin()
     {
-        // 'total_cube === sum of volume of each item';
-        return $this->items()->sum('cube');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTotalPiecesAttribute()
-    {
-        //'total_pieces === count(items)';
-        return $this->items()->count();
-
-    }
-
-    /**
-     * @return mixed
-     */
-    public function items()
-    {
-        return $this->hasMany(Item::class);
+        return $this->belongsTo(Bin::class);
     }
 
     /**
@@ -71,27 +58,86 @@ class Dsg extends Model
     /**
      * @return mixed
      */
-    public function bin()
+    public function customer()
     {
-        return $this->belongsTo(Bin::class);
+        return $this->belongsTo(Customer::class);
     }
 
     /**
+     * @param $id
+     */
+    public static function findDsgByID($id)
+    {
+        return self::withTrashed()
+            ->where('id', $id)
+            ->first();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function inspector()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function locator()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function receiver()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Query For DSG that is in receiving!
      * @param  $query
      * @return mixed
-     * Query For DSG that is in receiving!
      */
     public function scopeActive($query)
     {
         return $query->where('active', 1);
     }
+
     /**
+     * Query For DSG that is warehouse!
      * @param  $query
      * @return mixed
-     * Query For DSG that is warehouse!
      */
     public function scopeWarehouse($query)
     {
         return $query->where('active', 0);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function shipper()
+    {
+        return $this->belongsTo(Shipper::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function writter()
+    {
+        return $this->belongsTo(User::class);
     }
 }
