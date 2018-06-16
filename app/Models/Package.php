@@ -93,4 +93,9 @@ class Package extends Model implements HasMedia
         return $package->getMedia('package_images');
         // return here the url of the image we upload
     }
+
+    public function dsg()
+    {
+        return $this->belongsTo(Dsg::class);
+    }
 }

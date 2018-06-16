@@ -25,7 +25,7 @@ class CreateDsgTable extends Migration
     public function up()
     {
         Schema::create('dsg', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique()->index();
+            $table->bigIncrements('id');
             // Customer = users:id,roles:customer
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
             // if customer id is not null we use the customer entity for the name

@@ -16,7 +16,7 @@ $factory->define(Dsg::class, function (Faker $faker) {
         'customer_id'       => $client->user_id,
         'customer_name'     => $profile->first_name.' '.$profile->last_name,
         'client_id'         => $client->id,
-        'client_name'       => $this->client_name,
+        'client_name'       => $client->name,
         'shipper_id'        => $shipper->id,
         'shipper_name'      => $shipper->name,
         'received_by'       => $admin->id,
@@ -28,8 +28,8 @@ $factory->define(Dsg::class, function (Faker $faker) {
         'located_by'        => $admin->id,
         'located_by_name'   => $admin_profile->first_name.' '.$admin_profile->last_name,
         'total_pieces'      => $faker->numberBetween($min = 1, $max = 10),
-        'total_cube'        => $faker->randomFloat($nbMaxDecimals = null, $min = 0, $max = null),
-        'receiving_amount'  => $faker->randomFloat($nbMaxDecimals = null, $min = 0, $max = null),
-        'active'            => $this->active
+        'total_cube'        => $faker->randomFloat($nbMaxDecimals = 4, $min = 1, $max = 10000),
+        'receiving_amount'  => $faker->randomFloat($nbMaxDecimals = 4, $min = 1, $max = 10000),
+        'active'            => true
     ];
 });

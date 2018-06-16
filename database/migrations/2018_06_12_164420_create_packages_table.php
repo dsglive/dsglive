@@ -25,6 +25,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('dsg_id')->nullable()->index();
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
             $table->string('customer_name')->nullable()
                   ->comment('if customer id is null , we save an unknown customer');
