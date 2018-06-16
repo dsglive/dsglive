@@ -8,7 +8,7 @@ use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\User\DsgResource;
+use App\Http\Resources\Dsg\DsgResource;
 
 class DsgController extends Controller
 {
@@ -78,8 +78,7 @@ class DsgController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        $dsg = $user->dsg;
+        $dsg = Dsg::all();
         return DsgResource::collection($dsg); // remove pagination
     }
 
@@ -89,8 +88,7 @@ class DsgController extends Controller
     public function massActivate(Request $request)
     {
         $ids = request()->input('selected');
-        $dsg = $request->user()->dsg();
-        $dsg->whereIn('id', $ids)->update(['active' => true]);
+        Dsg::whereIn('id', $ids)->update(['active' => true]);
         return response()->json(['message' => 'Selected Dsg Activated!', 'updated' => $ids]);
     }
 
@@ -100,8 +98,7 @@ class DsgController extends Controller
     public function massDeactivate(Request $request)
     {
         $ids = request()->input('selected');
-        $dsg = $request->user()->dsg();
-        $dsg = $dsg->whereIn('id', $ids)->update(['active' => false]);
+        Dsg::whereIn('id', $ids)->update(['active' => false]);
         return response()->json(['message' => 'Selected Dsg Deactivated!', 'updated' => $ids]);
     }
 
@@ -113,7 +110,7 @@ class DsgController extends Controller
     {
         $user = $request->user();
 
-        $dsg = Dsg::where('user_id', $user->id)->find($request->dsg_id);
+        $dsg = Dsg::find($request->dsg_id);
         $dsg->active = $request->toggle;
         $dsg->save();
         return response()->json(['status' => $dsg->active], 200);

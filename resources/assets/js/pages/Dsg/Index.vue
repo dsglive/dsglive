@@ -300,9 +300,9 @@ export default {
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
-      { text: "Cube", value: "total_cube", align: "left", sortable: true },
+      { text: "Cubic ft.", value: "total_cube", align: "left", sortable: true },
       {
-        text: "Amount",
+        text: "Amount ($)",
         value: "receiving_amount",
         align: "left",
         sortable: true
