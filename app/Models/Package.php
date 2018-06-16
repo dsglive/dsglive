@@ -80,7 +80,6 @@ class Package extends Model implements HasMedia
         $package = self::find($id);
         $package->addMedia($pathToImage)->toMediaCollection('damaged_images');
         return $package->getMedia('damaged_images');
-
     }
 
     /**
