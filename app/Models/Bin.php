@@ -43,19 +43,19 @@ class Bin extends Model
      * Return DSG Record By Bin Code
      * @return mixed
      */
-    public function dsg()
+    public function packages()
     {
-        return $this->hasMany(Dsg::class);
+        return $this->hasMany(Package::class);
     }
 
     /**
      * @param $id
      */
-    public static function findBin($id)
+    public static function findBinByID($id)
     {
         return self::withTrashed()
             ->where('id', $id)
-            ->get();
+            ->first();
     }
 
     /**
