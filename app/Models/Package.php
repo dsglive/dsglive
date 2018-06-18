@@ -49,7 +49,7 @@ class Package extends Model implements HasMedia
     /**
      * @param $id
      */
-    public static function deleteAllDamangeImages($id)
+    public static function deleteAllDamagedImages($id)
     {
         $package = self::find($id);
         $package->clearMediaCollection('damaged_images');
@@ -58,44 +58,47 @@ class Package extends Model implements HasMedia
     /**
      * @param $id
      */
-    public static function deleteAllImages($id)
+    public static function deleteAllPackageImages($id)
     {
         $package = self::find($id);
         $package->clearMediaCollection('package_images');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function dsg()
+    {
+        return $this->belongsTo(Dsg::class);
     }
 
     public function registerMediaCollections()
     {
         $this->addMediaCollection('package_images');
 
-        $this->addMediaCollection('damage_images');
+        $this->addMediaCollection('damaged_images');
+    }
+
+    /**
+     * @param  $id
+     * @param  $key
+     * @return mixed
+     */
+    public static function uploadDamageImage($id): string
+    {
+        $package = self::find($id);
+        $package->addMediaFromRequest('file')->toMediaCollection('damaged_images');
+        return $this->getMedia('damaged_images')->last()->getFullUrl();
     }
 
     /**
      * @param $id
-     * @param $pathToImage
+     * @return mixed
      */
-    public static function uploadDamageImage($id, $pathToImage): string
+    public static function uploadPackageImage($id): string
     {
         $package = self::find($id);
-        $package->addMedia($pathToImage)->toMediaCollection('damaged_images');
-        return $package->getMedia('damaged_images');
-    }
-
-    /**
-     * @param $id
-     * @param $pathToImage
-     */
-    public static function uploadImage($id, $pathToImage): string
-    {
-        $package = self::find($id);
-        $package->addMedia($pathToImage)->preservingOriginal()->toMediaCollection('package_images');
-        return $package->getMedia('package_images');
-        // return here the url of the image we upload
-    }
-
-    public function dsg()
-    {
-        return $this->belongsTo(Dsg::class);
+        $package->addMediaFromRequest('file')->preservingOriginal()->toMediaCollection('package_images');
+        return $this->getMedia('package_images')->last()->getFullUrl();
     }
 }
