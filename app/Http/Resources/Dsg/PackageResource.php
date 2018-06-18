@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Rate;
+namespace App\Http\Resources\Dsg;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class RateResource extends Resource
+class PackageResource extends Resource
 {
     /**
      * Transform the resource into an array.

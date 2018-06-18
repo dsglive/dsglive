@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Dsg;
 
-use PackageResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class DsgResource extends Resource

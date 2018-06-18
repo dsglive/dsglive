@@ -5,6 +5,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Dsg Management
 
     Route::post('/dsg', 'Dsg\DsgController@index')->name('api.dsg.index');
+    Route::get('/dsg/getCustomers', 'Dsg\DsgController@getCustomers')->name('api.dsg.getCustomers');
+    Route::get('/dsg/getShippers', 'Dsg\DsgController@getShippers')->name('api.dsg.getShippers');
+    Route::get('/dsg/getEmployees', 'Dsg\DsgController@getEmployees')->name('api.dsg.getEmployees');
+
+
     Route::post('/dsg/massActivate', 'Dsg\DsgController@massActivate')->name('api.dsg.massActivate');
     Route::post('/dsg/massDeactivate', 'Dsg\DsgController@massDeactivate')
         ->name('api.dsg.massDeactivate');

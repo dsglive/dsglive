@@ -4,12 +4,16 @@ namespace Api\Dsg;
 
 use Api\Controller;
 use App\Models\Dsg;
+use App\Models\User;
+use App\Models\Shipper;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Dsg\DsgResource;
+use App\Http\Resources\User\CustomerResource;
+use App\Http\Resources\User\WithShipperResource;
 
 class DsgController extends Controller
 {
@@ -113,7 +117,7 @@ class DsgController extends Controller
             'package.*.date_delivered'     => 'required_with:package.*.delivered'
         ]);
         DB::beginTransaction();
-        $dsg  = Dsg::create($dsg_data);
+        $dsg = Dsg::create($dsg_data);
 
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
@@ -150,6 +154,24 @@ class DsgController extends Controller
         }
 
         return new DsgResource($dsg);
+    }
+
+    public function getCustomers()
+    {
+        $users = User::with(['profile', 'clients'])->role('customer')->get();
+        return CustomerResource::collection($users);
+    }
+
+    public function getEmployees()
+    {
+        $users = User::with('profile')->where('id', '!=', 1)->role('admin')->get();
+        return CustomerResource::collection($users);
+    }
+
+    public function getShippers()
+    {
+        $shippers = Shipper::all();
+        return WithShipperResource::collection($shippers);
     }
 
     /**
