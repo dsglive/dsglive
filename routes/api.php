@@ -2,6 +2,12 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    // Package Management
+    Route::post('/package/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
+    ->name('api.package.uploadPackageImages');
+    Route::post('/package/uploadDamageImage', 'Package\PackageController@uploadDamageImage')
+        ->name('api.package.uploadDamageImage');
+
     //? Dsg Management
 
     Route::post('/dsg', 'Dsg\DsgController@index')->name('api.dsg.index');

@@ -3,6 +3,7 @@
 import "./services/vuetify";
 import "./services/vue-axios";
 import "./services/bus";
+import "./services/vue2-filters";
 import "./services/vuex";
 // import "./services/echo";
 import "./services/initial-state";

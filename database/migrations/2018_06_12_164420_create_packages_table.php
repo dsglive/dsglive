@@ -46,7 +46,7 @@ class CreatePackagesTable extends Migration
             $table->float('width', 8, 4)->nullable();
             $table->float('height', 8, 4)->nullable();
             $table->float('cube')->nullable();
-            $table->unsignedInteger('handling_type');  // -> rate_id
+            $table->unsignedInteger('handling_type')->nullable();  // -> rate_id
             $table->float('handling_fee')->nullable(); // individual fee for handling rate_amount
             $table->enum('store_at', ['rack', 'floor'])->default('rack')
                   ->comment('at floor or not, used for calculating storage rate');
@@ -55,7 +55,7 @@ class CreatePackagesTable extends Migration
             $table->string('damage_description')->nullable()->comment('when mark as damaged make this required');
             $table->boolean('repaired')->default(0);
             $table->timestamp('date_repaired')->nullable()->comment('when mark as repaired make this required');
-            $table->boolean('delivered')
+            $table->boolean('delivered')->default(0)
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
             $table->timestamp('date_delivered')->nullable() // for delivery fee
                   ->comment('updated when delivery ticket has packages, linked with logistics table');

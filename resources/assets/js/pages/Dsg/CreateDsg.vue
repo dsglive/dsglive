@@ -189,17 +189,35 @@
         </v-flex>
       </v-layout>
     </v-card>
+    <v-btn 
+      color="accent"
+      @click="openPackageImagesModal()"
+    >
+      Upload Package Images <v-icon right>fa-upload</v-icon>
+    </v-btn>
+    <v-btn 
+      color="accent"
+      @click="openDamagedImagesModal()"
+    >
+      Upload Damaged Package Images <v-icon right>fa-upload</v-icon>
+    </v-btn>
+    <package-images-uploader/>
+    <damaged-images-uploader/>
   </modal-layout>
 </template>
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
+import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
+import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
 import { Form } from "vform";
 import swal from "sweetalert2";
 export default {
   components: {
-    ModalLayout
+    ModalLayout,
+    PackageImagesUploader,
+    DamagedImagesUploader
   },
   mixins: [validationError],
   data: () => ({
@@ -230,7 +248,7 @@ export default {
     employees: [],
     packages: []
   }),
- watch: {
+  watch: {
     customers: {
       handler: function(newValue) {},
       deep: true
@@ -246,7 +264,7 @@ export default {
     packages: {
       handler: function(newValue) {},
       deep: true
-    },
+    }
   },
   mounted() {
     this.getCustomers();
@@ -254,22 +272,28 @@ export default {
     this.getEmployees();
   },
   methods: {
+    openPackageImagesModal() {
+      Bus.$emit("upload-package-images");
+    },
+    openDamagedImagesModal(){
+        Bus.$emit("upload-damaged-images")
+    },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {
         console.log(response.data);
-        this.employees =  response.data.data
+        this.employees = response.data.data;
       });
     },
     getShippers() {
       axios.get(route("api.dsg.getShippers")).then(response => {
         console.log(response.data);
-        this.shippers =  response.data.data
+        this.shippers = response.data.data;
       });
     },
     getCustomers() {
       axios.get(route("api.dsg.getCustomers")).then(response => {
         console.log(response.data);
-        this.customers =  response.data.data
+        this.customers = response.data.data;
       });
     },
     getStatus(status) {
