@@ -187,6 +187,7 @@
             Save <v-icon right>save</v-icon>
           </v-btn>
         </v-flex>
+        <uploader-input/>
       </v-layout>
     </v-card>
     <v-btn 
@@ -211,13 +212,15 @@ import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
 import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
 import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
+import UploaderInput from "Components/uploads/UploaderInput";
 import { Form } from "vform";
 import swal from "sweetalert2";
 export default {
   components: {
     ModalLayout,
     PackageImagesUploader,
-    DamagedImagesUploader
+    DamagedImagesUploader,
+    UploaderInput
   },
   mixins: [validationError],
   data: () => ({
@@ -270,13 +273,20 @@ export default {
     this.getCustomers();
     this.getShippers();
     this.getEmployees();
+    this.addNewPackage();
   },
   methods: {
+    addNewPackage() {
+      axios.post(route("api.package.add")).then(response => {
+        console.log(response.data);
+        this.packages.push(response.data.data);
+      });
+    },
     openPackageImagesModal() {
       Bus.$emit("upload-package-images");
     },
-    openDamagedImagesModal(){
-        Bus.$emit("upload-damaged-images")
+    openDamagedImagesModal() {
+      Bus.$emit("upload-damaged-images");
     },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {

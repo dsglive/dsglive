@@ -36,7 +36,7 @@ class CreatePackagesTable extends Migration
             $table->string('shipper_name')->nullable()->comment('if shipper id is null , we save an unknown shipper');
             $table->unsignedInteger('bin_id')->nullable()->comment('Item Has One Bin');
             $table->string('bin_name')->nullable();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamp('date_received')->nullable();  // for storage fee (start billing)
             $table->timestamp('date_out')->nullable();       // for storage fee (stop billing)
             $table->timestamp('date_processed')->nullable(); // for receiving fee

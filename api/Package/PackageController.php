@@ -5,6 +5,7 @@ namespace Api\Package;
 use Api\Controller;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Http\Resources\Dsg\PackageResource;
 
 class PackageController extends Controller
 {
@@ -13,16 +14,24 @@ class PackageController extends Controller
         $this->middleware(['role:admin']);
     }
 
+    public function add()
+    {
+        $package = new Package();
+        $package->save();
+        $package->media;
+        return new PackageResource($package);
+    }
+
     /**
      * @param Request $request
      */
     public function uploadDamageImage(Request $request)
     {
-        $package = new Package();
-        $package->description = 'power';
+        $package                = new Package();
+        $package->description   = 'power';
         $package->handling_type = 1;
-        $package->store_at = 'floor';
-        $package->delivered = 0;
+        $package->store_at      = 'floor';
+        $package->delivered     = 0;
         $package->save();
         $id = $package->id;
         return Package::uploadDamageImage($id, 'damaged_images');
@@ -39,7 +48,7 @@ class PackageController extends Controller
         $package->store_at      = 'floor';
         $package->delivered     = 0;
         $package->save();
-        $id = $package->id;
+        $id   = $package->id;
         $link = Package::uploadPackageImage($id, 'package_images');
 
         return response()->json(['package_images' => $link]);
