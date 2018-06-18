@@ -23,7 +23,7 @@ class RateMustBeAFloat implements Rule
      */
     public function message()
     {
-        return 'Amount Should be A Positive Number up to 4 Decimal places.';
+        return 'Field Value Should be A Positive Number up to 4 Decimal places.';
     }
 
     /**

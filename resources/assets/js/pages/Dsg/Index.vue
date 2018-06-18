@@ -211,10 +211,10 @@
                   :disabled="!$auth.check('admin')" 
                   flat 
                   icon 
-                  color="error" 
-                  @click="deleteDsg(props.item)"
+                  color="purple" 
+                  @click="viewPdf(props.item)"
                 >
-                  <v-icon>fa-trash</v-icon>
+                  <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </v-flex>
               <v-flex class="xs12">
@@ -222,13 +222,12 @@
                   :disabled="!$auth.check('admin')" 
                   flat 
                   icon 
-                  color="blue" 
-                  @click="viewPdf(props.item)"
+                  color="error" 
+                  @click="deleteDsg(props.item)"
                 >
-                  <v-icon>picture_as_pdf</v-icon>
+                  <v-icon>fa-trash</v-icon>
                 </v-btn>
               </v-flex>
-              
             </td>
           </tr>
         </template>
