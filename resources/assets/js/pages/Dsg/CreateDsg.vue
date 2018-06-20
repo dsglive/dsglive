@@ -178,154 +178,138 @@
         </v-flex>
         <v-flex 
           xs12
-          lg4
-        >
-          <v-switch
-            v-model="form.active"
-            :label="getStatus(form.active)"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true, email: true }"
-            v-model="form.email"
-            :error-messages="errorMessages('email')"
-            :class="{ 'error--text': hasErrors('email') }"
-            label="Email"
-            prepend-icon="mail"
-            data-vv-name="email"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
+          lg2
         >
           <v-text-field
             v-validate="{ required: true }"
-            v-model="form.phone"
-            :error-messages="errorMessages('phone')"
-            :class="{ 'error--text': hasErrors('phone') }"
-            label="Phone"
-            prepend-icon="phone"
-            data-vv-name="phone"
+            v-model="po_no"
+            :error-messages="errorMessages('po_no')"
+            :class="{ 'error--text': hasErrors('po_no') }"
+            label="PO No."
+            data-vv-name="po_no"
           />
         </v-flex>
         <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.address_1"
-            :error-messages="errorMessages('address_1')"
-            :class="{ 'error--text': hasErrors('address_1') }"
-            label="Address 1"
-            prepend-icon="looks_one"
-            data-vv-name="address_1"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.address_2"
-            :error-messages="errorMessages('address_2')"
-            :class="{ 'error--text': hasErrors('address_2') }"
-            label="Address 2"
-            prepend-icon="looks_two"
-            data-vv-name="address_2"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.city"
-            :error-messages="errorMessages('city')"
-            :class="{ 'error--text': hasErrors('city') }"
-            label="City"
-            prepend-icon="location_city"
-            data-vv-name="city"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.state"
-            :error-messages="errorMessages('state')"
-            :class="{ 'error--text': hasErrors('state') }"
-            label="State"
-            prepend-icon="map"
-            data-vv-name="state"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.zip"
-            :error-messages="errorMessages('zip')"
-            :class="{ 'error--text': hasErrors('zip') }"
-            label="Zip"
-            prepend-icon="markunread_mailbox"
-            data-vv-name="zip"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
-        >
-          <v-textarea
-            v-model="form.notes"
-            color="teal"
+          xs12 
+          lg2>
+          <v-dialog
+            ref="date_received"
+            v-model="date_received_modal"
+            :return-value.sync="date_received"
+            persistent
+            lazy
+            full-width
+            width="290px"
           >
-            <div slot="label">
-              Notes <small>(optional)</small>
-            </div>
-          </v-textarea>
+            <v-text-field
+              slot="activator"
+              v-model="date_received"
+              label="Date Received"
+              prepend-icon="event"
+              readonly
+            />
+            <v-date-picker 
+              v-model="date_received" 
+              scrollable>
+              <v-spacer/>
+              <v-btn 
+                flat 
+                color="primary" 
+                @click="date_received_modal = false">Cancel</v-btn>
+              <v-btn 
+                flat 
+                color="primary" 
+                @click="$refs.date_received.save(date_received)">OK</v-btn>
+            </v-date-picker>
+          </v-dialog>
         </v-flex>
         <v-flex 
-          xs12
-          lg4
-        >
-          <v-btn 
-            :loading="form.busy" 
-            :disabled="errors.any() || form.busy"
-            block
-            color="accent"
-            @click="submit()"
+          xs12 
+          lg2>
+          <v-dialog
+            ref="date_processed"
+            v-model="date_processed_modal"
+            :return-value.sync="date_processed"
+            persistent
+            lazy
+            full-width
+            width="290px"
           >
-            Save <v-icon right>save</v-icon>
-          </v-btn>
+            <v-text-field
+              slot="activator"
+              v-model="date_processed"
+              label="Date Processed"
+              prepend-icon="event"
+              readonly
+            />
+            <v-date-picker 
+              v-model="date_processed" 
+              scrollable>
+              <v-spacer/>
+              <v-btn 
+                flat 
+                color="primary" 
+                @click="date_processed_modal = false">Cancel</v-btn>
+              <v-btn 
+                flat 
+                color="primary" 
+                @click="$refs.date_processed.save(date_processed)">OK</v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-flex>
+        <v-flex 
+          xs12 
+          lg2>
+          <v-text-field
+            readonly
+            disabled
+            label="Total Pieces"
+          />
+        </v-flex>
+        <v-flex 
+          xs12 
+          lg2>
+          <v-text-field
+            readonly
+            disabled
+            label="Total Cube"
+          />
+        </v-flex>
+        <v-flex 
+          xs12 
+          lg2>
+          <v-text-field
+            readonly
+            disabled
+            prepend-icon="attach_money"
+            label="Receiving Amount"
+          />
         </v-flex>
       </v-layout>
+      <!-- Packages /Item Form -->
+      <v-layout 
+        row 
+        wrap
+        ma-5
+        pa-5
+      >
+        <v-btn 
+          color="accent"
+          @click="openPackageImagesModal()"
+        >
+          Upload Package Images <v-icon right>fa-upload</v-icon>
+        </v-btn>
+        <v-btn 
+          color="accent"
+          @click="openDamagedImagesModal()"
+        >
+          Upload Damaged Package Images <v-icon right>fa-upload</v-icon>
+        </v-btn>
+        <package-images-uploader/>
+        <damaged-images-uploader/>
+      </v-layout>
     </v-card>
-    <v-btn 
-      color="accent"
-      @click="openPackageImagesModal()"
-    >
-      Upload Package Images <v-icon right>fa-upload</v-icon>
-    </v-btn>
-    <v-btn 
-      color="accent"
-      @click="openDamagedImagesModal()"
-    >
-      Upload Damaged Package Images <v-icon right>fa-upload</v-icon>
-    </v-btn>
-    <package-images-uploader/>
-    <damaged-images-uploader/>
+    
   </modal-layout>
 </template>
 
@@ -366,6 +350,11 @@ export default {
       receiving_amoount: null,
       packages: []
     }),
+    po_no: null,
+    date_received: null,
+    date_received_modal: false,
+    date_processed: null,
+    date_processed_modal: false,
     customers: [],
     clients: [],
     client_name: "",
@@ -439,6 +428,8 @@ export default {
     this.getShippers();
     this.getEmployees();
     this.addNewPackage();
+    this.date_received = moment().format("YYYY-MM-DD")
+    this.date_processed = moment().format("YYYY-MM-DD")
   },
   methods: {
     addNewPackage() {

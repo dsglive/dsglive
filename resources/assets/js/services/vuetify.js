@@ -30,7 +30,8 @@ import {
   VTextarea,
   VSwitch,
   VDialog,
-  VCombobox
+  VCombobox,
+  VDatePicker
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -62,7 +63,8 @@ Vue.use(Vuetify, {
     VTextarea,
     VSwitch,
     VDialog,
-    VCombobox
+    VCombobox,
+    VDatePicker
   },
   //! Define Your Theme Here
   theme: {
