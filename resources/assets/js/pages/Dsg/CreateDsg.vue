@@ -185,6 +185,7 @@
             v-model="po_no"
             :error-messages="errorMessages('po_no')"
             :class="{ 'error--text': hasErrors('po_no') }"
+            light
             label="PO No."
             data-vv-name="po_no"
           />
@@ -352,6 +353,7 @@ export default {
     }),
     po_no: null,
     date_received: null,
+    bins: [],
     date_received_modal: false,
     date_processed: null,
     date_processed_modal: false,
@@ -363,6 +365,10 @@ export default {
     packages: []
   }),
   watch: {
+    bins: {
+      handler: function(newValue) {},
+      deep: true
+    },
     customers: {
       handler: function(newValue) {},
       deep: true
@@ -512,10 +518,17 @@ export default {
     this.getShippers();
     this.getEmployees();
     this.addNewPackage();
+    this.getBins();
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
   },
   methods: {
+    getBins() {
+      let self = this;
+      axios.post(route("api.bin.index")).then(response => {
+        self.bins = response.data.data;
+      });
+    },
     addNewPackage() {
       axios.post(route("api.package.add")).then(response => {
         console.log(response.data);
