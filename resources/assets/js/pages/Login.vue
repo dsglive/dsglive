@@ -141,10 +141,10 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
-import validationError from "Mixins/validation-error"
+import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapState } = createNamespacedHelpers("auth");
+const { mapActions } = createNamespacedHelpers("auth");
 
 export default {
   components: {
@@ -162,17 +162,6 @@ export default {
   computed: {
     icon() {
       return this.password_visible ? "visibility" : "visibility_off";
-    },
-    ...mapState({
-      isAuthenticated: "isAuthenticated"
-    })
-  },
-  mounted() {
-    let self = this;
-    /* Make Sure We Only Load Login Page If Not Authenticated */
-    if (self.isAuthenticated) {
-      /* nextick make sure our modal wount be visible before redirect */
-      return self.$nextTick(() => self.$router.go(-1));
     }
   },
   methods: {
@@ -197,10 +186,9 @@ export default {
     },
     /* act  as method we can execute , from our vuex store auth module */
     ...mapActions({
-        /* rename store.auth action login to submit */
+      /* rename store.auth action login to submit */
       submit: "login"
     })
   }
-  
 };
 </script>

@@ -171,9 +171,9 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
-import validationError from "Mixins/validation-error"
+import validationError from "Mixins/validation-error";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapState } = createNamespacedHelpers("auth");
+const { mapActions } = createNamespacedHelpers("auth");
 import { Form } from "vform";
 
 export default {
@@ -192,9 +192,6 @@ export default {
     password_visible: false
   }),
   computed: {
-    ...mapState({
-      isAuthenticated: "isAuthenticated"
-    }),
     icon() {
       return this.password_visible ? "visibility" : "visibility_off";
     }
@@ -202,10 +199,6 @@ export default {
   mounted() {
     let self = this;
     /* Make Sure We Only Load Registration Page If Not Authenticated */
-    if (self.isAuthenticated) {
-      /* nextick make sure our modal would not be visible before redirect */
-      return self.$nextTick(() => self.$router.go(-1));
-    }
     self.form.role = "customer";
   },
   methods: {

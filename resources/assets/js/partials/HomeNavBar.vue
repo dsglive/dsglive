@@ -49,7 +49,7 @@
     >
     <v-spacer/>
     <v-btn 
-      v-if="!isAuthenticated"
+      v-if="!$auth.check()"
       flat 
       color="white"
       to="/login"
@@ -63,7 +63,7 @@
       </v-icon>
     </v-btn>
     <v-btn 
-      v-if="!isAuthenticated"
+      v-if="!$auth.check()"
       flat 
       color="white"
       to="/register"
@@ -77,7 +77,7 @@
       </v-icon>
     </v-btn>
     <v-btn 
-      v-if="isAuthenticated"
+      v-if="$auth.check()"
       flat 
       color="white"
       to="/dashboard"
@@ -104,7 +104,7 @@
       </v-icon>
     </v-btn>
     <v-btn 
-      v-if="isAuthenticated"
+      v-if="$auth.check()"
       flat 
       color="white"
       to="/logout"
@@ -122,7 +122,6 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("auth");
 
 export default {
   data: () => ({
@@ -131,13 +130,7 @@ export default {
     logo: "/img/logo.png",
     showIcon: false,
     title: "DSG Live",
-
   }),
-  computed: {
-    ...mapState({
-      isAuthenticated: 'isAuthenticated'
-    })
-  },
   created() {
     /* Emit On a Child Component If You Want This To Be Visible */
     Bus.$on("header-extension-visible", visibility => {
