@@ -62,7 +62,6 @@
             label="Select Account Type"
             light
             chips
-            tags
             clearable
             deletable-chips
             prepend-icon="fa-tags"
@@ -84,7 +83,6 @@
             v-validate="'required|min:6|confirmed:confirmation'"
             v-model="form.password"
             :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
             :type="!password_visible ? 'password' : 'text'"
             :error-messages="errorMessages('password')"
             :class="{ 'error--text': hasErrors('password') }"
@@ -94,6 +92,7 @@
             data-vv-name="password"
             prepend-icon="fa-key"
             counter="255"
+            @click:append="() => (password_visible = !password_visible)"
           />
         </v-flex>
         <v-flex 
@@ -105,7 +104,6 @@
             ref="confirmation"
             v-model="form.password_confirmation"
             :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
             :type="!password_visible ? 'password' : 'text'"
             :error-messages="errorMessages('password_confirmation')"
             :class="{ 'error--text': hasErrors('password_confirmation') }"
@@ -114,6 +112,7 @@
             label="Confirm Password"
             prepend-icon="fa-copy"
             counter="255"
+            @click:append="() => (password_visible = !password_visible)"
           />
         </v-flex>
         <v-flex 

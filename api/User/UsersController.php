@@ -75,13 +75,7 @@ class UsersController extends Controller
         $user->profile()->save($profile);
         $roles = Role::all()->pluck('name');
         $role  = request('roles');
-
-        foreach ($role as $key => $value) {
-            if ($roles->contains($value)) {
-                /* Set Role */
-                $user->assignRole($value);
-            }
-        }
+        $user->assignRole($role);
 
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
@@ -228,7 +222,7 @@ class UsersController extends Controller
                 'required',
                 new ValidateZip
             ],
-            'country' => 'sometimes|required',
+            'country'               => 'sometimes|required',
             'notes'                 => 'nullable|max:255',
             'roles'                 => [
                 'required',
@@ -257,28 +251,11 @@ class UsersController extends Controller
         $profile = $user->profile;
         // Update Profile
         $updated = $profile->update($data);
-
-        $registeredRoles = Role::all()->pluck('name');
         $roles           = request('roles');
-        $syncRoles       = [];
-
-        foreach ($roles as $key => $value) {
-            if ($registeredRoles->contains($value)) {
-                /* Push to New Array! */
-                array_push($syncRoles, $value);
-            }
-        }
-
         // Avoid Deleting Super Admin as Admin!
-        if (1 === $user->id) {
-            if (!in_array('admin', $syncRoles, true)) {
-                array_push($syncRoles, 'admin');
-            }
+        if (1 !== $user->id) {
+            $user->syncRoles($roles);
         }
-
-        // Update Roles
-        $user->syncRoles($syncRoles);
-
         return response()->json(['message' => 'User Account Updated!']);
     }
 
@@ -289,7 +266,7 @@ class UsersController extends Controller
     {
         $ids = request()->input('selected');
 
-        // remove the superadmin on being toggle
+// remove the superadmin on being toggle
         if (($key = array_search('1', $ids)) !== false) {
             unset($ids[$key]);
         }

@@ -62,7 +62,6 @@
             label="Select Account Type"
             light
             chips
-            tags
             clearable
             deletable-chips
             prepend-icon="fa-tags"
@@ -84,7 +83,6 @@
             v-validate="'min:6|confirmed:confirmation'"
             v-model="form.password"
             :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
             :type="!password_visible ? 'password' : 'text'"
             :error-messages="errorMessages('password')"
             :class="{ 'error--text': hasErrors('password') }"
@@ -94,6 +92,7 @@
             data-vv-name="password"
             prepend-icon="fa-key"
             counter="255"
+            @click:append="() => (password_visible = !password_visible)"
           />
         </v-flex>
         <v-flex 
@@ -105,7 +104,6 @@
             ref="confirmation"
             v-model="form.password_confirmation"
             :append-icon="icon"
-            :append-icon-cb="() => (password_visible = !password_visible)"
             :type="!password_visible ? 'password' : 'text'"
             :error-messages="errorMessages('password_confirmation')"
             :class="{ 'error--text': hasErrors('password_confirmation') }"
@@ -114,6 +112,7 @@
             label="Confirm Password"
             prepend-icon="fa-copy"
             counter="255"
+            @click:append="() => (password_visible = !password_visible)"
           />
         </v-flex>
         <v-flex 
@@ -423,7 +422,7 @@ export default {
         const payload = await axios.get(route("api.user.edit", { id }));
         self.form.username = payload.data.data.username;
         self.form.active = payload.data.data.active;
-        self.form.roles = payload.data.data.roles;
+        self.form.roles = payload.data.data.roles[0];
         self.form.company_name = payload.data.data.company_name;
         self.form.first_name = payload.data.data.first_name;
         self.form.last_name = payload.data.data.last_name;
@@ -436,8 +435,7 @@ export default {
         self.form.zip = payload.data.data.zip;
         self.form.country = payload.data.data.country;
         self.form.notes = payload.data.data.notes;
-        self.form.password = '',
-        self.form.password_confirmation = ''
+        (self.form.password = ""), (self.form.password_confirmation = "");
       } catch ({ errors, message }) {
         if (errors) {
           console.log("fetchUsers:errors", errors);

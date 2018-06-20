@@ -68,7 +68,6 @@
                   v-validate="'required|min:6'"
                   v-model="form.password"
                   :append-icon="icon"
-                  :append-icon-cb="() => (password_visible = !password_visible)"
                   :type="!password_visible ? 'password' : 'text'"
                   :error-messages="errorMessages('password')"
                   :class="{ 'error--text': hasErrors('password') }"
@@ -79,6 +78,7 @@
                   data-vv-name="password"
                   counter="255"
                   prepend-icon="fa-key"
+                  @click:append="() => (password_visible = !password_visible)"
                 />
               </v-flex>
               

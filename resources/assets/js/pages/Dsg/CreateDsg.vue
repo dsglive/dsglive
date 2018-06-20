@@ -30,6 +30,8 @@
       <v-layout 
         row 
         wrap
+        ma-5
+        pa-5
       >
         <v-flex 
           xs12
@@ -39,17 +41,16 @@
             v-validate="'required'"
             :items="customers"
             v-model="form.customer_id"
-            :error-messages="errorMessages('customer_id')"
-            :class="{ 'error--text': hasErrors('customer_id') }"
+            :error-messages="errorMessages('customer')"
+            :class="{ 'error--text': hasErrors('customer') }"
             item-text="name"
             item-value="id"
             required
-            color="blue-grey"
             label="Choose Customer"
             light
             chips
             prepend-icon="fa-tags"
-            data-vv-name="customer_id"
+            data-vv-name="customer"
           />
         </v-flex>
         <v-flex 
@@ -58,17 +59,122 @@
         >
 
           <v-combobox
-            v-model="form.client_id"
+            v-validate="'required'"
+            v-model="form.client_name"
             :items="clients"
+            :error-messages="errorMessages('client')"
+            :class="{ 'error--text': hasErrors('client') }"
             item-text="name"
             item-value="name"
             chips
             light
             dense
+            required
             label="Choose Client or Type Name"
             prepend-icon="fa-users"
+            data-vv-name="client"
           />
           
+        </v-flex>
+        <v-flex 
+          xs12
+          lg4
+        >
+          <v-autocomplete
+            v-validate="'required'"
+            :items="shippers"
+            v-model="form.shipper_id"
+            :error-messages="errorMessages('shipper')"
+            :class="{ 'error--text': hasErrors('shipper') }"
+            item-text="name"
+            item-value="id"
+            required
+            label="Choose Shipper"
+            light
+            chips
+            prepend-icon="fa-ship"
+            data-vv-name="shipper"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg3
+        >
+          <v-autocomplete
+            v-validate="'required'"
+            :items="employees"
+            v-model="form.received_by"
+            :error-messages="errorMessages('received_by')"
+            :class="{ 'error--text': hasErrors('received_by') }"
+            item-text="name"
+            item-value="id"
+            required
+            label="Received By"
+            light
+            chips
+            prepend-icon="fa-ship"
+            data-vv-name="received_by"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg3
+        >
+          <v-autocomplete
+            v-validate="'required'"
+            :items="employees"
+            v-model="form.written_by"
+            :error-messages="errorMessages('written_by')"
+            :class="{ 'error--text': hasErrors('written_by') }"
+            item-text="name"
+            item-value="id"
+            required
+            label="Written By"
+            light
+            chips
+            prepend-icon="fa-ship"
+            data-vv-name="written_by"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg3
+        >
+          <v-autocomplete
+            v-validate="'required'"
+            :items="employees"
+            v-model="form.inspected_by"
+            :error-messages="errorMessages('inspected_by')"
+            :class="{ 'error--text': hasErrors('inspected_by') }"
+            item-text="name"
+            item-value="id"
+            required
+            label="Inspected By"
+            light
+            chips
+            prepend-icon="fa-ship"
+            data-vv-name="inspected_by"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg3
+        >
+          <v-autocomplete
+            v-validate="'required'"
+            :items="employees"
+            v-model="form.located_by"
+            :error-messages="errorMessages('located_by')"
+            :class="{ 'error--text': hasErrors('located_by') }"
+            item-text="name"
+            item-value="id"
+            required
+            label="Located By"
+            light
+            chips
+            prepend-icon="fa-ship"
+            data-vv-name="located_by"
+          />
         </v-flex>
         <v-flex 
           xs12
@@ -204,7 +310,6 @@
             Save <v-icon right>save</v-icon>
           </v-btn>
         </v-flex>
-        <uploader-input/>
       </v-layout>
     </v-card>
     <v-btn 
@@ -229,15 +334,13 @@ import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
 import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
 import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
-import UploaderInput from "Components/uploads/UploaderInput";
 import { Form } from "vform";
 import swal from "sweetalert2";
 export default {
   components: {
     ModalLayout,
     PackageImagesUploader,
-    DamagedImagesUploader,
-    UploaderInput
+    DamagedImagesUploader
   },
   mixins: [validationError],
   data: () => ({
@@ -265,7 +368,7 @@ export default {
     }),
     customers: [],
     clients: [],
-    client_name: '',
+    client_name: "",
     shippers: [],
     employees: [],
     packages: []
@@ -291,38 +394,42 @@ export default {
       handler: function(newValue) {
         let self = this;
 
-        if (newValue !== null) {
+        if (newValue != undefined) {
           let customer = _.find(self.customers, function(c) {
             return c.id === newValue;
           });
-          self.clients = customer.clients
-          self.form.customer_name  = customer.name
-
-        } else{
-            self.clients = []
+          self.clients = customer.clients;
+          self.form.customer_name = customer.name;
+          self.form.client_name = null;
+          self.form.client_id = null;
+        } else {
+          self.clients = [];
+          self.form.customer_id = null;
+          self.form.customer_name = null;
+          self.form.client_name = null;
+          self.form.client_id = null;
         }
-
-        
       },
       deep: true
     },
-    "form.client_id": {
-      handler: function(newValue) {
+    "form.client_name": {
+      handler: function(newName) {
         let self = this;
 
-        if (newValue !== null) {
-          let customer = _.find(self.customers, function(c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients
-          self.form.customer_name  = customer.name
-
-        } else{
-            self.form.client_id = null
-            self.form.client_name = 
+        if (newName != null || newName != undefined) {
+          if (self.clients.length > 0) {
+            let client = _.find(self.clients, function(c) {
+              return c.name == newName;
+            });
+            if (client != undefined) {
+              self.form.client_name = client.name;
+              self.form.client_id = client.id;
+            }
+          }
+        } else {
+          self.form.client_id = null;
+          self.form.client_name = null;
         }
-
-        
       },
       deep: true
     }
