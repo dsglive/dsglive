@@ -41,17 +41,34 @@
             v-model="form.customer_id"
             :error-messages="errorMessages('customer_id')"
             :class="{ 'error--text': hasErrors('customer_id') }"
+            item-text="name"
+            item-value="id"
             required
             color="blue-grey"
-            label="Select Account Customer"
+            label="Choose Customer"
             light
             chips
-            tags
-            clearable
-            deletable-chips
             prepend-icon="fa-tags"
             data-vv-name="customer_id"
           />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg4
+        >
+
+          <v-combobox
+            v-model="form.client_id"
+            :items="clients"
+            item-text="name"
+            item-value="name"
+            chips
+            light
+            dense
+            label="Choose Client or Type Name"
+            prepend-icon="fa-users"
+          />
+          
         </v-flex>
         <v-flex 
           xs12
@@ -247,6 +264,8 @@ export default {
       packages: []
     }),
     customers: [],
+    clients: [],
+    client_name: '',
     shippers: [],
     employees: [],
     packages: []
@@ -266,6 +285,45 @@ export default {
     },
     packages: {
       handler: function(newValue) {},
+      deep: true
+    },
+    "form.customer_id": {
+      handler: function(newValue) {
+        let self = this;
+
+        if (newValue !== null) {
+          let customer = _.find(self.customers, function(c) {
+            return c.id === newValue;
+          });
+          self.clients = customer.clients
+          self.form.customer_name  = customer.name
+
+        } else{
+            self.clients = []
+        }
+
+        
+      },
+      deep: true
+    },
+    "form.client_id": {
+      handler: function(newValue) {
+        let self = this;
+
+        if (newValue !== null) {
+          let customer = _.find(self.customers, function(c) {
+            return c.id === newValue;
+          });
+          self.clients = customer.clients
+          self.form.customer_name  = customer.name
+
+        } else{
+            self.form.client_id = null
+            self.form.client_name = 
+        }
+
+        
+      },
       deep: true
     }
   },

@@ -26,7 +26,6 @@
           v-validate="'required|min:6'"
           v-model="form.old_password"
           :append-icon="icon"
-          :append-icon-cb="() => (password_visible = !password_visible)"
           :type="!password_visible ? 'password' : 'text'"
           :error-messages="errorMessages('old_password')"
           :class="{ 'error--text': hasErrors('old_password') }"
@@ -34,8 +33,9 @@
           name="password"
           label="Password"
           data-vv-name="old_password"
-          prepend-icon="security"
+          prepend-icon="security"   
           counter="255"
+          @click:append="() => (password_visible = !password_visible)"
         />
       </v-flex>
       <v-flex 
@@ -47,7 +47,6 @@
           v-validate="'required|min:6|confirmed:confirmation'"
           v-model="form.password"
           :append-icon="icon"
-          :append-icon-cb="() => (password_visible = !password_visible)"
           :type="!password_visible ? 'password' : 'text'"
           :error-messages="errorMessages('password')"
           :class="{ 'error--text': hasErrors('password') }"
@@ -57,6 +56,7 @@
           data-vv-name="password"
           prepend-icon="fiber_new"
           counter="255"
+          @click:append="() => (password_visible = !password_visible)"
         />
       </v-flex>
       <v-flex 
@@ -69,7 +69,6 @@
           ref="confirmation"
           v-model="form.password_confirmation"
           :append-icon="icon"
-          :append-icon-cb="() => (password_visible = !password_visible)"
           :type="!password_visible ? 'password' : 'text'"
           :error-messages="errorMessages('password_confirmation')"
           :class="{ 'error--text': hasErrors('password_confirmation') }"
@@ -79,6 +78,7 @@
           data-vv-name="password_confirmation"
           prepend-icon="done_all"
           counter="255"
+          @click:append="() => (password_visible = !password_visible)"
         />
       </v-flex>
       <v-flex 
