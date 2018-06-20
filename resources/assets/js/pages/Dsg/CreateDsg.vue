@@ -399,7 +399,7 @@ export default {
           self.form.client_id = null;
         }
       },
-      deep: true
+      deep: false
     },
     "form.client_name": {
       handler: function(newName) {
@@ -420,7 +420,91 @@ export default {
           self.form.client_name = null;
         }
       },
-      deep: true
+      deep: false
+    },
+    "form.received_by": {
+      handler: function(newID) {
+        let self = this;
+
+        if (newID != null || newID != undefined) {
+          if (self.employees.length > 0) {
+            let employee = _.find(self.employees, function(e) {
+              return e.id == newID;
+            });
+            if (employee != undefined) {
+              self.form.received_by = employee.id;
+              self.form.received_by_name = employee.name;
+            }
+          }
+        } else {
+          self.form.received_by = null;
+          self.form.received_by_name = null;
+        }
+      },
+      deep: false
+    },
+    "form.written_by": {
+      handler: function(newID) {
+        let self = this;
+
+        if (newID != null || newID != undefined) {
+          if (self.employees.length > 0) {
+            let employee = _.find(self.employees, function(e) {
+              return e.id == newID;
+            });
+            if (employee != undefined) {
+              self.form.written_by = employee.id;
+              self.form.written_by_name = employee.name;
+            }
+          }
+        } else {
+          self.form.written_by = null;
+          self.form.written_by_name = null;
+        }
+      },
+      deep: false
+    },
+    "form.inspected_by": {
+      handler: function(newID) {
+        let self = this;
+
+        if (newID != null || newID != undefined) {
+          if (self.employees.length > 0) {
+            let employee = _.find(self.employees, function(e) {
+              return e.id == newID;
+            });
+            if (employee != undefined) {
+              self.form.inspected_by = employee.id;
+              self.form.inspected_by_name = employee.name;
+            }
+          }
+        } else {
+          self.form.inspected_by = null;
+          self.form.inspected_by_name = null;
+        }
+      },
+      deep: false
+    },
+    "form.located_by": {
+      handler: function(newID) {
+        let self = this;
+
+        if (newID != null || newID != undefined) {
+          if (self.employees.length > 0) {
+            let employee = _.find(self.employees, function(e) {
+              return e.id == newID;
+            });
+            if (employee != undefined) {
+              self.form.located_by = employee.id;
+              self.form.located_by_name = employee.name;
+            }
+          }
+        } else {
+          self.form.located_by = null;
+          self.form.located_by_name = null;
+        }
+      },
+      deep: false
     }
   },
   mounted() {
@@ -428,8 +512,8 @@ export default {
     this.getShippers();
     this.getEmployees();
     this.addNewPackage();
-    this.date_received = moment().format("YYYY-MM-DD")
-    this.date_processed = moment().format("YYYY-MM-DD")
+    this.date_received = moment().format("YYYY-MM-DD");
+    this.date_processed = moment().format("YYYY-MM-DD");
   },
   methods: {
     addNewPackage() {
