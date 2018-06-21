@@ -1,16 +1,10 @@
-const Home = () => import("Pages/Home.vue");
-const Support = () => import("Pages/Support.vue");
+const Home = () => import("Pages/Login.vue");
 
 export default [
   /* Front End Routes */
   {
     path: "/",
     name: "home",
-    component: Home,
-  },
-  {
-    path: "/support",
-    component: Support,
-    name: "support",
+    component: Home
   }
 ];

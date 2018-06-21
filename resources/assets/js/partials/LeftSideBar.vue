@@ -10,24 +10,6 @@
     <v-list 
       dense 
       class="blue-grey">
-      <!-- V-For Links From Menu -->
-      <!-- Individual Link (Custom Additional) -->
-      <v-link 
-        title="Home" 
-        href="/" 
-        icon="fa-home"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <v-link 
-        :href="'/support'" 
-        title="Support" 
-        icon="message"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
       <!-- Expandable Group Links from Group Link -->
       <v-subheader 
         v-if="$auth.check('admin')" 
@@ -39,7 +21,7 @@
         v-if="$auth.check('customer')" 
         class="white--text">Customer Area</v-subheader>
       <v-link 
-        v-if="isAuthenticated"
+        v-if="$auth.check('admin')"
         title="Dashboard"
         href="/dashboard" 
         icon="fa-tachometer"
@@ -137,7 +119,7 @@
       <!-- All User Types -->
       
       <v-link 
-        v-if="isAuthenticated"
+        v-if="$auth.check()"
         title="Settings" 
         href="/settings" 
         icon="fa-cogs"
@@ -146,29 +128,10 @@
         icon-color="#fafafa"
       />
       <v-link 
-        v-if="isAuthenticated"
+        v-if="$auth.check()"
         title="Logout" 
         href="/logout"
         icon="power_settings_new"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <!-- Guest Links -->
-      <v-link 
-        v-if="!isAuthenticated" 
-        title="Login" 
-        href="/login'"
-        icon="fa-key"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
-      <v-link 
-        v-if="!isAuthenticated"
-        title="Register"
-        href="/register" 
-        icon="fa-user-plus"
         link-color="white"
         active-color="#4db6ac"
         icon-color="#fafafa"

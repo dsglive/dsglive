@@ -2,27 +2,9 @@
   <modal-layout class="white">
     <v-card :flat="true">
       <v-toolbar class="primary">
-        <v-btn 
-          flat 
-          icon 
-          color="white"
-          @click.native="redirectBack()"
-        >
-          <v-icon>arrow_back</v-icon>
-        </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Customer Login Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Welcome To DSG Live</v-toolbar-title>
         <v-spacer/>
-        <v-toolbar-items>
-          <!-- If There is no User Account Login Yet Redirect to Authentication Page -->
-          <v-btn 
-            flat 
-            color="white" 
-            @click.native="goHome()"
-          >
-            <v-icon>fa-home</v-icon>
-          </v-btn>
-        </v-toolbar-items>
       </v-toolbar>
       <v-card-text style="padding-top:150px;">
         <v-container fluid>
@@ -106,32 +88,6 @@
               </v-btn>
             </v-flex>
           </form>
-          <v-layout 
-            row
-            wrap
-          >
-            <v-flex 
-              xs12 
-              sm12 
-              md4 
-              offset-md4 
-              lg4 
-              offset-lg4 
-              xl4 
-              offset-xl4 
-              text-xs-center
-            >
-              <v-btn 
-                block 
-                flat 
-                class="white--text" 
-                color="teal lighten-2"
-                @click.native="goToRegister()"
-              >
-                New Customer?
-              </v-btn>
-            </v-flex>
-          </v-layout>
         </v-container>
 
       </v-card-text>
@@ -165,18 +121,6 @@ export default {
     }
   },
   methods: {
-    goHome() {
-      let self = this;
-      self.$nextTick(() => self.$router.push({ name: "home" }));
-    },
-    goToRegister() {
-      let self = this;
-      self.$nextTick(() => self.$router.push({ name: "register" }));
-    },
-    redirectBack() {
-      let self = this;
-      return self.$nextTick(() => self.$router.go(-1));
-    },
     login() {
       let self = this;
       self.$validator.validateAll();
