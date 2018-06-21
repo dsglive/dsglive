@@ -14,7 +14,6 @@
         <v-toolbar-title class="text-xs-center white--text">DSG Creation Page</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no Dsg Account Login Yet Redirect to Authentication Page -->
           <v-btn
             :loading="form.busy" 
             :disabled="errors.any() || form.busy"
@@ -30,8 +29,10 @@
       <v-layout 
         row 
         wrap
-        ma-5
-        pa-5
+        my-0
+        py-0
+        mx-5
+        px-5
       >
         <v-flex 
           xs12
@@ -49,7 +50,7 @@
             label="Choose Customer"
             light
             chips
-            prepend-icon="fa-tags"
+            prepend-icon="supervised_user_circle"
             data-vv-name="customer"
           />
         </v-flex>
@@ -112,7 +113,7 @@
             label="Received By"
             light
             chips
-            prepend-icon="fa-ship"
+            prepend-icon="how_to_reg"
             data-vv-name="received_by"
           />
         </v-flex>
@@ -132,7 +133,7 @@
             label="Written By"
             light
             chips
-            prepend-icon="fa-ship"
+            prepend-icon="local_library"
             data-vv-name="written_by"
           />
         </v-flex>
@@ -152,7 +153,7 @@
             label="Inspected By"
             light
             chips
-            prepend-icon="fa-ship"
+            prepend-icon="search"
             data-vv-name="inspected_by"
           />
         </v-flex>
@@ -172,7 +173,7 @@
             label="Located By"
             light
             chips
-            prepend-icon="fa-ship"
+            prepend-icon="person_pin"
             data-vv-name="located_by"
           />
         </v-flex>
@@ -187,6 +188,7 @@
             :class="{ 'error--text': hasErrors('po_no') }"
             light
             label="PO No."
+            prepend-icon="bookmark"
             data-vv-name="po_no"
           />
         </v-flex>
@@ -206,7 +208,7 @@
               slot="activator"
               v-model="date_received"
               label="Date Received"
-              prepend-icon="event"
+              prepend-icon="event_available"
               readonly
             />
             <v-date-picker 
@@ -240,7 +242,7 @@
               slot="activator"
               v-model="date_processed"
               label="Date Processed"
-              prepend-icon="event"
+              prepend-icon="event_note"
               readonly
             />
             <v-date-picker 
@@ -259,29 +261,34 @@
           </v-dialog>
         </v-flex>
         <v-flex 
+          v-if="packages.length>0"
           xs12 
           lg2>
           <v-text-field
+            v-model="form.total_pieces"
             readonly
-            disabled
             label="Total Pieces"
+            prepend-icon="category"
           />
         </v-flex>
         <v-flex 
+          v-if="packages.length>0"
           xs12 
           lg2>
           <v-text-field
+            v-model="form.total_cube"
             readonly
-            disabled
             label="Total Cube"
+            prepend-icon="fa-cubes"
           />
         </v-flex>
         <v-flex 
+          v-if="packages.length>0"
           xs12 
           lg2>
           <v-text-field
+            v-model="form.receiving_amount"
             readonly
-            disabled
             prepend-icon="attach_money"
             label="Receiving Amount"
           />
@@ -291,9 +298,24 @@
       <v-layout 
         row 
         wrap
-        ma-5
-        pa-5
+        my-0
+        py-0
+        mx-5
+        px-5
       >
+        <v-flex
+          xs12 
+          lg1
+        >
+          <v-btn 
+            :disabled="errors.any()"
+            color="info"
+            block
+            @click="addNewPackage"
+          >
+            Add New Item
+          </v-btn>
+        </v-flex>
         <v-btn 
           color="accent"
           @click="openPackageImagesModal()"
@@ -346,9 +368,9 @@ export default {
       inspected_by_name: null,
       located_by: null,
       located_by_name: null,
-      total_pieces: null,
-      total_cube: null,
-      receiving_amoount: null,
+      total_pieces: 0,
+      total_cube: 0,
+      receiving_amount: 0,
       packages: []
     }),
     po_no: null,
@@ -359,10 +381,28 @@ export default {
     date_processed_modal: false,
     customers: [],
     clients: [],
-    client_name: "",
     shippers: [],
     employees: [],
-    packages: []
+    packages: [],
+    addPackageForm: new Form({
+      customer_id: null,
+      customer_name: null,
+      client_id: null,
+      client_name: null,
+      shipper_id: null,
+      shipper_name: null,
+      received_by: null,
+      received_by_name: null,
+      written_by: null,
+      written_by_name: null,
+      inspected_by: null,
+      inspected_by_name: null,
+      located_by: null,
+      located_by_name: null,
+      date_received: null,
+      date_processed: null,
+      po_no: null
+    })
   }),
   watch: {
     bins: {
@@ -517,7 +557,6 @@ export default {
     this.getCustomers();
     this.getShippers();
     this.getEmployees();
-    this.addNewPackage();
     this.getBins();
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
@@ -530,9 +569,29 @@ export default {
       });
     },
     addNewPackage() {
-      axios.post(route("api.package.add")).then(response => {
-        console.log(response.data);
-        this.packages.push(response.data.data);
+      let self = this;
+      self.$validator.validateAll().then(result => {
+        if (result) {
+          // eslint-disable-next-line
+          axios.post(route("api.package.add")).then(response => {
+            let item = response.data.data;
+            item.date_received = self.date_received;
+            item.date_processed = self.date_processed;
+            item.po_no = self.po_no;
+            self.packages.push(item);
+          });
+        } else {
+          const validationModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          validationModal({
+            title: `Validation Error`,
+            html: `<p class="title">Please Fix Form Errors</p>`,
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        }
       });
     },
     openPackageImagesModal() {
@@ -571,7 +630,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.createShipper();
+          self.createDsg();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -586,12 +645,12 @@ export default {
         }
       });
     },
-    createShipper() {
+    createDsg() {
       let self = this;
       self.form.busy = true;
 
       self.form
-        .post(route("api.shipper.create"), self.form)
+        .post(route("api.dsg.create"), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -601,11 +660,11 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Shipper Has Been Created!</p>`,
+            html: `<p class="title">DSG Has Been Created!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "shippers" }));
+          self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
         .catch(errors => {});
     },
@@ -613,21 +672,29 @@ export default {
       let self = this;
       self.form = new Form({
         active: false,
-        name: null,
-        email: null,
-        phone: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        notes: null
+        client_id: null,
+        client_name: null,
+        customer_id: null,
+        customer_name: null,
+        shipper_id: null,
+        shipper_name: null,
+        received_by: null,
+        received_by_name: null,
+        written_by: null,
+        written_by_name: null,
+        inspected_by: null,
+        inspected_by_name: null,
+        located_by: null,
+        located_by_name: null,
+        total_pieces: null,
+        total_cube: null,
+        receiving_amount: null,
+        packages: []
       });
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "shippers" }));
+      self.$nextTick(() => self.$router.push({ name: "dsg" }));
     }
   }
 };
