@@ -23,27 +23,22 @@ class PackageController extends Controller
     }
 
     /**
+     * @param Package $package
      * @param Request $request
      */
     public function uploadDamageImage(Package $package, Request $request)
     {
-        $id = $package->id;
-        return Package::uploadDamageImage($id, 'damaged_images');
+        $link = $package->uploadDamageImage('damaged_images');
+        return response()->json(['package_images' => $link]);
     }
 
     /**
+     * @param Package $package
      * @param Request $request
      */
-    public function uploadPackageImages(Request $request)
+    public function uploadPackageImages(Package $package, Request $request)
     {
-        $package                = new Package();
-        $package->description   = 'power';
-        $package->handling_type = 1;
-        $package->store_at      = 'floor';
-        $package->delivered     = 0;
-        $package->save();
-        $id   = $package->id;
-        $link = Package::uploadPackageImage($id, 'package_images');
+        $link = $package->uploadPackageImage('package_images');
 
         return response()->json(['package_images' => $link]);
     }
