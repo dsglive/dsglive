@@ -25,14 +25,8 @@ class PackageController extends Controller
     /**
      * @param Request $request
      */
-    public function uploadDamageImage(Request $request)
+    public function uploadDamageImage(Package $package, Request $request)
     {
-        $package                = new Package();
-        $package->description   = 'power';
-        $package->handling_type = 1;
-        $package->store_at      = 'floor';
-        $package->delivered     = 0;
-        $package->save();
         $id = $package->id;
         return Package::uploadDamageImage($id, 'damaged_images');
     }

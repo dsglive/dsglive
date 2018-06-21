@@ -84,21 +84,19 @@ class Package extends Model implements HasMedia
      * @param  $key
      * @return mixed
      */
-    public static function uploadDamageImage($id, $key): string
+    public function uploadDamageImage($key): string
     {
-        $package = self::find($id);
-        $package->addMediaFromRequest($key)->toMediaCollection('damaged_images');
-        return $package->getMedia('damaged_images')->last()->getFullUrl();
+        $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('damaged_images');
+        return $this->getMedia('damaged_images')->last()->getFullUrl();
     }
 
     /**
      * @param  $id
      * @return mixed
      */
-    public static function uploadPackageImage($id, $key): string
+    public function uploadPackageImage($key): string
     {
-        $package = self::find($id);
-        $package->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
-        return $package->getMedia('package_images')->last()->getFullUrl();
+        $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
+        return $this->getMedia('package_images')->last()->getFullUrl();
     }
 }
