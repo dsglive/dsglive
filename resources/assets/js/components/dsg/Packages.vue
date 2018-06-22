@@ -310,6 +310,15 @@ export default {
     date_repaired: null
   }),
   watch: {
+    "item.length"(newvalue) {
+      this.updatetotalCube();
+    },
+    "item.width"(newValue) {
+      this.updatetotalCube();
+    },
+    "item.height"(newValue) {
+      this.updatetotalCube();
+    },
     date_repaired: {
       handler: function(newValue) {
         let self = this;
@@ -340,6 +349,9 @@ export default {
     }
   },
   methods: {
+    updatetotalCube() {
+      this.item.cube = this.item.length * this.item.width * this.item.height;
+    },
     save(item, date) {
       let ref = `date_repaired_${item.id}`;
       this.$refs[ref].save(date);

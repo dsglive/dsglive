@@ -269,7 +269,7 @@
           xs12 
           lg2>
           <v-text-field
-            v-model="packages.length"
+            v-model="form.total_pieces"
             readonly
             label="Total Pieces"
             prepend-icon="category"
@@ -313,7 +313,6 @@
         >
           <v-btn 
             :disabled="errors.any()"
-            dark
             color="primary"
             block
             @click="addNewPackage"
@@ -384,7 +383,7 @@ export default {
     shippers: [],
     employees: [],
     packages: [],
-    rates:[],
+    rates: [],
     addPackageForm: new Form({
       customer_id: null,
       customer_name: null,
@@ -423,7 +422,12 @@ export default {
       deep: true
     },
     packages: {
-      handler: function(newValue) {},
+      handler: function(newValue) {
+        let self = this;
+        self.form.total_pieces = newValue.length;
+        self.updateTotalCube();
+        // updateReceivingAmount
+      },
       deep: true
     },
     "form.customer_id": {
@@ -564,10 +568,20 @@ export default {
     this.date_processed = moment().format("YYYY-MM-DD");
   },
   methods: {
-    getRates(){
+    updateTotalCube() {
+      let self = this;
+      let total = this.packages.length;
+      let totalCube = 0;
+      for (let i = 0; i < total; i++) {
+        totalCube = totalCube + Number(self.packages[i].cube);
+      }
+
+      self.form.total_cube = totalCube;
+    },
+    getRates() {
       let self = this;
       axios.get(route("api.dsg.getHandlingRates")).then(response => {
-          console.log('rates', response.data)
+        console.log("rates", response.data);
         self.rates = response.data.rates;
       });
     },
@@ -579,29 +593,29 @@ export default {
     },
     addNewPackage() {
       let self = this;
-    //   self.$validator.validateAll().then(result => {
-    //     if (result) {
-          // eslint-disable-next-line
-          axios.post(route("api.package.add")).then(response => {
-            let item = response.data.data;
-            item.date_received = self.date_received;
-            item.date_processed = self.date_processed;
-            item.po_no = self.po_no;
-            self.packages.push(item);
-          });
-        // } else {
-        //   const validationModal = swal.mixin({
-        //     confirmButtonClass: "v-btn blue-grey  subheading white--text",
-        //     buttonsStyling: false
-        //   });
-        //   validationModal({
-        //     title: `Validation Error`,
-        //     html: `<p class="title">Please Fix Form Errors</p>`,
-        //     type: "warning",
-        //     confirmButtonText: "Back"
-        //   });
-        // }
-    //   });
+      //   self.$validator.validateAll().then(result => {
+      //     if (result) {
+      // eslint-disable-next-line
+      axios.post(route("api.package.add")).then(response => {
+        let item = response.data.data;
+        item.date_received = self.date_received;
+        item.date_processed = self.date_processed;
+        item.po_no = self.po_no;
+        self.packages.push(item);
+      });
+      // } else {
+      //   const validationModal = swal.mixin({
+      //     confirmButtonClass: "v-btn blue-grey  subheading white--text",
+      //     buttonsStyling: false
+      //   });
+      //   validationModal({
+      //     title: `Validation Error`,
+      //     html: `<p class="title">Please Fix Form Errors</p>`,
+      //     type: "warning",
+      //     confirmButtonText: "Back"
+      //   });
+      // }
+      //   });
     },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {
