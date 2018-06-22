@@ -4,9 +4,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
     //? Dashboard Stats
     Route::post('/dashboard/admin/getStats', 'Dashboard\AdminStatsController@getStats')
-    ->name('api.dashboard.admin.getStats');
+        ->name('api.dashboard.admin.getStats');
     Route::post('/dashboard/customer/getStats', 'Dashboard\CustomerStatsController@getStats')
-    ->name('api.dashboard.customer.getStats');
+        ->name('api.dashboard.customer.getStats');
 
     //? Package Management
     Route::post('/package/{id}/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
@@ -15,6 +15,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.package.uploadDamageImage');
     Route::post('/package/add', 'Package\PackageController@add')
         ->name('api.package.add');
+    Route::post('/package/{id}/delete', 'Package\PackageController@delete')
+        ->name('api.package.delete');
 
     //? Dsg Management
 

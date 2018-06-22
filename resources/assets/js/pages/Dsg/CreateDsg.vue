@@ -328,6 +328,7 @@
         v-for="(item,key) in packages" 
         :key="key"
         :item="item"
+        :packages="packages"
         :bins="bins"
         :rates="rates"
       />

@@ -21,6 +21,13 @@ class PackageController extends Controller
         return new PackageResource($package);
     }
 
+    public function delete($id)
+    {
+        $package = Package::find($id);
+        $package->delete();
+        return response()->json(['message' => 'Package Deleted!']);
+    }
+
     /**
      * @param $id
      */

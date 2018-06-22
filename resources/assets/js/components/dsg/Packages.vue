@@ -6,6 +6,7 @@
     py-0
     mx-5
     px-5
+    pb-5
   >
     <v-flex lg12>
           
@@ -18,7 +19,7 @@
             flat 
             icon
             color="red" 
-            @click.native="deletePackage()"
+            @click.native="deletePackage(item.id)"
           >
             <v-icon x-large>close</v-icon>
           </v-btn>
@@ -290,6 +291,10 @@ export default {
       type: Object,
       required: true
     },
+    packages: {
+      type: Array,
+      required: true
+    },
     bins: {
       type: Array,
       required: true
@@ -348,8 +353,12 @@ export default {
     openDamagedImagesModal() {
       Bus.$emit("upload-damaged-images");
     },
-    deletePackage() {
-      console.log("deleting Package");
+    deletePackage(id) {
+      let self = this;
+      axios.post(route("api.package.delete", { id })).then(() => {
+        let index = _.findIndex(self.packages, { id });
+        self.packages.splice(index, 1);
+      });
     },
     getStoreAt(status) {
       if (status) {
