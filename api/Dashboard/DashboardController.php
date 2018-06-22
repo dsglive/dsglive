@@ -9,6 +9,12 @@ use App\Models\Package;
 
 class DashboardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
+
     public function getStats()
     {
         $data['customers']   = User::role('customer')->active()->count();
