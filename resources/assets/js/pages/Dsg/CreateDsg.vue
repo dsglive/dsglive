@@ -410,7 +410,7 @@ export default {
         let self = this;
         let total = this.packages.length;
         for (let i = 0; i < total; i++) {
-          self.packages[i].po_no = newValue
+          self.packages[i].po_no = newValue;
         }
       },
       deep: true
@@ -420,7 +420,7 @@ export default {
         let self = this;
         let total = this.packages.length;
         for (let i = 0; i < total; i++) {
-          self.packages[i].date_received = newValue
+          self.packages[i].date_received = newValue;
         }
       },
       deep: true
@@ -430,7 +430,7 @@ export default {
         let self = this;
         let total = this.packages.length;
         for (let i = 0; i < total; i++) {
-          self.packages[i].date_processed = newValue
+          self.packages[i].date_processed = newValue;
         }
       },
       deep: true
@@ -632,29 +632,28 @@ export default {
     },
     addNewPackage() {
       let self = this;
-      //   self.$validator.validateAll().then(result => {
-      //     if (result) {
-      // eslint-disable-next-line
-      axios.post(route("api.package.add")).then(response => {
-        let item = response.data.data;
-        item.date_received = self.date_received;
-        item.date_processed = self.date_processed;
-        item.po_no = self.po_no;
-        self.packages.push(item);
+      self.$validator.validateAll().then(result => {
+        if (result) {
+          axios.post(route("api.package.add")).then(response => {
+            let item = response.data.data;
+            item.date_received = self.date_received;
+            item.date_processed = self.date_processed;
+            item.po_no = self.po_no;
+            self.packages.push(item);
+          });
+        } else {
+          const validationModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          validationModal({
+            title: `Validation Error`,
+            html: `<p class="title">Please Fix Form Errors</p>`,
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        }
       });
-      // } else {
-      //   const validationModal = swal.mixin({
-      //     confirmButtonClass: "v-btn blue-grey  subheading white--text",
-      //     buttonsStyling: false
-      //   });
-      //   validationModal({
-      //     title: `Validation Error`,
-      //     html: `<p class="title">Please Fix Form Errors</p>`,
-      //     type: "warning",
-      //     confirmButtonText: "Back"
-      //   });
-      // }
-      //   });
     },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {

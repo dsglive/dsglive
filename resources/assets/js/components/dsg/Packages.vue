@@ -125,34 +125,6 @@
             lg6 
             d-flex
           >
-            <v-flex lg4>
-              <v-switch
-                v-model="item.damaged"
-                :label="getDamageStatus(item.damaged)"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.style_no"
-                label="Style No."
-                prepend-icon="style"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-autocomplete
-                :items="store_at"
-                v-model="item.store_at"
-                required
-                label="Store At"
-                light
-                prepend-icon="dns"
-              />
-            </v-flex>
-          </v-flex>
-          <v-flex 
-            lg6 
-            d-flex
-          >
             <v-flex lg6>
               <v-autocomplete
                 :items="bins"
@@ -175,6 +147,34 @@
                 label="Choose Handling Note"
                 light
                 prepend-icon="receipt"
+              />
+            </v-flex>
+          </v-flex>
+          <v-flex 
+            lg6 
+            d-flex
+          >
+            <v-flex lg4>
+              <v-text-field
+                v-model="item.style_no"
+                label="Style No."
+                prepend-icon="style"
+              />
+            </v-flex>
+            <v-flex lg4>
+              <v-autocomplete
+                :items="store_at"
+                v-model="item.store_at"
+                required
+                label="Store At"
+                light
+                prepend-icon="dns"
+              />
+            </v-flex>
+            <v-flex lg4>
+              <v-switch
+                v-model="item.damaged"
+                :label="getDamageStatus(item.damaged)"
               />
             </v-flex>
           </v-flex>
@@ -218,6 +218,7 @@
         >
           <v-flex 
             lg2
+            offset-lg8
             px-5
           >
             <v-switch
@@ -232,7 +233,7 @@
             <v-dialog
               :ref="`date_repaired_${item.id}`"
               v-model="date_repaired_modal"
-              :return-value.sync="date_repaired"
+              :return-value.sync="item.date_repaired"
               persistent
               lazy
               full-width
@@ -240,13 +241,13 @@
             >
               <v-text-field
                 slot="activator"
-                v-model="date_repaired"
+                v-model="item.date_repaired"
                 label="Date Repaired"
                 prepend-icon="event_note"
                 readonly
               />
               <v-date-picker 
-                v-model="date_repaired" 
+                v-model="item.date_repaired" 
                 scrollable>
                 <v-spacer/>
                 <v-btn 
@@ -256,7 +257,7 @@
                 <v-btn 
                   flat 
                   color="primary" 
-                  @click="save(item,date_repaired)">OK</v-btn>
+                  @click="save(item,item.date_repaired)">OK</v-btn>
               </v-date-picker>
             </v-dialog>
           </v-flex>
@@ -345,13 +346,6 @@ export default {
         return r.id === newValue;
       });
       self.item.handling_fee = rate.amount;
-    },
-    date_repaired: {
-      handler: function(newValue) {
-        let self = this;
-        self.item.date_repaired = newValue;
-      },
-      deep: false
     },
     "item.bin_id": {
       handler: function(newValue) {
