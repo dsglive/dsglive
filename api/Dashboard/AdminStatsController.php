@@ -7,7 +7,7 @@ use App\Models\Dsg;
 use App\Models\User;
 use App\Models\Package;
 
-class DashboardController extends Controller
+class AdminStatsController extends Controller
 {
 
     public function __construct()
