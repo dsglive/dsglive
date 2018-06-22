@@ -101,6 +101,11 @@ class Package extends Model implements HasMedia
         return $this->getMedia('package_images')->last()->getFullUrl();
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
     public function scopeUndelivered($query)
     {
         return $query->where('delivered', 0);
