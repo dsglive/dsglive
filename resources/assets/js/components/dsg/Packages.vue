@@ -348,10 +348,10 @@ export default {
       this.date_repaired_modal = !this.date_repaired_modal;
     },
     openPackageImagesModal() {
-      Bus.$emit("upload-package-images");
+      Bus.$emit(`upload-package-images-${this.item.id}`);
     },
     openDamagedImagesModal() {
-      Bus.$emit("upload-damaged-images");
+      Bus.$emit(`upload-damaged-images-${this.item.id}`);
     },
     deletePackage(id) {
       let self = this;

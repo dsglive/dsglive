@@ -12,7 +12,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="white--text">Upload Package Images</v-toolbar-title>
+        <v-toolbar-title class="white--text">Upload Images Package #: {{ id }} </v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <uploads 
@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     let self = this;
-    Bus.$on("upload-package-images", () => {
+    Bus.$on(`upload-package-images-${this.item.id}`, () => {
       self.modal = true;
     });
   },
