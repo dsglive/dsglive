@@ -82,7 +82,7 @@
         v-if="$auth.check('admin')"
         title="Logistics" 
         href="/logistics" 
-        icon="fa-sitemap"
+        icon="confirmation_number"
         link-color="white"
         active-color="#4db6ac"
         icon-color="#fafafa"

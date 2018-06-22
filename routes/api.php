@@ -2,6 +2,8 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Dashboard Stats
+    Route::get('/getStats', 'Dashboard\DashboardController@getStats')->name('api.dashboard.getStats');
     // Package Management
     Route::post('/package/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
         ->name('api.package.uploadPackageImages');

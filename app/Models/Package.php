@@ -20,6 +20,7 @@ class Package extends Model implements HasMedia
         'length'         => 'float',
         'width'          => 'float',
         'height'         => 'float',
+        'damaged'        => 'boolean',
         'delivered'      => 'boolean',
         'repaired'       => 'boolean',
         'storage_fee'    => 'float',
@@ -98,5 +99,30 @@ class Package extends Model implements HasMedia
     {
         $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
         return $this->getMedia('package_images')->last()->getFullUrl();
+    }
+
+    public function scopeUndelivered($query)
+    {
+        return $query->where('delivered', 0);
+    }
+
+    public function scopeDelivered($query)
+    {
+        return $query->where('delivered', 1);
+    }
+
+    public function scopeDamaged($query)
+    {
+        return $query->where('damaged', 1);
+    }
+
+    public function scopeRepaired($query)
+    {
+        return $query->where('repaired', 1);
+    }
+
+    public function scopeUnknown($query)
+    {
+        return $query->where('client_id', '==', null);
     }
 }

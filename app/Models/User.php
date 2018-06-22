@@ -76,6 +76,14 @@ class User extends Authenticatable implements HasMedia
      */
     protected $table = 'users';
 
+    /**
+     * @return mixed
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
+
     public function registerMediaCollections()
     {
         // enable single file
@@ -98,9 +106,18 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * @param $query
-     * @param $type
      * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
+    /**
      * $users = App\Models\User::ofType('admin')->get();
+     * @param  $query
+     * @param  $type
+     * @return mixed
      */
     public function scopeOfType($query, $type)
     {
@@ -117,13 +134,5 @@ class User extends Authenticatable implements HasMedia
         $user = self::find($id);
         $user->addMedia($pathToImage)->toMediaCollection('avatar');
         return $user->getFirstMediaUrl('avatar'); // will return an url to the `$pathToImage` file
-    }
-
-    /**
-     * @return mixed
-     */
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
     }
 }
