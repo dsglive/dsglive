@@ -21,9 +21,9 @@
         v-if="$auth.check('customer')" 
         class="white--text">Customer Area</v-subheader>
       <v-link 
-        v-if="$auth.check('admin')"
+        v-if="$auth.check(['admin','customer','warehouse'])"
         title="Dashboard"
-        href="/dashboard" 
+        href="/dashboard"
         icon="fa-tachometer"
         link-color="white"
         active-color="#4db6ac"

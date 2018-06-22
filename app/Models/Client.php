@@ -36,11 +36,28 @@ class Client extends Model
     protected $table = 'clients';
 
     /**
+     * @return mixed
+     */
+    public function dsg()
+    {
+        return $this->hasMany(Dsg::class);
+    }
+
+    /**
      * @param $email
      */
     public static function findByEmail($email)
     {
         return self::whereEmail($email)->first();
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
     }
 
     /**
@@ -61,13 +78,5 @@ class Client extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function dsg()
-    {
-        return $this->hasMany(Dsg::class);
     }
 }

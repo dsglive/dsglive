@@ -81,6 +81,60 @@ class Package extends Model implements HasMedia
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeDamaged($query)
+    {
+        return $query->where('damaged', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeDelivered($query)
+    {
+        return $query->where('delivered', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeRepaired($query)
+    {
+        return $query->where('repaired', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUndelivered($query)
+    {
+        return $query->where('delivered', 0);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUnknown($query)
+    {
+        return $query->where('client_id', '==', null);
+    }
+
+    /**
      * @param  $id
      * @param  $key
      * @return mixed
@@ -99,35 +153,5 @@ class Package extends Model implements HasMedia
     {
         $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
         return $this->getMedia('package_images')->last()->getFullUrl();
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('active', 1);
-    }
-
-    public function scopeUndelivered($query)
-    {
-        return $query->where('delivered', 0);
-    }
-
-    public function scopeDelivered($query)
-    {
-        return $query->where('delivered', 1);
-    }
-
-    public function scopeDamaged($query)
-    {
-        return $query->where('damaged', 1);
-    }
-
-    public function scopeRepaired($query)
-    {
-        return $query->where('repaired', 1);
-    }
-
-    public function scopeUnknown($query)
-    {
-        return $query->where('client_id', '==', null);
     }
 }

@@ -19,13 +19,13 @@
         <v-btn 
           class="white--text" 
           flat 
-          @click.native="goHome()"
+          @click.native="goDashboard()"
         >
           <v-icon 
             right 
             color="white"
           >
-            home
+            dashboard
           </v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -536,8 +536,8 @@
                 block 
                 flat 
                 color="info" 
-                @click.native="goHome()"
-              >Back To HomePage</v-btn>
+                @click.native="goDashboard()"
+              >Back To Dashboard</v-btn>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -561,9 +561,9 @@ export default {
       let self = this;
       self.$router.go(-2);
     },
-    goHome() {
+    goDashboard() {
       let self = this;
-      self.$router.push({ name: "home" });
+      self.$router.push({ name: "dashboard" });
     }
   }
 };

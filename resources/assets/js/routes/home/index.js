@@ -5,6 +5,7 @@ export default [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
+    meta: { auth: false }
   }
 ];
