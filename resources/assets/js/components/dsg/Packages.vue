@@ -12,6 +12,22 @@
           
       <v-card>
         <v-toolbar class="blue-grey">
+          <v-btn
+            flat 
+            icon
+            color="blue lighten-4" 
+            @click.native="addNewPackage()"
+          >
+            <v-icon x-large>add_circle</v-icon>
+          </v-btn>
+          <v-btn
+            flat 
+            icon
+            color="green lighten-2" 
+            @click.native="clonePackage()"
+          >
+            <v-icon x-large>file_copy</v-icon>
+          </v-btn>
           <v-spacer/>
           <v-toolbar-title class="text-lg-center white--text">Package ID#:{{ item.id }}</v-toolbar-title>
           <v-spacer/>
@@ -110,6 +126,12 @@
             d-flex
           >
             <v-flex lg4>
+              <v-switch
+                v-model="item.damaged"
+                :label="getDamageStatus(item.damaged)"
+              />
+            </v-flex>
+            <v-flex lg4>
               <v-text-field
                 v-model="item.style_no"
                 label="Style No."
@@ -117,15 +139,13 @@
               />
             </v-flex>
             <v-flex lg4>
-              <v-switch
-                v-model="floor"
-                :label="getStoreAt(floor)"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-switch
-                v-model="item.damaged"
-                :label="getDamageStatus(item.damaged)"
+              <v-autocomplete
+                :items="store_at"
+                v-model="item.store_at"
+                required
+                label="Store At"
+                light
+                prepend-icon="dns"
               />
             </v-flex>
           </v-flex>
@@ -305,7 +325,7 @@ export default {
     }
   },
   data: () => ({
-    floor: false,
+    store_at: ["rack", "floor"],
     date_repaired_modal: false,
     date_repaired: null
   }),
@@ -319,12 +339,12 @@ export default {
     "item.height"(newValue) {
       this.updatetotalCube();
     },
-    "item.handling_type"(newValue){
-        let self = this;
-        let rate = _.find(self.rates, function(r) {
-          return r.id === newValue;
-        });
-        self.item.handling_fee = rate.amount;
+    "item.handling_type"(newValue) {
+      let self = this;
+      let rate = _.find(self.rates, function(r) {
+        return r.id === newValue;
+      });
+      self.item.handling_fee = rate.amount;
     },
     date_repaired: {
       handler: function(newValue) {
@@ -343,19 +363,55 @@ export default {
       },
       deep: false
     },
-    floor: {
-      handler: function(newValue) {
-        let self = this;
-        if (newValue) {
-          self.item.store_at = "floor";
-        } else {
-          self.item.store_at = "rack";
-        }
-      },
-      deep: false
-    }
   },
   methods: {
+    clonePackage() {
+      let self = this;
+      axios.post(route("api.package.add")).then(response => {
+        let item = response.data.data;
+        item.dsg_id = self.item.dsg_id;
+        item.date_received = self.item.date_received;
+        item.date_processed = self.item.date_processed;
+        item.client_id = self.item.client_id;
+        item.client_name = self.item.client_name;
+        item.customer_id = self.item.customer_id;
+        item.customer_name = self.item.customer_name;
+
+        item.bin_id = self.item.bin_id;
+        item.bin_name = self.item.bin_name;
+
+        item.po_no = self.item.po_no;
+        item.style_no = self.item.style_no;
+
+        item.length = self.item.length;
+        item.width = self.item.width;
+        item.height = self.item.height;
+        item.cube = self.item.cube;
+
+        item.damaged = self.item.damaged;
+        item.damage_description = self.item.damage_description;
+        item.repaired = self.item.repaired;
+        item.date_repaired = self.item.date_repaired;
+
+        item.handling_fee = self.item.handling_fee;
+        item.handling_type = self.item.handling_type;
+        item.store_at = self.item.store_at;
+        // item.storage_fee = self.item.storage_fee;
+
+        item.description = self.item.description;
+        self.packages.push(item);
+      });
+    },
+    addNewPackage() {
+      let self = this;
+      axios.post(route("api.package.add")).then(response => {
+        let item = response.data.data;
+        item.date_received = self.item.date_received;
+        item.date_processed = self.item.date_processed;
+        item.po_no = self.item.po_no;
+        self.packages.push(item);
+      });
+    },
     updatetotalCube() {
       this.item.cube = this.item.length * this.item.width * this.item.height;
     },
