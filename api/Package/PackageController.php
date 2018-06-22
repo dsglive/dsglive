@@ -27,7 +27,7 @@ class PackageController extends Controller
     public function uploadDamageImage($id)
     {
         $link = Package::uploadDamageImage($id, 'damaged_images');
-        return response()->json(['package_images' => $link]);
+        return response()->json(['damaged_images' => $link]);
     }
 
     /**
