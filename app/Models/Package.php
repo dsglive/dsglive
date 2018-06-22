@@ -81,7 +81,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeActive($query)
@@ -90,7 +90,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeDamaged($query)
@@ -99,7 +99,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeDelivered($query)
@@ -108,7 +108,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeRepaired($query)
@@ -117,7 +117,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUndelivered($query)
@@ -126,7 +126,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknown($query)
@@ -135,23 +135,26 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param  $id
-     * @param  $key
+     * @param $id
+     * @param $key
      * @return mixed
      */
-    public function uploadDamageImage($key): string
+    public static function uploadDamageImage($id, $key)
     {
-        $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('damaged_images');
-        return $this->getMedia('damaged_images')->last()->getFullUrl();
+        $package = self::find($id);
+        $package->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('damaged_images');
+        return $package->getMedia('damaged_images')->last()->getFullUrl();
     }
 
     /**
-     * @param  $id
+     * @param $id
+     * @param $key
      * @return mixed
      */
-    public function uploadPackageImage($key): string
+    public static function uploadPackageImage($id, $key)
     {
-        $this->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
-        return $this->getMedia('package_images')->last()->getFullUrl();
+        $package = self::find($id);
+        $package->addMediaFromRequest($key)->preservingOriginal()->toMediaCollection('package_images');
+        return $package->getMedia('package_images')->last()->getFullUrl();
     }
 }

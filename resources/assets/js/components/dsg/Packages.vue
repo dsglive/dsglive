@@ -165,7 +165,7 @@
         >
           <v-flex 
             lg6 
-            pa-5>
+            px-5>
             <v-textarea
               v-model="item.description"
               label="Package Description"
@@ -177,7 +177,7 @@
           </v-flex>
           <v-flex 
             lg6 
-            pa-5>
+            px-5>
             <v-textarea
               v-if="item.damaged"
               v-model="item.damage_description"
@@ -196,7 +196,8 @@
           pa-2
         >
           <v-flex 
-            lg6
+            lg2
+            px-5
           >
             <v-switch
               v-model="item.repaired"
@@ -204,7 +205,8 @@
             />
           </v-flex>
           <v-flex 
-            lg6 
+            v-if="item.repaired"
+            lg2
           >
             <v-dialog
               :ref="`date_repaired_${item.id}`"
@@ -236,6 +238,37 @@
                   @click="save(item,date_repaired)">OK</v-btn>
               </v-date-picker>
             </v-dialog>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex lg6>
+            <v-btn 
+              block
+              flat
+              color="blue"
+              @click="openPackageImagesModal()"
+            >
+              Upload Images <v-icon right>add_photo_alternate</v-icon>
+            </v-btn>
+            <package-images-uploader 
+              :id="item.id" 
+              :item="item"/>
+          </v-flex>
+          <v-flex 
+            v-if="item.damaged"
+            lg6
+          >
+            <v-btn 
+              block
+              flat
+              color="red"
+              @click="openDamagedImagesModal()"
+            >
+              Upload Damaged Images <v-icon right>broken_image</v-icon>
+            </v-btn>
+            <damaged-images-uploader 
+              :id="item.id" 
+              :item="item"/>
           </v-flex>
         </v-layout>
       </v-card>

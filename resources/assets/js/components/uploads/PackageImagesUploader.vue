@@ -18,46 +18,54 @@
       <uploads 
         :single="single"
         :post-url="postUrl" 
-        :file-key="fileKey"/>
+        :file-key="fileKey"
+        :item="item"/>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import uploads from 'Components/Uploads'
+import uploads from "Components/Uploads";
 
 export default {
-    components: {
-        uploads
+  components: {
+    uploads
+  },
+  props: {
+    id: {
+      type: Number,
+      required: true
     },
-    data: () => ({
-        single: false,
-        modal: false,
-        fileKey: 'package_images'
-
-    }),
-    computed: {
-        postUrl () {
-            return route('api.package.uploadPackageImages')
-        }
-    },
-    mounted () {
-        let self = this
-        Bus.$on('upload-package-images', () => {
-            self.modal = true
-        })
-    },
-    methods: {
-        closeGalleryModal () {
-            this.modal = false
-        },
-        uploadGalleryImages () {
-            console.log('uploading gallery images')
-        }
+    item: {
+      type: Object,
+      required: true
     }
-}
+  },
+  data: () => ({
+    single: false,
+    modal: false,
+    fileKey: "package_images"
+  }),
+  computed: {
+    postUrl() {
+      let self = this;
+      let id = self.id;
+      return route("api.package.uploadPackageImages", { id });
+    }
+  },
+  mounted() {
+    let self = this;
+    Bus.$on("upload-package-images", () => {
+      self.modal = true;
+    });
+  },
+  methods: {
+    closeGalleryModal() {
+      this.modal = false;
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

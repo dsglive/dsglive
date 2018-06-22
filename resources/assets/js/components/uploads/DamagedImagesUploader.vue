@@ -18,7 +18,8 @@
       <uploads 
         :single="single"
         :post-url="postUrl" 
-        :file-key="fileKey"/>
+        :file-key="fileKey"
+        :item="item"/>
     </v-card>
   </v-dialog>
 </template>
@@ -30,6 +31,16 @@ export default {
   components: {
     uploads
   },
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    item: {
+      type: Object,
+      required: true
+    }
+  },
   data: () => ({
     single: false,
     modal: false,
@@ -37,7 +48,9 @@ export default {
   }),
   computed: {
     postUrl() {
-      return route("api.package.uploadDamageImage");
+      let self = this;
+      let id = self.id;
+      return route("api.package.uploadDamageImage", { id });
     }
   },
   mounted() {
@@ -49,7 +62,7 @@ export default {
   methods: {
     close() {
       this.modal = false;
-    },
+    }
   }
 };
 </script>

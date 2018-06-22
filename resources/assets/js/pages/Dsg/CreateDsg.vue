@@ -309,15 +309,16 @@
       >
         <v-flex
           xs12 
-          lg1
+          lg2
         >
           <v-btn 
             :disabled="errors.any()"
-            color="info"
+            dark
+            color="primary"
             block
             @click="addNewPackage"
           >
-            Add New Item
+            Add New Package <v-icon right>library_add</v-icon>
           </v-btn>
         </v-flex>
         

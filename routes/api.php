@@ -8,10 +8,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/dashboard/customer/getStats', 'Dashboard\CustomerStatsController@getStats')
     ->name('api.dashboard.customer.getStats');
 
-    // Package Management
-    Route::post('/package/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
+    //? Package Management
+    Route::post('/package/{id}/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
         ->name('api.package.uploadPackageImages');
-    Route::post('/package/uploadDamageImage', 'Package\PackageController@uploadDamageImage')
+    Route::post('/package/{id}/uploadDamageImage', 'Package\PackageController@uploadDamageImage')
         ->name('api.package.uploadDamageImage');
     Route::post('/package/add', 'Package\PackageController@add')
         ->name('api.package.add');

@@ -386,6 +386,10 @@ export default {
     single: {
       type: Boolean,
       required: true
+    },
+    item: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -442,8 +446,8 @@ export default {
     this.headers["Authorization"] = `Bearer ${vm.$auth.token()}`;
     if (this.single === true) {
       this.multiple = false;
-    }else{
-        this.multiple = true;
+    } else {
+      this.multiple = true;
     }
   },
   methods: {
@@ -524,7 +528,6 @@ export default {
     inputFile(newFile, oldFile) {
       if (newFile && oldFile) {
         // update
-        console.log(newFile);
 
         if (newFile.active && !oldFile.active) {
           // beforeSend
@@ -548,7 +551,20 @@ export default {
         }
 
         if (newFile.success && !oldFile.success) {
-          // success
+         //! PUSH TO ARRAY NEW IMAGES, We Can Use This TO Display at Package
+          let link = newFile.response[this.fileKey];
+          if (this.fileKey === "damaged_images") {
+            if (this.item.damaged_images === null) {
+              this.item.damaged_images = [];
+            }
+            this.item.damaged_images.push(link);
+          }
+          if (this.fileKey === "package_images") {
+            if (this.item.package_images === null) {
+              this.item.package_images = [];
+            }
+            this.item.package_images.push(link);
+          }
         }
       }
 

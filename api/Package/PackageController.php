@@ -4,7 +4,6 @@ namespace Api\Package;
 
 use Api\Controller;
 use App\Models\Package;
-use Illuminate\Http\Request;
 use App\Http\Resources\Dsg\PackageResource;
 
 class PackageController extends Controller
@@ -23,22 +22,20 @@ class PackageController extends Controller
     }
 
     /**
-     * @param Package $package
-     * @param Request $request
+     * @param $id
      */
-    public function uploadDamageImage(Package $package, Request $request)
+    public function uploadDamageImage($id)
     {
-        $link = $package->uploadDamageImage('damaged_images');
+        $link = Package::uploadDamageImage($id, 'damaged_images');
         return response()->json(['package_images' => $link]);
     }
 
     /**
-     * @param Package $package
-     * @param Request $request
+     * @param $id
      */
-    public function uploadPackageImages(Package $package, Request $request)
+    public function uploadPackageImages($id)
     {
-        $link = $package->uploadPackageImage('package_images');
+        $link = Package::uploadPackageImage($id, 'package_images');
 
         return response()->json(['package_images' => $link]);
     }
