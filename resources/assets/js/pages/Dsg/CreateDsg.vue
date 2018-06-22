@@ -308,7 +308,8 @@
         px-5
       >
         <v-flex
-          xs12 
+          v-if="!packages.length>0" 
+          xs12
           lg2
         >
           <v-btn 
