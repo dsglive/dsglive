@@ -405,6 +405,36 @@ export default {
     })
   }),
   watch: {
+    po_no: {
+      handler: function(newValue) {
+        let self = this;
+        let total = this.packages.length;
+        for (let i = 0; i < total; i++) {
+          self.packages[i].po_no = newValue
+        }
+      },
+      deep: true
+    },
+    date_received: {
+      handler: function(newValue) {
+        let self = this;
+        let total = this.packages.length;
+        for (let i = 0; i < total; i++) {
+          self.packages[i].date_received = newValue
+        }
+      },
+      deep: true
+    },
+    date_processed: {
+      handler: function(newValue) {
+        let self = this;
+        let total = this.packages.length;
+        for (let i = 0; i < total; i++) {
+          self.packages[i].date_processed = newValue
+        }
+      },
+      deep: true
+    },
     bins: {
       handler: function(newValue) {},
       deep: true
