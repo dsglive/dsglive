@@ -22,7 +22,7 @@ class AdminStatsController extends Controller
         $data['receiving']   = Dsg::active()->count();
         $data['damaged']     = Package::damaged()->count();
         $data['unknown']     = Package::unknown()->count();
-        $data['undelivered'] = Package::undelivered()->count();
+        $data['undelivered'] = Package::undelivered()->active()->count();
 
         return response()->json(['data' => $data]);
     }

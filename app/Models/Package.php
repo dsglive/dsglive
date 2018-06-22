@@ -14,7 +14,6 @@ class Package extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
-        'active'         => 'boolean',
         'handling_fee'   => 'float',
         'cube'           => 'float',
         'length'         => 'float',
@@ -86,7 +85,7 @@ class Package extends Model implements HasMedia
      */
     public function scopeActive($query)
     {
-        return $query->where('active', 1);
+        return $query->where('dsg_id', '!=', null);
     }
 
     /**
