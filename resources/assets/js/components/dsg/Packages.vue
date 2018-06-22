@@ -27,12 +27,21 @@
         <v-layout 
           row 
           wrap
+          pa-2
         >
-          <!-- 3flex tab-->
+          <!-- 6flex tab-->
           <v-flex 
-            lg3 
+            lg6 
             d-flex>
-            <v-flex lg6>
+            <v-flex lg4>
+              <v-text-field
+                v-model="item.po_no"
+                readonly
+                label="PO No."
+                prepend-icon="bookmark"
+              />
+            </v-flex>
+            <v-flex lg4>
               <v-text-field
                 v-model="item.date_received"
                 readonly
@@ -40,18 +49,18 @@
                 prepend-icon="event_available"
               />
             </v-flex>
-            <v-flex lg6>
+            <v-flex lg4>
               <v-text-field
-                v-model="item.date_processed"
+                v-model="item.date_repaired"
                 readonly
                 label="Date Processed"
                 prepend-icon="event_note"
               />
             </v-flex>
           </v-flex>
-          <!-- 4flex tab-->
+          <!-- 6flex tab-->
           <v-flex 
-            lg4
+            lg6
             d-flex
           >
             <v-flex lg3>
@@ -78,7 +87,9 @@
                 prepend-icon="swap_vert"
               />
             </v-flex>
-            <v-flex lg3>
+            <v-flex 
+              lg3 
+              pl-1>
               <v-text-field
                 v-model="item.cube"
                 label="Cubic Feet"
@@ -87,20 +98,16 @@
               />
             </v-flex>
           </v-flex>
-          
-          <!-- 4flex tab-->
+        </v-layout>
+        <v-layout 
+          row 
+          wrap
+          pa-2
+        >
           <v-flex 
-            lg5
+            lg6 
             d-flex
           >
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.po_no"
-                readonly
-                label="PO No."
-                prepend-icon="bookmark"
-              />
-            </v-flex>
             <v-flex lg4>
               <v-text-field
                 v-model="item.style_no"
@@ -109,6 +116,23 @@
               />
             </v-flex>
             <v-flex lg4>
+              <v-switch
+                v-model="floor"
+                :label="getStoreAt(floor)"
+              />
+            </v-flex>
+            <v-flex lg4>
+              <v-switch
+                v-model="item.damaged"
+                :label="getDamageStatus(item.damaged)"
+              />
+            </v-flex>
+          </v-flex>
+          <v-flex 
+            lg6 
+            d-flex
+          >
+            <v-flex lg6>
               <v-autocomplete
                 :items="bins"
                 v-model="item.bin_id"
@@ -120,32 +144,7 @@
                 prepend-icon="view_comfy"
               />
             </v-flex>
-          </v-flex>
-          
-        </v-layout>
-        <v-layout 
-          row 
-          wrap
-        >
-          <v-flex xs12>
-            <v-switch
-              v-model="floor"
-              :label="getStoreAt(floor)"
-            />
-          </v-flex>
-          <v-flex xs12>
-            <v-switch
-              v-model="item.damaged"
-              :label="getDamageStatus(item.damaged)"
-            />
-          </v-flex>
-          <v-flex xs12>
-            <v-switch
-              v-model="item.repaired"
-              :label="getRepairedStatus(item.repaired)"
-            />
-          </v-flex>
-          <v-flex xs12>
+            <v-flex lg6>
               <v-autocomplete
                 :items="rates"
                 v-model="item.handling_type"
@@ -156,44 +155,89 @@
                 light
                 prepend-icon="receipt"
               />
-          </v-flex>
-          <v-flex xs12>
-              <v-textarea
-        v-model="item.damage_description"
-        label="Damaged Description"
-        counter
-        maxlength="255"
-        full-width
-        single-line
-      ></v-textarea>
-          </v-flex>
-          <v-flex xs12>
-              <v-textarea
-        v-model="item.description"
-        label="Description"
-        counter
-        maxlength="255"
-        full-width
-        single-line
-      ></v-textarea>
+            </v-flex>
           </v-flex>
         </v-layout>
-        <v-card-actions>
-          <v-btn 
-            color="accent"
-            @click="openPackageImagesModal()"
+        <v-layout
+          row 
+          wrap
+          pa-2
+        >
+          <v-flex 
+            lg6 
+            pa-5>
+            <v-textarea
+              v-model="item.description"
+              label="Package Description"
+              counter
+              maxlength="255"
+              full-width
+              single-line
+            />
+          </v-flex>
+          <v-flex 
+            lg6 
+            pa-5>
+            <v-textarea
+              v-if="item.damaged"
+              v-model="item.damage_description"
+              label="Damaged Description"
+              counter
+              maxlength="255"
+              full-width
+              single-line
+            />
+          </v-flex>
+        </v-layout>
+        <v-layout
+          v-if="item.damaged"
+          row 
+          wrap
+          pa-2
+        >
+          <v-flex 
+            lg6
           >
-            Upload Package Images <v-icon right>fa-upload</v-icon>
-          </v-btn>
-          <v-btn 
-            color="accent"
-            @click="openDamagedImagesModal()"
+            <v-switch
+              v-model="item.repaired"
+              :label="getRepairedStatus(item.repaired)"
+            />
+          </v-flex>
+          <v-flex 
+            lg6 
           >
-            Upload Damaged Package Images <v-icon right>fa-upload</v-icon>
-          </v-btn>
-          <package-images-uploader/>
-          <damaged-images-uploader/>
-        </v-card-actions>
+            <v-dialog
+              :ref="`date_repaired_${item.id}`"
+              v-model="date_repaired_modal"
+              :return-value.sync="date_repaired"
+              persistent
+              lazy
+              full-width
+              width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                v-model="date_repaired"
+                label="Date Repaired"
+                prepend-icon="event_note"
+                readonly
+              />
+              <v-date-picker 
+                v-model="date_repaired" 
+                scrollable>
+                <v-spacer/>
+                <v-btn 
+                  flat 
+                  color="primary" 
+                  @click="date_repaired_modal = false">Cancel</v-btn>
+                <v-btn 
+                  flat 
+                  color="primary" 
+                  @click="save(item,date_repaired)">OK</v-btn>
+              </v-date-picker>
+            </v-dialog>
+          </v-flex>
+        </v-layout>
       </v-card>
     </v-flex>
   </v-layout>
@@ -223,9 +267,18 @@ export default {
     }
   },
   data: () => ({
-    floor: false
+    floor: false,
+    date_repaired_modal: false,
+    date_repaired: null
   }),
   watch: {
+    date_repaired: {
+      handler: function(newValue) {
+        let self = this;
+        self.item.date_repaired = newValue;
+      },
+      deep: false
+    },
     "item.bin_id": {
       handler: function(newValue) {
         let self = this;
@@ -249,6 +302,13 @@ export default {
     }
   },
   methods: {
+    save(item, date) {
+      let ref = `date_repaired_${item.id}`;
+      this.$refs[ref].save(date);
+    },
+    toggleModal(id) {
+      this.date_repaired_modal = !this.date_repaired_modal;
+    },
     openPackageImagesModal() {
       Bus.$emit("upload-package-images");
     },

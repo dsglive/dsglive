@@ -269,7 +269,7 @@
           xs12 
           lg2>
           <v-text-field
-            v-model="form.total_pieces"
+            v-model="packages.length"
             readonly
             label="Total Pieces"
             prepend-icon="category"
