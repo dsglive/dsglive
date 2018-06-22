@@ -55,4 +55,9 @@ class Rate extends Model
     {
         return $query->where('type', $type);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }

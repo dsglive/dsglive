@@ -3,8 +3,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
     //? Dashboard Stats
-    Route::post('/dashboard/admin/getStats', 'Dashboard\AdminStatsController@getStats')->name('api.dashboard.admin.getStats');
-    Route::post('/dashboard/customer/getStats', 'Dashboard\CustomerStatsController@getStats')->name('api.dashboard.customer.getStats');
+    Route::post('/dashboard/admin/getStats', 'Dashboard\AdminStatsController@getStats')
+    ->name('api.dashboard.admin.getStats');
+    Route::post('/dashboard/customer/getStats', 'Dashboard\CustomerStatsController@getStats')
+    ->name('api.dashboard.customer.getStats');
 
     // Package Management
     Route::post('/package/uploadPackageImages', 'Package\PackageController@uploadPackageImages')
@@ -20,6 +22,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/dsg/getCustomers', 'Dsg\DsgController@getCustomers')->name('api.dsg.getCustomers');
     Route::get('/dsg/getShippers', 'Dsg\DsgController@getShippers')->name('api.dsg.getShippers');
     Route::get('/dsg/getEmployees', 'Dsg\DsgController@getEmployees')->name('api.dsg.getEmployees');
+    Route::get('/dsg/getHandlingRates', 'Dsg\DsgController@getHandlingRates')->name('api.dsg.getHandlingRates');
 
     Route::post('/dsg/massActivate', 'Dsg\DsgController@massActivate')->name('api.dsg.massActivate');
     Route::post('/dsg/massDeactivate', 'Dsg\DsgController@massDeactivate')

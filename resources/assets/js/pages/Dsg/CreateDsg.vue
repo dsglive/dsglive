@@ -1,7 +1,11 @@
 <template>
   <modal-layout class="white">
     <v-card :flat="true">
-      <v-toolbar class="primary">
+      <v-toolbar 
+        fixed 
+        app 
+        class="primary"
+      >
         <v-btn 
           flat 
           icon 
@@ -316,38 +320,32 @@
             Add New Item
           </v-btn>
         </v-flex>
-        <v-btn 
-          color="accent"
-          @click="openPackageImagesModal()"
-        >
-          Upload Package Images <v-icon right>fa-upload</v-icon>
-        </v-btn>
-        <v-btn 
-          color="accent"
-          @click="openDamagedImagesModal()"
-        >
-          Upload Damaged Package Images <v-icon right>fa-upload</v-icon>
-        </v-btn>
-        <package-images-uploader/>
-        <damaged-images-uploader/>
+        
       </v-layout>
+      <!-- Package Area -->
+      <packages 
+        v-for="(item,key) in packages" 
+        :key="key"
+        :item="item"
+        :bins="bins"
+        :rates="rates"
+      />
+      <!-- End Package -->
     </v-card>
-    
+
   </modal-layout>
 </template>
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
-import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
-import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
 import { Form } from "vform";
 import swal from "sweetalert2";
+import Packages from "Components/dsg/Packages";
 export default {
   components: {
     ModalLayout,
-    PackageImagesUploader,
-    DamagedImagesUploader
+    Packages
   },
   mixins: [validationError],
   data: () => ({
@@ -384,6 +382,7 @@ export default {
     shippers: [],
     employees: [],
     packages: [],
+    rates:[],
     addPackageForm: new Form({
       customer_id: null,
       customer_name: null,
@@ -558,10 +557,18 @@ export default {
     this.getShippers();
     this.getEmployees();
     this.getBins();
+    this.getRates();
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
   },
   methods: {
+    getRates(){
+      let self = this;
+      axios.get(route("api.dsg.getHandlingRates")).then(response => {
+          console.log('rates', response.data)
+        self.rates = response.data.rates;
+      });
+    },
     getBins() {
       let self = this;
       axios.post(route("api.bin.index")).then(response => {
@@ -570,8 +577,8 @@ export default {
     },
     addNewPackage() {
       let self = this;
-      self.$validator.validateAll().then(result => {
-        if (result) {
+    //   self.$validator.validateAll().then(result => {
+    //     if (result) {
           // eslint-disable-next-line
           axios.post(route("api.package.add")).then(response => {
             let item = response.data.data;
@@ -580,25 +587,19 @@ export default {
             item.po_no = self.po_no;
             self.packages.push(item);
           });
-        } else {
-          const validationModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          validationModal({
-            title: `Validation Error`,
-            html: `<p class="title">Please Fix Form Errors</p>`,
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        }
-      });
-    },
-    openPackageImagesModal() {
-      Bus.$emit("upload-package-images");
-    },
-    openDamagedImagesModal() {
-      Bus.$emit("upload-damaged-images");
+        // } else {
+        //   const validationModal = swal.mixin({
+        //     confirmButtonClass: "v-btn blue-grey  subheading white--text",
+        //     buttonsStyling: false
+        //   });
+        //   validationModal({
+        //     title: `Validation Error`,
+        //     html: `<p class="title">Please Fix Form Errors</p>`,
+        //     type: "warning",
+        //     confirmButtonText: "Back"
+        //   });
+        // }
+    //   });
     },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {

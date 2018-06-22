@@ -4,6 +4,7 @@ namespace Api\Dsg;
 
 use Api\Controller;
 use App\Models\Dsg;
+use App\Models\Rate;
 use App\Models\User;
 use App\Models\Shipper;
 use App\Rules\ValidateZip;
@@ -248,5 +249,10 @@ class DsgController extends Controller
         $dsg->update($data);
 
         return response()->json(['message' => 'Dsg Account Updated!']);
+    }
+
+    public function getHandlingRates(){
+        $handling = Rate::ofType('handling')->active()->get();
+        return response()->json(['rates' => $handling]);
     }
 }
