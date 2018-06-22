@@ -52,7 +52,7 @@
             </v-flex>
             <v-flex lg4>
               <v-text-field
-                v-model="item.date_repaired"
+                v-model="item.date_processed"
                 readonly
                 label="Date Processed"
                 prepend-icon="event_note"
@@ -318,6 +318,13 @@ export default {
     },
     "item.height"(newValue) {
       this.updatetotalCube();
+    },
+    "item.handling_type"(newValue){
+        let self = this;
+        let rate = _.find(self.rates, function(r) {
+          return r.id === newValue;
+        });
+        self.item.handling_fee = rate.amount;
     },
     date_repaired: {
       handler: function(newValue) {

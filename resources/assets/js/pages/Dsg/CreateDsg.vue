@@ -426,7 +426,7 @@ export default {
         let self = this;
         self.form.total_pieces = newValue.length;
         self.updateTotalCube();
-        // updateReceivingAmount
+        self.updateReceivingAmount();
       },
       deep: true
     },
@@ -568,6 +568,15 @@ export default {
     this.date_processed = moment().format("YYYY-MM-DD");
   },
   methods: {
+    updateReceivingAmount() {
+      let self = this;
+      let total = self.packages.length;
+      let receivingAmount = 0;
+      for (let i = 0; i < total; i++) {
+        receivingAmount += self.packages[i].handling_fee;
+      }
+      self.form.receiving_amount = receivingAmount;
+    },
     updateTotalCube() {
       let self = this;
       let total = this.packages.length;
