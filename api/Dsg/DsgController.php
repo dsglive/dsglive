@@ -159,9 +159,9 @@ class DsgController extends Controller
             return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->id]);
         }
 
-// $user = $request->user();
+        // $user = $request->user();
 
-// update dsg
+        // update dsg
 
         // $dsg->update($data);
 
@@ -173,8 +173,8 @@ class DsgController extends Controller
         return request()->validate([
             'customer_id'       => 'required',
             'customer_name'     => 'required_with:customer_id',
-            'client_id'         => 'required',
-            'client_name'       => 'required_with:client_id',
+            'client_id'         => 'nullable',
+            'client_name'       => 'nullable',
             'shipper_id'        => 'required',
             'shipper_name'      => 'required_with:shipper_name',
             'received_by'       => 'required',
@@ -205,8 +205,8 @@ class DsgController extends Controller
             'packages.*.dsg_id'             => 'nullable|exists:dsg,id',
             'packages.*.customer_id'        => 'required|exists:users,id',
             'packages.*.customer_name'      => 'required_with:customer_id',
-            'packages.*.client_id'          => 'required|exists:clients,id',
-            'packages.*.client_name'        => 'required_with:client_id',
+            'packages.*.client_id'          => 'nullable|exists:clients,id',
+            'packages.*.client_name'        => 'nullable',
             'packages.*.shipper_id'         => 'required|exists:shippers,id',
             'packages.*.shipper_name'       => 'required_with:shipper_id',
             'packages.*.bin_id'             => 'required|exists:bins,id',
