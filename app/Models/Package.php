@@ -23,11 +23,11 @@ class Package extends Model implements HasMedia
         'delivered'      => 'boolean',
         'repaired'       => 'boolean',
         'storage_fee'    => 'float',
-        'date_delivered' => 'datetime:Y-m-d',
-        'date_repaired'  => 'datetime:Y-m-d',
-        'date_processed' => 'datetime:Y-m-d',
-        'date_out'       => 'datetime:Y-m-d',
-        'date_received'  => 'datetime:Y-m-d'
+        'date_delivered' => 'date:Y-m-d',
+        'date_repaired'  => 'date:Y-m-d',
+        'date_processed' => 'date:Y-m-d',
+        'date_out'       => 'date:Y-m-d',
+        'date_received'  => 'date:Y-m-d'
     ];
 
     /**

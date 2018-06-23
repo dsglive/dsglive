@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Dsg;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Resources\Json\Resource;
 
 class PackageResource extends Resource
@@ -14,6 +15,10 @@ class PackageResource extends Resource
      */
     public function toArray($request)
     {
+        Carbon::serializeUsing(function ($carbon) {
+            return $carbon->format('Y-m-d');
+        });
+
         return [
             'id'                 => $this->id,
             'dsg_id'             => $this->dsg_id,

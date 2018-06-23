@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/dsg/create', 'Dsg\DsgController@create')->name('api.dsg.create');
     Route::post('/dsg/toggleStatus', 'Dsg\DsgController@toggleStatus')->name('api.dsg.toggleStatus');
     Route::post('/dsg/delete', 'Dsg\DsgController@delete')->name('api.dsg.delete');
+    //! IM HERE!
     Route::get('/dsg/{dsg}/edit', 'Dsg\DsgController@edit')->name('api.dsg.edit');
     Route::post('/dsg/{dsg}/update', 'Dsg\DsgController@update')->name('api.dsg.update');
 
