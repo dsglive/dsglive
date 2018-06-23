@@ -50,7 +50,7 @@
                 dark
                 flat
                 @click="createDsg">
-                Create New Dsg
+                Create New Receiving
                 <v-icon
                   right
                   color="primary" 
@@ -178,13 +178,13 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.shipper_name }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td class="title text-xs-center accent--text">
               {{ props.item.total_pieces }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td class="title text-xs-center accent--text">
               {{ props.item.total_cube }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td class="title text-xs-center accent--text">
               {{ props.item.receiving_amount }}
             </td>
             <td class="title text-xs-left accent--text">
@@ -251,7 +251,7 @@
               flat
               dark
               @click="createDsg">
-              Create New Dsg
+              Create New Receiving
               <v-icon
                 right
               >
@@ -289,7 +289,7 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "DSG Number", value: "id", align: "left", sortable: true },
+      { text: "DSG#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
         value: "customer_name",
@@ -299,9 +299,9 @@ export default {
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
-      { text: "Cubic ft.", value: "total_cube", align: "left", sortable: true },
+      { text: "Cu.ft", value: "total_cube", align: "left", sortable: true },
       {
-        text: "Amount ($)",
+        text: "Amount($)",
         value: "receiving_amount",
         align: "left",
         sortable: true

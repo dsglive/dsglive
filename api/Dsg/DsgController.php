@@ -73,6 +73,7 @@ class DsgController extends Controller
         if (!$dsg) {
             return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->id]);
         }
+
         $dsg->load('packages.media');
 
         return new DsgResource($dsg);
@@ -160,11 +161,26 @@ class DsgController extends Controller
             return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->id]);
         }
 
-        // $user = $request->user();
+        $dsg_data      = $this->sanitizeDsg();
+        $packages_data = $this->sanitizePackagesData();
+        DB::beginTransaction();
+        $updated = $dsg->update($dsg_data);
+        try {
+            if (!$updated) {
+                throw new AccountCreationFailed;
+            }
 
-        // update dsg
+            foreach ($packages_data['packages'] as $package) {
+                $item = Package::find($package['id']);
+                $item->fill($package);
+                $item->save();
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
 
-        // $dsg->update($data);
+        DB::commit();
 
         return response()->json(['message' => 'Dsg Account Updated!']);
     }

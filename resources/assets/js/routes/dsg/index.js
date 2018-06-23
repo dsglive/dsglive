@@ -11,13 +11,13 @@ export default [
     meta: { auth: ["admin"] }
   },
   {
-    path: "/dsg/create",
+    path: "/receiving/create",
     component: CreateDsg,
     name: "create-dsg",
     meta: { auth: ["admin"] }
   },
   {
-    path: "/dsg/:id",
+    path: "/receiving/:id",
     component: EditDsg,
     name: "edit-dsg",
     meta: { auth: ["admin"] },
