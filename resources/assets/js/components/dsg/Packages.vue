@@ -84,14 +84,18 @@
             md2
           >
             <v-autocomplete
+              v-validate="'required'"
               :items="bins"
               v-model="item.bin_id"
+              :error-messages="errors.collect('bin')"
+              :class="{ 'error--text': errors.has('bin') }"
               item-text="code"
               item-value="id"
               required
               label="Choose Bin"
               light
               prepend-icon="view_comfy"
+              data-vv-name="bin"
             />
           </v-flex>
           <v-flex 
@@ -99,14 +103,18 @@
             md2
           >
             <v-autocomplete
+              v-validate="'required'"
               :items="rates"
               v-model="item.handling_type"
+              :error-messages="errors.collect('handling')"
+              :class="{ 'error--text': errors.has('handling') }"
               item-text="name"
               item-value="id"
               required
               label="Choose Handling Note"
               light
               prepend-icon="receipt"
+              data-vv-name="handling"
             />
           </v-flex>
           <v-flex 
@@ -114,12 +122,16 @@
             md2
           >
             <v-autocomplete
+              v-validate="'required'"
               :items="store_at"
               v-model="item.store_at"
+              :error-messages="errors.collect('store_at')"
+              :class="{ 'error--text': errors.has('store_at') }"
               required
               label="Store At"
               light
               prepend-icon="dns"
+              data-vv-name="store_at"
             />
           </v-flex>
           <v-flex 
@@ -127,9 +139,13 @@
             md2
           >
             <v-text-field
+              v-validate="'required'"
               v-model="item.style_no"
+              :error-messages="errors.collect('style_no')"
+              :class="{ 'error--text': errors.has('style_no') }"
               label="Style No."
               prepend-icon="style"
+              data-vv-name="style_no"
             />
           </v-flex>
           <v-flex 
@@ -170,10 +186,14 @@
             md2
           >
             <v-text-field
+              v-validate="'required'"
               v-model="item.cube"
-              label="Cubic Feet"
+              :error-messages="errors.collect('cube')"
+              :class="{ 'error--text': errors.has('cube') }"
+              label="Cube"
               suffix="ft³"
               prepend-icon="fa-cube"
+              data-vv-name="cube"
             />
           </v-flex>
           <v-flex 
@@ -198,12 +218,16 @@
             px-3
           >
             <v-textarea
+              v-validate="'required'"
               v-model="item.description"
+              :error-messages="errors.collect('description')"
+              :class="{ 'error--text': errors.has('description') }"
               label="Package Description"
               counter
               maxlength="255"
               full-width
               single-line
+              data-vv-name="description"
             />
           </v-flex>
           <v-flex 
