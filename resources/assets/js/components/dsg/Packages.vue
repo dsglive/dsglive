@@ -2,10 +2,8 @@
   <v-layout 
     row
     wrap
-    my-0
-    py-0
-    mx-3
-    px-3
+    pa-3
+    ma-3
   >
     <v-card>
       <v-toolbar class="blue-grey">
@@ -229,7 +227,19 @@
           row 
           wrap
         >
+        <v-flex 
+            v-if="!item.repaired"
+            sm12
+            md2
+            offset-md10
+          >
+            <v-switch
+              v-model="item.repaired"
+              :label="getRepairedStatus(item.repaired)"
+            />
+          </v-flex>
           <v-flex 
+            v-else
             sm12
             md2
             order-md2
