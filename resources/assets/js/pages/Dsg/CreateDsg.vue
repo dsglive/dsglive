@@ -758,7 +758,7 @@ export default {
     createDsg() {
       let self = this;
       self.form.busy = true;
-
+      self.form.packages = self.packages;
       self.form
         .post(route("api.dsg.create"), self.form)
         .then(response => {
