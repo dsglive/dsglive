@@ -448,6 +448,8 @@ export default {
         item.client_name = self.item.client_name;
         item.customer_id = self.item.customer_id;
         item.customer_name = self.item.customer_name;
+        item.shipper_id = self.item.shipper_id;
+        item.shipper_name = self.item.shipper_name;
 
         item.bin_id = self.item.bin_id;
         item.bin_name = self.item.bin_name;
