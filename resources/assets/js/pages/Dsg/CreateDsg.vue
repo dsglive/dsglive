@@ -35,8 +35,8 @@
         wrap
         my-0
         py-0
-        mx-5
-        px-5
+        mx-3
+        px-3
       >
         <v-flex 
           xs12
@@ -304,13 +304,12 @@
         wrap
         my-0
         py-0
-        mx-5
-        px-5
+        mx-3
+        px-3
       >
         <v-flex
           v-if="!packages.length>0" 
           xs12
-          lg2
         >
           <v-btn 
             :disabled="errors.any()"
