@@ -389,26 +389,7 @@ export default {
     employees: [],
     packages: [],
     handling_rates: [],
-    storage_rates:[],
-    addPackageForm: new Form({
-      customer_id: null,
-      customer_name: null,
-      client_id: null,
-      client_name: null,
-      shipper_id: null,
-      shipper_name: null,
-      received_by: null,
-      received_by_name: null,
-      written_by: null,
-      written_by_name: null,
-      inspected_by: null,
-      inspected_by_name: null,
-      located_by: null,
-      located_by_name: null,
-      date_received: null,
-      date_processed: null,
-      po_no: null
-    })
+    storage_rates: []
   }),
   watch: {
     po_no: {
