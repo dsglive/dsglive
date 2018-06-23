@@ -757,7 +757,20 @@ export default {
           });
           self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
-        .catch(errors => {});
+        .catch(errors => {
+            console.log(errors.response.data)
+            const failedModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          failedModal({
+            title: "Validation Error!",
+            html: `<p class="title">Please Complete Form To Submit!</p>`,
+            type: "error",
+            confirmButtonText: "Ok"
+          });
+
+        });
     },
     resetForm() {
       let self = this;

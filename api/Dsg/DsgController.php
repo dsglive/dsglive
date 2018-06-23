@@ -31,12 +31,9 @@ class DsgController extends Controller
         $dsg_data      = $this->sanitizeDsg();
         $packages_data = $this->sanitizePackagesData();
 
-// we need to loop packages data after creating of dsg so we can attach dsg_id to it
-        // return response()->json(['dsg' => $dsg_data, 'packages' => $packages_data], 400);
         DB::beginTransaction();
         $dsg   = Dsg::create($dsg_data);
         $dsgId = $dsg->id;
-        /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
             if (!$dsg) {
                 throw new AccountCreationFailed;
@@ -50,7 +47,7 @@ class DsgController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['message' => $e->getMessage()], 400); // Failed Creation
+            return response()->json(['message' => $e->getMessage()], 400);
         }
 
         DB::commit();
