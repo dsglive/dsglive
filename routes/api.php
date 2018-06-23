@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/dsg/getShippers', 'Dsg\DsgController@getShippers')->name('api.dsg.getShippers');
     Route::get('/dsg/getEmployees', 'Dsg\DsgController@getEmployees')->name('api.dsg.getEmployees');
     Route::get('/dsg/getHandlingRates', 'Dsg\DsgController@getHandlingRates')->name('api.dsg.getHandlingRates');
+    Route::get('/dsg/getStorageRates', 'Dsg\DsgController@getStorageRates')->name('api.dsg.getStorageRates');
+
 
     Route::post('/dsg/massActivate', 'Dsg\DsgController@massActivate')->name('api.dsg.massActivate');
     Route::post('/dsg/massDeactivate', 'Dsg\DsgController@massDeactivate')

@@ -104,7 +104,7 @@
           >
             <v-autocomplete
               v-validate="'required'"
-              :items="rates"
+              :items="handlingRates"
               v-model="item.handling_type"
               :error-messages="errors.collect('handling')"
               :class="{ 'error--text': errors.has('handling') }"
@@ -380,8 +380,16 @@ export default {
       type: Array,
       required: true
     },
-    rates: {
+    handlingRates: {
       type: Array,
+      required: true
+    },
+    storageRates: {
+      type: Array,
+      required: true
+    },
+    form: {
+      type: Object,
       required: true
     }
   },
@@ -402,10 +410,20 @@ export default {
     },
     "item.handling_type"(newValue) {
       let self = this;
-      let rate = _.find(self.rates, function(r) {
+      let rate = _.find(self.handlingRates, function(r) {
         return r.id === newValue;
       });
       self.item.handling_fee = rate.amount;
+    },
+    "item.store_at"(newValue) {
+      let self = this;
+      let rate = _.find(self.storageRates, function(r) {
+        let name = r.name;
+        let nameArray = name.split(" ");
+        name = nameArray[0].toLowerCase();
+        return name === newValue;
+      });
+      self.item.storage_fee = rate.amount;
     },
     "item.bin_id": {
       handler: function(newValue) {
@@ -416,7 +434,7 @@ export default {
         self.item.bin_name = bin.code;
       },
       deep: false
-    },
+    }
   },
   methods: {
     clonePackage() {
@@ -463,6 +481,12 @@ export default {
         item.date_received = self.item.date_received;
         item.date_processed = self.item.date_processed;
         item.po_no = self.item.po_no;
+        item.customer_id = self.form.customer_id;
+        item.customer_name = self.form.customer_name;
+        item.client_id = self.form.client_id;
+        item.client_name = self.form.client_name;
+        item.shipper_id = self.form.shipper_id;
+        item.shipper_name = self.form.shipper_name;
         self.packages.push(item);
       });
     },

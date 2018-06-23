@@ -332,7 +332,9 @@
         :item="item"
         :packages="packages"
         :bins="bins"
-        :rates="rates"
+        :handling-rates="handling_rates"
+        :storage-rates="storage_rates"
+        :form="form"
       />
       <!-- End Package -->
     </v-card>
@@ -386,7 +388,8 @@ export default {
     shippers: [],
     employees: [],
     packages: [],
-    rates: [],
+    handling_rates: [],
+    storage_rates:[],
     addPackageForm: new Form({
       customer_id: null,
       customer_name: null,
@@ -466,6 +469,9 @@ export default {
     "form.customer_id": {
       handler: function(newValue) {
         let self = this;
+        let total = this.packages.length;
+        let customer_id = null;
+        let customer_name = null;
 
         if (newValue != undefined) {
           let customer = _.find(self.customers, function(c) {
@@ -475,6 +481,8 @@ export default {
           self.form.customer_name = customer.name;
           self.form.client_name = null;
           self.form.client_id = null;
+          customer_id = newValue;
+          customer_name = customer.name;
         } else {
           self.clients = [];
           self.form.customer_id = null;
@@ -482,12 +490,41 @@ export default {
           self.form.client_name = null;
           self.form.client_id = null;
         }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].customer_id = customer_id;
+          self.packages[i].customer_name = customer_name;
+        }
+      },
+      deep: false
+    },
+    "form.shipper_id": {
+      handler: function(newValue) {
+        let self = this;
+        let total = this.packages.length;
+        let shipper_id = null;
+        let shipper_name = null;
+
+        if (newValue != undefined) {
+          let shipper = _.find(self.shippers, function(c) {
+            return c.id === newValue;
+          });
+          self.form.shipper_name = shipper.name;
+          shipper_id = shipper.id;
+          shipper_name = shipper.name;
+        }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].shipper_id = shipper_id;
+          self.packages[i].shipper_name = shipper_name;
+        }
       },
       deep: false
     },
     "form.client_name": {
       handler: function(newName) {
         let self = this;
+        let total = this.packages.length;
+        let client_id = null;
+        let client_name = null;
 
         if (newName != null || newName != undefined) {
           if (self.clients.length > 0) {
@@ -497,11 +534,17 @@ export default {
             if (client != undefined) {
               self.form.client_name = client.name;
               self.form.client_id = client.id;
+              client_id = client.id;
+              client_name = client.name;
             }
           }
         } else {
           self.form.client_id = null;
           self.form.client_name = null;
+        }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].client_id = client_id;
+          self.packages[i].client_name = client_name;
         }
       },
       deep: false
@@ -596,7 +639,8 @@ export default {
     this.getShippers();
     this.getEmployees();
     this.getBins();
-    this.getRates();
+    this.getHandlingRates();
+    this.getStorageRates();
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
   },
@@ -620,10 +664,16 @@ export default {
 
       self.form.total_cube = totalCube;
     },
-    getRates() {
+    getHandlingRates() {
       let self = this;
       axios.get(route("api.dsg.getHandlingRates")).then(response => {
-        self.rates = response.data.rates;
+        self.handling_rates = response.data.rates;
+      });
+    },
+    getStorageRates() {
+      let self = this;
+      axios.get(route("api.dsg.getStorageRates")).then(response => {
+        self.storage_rates = response.data.rates;
       });
     },
     getBins() {
@@ -641,6 +691,12 @@ export default {
             item.date_received = self.date_received;
             item.date_processed = self.date_processed;
             item.po_no = self.po_no;
+            item.customer_id = self.form.customer_id;
+            item.customer_name = self.form.customer_name;
+            item.client_id = self.form.client_id;
+            item.client_name = self.form.client_name;
+            item.shipper_id = self.form.shipper_id;
+            item.shipper_name = self.form.shipper_name;
             self.packages.push(item);
           });
         } else {

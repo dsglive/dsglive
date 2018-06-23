@@ -7,7 +7,6 @@ use App\Models\Dsg;
 use App\Models\Rate;
 use App\Models\User;
 use App\Models\Shipper;
-use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
@@ -29,7 +28,7 @@ class DsgController extends Controller
     public function create(Request $request)
     {
         //$latest_dsg_number = Dsg::orderBy('id','desc')->get()->first()->id + 1
-        $dsg_data      = $this->sanitizeDsg();
+        $dsg_data = $this->sanitizeDsg();
         // $packages_data = $this->sanitizePackagesData();
         DB::beginTransaction();
         $dsg = Dsg::create($dsg_data);
@@ -95,6 +94,12 @@ class DsgController extends Controller
         return WithShipperResource::collection($shippers);
     }
 
+    public function getStorageRates()
+    {
+        $storage = Rate::ofType('storage')->active()->get();
+        return response()->json(['rates' => $storage]);
+    }
+
     /**
      * @param Request $request
      */
@@ -147,8 +152,9 @@ class DsgController extends Controller
             return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->id]);
         }
 
-        // $user = $request->user();
-        // update dsg
+// $user = $request->user();
+
+// update dsg
 
         // $dsg->update($data);
 
