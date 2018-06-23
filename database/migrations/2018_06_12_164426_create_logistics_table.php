@@ -25,7 +25,7 @@ class CreateLogisticsTable extends Migration
     {
         Schema::create('logistics', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('dsg_id')->unique()->index();
+            $table->unsignedInteger('dsg_id')->unique()->index();
 
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
             $table->string('customer_name')->comment('if customer id is null , we save an unknown customer');

@@ -25,7 +25,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('dsg_id')->nullable();
+            $table->unsignedInteger('dsg_id')->nullable();
             $table->foreign('dsg_id')->references('id')->on('dsg')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
             $table->string('customer_name')->nullable()
