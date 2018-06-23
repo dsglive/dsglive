@@ -251,7 +251,7 @@ class DsgController extends Controller
             'packages.*.damaged'            => 'nullable|boolean',
             'packages.*.damage_description' => 'required_with:packages.*.damaged',
             'packages.*.repaired'           => 'nullable|boolean',
-            'packages.*.date_repaired'      => 'required_with:packages.*.damaged',
+            'packages.*.date_repaired'      => 'required_with:packages.*.repaired',
             'packages.*.delivered'          => 'nullable|boolean',
             'packages.*.date_delivered'     => 'required_with:packages.*.delivered'
         ]);
