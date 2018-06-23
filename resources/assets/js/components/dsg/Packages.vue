@@ -4,189 +4,201 @@
     wrap
     my-0
     py-0
-    mx-5
-    px-5
-    pb-5
+    mx-3
+    px-3
   >
-    <v-flex lg12>
-          
-      <v-card>
-        <v-toolbar class="blue-grey">
-          <v-btn
-            flat 
-            icon
-            color="blue lighten-4" 
-            @click.native="addNewPackage()"
+    <v-card>
+      <v-toolbar class="blue-grey">
+        <v-btn
+          flat 
+          icon
+          color="blue lighten-4" 
+          @click.native="addNewPackage()"
+        >
+          <v-icon x-large>add_circle</v-icon>
+        </v-btn>
+        <v-btn
+          flat 
+          icon
+          color="green lighten-2" 
+          @click.native="clonePackage()"
+        >
+          <v-icon x-large>file_copy</v-icon>
+        </v-btn>
+        <v-spacer/>
+        <v-toolbar-title class="text-md-center white--text">PID#:{{ item.id }}</v-toolbar-title>
+        <v-spacer/>
+        <v-btn
+          flat 
+          icon
+          color="red" 
+          @click.native="deletePackage(item.id)"
+        >
+          <v-icon x-large>close</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-container 
+        fluid
+        grid-list-md
+      >
+        <v-layout 
+          row 
+          wrap
+          pa-2
+        >
+          <!-- 6flex tab-->
+
+          <v-flex 
+            sm12
+            md2
           >
-            <v-icon x-large>add_circle</v-icon>
-          </v-btn>
-          <v-btn
-            flat 
-            icon
-            color="green lighten-2" 
-            @click.native="clonePackage()"
+            <v-text-field
+              v-model="item.po_no"
+              readonly
+              label="PO No."
+              prepend-icon="bookmark"
+            />
+          </v-flex>
+          <v-flex
+            sm12
+            md2
           >
-            <v-icon x-large>file_copy</v-icon>
-          </v-btn>
-          <v-spacer/>
-          <v-toolbar-title class="text-lg-center white--text">Package ID#:{{ item.id }}</v-toolbar-title>
-          <v-spacer/>
-          <v-btn
-            flat 
-            icon
-            color="red" 
-            @click.native="deletePackage(item.id)"
+            <v-text-field
+              v-model="item.date_received"
+              readonly
+              label="Date Received"
+              prepend-icon="event_available"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
           >
-            <v-icon x-large>close</v-icon>
-          </v-btn>
-        </v-toolbar>
+            <v-text-field
+              v-model="item.date_processed"
+              readonly
+              label="Date Processed"
+              prepend-icon="event_note"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-autocomplete
+              :items="bins"
+              v-model="item.bin_id"
+              item-text="code"
+              item-value="id"
+              required
+              label="Choose Bin"
+              light
+              prepend-icon="view_comfy"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-autocomplete
+              :items="rates"
+              v-model="item.handling_type"
+              item-text="name"
+              item-value="id"
+              required
+              label="Choose Handling Note"
+              light
+              prepend-icon="receipt"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-autocomplete
+              :items="store_at"
+              v-model="item.store_at"
+              required
+              label="Store At"
+              light
+              prepend-icon="dns"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-model="item.style_no"
+              label="Style No."
+              prepend-icon="style"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-model="item.length"
+              label="Length"
+              suffix="ft"
+              prepend-icon="keyboard_tab"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-model="item.width"
+              label="Width"
+              suffix="ft"
+              prepend-icon="swap_horiz"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-model="item.height"
+              label="Height"
+              suffix="ft"
+              prepend-icon="swap_vert"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-model="item.cube"
+              label="Cubic Feet"
+              suffix="ft³"
+              prepend-icon="fa-cube"
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-switch
+              v-model="item.damaged"
+              :label="getDamageStatus(item.damaged)"
+            />
+          </v-flex>
+        </v-layout>
             
-        <v-layout 
-          row 
-          wrap
-          pa-2
-        >
-          <!-- 6flex tab-->
-          <v-flex 
-            lg6 
-            d-flex>
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.po_no"
-                readonly
-                label="PO No."
-                prepend-icon="bookmark"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.date_received"
-                readonly
-                label="Date Received"
-                prepend-icon="event_available"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.date_processed"
-                readonly
-                label="Date Processed"
-                prepend-icon="event_note"
-              />
-            </v-flex>
-          </v-flex>
-          <!-- 6flex tab-->
-          <v-flex 
-            lg6
-            d-flex
-          >
-            <v-flex lg3>
-              <v-text-field
-                v-model="item.length"
-                label="Length"
-                suffix="ft"
-                prepend-icon="keyboard_tab"
-              />
-            </v-flex>
-            <v-flex lg3>
-              <v-text-field
-                v-model="item.width"
-                label="Width"
-                suffix="ft"
-                prepend-icon="swap_horiz"
-              />
-            </v-flex>
-            <v-flex lg3>
-              <v-text-field
-                v-model="item.height"
-                label="Height"
-                suffix="ft"
-                prepend-icon="swap_vert"
-              />
-            </v-flex>
-            <v-flex 
-              lg3 
-              pl-1>
-              <v-text-field
-                v-model="item.cube"
-                label="Cubic Feet"
-                suffix="ft³"
-                prepend-icon="fa-cube"
-              />
-            </v-flex>
-          </v-flex>
-        </v-layout>
-        <v-layout 
-          row 
-          wrap
-          pa-2
-        >
-          <v-flex 
-            lg6 
-            d-flex
-          >
-            <v-flex lg6>
-              <v-autocomplete
-                :items="bins"
-                v-model="item.bin_id"
-                item-text="code"
-                item-value="id"
-                required
-                label="Choose Bin"
-                light
-                prepend-icon="view_comfy"
-              />
-            </v-flex>
-            <v-flex lg6>
-              <v-autocomplete
-                :items="rates"
-                v-model="item.handling_type"
-                item-text="name"
-                item-value="id"
-                required
-                label="Choose Handling Note"
-                light
-                prepend-icon="receipt"
-              />
-            </v-flex>
-          </v-flex>
-          <v-flex 
-            lg6 
-            d-flex
-          >
-            <v-flex lg4>
-              <v-text-field
-                v-model="item.style_no"
-                label="Style No."
-                prepend-icon="style"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-autocomplete
-                :items="store_at"
-                v-model="item.store_at"
-                required
-                label="Store At"
-                light
-                prepend-icon="dns"
-              />
-            </v-flex>
-            <v-flex lg4>
-              <v-switch
-                v-model="item.damaged"
-                :label="getDamageStatus(item.damaged)"
-              />
-            </v-flex>
-          </v-flex>
-        </v-layout>
         <v-layout
           row 
           wrap
           pa-2
         >
           <v-flex 
-            lg6 
-            px-5>
+            sm12
+            md6 
+            px-3
+          >
             <v-textarea
               v-model="item.description"
               label="Package Description"
@@ -197,8 +209,10 @@
             />
           </v-flex>
           <v-flex 
-            lg6 
-            px-5>
+            sm12
+            md6 
+            px-3
+          >
             <v-textarea
               v-if="item.damaged"
               v-model="item.damage_description"
@@ -214,12 +228,11 @@
           v-if="item.damaged"
           row 
           wrap
-          pa-2
         >
           <v-flex 
-            lg2
-            offset-lg8
-            px-5
+            sm12
+            md2
+            order-md2
           >
             <v-switch
               v-model="item.repaired"
@@ -228,7 +241,9 @@
           </v-flex>
           <v-flex 
             v-if="item.repaired"
-            lg2
+            sm12
+            offset-md8
+            md2
           >
             <v-dialog
               :ref="`date_repaired_${item.id}`"
@@ -262,39 +277,50 @@
             </v-dialog>
           </v-flex>
         </v-layout>
-        <v-layout>
-          <v-flex lg6>
+        <v-layout
+          row 
+          wrap
+          pa-0
+          ma-0
+        >
+          <v-flex 
+            sm12
+            md6
+          >
             <v-btn 
               block
               flat
               color="blue"
               @click="openPackageImagesModal()"
             >
-              Upload Images <v-icon right>add_photo_alternate</v-icon>
+              Upload Package Images <v-icon right>add_photo_alternate</v-icon>
             </v-btn>
             <package-images-uploader 
               :id="item.id" 
-              :item="item"/>
+              :item="item"
+            />
           </v-flex>
           <v-flex 
             v-if="item.damaged"
-            lg6
+            sm12
+            md6
           >
             <v-btn 
               block
               flat
-              color="red"
+              color="orange"
               @click="openDamagedImagesModal()"
             >
               Upload Damaged Images <v-icon right>broken_image</v-icon>
             </v-btn>
             <damaged-images-uploader 
               :id="item.id" 
-              :item="item"/>
+              :item="item"
+            />
           </v-flex>
         </v-layout>
-      </v-card>
-    </v-flex>
+      </v-container>  
+    </v-card>
   </v-layout>
 </template>
 

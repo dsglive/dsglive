@@ -313,9 +313,10 @@
         >
           <v-btn 
             :disabled="errors.any()"
-            color="primary"
+            color="blue-grey"
             block
             @click="addNewPackage"
+            class="white--text"
           >
             Add New Package <v-icon right>library_add</v-icon>
           </v-btn>
