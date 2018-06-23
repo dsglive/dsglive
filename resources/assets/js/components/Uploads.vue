@@ -184,35 +184,61 @@
       row 
       wrap
     >
-      <v-spacer/>
-      <v-btn 
-        v-show="files.length > 0"
-        dark 
-        color="teal lighten-2" 
-        @click.native="$refs.upload.active = true"
+      <v-flex 
+        sm12
+        md6
       >
-        Start Upload 
-        <v-icon right>play_arrow</v-icon>
-      </v-btn>
-      <v-btn 
-        v-show="$refs.upload && $refs.upload.active"
-        dark 
-        color="error" 
-        @click.native="$refs.upload.active = false"
+        <v-btn 
+          v-show="files.length > 0"
+          dark 
+          block
+          flat
+          color="teal lighten-2" 
+          @click.native="$refs.upload.active = true"
+        >
+          Start Upload 
+          <v-icon 
+            right 
+          >
+            play_arrow
+          </v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex 
+        sm12
+        md6
       >
-        Stop Upload 
-        <v-icon right>stop</v-icon>
-      </v-btn>
-      <v-btn 
-        v-if="$refs.upload && !$refs.upload.active && files.length > 0"
-        dark 
-        color="red lighten-2"
-        @click.native="files = []"
-      >
-        Remove All Files 
-        <v-icon right>fa-times</v-icon>
-      </v-btn>
-      <v-spacer/>
+        <v-btn 
+          v-show="$refs.upload && $refs.upload.active"
+          dark 
+          block
+          flat
+          color="error" 
+          @click.native="$refs.upload.active = false"
+        >
+          Stop Upload 
+          <v-icon 
+            right
+          >
+            stop
+          </v-icon>
+        </v-btn>
+        <v-btn 
+          v-if="$refs.upload && !$refs.upload.active && files.length > 0"
+          dark 
+          block
+          flat
+          color="red lighten-2"
+          @click.native="files = []"
+        >
+          Remove All Files 
+          <v-icon 
+            right
+          >
+            fa-trash
+          </v-icon>
+        </v-btn>
+      </v-flex>
     </v-layout>
     <v-layout 
       v-if="isOption" 

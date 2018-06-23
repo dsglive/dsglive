@@ -4,7 +4,7 @@
     fullscreen 
     transition="dialog-bottom-transition">
     <v-card :light="true">
-      <v-toolbar color="primary">
+      <v-toolbar color="blue lighten-2">
         <v-btn 
           icon 
           class="white--text" 
@@ -12,7 +12,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="white--text">Upload Images Package #: {{ id }} </v-toolbar-title>
+        <v-toolbar-title class="white--text">Upload Images PID: {{ id }} </v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <uploads 
