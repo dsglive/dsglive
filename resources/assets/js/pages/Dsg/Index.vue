@@ -55,7 +55,7 @@
                   right
                   color="primary" 
                 >
-                  attach_money
+                  receipt
                 </v-icon>
                 <v-icon
                   right
@@ -255,7 +255,7 @@
               <v-icon
                 right
               >
-                fa-user-plus
+                receipt
               </v-icon>
             </v-btn>
           </v-alert>
