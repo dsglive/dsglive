@@ -468,7 +468,7 @@ export default {
         item.handling_fee = self.item.handling_fee;
         item.handling_type = self.item.handling_type;
         item.store_at = self.item.store_at;
-        // item.storage_fee = self.item.storage_fee;
+        item.storage_fee = self.item.storage_fee;
 
         item.description = self.item.description;
         self.packages.push(item);
