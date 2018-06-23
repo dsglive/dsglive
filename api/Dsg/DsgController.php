@@ -28,8 +28,9 @@ class DsgController extends Controller
     public function create(Request $request)
     {
         //$latest_dsg_number = Dsg::orderBy('id','desc')->get()->first()->id + 1
-        $dsg_data = $this->sanitizeDsg();
-        // $packages_data = $this->sanitizePackagesData();
+        $dsg_data      = $this->sanitizeDsg();
+        $packages_data = $this->sanitizePackagesData();
+        return response()->json(['dsg' => $dsg_data, 'packages' => $packages_data], 400);
         DB::beginTransaction();
         $dsg = Dsg::create($dsg_data);
 
@@ -194,66 +195,60 @@ class DsgController extends Controller
     private function sanitizePackagesData()
     {
         return request()->validate([
-            'package.*.dsg_id'             => 'required|existst:dsg,id',
-            'package.*.customer_id'        => 'required|existst:users,id',
-            'package.*.customer_name'      => 'required_with:customer_id',
-            'package.*.client_id'          => 'required|existst:users,id',
-            'package.*.client_name'        => 'required_with:client_id',
-            'package.*.shipper_id'         => 'required|existst:shippers,id',
-            'package.*.shipper_name'       => 'required_with:shipper_id',
-            'package.*.received_by'        => 'required|existst:users,id',
-            'package.*.received_by_name'   => 'required_with:received_by',
-            'package.*.written_by'         => 'required|existst:users,id',
-            'package.*.written_by_name'    => 'required_with:written_by',
-            'package.*.inspected_by'       => 'required|existst:users,id',
-            'package.*.inspected_by_name'  => 'required_with:inspected_by',
-            'package.*.located_by'         => 'required|existst:users,id',
-            'package.*.located_by_name'    => 'required_with:located_by',
-            'package.*.bin_id'             => 'required|existst:bins,id',
-            'package.*.bin_name'           => 'required_with:bin_id',
-            'package.*.description'        => 'required',
+            // uncomment for updating data only
+            'packages.*.id' => 'required|exists:packages,id',
+            'packages.*.dsg_id'             => 'nullable|exists:dsg,id',
+            'packages.*.customer_id'        => 'required|exists:users,id',
+            'packages.*.customer_name'      => 'required_with:customer_id',
+            'packages.*.client_id'          => 'required|exists:clients,id',
+            'packages.*.client_name'        => 'required_with:client_id',
+            'packages.*.shipper_id'         => 'required|exists:shippers,id',
+            'packages.*.shipper_name'       => 'required_with:shipper_id',
+            'packages.*.bin_id'             => 'required|exists:bins,id',
+            'packages.*.bin_name'           => 'required_with:bin_id',
+            'packages.*.description'        => 'required',
 
-            'package.*.date_received'      => 'required',
-            'package.*.date_out'           => 'required',
-            'package.*.date_processed'     => 'required',
+            'packages.*.date_received'      => 'required',
+            'packages.*.date_out'           => 'nullable|date',
+            'packages.*.date_processed'     => 'required',
 
-            'package.*.po_no'              => 'required',
-            'package.*.style_no'           => 'required',
-            'package.*.length'             => [
+            'packages.*.po_no'              => 'required',
+            'packages.*.style_no'           => 'required',
+            'packages.*.length'             => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.width'              => [
+            'packages.*.width'              => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.height'             => [
+            'packages.*.height'             => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.cube'               => [
+            'packages.*.cube'               => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.handling_type'      => 'required',
-            'package.*.handling_fee'       => [
+            'packages.*.handling_type'      => 'required',
+            'packages.*.handling_fee'       => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.store_at'           => [
+            'packages.*.store_at'           => [
                 'required',
                 Rule::in(['rack', 'floor'])
             ],
-            'package.*.storage_fee'        => [
+            'packages.*.storage_fee'        => [
                 'required',
                 new RateMustBeAFloat
             ],
-            'package.*.damaged'            => 'boolean',
-            'package.*.damage_description' => 'required_with:package.*.damaged',
-            'package.*.repaired'           => 'boolean',
-            'package.*.date_repaired'      => 'required_with:package.*.damaged',
-            'package.*.delivered'          => 'boolean',
-            'package.*.date_delivered'     => 'required_with:package.*.delivered'
+            'packages.*.damaged'            => 'nullable|boolean',
+            'packages.*.damage_description' => 'required_with:packages.*.damaged',
+            'packages.*.repaired'           => 'nullable|boolean',
+            'packages.*.date_repaired'      => 'required_with:packages.*.damaged',
+            'packages.*.delivered'          => 'nullable|boolean',
+            'packages.*.date_delivered'     => 'required_with:packages.*.delivered'
         ]);
     }
 }
