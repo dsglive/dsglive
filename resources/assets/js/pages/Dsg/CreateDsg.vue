@@ -284,6 +284,7 @@
             readonly
             label="Total Cube"
             prepend-icon="fa-cubes"
+            suffix="ft³"
           />
         </v-flex>
         <v-flex 
@@ -295,6 +296,7 @@
             readonly
             prepend-icon="attach_money"
             label="Receiving Amount"
+            suffix="USD"
           />
         </v-flex>
       </v-layout>
