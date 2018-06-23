@@ -6,6 +6,7 @@ use Api\Controller;
 use App\Models\Dsg;
 use App\Models\Rate;
 use App\Models\User;
+use App\Models\Package;
 use App\Models\Shipper;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
@@ -27,17 +28,25 @@ class DsgController extends Controller
      */
     public function create(Request $request)
     {
-        //$latest_dsg_number = Dsg::orderBy('id','desc')->get()->first()->id + 1
         $dsg_data      = $this->sanitizeDsg();
         $packages_data = $this->sanitizePackagesData();
-        return response()->json(['dsg' => $dsg_data, 'packages' => $packages_data], 400);
-        DB::beginTransaction();
-        $dsg = Dsg::create($dsg_data);
 
+// we need to loop packages data after creating of dsg so we can attach dsg_id to it
+        // return response()->json(['dsg' => $dsg_data, 'packages' => $packages_data], 400);
+        DB::beginTransaction();
+        $dsg   = Dsg::create($dsg_data);
+        $dsgId = $dsg->id;
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
             if (!$dsg) {
                 throw new AccountCreationFailed;
+            }
+
+            foreach ($packages_data['packages'] as $package) {
+                $package['dsg_id'] = $dsgId;
+                $item              = Package::find($package['id']);
+                $item->fill($package);
+                $item->save();
             }
         } catch (\Exception $e) {
             DB::rollback();
@@ -195,8 +204,7 @@ class DsgController extends Controller
     private function sanitizePackagesData()
     {
         return request()->validate([
-            // uncomment for updating data only
-            'packages.*.id' => 'required|exists:packages,id',
+            'packages.*.id'                 => 'required|exists:packages,id',
             'packages.*.dsg_id'             => 'nullable|exists:dsg,id',
             'packages.*.customer_id'        => 'required|exists:users,id',
             'packages.*.customer_name'      => 'required_with:customer_id',
@@ -215,15 +223,15 @@ class DsgController extends Controller
             'packages.*.po_no'              => 'required',
             'packages.*.style_no'           => 'required',
             'packages.*.length'             => [
-                'required',
+                'nullable',
                 new RateMustBeAFloat
             ],
             'packages.*.width'              => [
-                'required',
+                'nullable',
                 new RateMustBeAFloat
             ],
             'packages.*.height'             => [
-                'required',
+                'nullable',
                 new RateMustBeAFloat
             ],
             'packages.*.cube'               => [
