@@ -524,7 +524,7 @@ export default {
         let self = this;
         let total = this.packages.length;
         let client_id = null;
-        let client_name = null;
+        let client_name = newName;
 
         if (newName != null || newName != undefined) {
           if (self.clients.length > 0) {
