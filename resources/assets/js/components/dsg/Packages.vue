@@ -227,7 +227,7 @@
           row 
           wrap
         >
-        <v-flex 
+          <v-flex 
             v-if="!item.repaired"
             sm12
             md2

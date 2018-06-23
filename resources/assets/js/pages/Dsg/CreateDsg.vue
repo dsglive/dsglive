@@ -315,8 +315,8 @@
             :disabled="errors.any()"
             color="blue-grey"
             block
-            @click="addNewPackage"
             class="white--text"
+            @click="addNewPackage"
           >
             Add New Package <v-icon right>library_add</v-icon>
           </v-btn>
@@ -621,7 +621,6 @@ export default {
     getRates() {
       let self = this;
       axios.get(route("api.dsg.getHandlingRates")).then(response => {
-        console.log("rates", response.data);
         self.rates = response.data.rates;
       });
     },
@@ -658,19 +657,16 @@ export default {
     },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {
-        console.log(response.data);
         this.employees = response.data.data;
       });
     },
     getShippers() {
       axios.get(route("api.dsg.getShippers")).then(response => {
-        console.log(response.data);
         this.shippers = response.data.data;
       });
     },
     getCustomers() {
       axios.get(route("api.dsg.getCustomers")).then(response => {
-        console.log(response.data);
         this.customers = response.data.data;
       });
     },
