@@ -73,7 +73,7 @@ class DsgController extends Controller
         if (!$dsg) {
             return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->id]);
         }
-        $dsg->load('packages');
+        $dsg->load('packages.media');
 
         return new DsgResource($dsg);
     }

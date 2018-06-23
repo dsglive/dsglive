@@ -76,6 +76,26 @@ class Package extends Model implements HasMedia
         return $this->belongsTo(Dsg::class);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDamagedImages()
+    {
+        return $this->getMedia('damaged_images')->map(function ($media) {
+            return $media->getFullUrl();
+        });
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPackageImages()
+    {
+        return $this->getMedia('package_images')->map(function ($media) {
+            return $media->getFullUrl();
+        });
+    }
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('package_images');

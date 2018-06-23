@@ -50,16 +50,8 @@ class PackageResource extends Resource
             'date_repaired'      => $this->date_repaired,
             'delivered'          => $this->delivered,
             'date_delivered'     => $this->date_delivered,
-            'package_images'     => $this->whenLoaded('media', function () {
-                $this->getMedia('package_images')->map(function ($media) {
-                    return $media->getFullUrl();
-                });
-            }),
-            'damaged_images'     => $this->whenLoaded('media', function () {
-                $this->getMedia('damaged_images')->map(function ($media) {
-                    return $media->getFullUrl();
-                });
-            })
+            'package_images'     => $this->whenLoaded('media', $this->getPackageImages()),
+            'damaged_images'     => $this->whenLoaded('media', $this->getDamagedImages())
         ];
     }
 }
