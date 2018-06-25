@@ -42,9 +42,13 @@ $factory->define(Package::class, function (Faker $faker) {
     }
 
     $client = $customer->clients()->inRandomOrder()->first();
-
+    $cube = $faker->randomFloat(4, 1, 100);
     return [
-        'dsg_id'        => factory(Dsg::class)->create()->id,
+        'dsg_id'        => factory(Dsg::class)->create([
+            'receiving_amount' => $handling->amount,
+            'total_cube' => $cube,
+            'total_pieces' => 1
+            ])->id,
         'customer_id'   => $customer->id,
         'customer_name' => $customer->profile->first_name.' '.$customer->profile->last_name,
         'client_id'     => $client->id,
@@ -58,7 +62,7 @@ $factory->define(Package::class, function (Faker $faker) {
         'date_processed' => Carbon::now(),
         'po_no'          => $faker->word,
         'style_no'       => $faker->word,
-        'cube'           => $faker->randomFloat(4, 1, 100),
+        'cube'           => $cube,
         'handling_type' => $handling->id,
         'handling_fee'  => $handling->amount,
         'store_at'      => $store_at,

@@ -45,7 +45,7 @@ class CreatePackagesTable extends Migration
             $table->float('length', 8, 4)->nullable();
             $table->float('width', 8, 4)->nullable();
             $table->float('height', 8, 4)->nullable();
-            $table->float('cube')->nullable();
+            $table->float('cube', 8, 4)->nullable();
             $table->unsignedInteger('handling_type')->nullable(); // -> rate_id
             $table->float('handling_fee')->nullable();            // individual fee for handling rate_amount
             $table->enum('store_at', ['rack', 'floor'])->default('rack')
