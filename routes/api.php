@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.package.delete');
 
     //? Dsg Management
-
+    //! Add here route for toggling date_out!
     Route::post('/dsg', 'Dsg\DsgController@index')->name('api.dsg.index');
     Route::get('/dsg/getCustomers', 'Dsg\DsgController@getCustomers')->name('api.dsg.getCustomers');
     Route::get('/dsg/getShippers', 'Dsg\DsgController@getShippers')->name('api.dsg.getShippers');

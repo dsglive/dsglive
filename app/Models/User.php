@@ -105,12 +105,21 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeActive($query)
     {
         return $query->where('active', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeEmployeeType($query)
+    {
+        return $query->where('id', '!=', 1);
     }
 
     /**
