@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Logistics;
+namespace Api\Logistic;
 
 use Api\Controller;
 use App\Models\User;
@@ -56,13 +56,14 @@ class LogisticsController extends Controller
         if (!$client) {
             return response()->json(['message' => 'Cant Find Client With ID of '.$request->id]);
         }
+
         return Package::ofClient($client->id)->undelivered()->get();
     }
 
     public function getInitialData()
     {
-        $users            = $users            = User::with(['profile', 'clients'])->role('customer')->get();
-        $data['customer'] = CustomerResource::collection($users);
+        $users             = User::with(['profile', 'clients'])->role('customer')->get();
+        $data['customers'] = CustomerResource::collection($users);
         return response()->json(['data' => $data]);
     }
 
