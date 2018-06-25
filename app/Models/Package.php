@@ -131,6 +131,16 @@ class Package extends Model implements HasMedia
     }
 
     /**
+     * @param $query
+     * @param $id
+     * @return mixed
+     */
+    public function scopeOfClient($query, $id)
+    {
+        return $query->where('client_id', $id);
+    }
+
+    /**
      * @param  $query
      * @return mixed
      */

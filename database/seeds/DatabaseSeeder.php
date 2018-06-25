@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         if (App::environment(['local', 'staging'])) {
             // This Seeder Would Not Be Run on Production
             $this->call(DummyUsersSeeder::class);
-            // $this->call(DummyBinSeeder::class);
         }
     }
 
