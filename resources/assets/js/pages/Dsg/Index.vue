@@ -206,6 +206,7 @@
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
               </v-flex>
+              <!-- Add PDF Button
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -217,6 +218,7 @@
                   <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </v-flex>
+              -->
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 

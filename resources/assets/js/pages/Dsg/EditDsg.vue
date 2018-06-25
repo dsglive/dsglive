@@ -363,6 +363,7 @@ export default {
   data: () => ({
     /* Always Declare Your Form Object */
     form: new Form({
+      dsg_id: null,
       active: false,
       client_id: null,
       client_name: null,
@@ -735,7 +736,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.createDsg();
+          self.updateDsg();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -750,12 +751,12 @@ export default {
         }
       });
     },
-    createDsg() {
+    updateDsg() {
       let self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
       self.form
-        .post(route("api.dsg.create"), self.form)
+        .post(route("api.dsg.update",{dsg: self.form.dsg_id}), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -772,7 +773,7 @@ export default {
           self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
         .catch(errors => {
-          console.log(errors.response.data);
+          console.log(errors);
           const failedModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
@@ -783,6 +784,7 @@ export default {
             type: "error",
             confirmButtonText: "Ok"
           });
+          self.form.busy = false;
         });
     },
     resetForm() {
@@ -820,6 +822,7 @@ export default {
         let dsg = response.data.data;
         console.log("dsg", dsg);
         console.log("packages", dsg.packages);
+        self.form.dsg_id = dsg.id;
         self.form.active = dsg.active;
         self.form.client_id = dsg.client_id;
         self.form.client_name = dsg.client_name;
