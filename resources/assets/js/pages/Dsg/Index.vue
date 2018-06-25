@@ -172,7 +172,9 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.customer_name }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td 
+              :class="{'red--text': props.item.client_id === null, 'accent--text': props.item.client_id !== null}" 
+              class="title text-xs-left">
               {{ props.item.client_name }}
             </td>
             <td class="title text-xs-left accent--text">
@@ -380,10 +382,7 @@ export default {
       let self = this;
       self.dsgForm.busy = true;
       try {
-        const payload = await axios.post(
-          route("api.dsg.index"),
-          self.dsgForm
-        );
+        const payload = await axios.post(route("api.dsg.index"), self.dsgForm);
         self.items = payload.data.data;
         self.dsgForm = new Form({});
       } catch ({ errors, message }) {
