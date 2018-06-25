@@ -7,7 +7,8 @@ import shippers from "Routes/shippers";
 import rates from "Routes/rates";
 import bins from "Routes/bins";
 import errors from "Routes/errors";
-import dsg from "Routes/dsg"
+import dsg from "Routes/dsg";
+import logistics from "Routes/logistics";
 
 let routeFiles = [];
 /* Multi Route Files */
@@ -21,7 +22,8 @@ const routes = routeFiles.concat(
   shippers,
   rates,
   bins,
-  dsg
+  dsg,
+  logistics
   /* add here Other Routes File */
 );
 export default routes;

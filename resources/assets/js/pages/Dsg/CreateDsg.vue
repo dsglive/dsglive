@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">DSG Creation Page</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Create New DSG</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <v-btn

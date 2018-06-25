@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Dsgs"
+                    label="Search Receiving"
                     single-line
                     hide-details
                     light
