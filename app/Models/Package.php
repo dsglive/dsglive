@@ -164,7 +164,7 @@ class Package extends Model implements HasMedia
      */
     public function scopeUnknown($query)
     {
-        return $query->where('client_id', '==', null);
+        return $query->whereNull('client_id');
     }
 
     /**
