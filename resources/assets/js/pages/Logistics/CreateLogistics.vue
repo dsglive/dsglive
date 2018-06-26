@@ -308,8 +308,9 @@
         px-3
       >
         <v-flex 
-          xs10 
-          offset-xs1>
+          xs12 
+          lg10
+          offset-lg1>
           <v-alert
             :value="true"
             type="info"
@@ -409,8 +410,9 @@
         px-3
       >
         <v-flex 
-          xs10 
-          offset-xs1>
+          xs12
+          lg10
+          offset-lg1>
           <span class="text-xs-center title"/>
           <v-alert
             :value="true"
