@@ -96,6 +96,8 @@
               light
               prepend-icon="view_comfy"
               data-vv-name="bin"
+              hint="Choose Bin"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -115,6 +117,8 @@
               light
               prepend-icon="receipt"
               data-vv-name="handling"
+              hint="Choose Handling Note"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -132,6 +136,8 @@
               light
               prepend-icon="dns"
               data-vv-name="store_at"
+              hint="Choose Store At"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -146,6 +152,8 @@
               label="Style No."
               prepend-icon="style"
               data-vv-name="style_no"
+              hint="Required"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -157,6 +165,8 @@
               label="Length"
               suffix="ft"
               prepend-icon="keyboard_tab"
+              hint="Optional"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -168,6 +178,8 @@
               label="Width"
               suffix="ft"
               prepend-icon="swap_horiz"
+              hint="Optional"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -179,6 +191,8 @@
               label="Height"
               suffix="ft"
               prepend-icon="swap_vert"
+              hint="Optional"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -194,6 +208,8 @@
               suffix="ft³"
               prepend-icon="fa-cube"
               data-vv-name="cube"
+              hint="Required"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -217,17 +233,21 @@
             md6 
             px-3
           >
+            <v-subheader>
+              Package Description:
+            </v-subheader>
             <v-textarea
               v-validate="'required'"
               v-model="item.description"
               :error-messages="errors.collect('description')"
               :class="{ 'error--text': errors.has('description') }"
-              label="Package Description"
               counter
               maxlength="255"
               full-width
-              single-line
+              outline
               data-vv-name="description"
+              hint="Required"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
@@ -235,14 +255,18 @@
             md6 
             px-3
           >
+            <v-subheader v-if="item.damaged">
+              Damage Description:
+            </v-subheader>
             <v-textarea
               v-if="item.damaged"
               v-model="item.damage_description"
-              label="Damaged Description"
               counter
               maxlength="255"
               full-width
-              single-line
+              outline
+              hint="Required If Marked As Damaged"
+              persistent-hint
             />
           </v-flex>
         </v-layout>
