@@ -4,6 +4,8 @@ namespace Api\Logistic;
 
 use Api\Controller;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\Package;
 use App\Models\Logistic;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;

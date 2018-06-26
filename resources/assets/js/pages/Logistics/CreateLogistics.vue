@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Create New DSG</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Create New Ticket</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <v-btn
@@ -41,11 +41,17 @@
         <v-flex 
           xs12
           lg2
+          offset-lg1
         >
+          <v-subheader 
+            class="indigo--text" 
+            style="margin-left:-15px;"
+          >
+            What Type Of Ticket Is This?
+          </v-subheader>
           <v-radio-group 
             v-model="form.type" 
-            hint="What Type Of Ticket Is This?"
-            persistent-hint
+            style="margin-top:-15px;"
           >
             <v-radio
               value="delivery_ticket"
@@ -103,7 +109,7 @@
 
         <v-flex 
           xs12 
-          lg4>
+          lg2>
           <v-dialog
             ref="date_delivered"
             v-model="date_delivered_modal"
@@ -118,6 +124,7 @@
               v-model="form.date_delivered"
               label="Delivery Date"
               prepend-icon="event_available"
+              style="margin-top:26px;"
               readonly
             />
             <v-date-picker 
@@ -127,7 +134,7 @@
               <v-btn 
                 flat 
                 color="primary" 
-                @click="delivery_date_modal = false">Cancel</v-btn>
+                @click="date_delivered_modal = false">Cancel</v-btn>
               <v-btn 
                 flat 
                 color="primary" 
@@ -138,6 +145,7 @@
         <v-flex 
           xs12
           lg2
+          offset-lg1
         >
           <v-text-field
             v-validate="{ required: true }"
@@ -210,24 +218,11 @@
             data-vv-name="clean_up_time"
           />
         </v-flex>
+        
         <v-flex 
           xs12
           lg2
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.total_time"
-            :error-messages="errorMessages('total_time')"
-            :class="{ 'error--text': hasErrors('total_time') }"
-            light
-            label="Total Time"
-            prepend-icon="av_timer"
-            data-vv-name="total_time"
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg4
+          offset-lg1
         >
           <v-text-field
             v-validate="{ required: true }"
@@ -236,28 +231,52 @@
             :class="{ 'error--text': hasErrors('rate') }"
             light
             label="Rate"
-            prepend-icon="money"
+            prepend-icon="fa-money"
             data-vv-name="rate"
+            hint="Delivery Charge Rate"
+            persistent-hint
           />
         </v-flex>
         <v-flex 
           xs12
-          lg4
+          lg2
         >
           <v-text-field
             v-validate="{ required: true }"
-            v-model="form.surchage"
-            :error-messages="errorMessages('surchage')"
-            :class="{ 'error--text': hasErrors('surchage') }"
+            v-model="form.surcharge"
+            :error-messages="errorMessages('surcharge')"
+            :class="{ 'error--text': hasErrors('surcharge') }"
             light
             label="Surchage"
-            prepend-icon="fa-percent"
-            data-vv-name="surchage"
+            prepend-icon="money"
+            append-icon="fa-percent"
+            data-vv-name="surcharge"
+            hint="Percentage ie. 20% = 20"
+            persistent-hint
           />
         </v-flex>
         <v-flex 
           xs12
-          lg4
+          lg3
+        >
+          <v-text-field
+            v-validate="{ required: true }"
+            v-model="form.total_time"
+            :error-messages="errorMessages('total_time')"
+            :class="{ 'error--text': hasErrors('total_time') }"
+            light
+            readonly
+            disabled
+            label="Total Time"
+            prepend-icon="av_timer"
+            data-vv-name="total_time"
+            hint="Total No. Of Hours"
+            persistent-hint
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg3
         >
           <v-text-field
             v-validate="{ required: true }"
@@ -265,20 +284,44 @@
             :error-messages="errorMessages('total_charges')"
             :class="{ 'error--text': hasErrors('total_charges') }"
             light
+            readonly
+            disabled
             label="Total Charges"
             prepend-icon="attach_money"
+            suffix="USD"
             data-vv-name="total_charges"
+            hint="Delivery Fee"
+            persistent-hint
           />
         </v-flex>
-        <v-flex xs12>
-          <v-textarea
-            v-model="form.notes"
-            label="Notes"
-            counter
-            maxlength="255"
-            full-width
-            single-line
-          />
+        <!-- DROP OFF ADDRESS -->
+        
+      </v-layout>
+
+      <v-layout 
+        v-if="form.type==='field_transfer'"
+        row 
+        wrap
+        my-0
+        py-0
+        mx-3
+        px-3
+      >
+        <v-flex 
+          xs10 
+          offset-xs1>
+          <v-alert
+            :value="true"
+            type="info"
+            color="secondary"
+            class="text-xs-center"
+            my-0
+            py-0
+            mx-3
+            px-3
+          >
+            Pick Up Address
+          </v-alert>
         </v-flex>
         <v-flex 
           xs12
@@ -322,7 +365,7 @@
             :class="{ 'error--text': hasErrors('pu_city') }"
             light
             label="City"
-            prepend-icon="attach_money"
+            prepend-icon="location_city"
             data-vv-name="pu_city"
           />
         </v-flex>
@@ -337,7 +380,7 @@
             :class="{ 'error--text': hasErrors('pu_state') }"
             light
             label="State"
-            prepend-icon="attach_money"
+            prepend-icon="map"
             data-vv-name="pu_state"
           />
         </v-flex>
@@ -352,11 +395,36 @@
             :class="{ 'error--text': hasErrors('pu_zip') }"
             light
             label="Zip"
-            prepend-icon="map"
+            prepend-icon="markunread_mailbox"
             data-vv-name="pu_zip"
           />
         </v-flex>
-        <!-- DROP OFF ADDRESS -->
+      </v-layout>
+      <v-layout 
+        row 
+        wrap
+        my-0
+        py-0
+        mx-3
+        px-3
+      >
+        <v-flex 
+          xs10 
+          offset-xs1>
+          <span class="text-xs-center title"/>
+          <v-alert
+            :value="true"
+            type="info"
+            color="secondary"
+            class="text-xs-center"
+            my-0
+            py-0
+            mx-3
+            px-3
+          >
+            Drop Off Address
+          </v-alert>
+        </v-flex>
         <v-flex 
           xs12
           lg2
@@ -384,7 +452,7 @@
             :class="{ 'error--text': hasErrors('do_address_2') }"
             light
             label="Address 2"
-            prepend-icon="attach_money"
+            prepend-icon="looks_two"
             data-vv-name="do_address_2"
           />
         </v-flex>
@@ -398,8 +466,8 @@
             :error-messages="errorMessages('do_city')"
             :class="{ 'error--text': hasErrors('do_city') }"
             light
-            label="State"
-            prepend-icon="attach_money"
+            label="City"
+            prepend-icon="location_city"
             data-vv-name="do_city"
           />
         </v-flex>
@@ -414,7 +482,7 @@
             :class="{ 'error--text': hasErrors('do_state') }"
             light
             label="State"
-            prepend-icon="attach_money"
+            prepend-icon="map"
             data-vv-name="do_state"
           />
         </v-flex>
@@ -429,8 +497,83 @@
             :class="{ 'error--text': hasErrors('do_zip') }"
             light
             label="Zip"
-            prepend-icon="map"
+            prepend-icon="markunread_mailbox"
             data-vv-name="do_zip"
+          />
+        </v-flex>
+      </v-layout>
+      <v-layout
+        v-if="form.type==='delivery_ticket'"
+        row 
+        wrap
+        my-0
+        py-0
+        mx-3
+        px-3
+      >
+        <v-flex 
+          xs10 
+          offset-xs1
+        >
+          <v-subheader
+          >
+            Packages To Be Delivered:
+          </v-subheader>
+          <v-autocomplete
+            v-validate="'required'"
+            :items="packages"
+            v-model="form.packages"
+            :error-messages="errorMessages('packages')"
+            :class="{ 'error--text': hasErrors('packages') }"
+            :item-text="getText"
+            item-value="id"
+            hint="Choose Packages To Be Delivered"
+            persistent-hint
+            no-data-text="All The Client Packages Has Been Marked as Delivered"
+            required
+            max-height="auto"
+            light
+            outline
+            tags
+            chips
+            deletable-chips
+            full-width
+            multiple
+            multi-line
+            dense
+            auto
+            hide-selected
+            small-chips
+            clearable
+            data-vv-name="packages"
+          />
+        </v-flex>
+      </v-layout>
+      <v-layout
+        row 
+        wrap
+        my-0
+        py-0
+        mx-3
+        px-3
+      >
+        <v-flex 
+          xs10 
+          offset-xs1
+        >
+          <v-subheader
+          >
+            Notes:
+          </v-subheader>
+
+          <v-textarea
+            v-model="form.notes"
+            counter
+            maxlength="255"
+            full-width
+            outline
+            hint="(Optional)"
+            persistent-hint
           />
         </v-flex>
       </v-layout>
@@ -446,7 +589,7 @@ import { Form } from "vform";
 import swal from "sweetalert2";
 export default {
   components: {
-    ModalLayout,
+    ModalLayout
   },
   mixins: [validationError],
   data: () => ({
@@ -465,25 +608,25 @@ export default {
       clean_up_time: null,
       total_time: null,
       rate: null,
-      surchage: null,
+      surcharge: null,
       total_charges: null,
       notes: null,
       do_address_1: null,
       do_address_2: null,
-      do_city:null,
-      do_state:null,
-      do_zip:null,
+      do_city: null,
+      do_state: null,
+      do_zip: null,
       pu_address_1: null,
       pu_address_2: null,
-      pu_city:null,
-      pu_state:null,
-      pu_zip:null,
+      pu_city: null,
+      pu_state: null,
+      pu_zip: null,
       packages: []
     }),
     date_delivered_modal: false,
     customers: [],
     clients: [],
-    packages: [],
+    packages: []
   }),
   watch: {
     customers: {
@@ -532,6 +675,7 @@ export default {
               self.form.client_id = client.id;
               client_id = client.id;
               client_name = client.name;
+              this.getClientPackages();
             }
           }
         } else {
@@ -540,17 +684,34 @@ export default {
         }
       },
       deep: false
-    },
+    }
   },
   mounted() {
     this.getInitialData();
     this.form.date_delivered = moment().format("YYYY-MM-DD");
+    this.form.type = "field_transfer";
   },
   methods: {
+    getText: function getText(item) {
+      return `DSG# ${item.dsg_id}|Style# ${item.style_no}|Description: ${
+        item.description
+      }`;
+    },
     getInitialData() {
       axios.get(route("api.logistics.getInitialData")).then(response => {
         this.customers = response.data.data.customers;
       });
+    },
+    getClientPackages() {
+      axios
+        .get(
+          route("api.logistics.getClientPackages", {
+            client: this.form.client_id
+          })
+        )
+        .then(response => {
+          this.packages = response.data;
+        });
     },
     submit() {
       let self = this;
@@ -593,8 +754,8 @@ export default {
           self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
         .catch(errors => {
-            console.log(errors.response.data)
-            const failedModal = swal.mixin({
+          console.log(errors.response.data);
+          const failedModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -604,7 +765,6 @@ export default {
             type: "error",
             confirmButtonText: "Ok"
           });
-
         });
     },
     redirectBack() {
