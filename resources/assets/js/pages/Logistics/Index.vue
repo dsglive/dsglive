@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Logistics"
+                    label="Search Ticket"
                     single-line
                     hide-details
                     light
