@@ -767,7 +767,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">DSG Has Been Created!</p>`,
+            html: `<p class="title">Receiving Has Been Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
