@@ -5,6 +5,19 @@
     pa-5
     ma-5
   >
+    <v-flex xs12>
+      <v-alert
+        :value="true"
+        type="info"
+        class="text-xs-center blue-grey--text"
+        my-0
+        py-0
+        mx-3
+        px-3
+      >
+        Note: Press Ctrl or CMD + F5 To Do Hard Page Refresh If You Experience Blank Page Unresponsive Due to Old Cached Of Assets (Only In Development Stage)
+      </v-alert>
+    </v-flex>
     <v-flex 
       xs12 
       md4 
