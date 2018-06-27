@@ -1,6 +1,6 @@
 <template>
   <main-layout>
-    <admin-dash-panel v-if="$auth.check('admin')"/>
+    <admin-dash-panel v-if="$auth.check(['admin','warehouse'])"/>
     <customer-dash-panel v-if="$auth.check('customer')"/>
   </main-layout>
 </template>
