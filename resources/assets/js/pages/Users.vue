@@ -197,15 +197,22 @@
               >
                 <v-avatar
                   :class="{
-                    'primary': (role === 'admin'),
+                    'amber lighten-2': (role === 'admin' && props.item.id < 1000),
+                    'primary': (role === 'admin' && props.item.id > 999),
                     'white--text': true,
-                    warning: (role === 'warehouse'),
+                    'deep-purple': (role === 'warehouse'),
                     'blue': (role === 'customer')
                   }"
                 >
-                  <span class="headline">{{ role.charAt(0).toUpperCase() }}</span>
+                  <span 
+                    v-if="props.item.id < 1000" 
+                    class="headline">S</span>
+                  <span 
+                    v-else 
+                    class="headline">{{ role.charAt(0).toUpperCase() }}</span>
                 </v-avatar>
-                {{ role }}
+                <span v-if="props.item.id < 1000">Super Admin</span>
+                <span v-else>{{ role }}</span>
               </v-chip>
             </td>
             <td class="title text-xs-center">
