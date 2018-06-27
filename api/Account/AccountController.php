@@ -8,6 +8,7 @@ use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Rules\MustMatchPassword;
+use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\User\AccountResource;
 
 class AccountController extends Controller
@@ -42,9 +43,11 @@ class AccountController extends Controller
         $user->password = $request->password;
         $save           = $user->save();
 
-        if ($save) {
-            return response()->json(['message' => 'Password Successfully Changed!']);
+        if (!$save) {
+            throw new UpdatingRecordFailed;
         }
+
+        return response()->json(['message' => 'Password Successfully Changed!']);
     }
 
     /**
@@ -63,21 +66,23 @@ class AccountController extends Controller
             'last_name'    => 'required',
             'phone'        => 'required',
             'address_1'    => 'required',
-            'address_2'    => 'required',
+            'address_2'    => 'nullable',
             'city'         => 'required',
             'state'        => 'required',
             'zip'          => [
                 'required',
                 new ValidateZip
             ],
-            'country' => 'sometimes|required',
-            'notes'        => 'nullable|max:255',
+            'country'      => 'sometimes|required',
+            'notes'        => 'nullable|max:255'
         ]);
         $profile = $user->profile;
         $updated = $profile->update($data);
 
-        if ($updated) {
-            return new AccountResource($user->load('profile'));
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
         }
+
+        return new AccountResource($user->load('profile'));
     }
 }

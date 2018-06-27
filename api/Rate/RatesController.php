@@ -7,6 +7,8 @@ use App\Models\Rate;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
+use App\Exceptions\RateCreationFailed;
+use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\Rate\RateResource;
 
 class RatesController extends Controller
@@ -35,7 +37,12 @@ class RatesController extends Controller
             ],
             'active' => 'boolean'
         ]);
-        Rate::create($data);
+        $rate = Rate::create($data);
+
+        if (!$rate) {
+            throw new RateCreationFailed;
+        }
+
         return response()->json(['message' => 'Rate Has Been Created!'], 200);
     }
 
@@ -46,6 +53,11 @@ class RatesController extends Controller
     {
         $rate    = Rate::find($request->rate_id);
         $deleted = $rate->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -76,8 +88,13 @@ class RatesController extends Controller
      */
     public function massActivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Rate::whereIn('id', $ids)->update(['active' => true]);
+        $ids     = request()->input('selected');
+        $updated = Rate::whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Rates Activated!', 'updated' => $ids]);
     }
 
@@ -86,8 +103,13 @@ class RatesController extends Controller
      */
     public function massDeactivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Rate::whereIn('id', $ids)->update(['active' => false]);
+        $ids     = request()->input('selected');
+        $updated = Rate::whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Rates Deactivated!', 'updated' => $ids]);
     }
 
@@ -99,7 +121,12 @@ class RatesController extends Controller
     {
         $rate         = Rate::find($request->rate_id);
         $rate->active = $request->toggle;
-        $rate->save();
+        $saved        = $rate->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $rate->active], 200);
     }
 
@@ -127,7 +154,11 @@ class RatesController extends Controller
             'active' => 'boolean'
         ]);
 
-        $rate->update($data);
+        $updated = $rate->update($data);
+
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
+        }
 
         return response()->json(['message' => 'Rate Account Updated!']);
     }

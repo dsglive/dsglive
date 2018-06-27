@@ -4,6 +4,8 @@ namespace Api\Package;
 
 use Api\Controller;
 use App\Models\Package;
+use App\Exceptions\UpdatingRecordFailed;
+use App\Exceptions\PackageCreationFailed;
 use App\Http\Resources\Dsg\PackageResource;
 
 class PackageController extends Controller
@@ -16,15 +18,28 @@ class PackageController extends Controller
     public function add()
     {
         $package = new Package();
-        $package->save();
+        $saved   = $package->save();
+
+        if (!$saved) {
+            throw new PackageCreationFailed;
+        }
+
         $package->media;
         return new PackageResource($package);
     }
 
+    /**
+     * @param $id
+     */
     public function delete($id)
     {
         $package = Package::find($id);
-        $package->delete();
+        $deleted = $package->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Package Deleted!']);
     }
 
@@ -33,7 +48,12 @@ class PackageController extends Controller
      */
     public function uploadDamageImage($id)
     {
-        $link = Package::uploadDamageImage($id, 'damaged_images');
+        try {
+            $link = Package::uploadDamageImage($id, 'damaged_images');
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+
         return response()->json(['damaged_images' => $link]);
     }
 
@@ -42,7 +62,11 @@ class PackageController extends Controller
      */
     public function uploadPackageImages($id)
     {
-        $link = Package::uploadPackageImage($id, 'package_images');
+        try {
+            $link = Package::uploadPackageImage($id, 'package_images');
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
 
         return response()->json(['package_images' => $link]);
     }

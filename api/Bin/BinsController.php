@@ -5,7 +5,9 @@ namespace Api\Bin;
 use Api\Controller;
 use App\Models\Bin;
 use Illuminate\Http\Request;
+use App\Exceptions\BinCreationFailed;
 use App\Http\Resources\Bin\BinResource;
+use App\Exceptions\UpdatingRecordFailed;
 
 class BinsController extends Controller
 {
@@ -25,6 +27,11 @@ class BinsController extends Controller
 
         ]);
         $bin = Bin::create($data);
+
+        if (!$bin) {
+            throw new BinCreationFailed;
+        }
+
         return response()->json(['message' => 'Bin Has Been Created!'], 200);
     }
 
@@ -35,6 +42,11 @@ class BinsController extends Controller
     {
         $bin     = Bin::find($request->bin_id);
         $deleted = $bin->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -65,8 +77,13 @@ class BinsController extends Controller
      */
     public function massActivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Bin::whereIn('id', $ids)->update(['active' => true]);
+        $ids     = request()->input('selected');
+        $updated = Bin::whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Bins Activated!', 'updated' => $ids]);
     }
 
@@ -75,8 +92,13 @@ class BinsController extends Controller
      */
     public function massDeactivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Bin::whereIn('id', $ids)->update(['active' => false]);
+        $ids     = request()->input('selected');
+        $updated = Bin::whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Bins Deactivated!', 'updated' => $ids]);
     }
 
@@ -88,7 +110,12 @@ class BinsController extends Controller
     {
         $bin         = Bin::find($request->bin_id);
         $bin->active = $request->toggle;
-        $bin->save();
+        $saved       = $bin->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $bin->active], 200);
     }
 
@@ -107,7 +134,11 @@ class BinsController extends Controller
 
         ]);
 
-        $bin->update($data);
+        $updated = $bin->update($data);
+
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
+        }
 
         return response()->json(['message' => 'Bin Account Updated!']);
     }

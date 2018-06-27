@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
 use App\Exceptions\UpdatingRecordFailed;
+use App\Exceptions\LogisticCreationFailed;
 use App\Http\Resources\User\CustomerResource;
 use App\Http\Resources\Logistic\LogisticResource;
 
@@ -28,7 +29,12 @@ class LogisticsController extends Controller
     {
         $data     = $this->sanitizeData();
         $logistic = new Logistic();
-        $logistic->fill($data)->save();
+        $saved    = $logistic->fill($data)->save();
+
+        if (!$saved) {
+            throw new LogisticCreationFailed;
+        }
+
         $this->toggleDelivered($logistic, $data);
         return response()->json(['message' => 'Ticket Created!'], 201);
     }
@@ -52,7 +58,12 @@ class LogisticsController extends Controller
             throw new UpdatingRecordFailed;
         }
 
-        $package->delete();
+        $deleted = $package->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Logistic Deleted!']);
     }
 
@@ -110,6 +121,7 @@ class LogisticsController extends Controller
             if (!$updated) {
                 throw new UpdatingRecordFailed;
             }
+
             $this->toggleDelivered($logistic, $data);
         } catch (\Exception $e) {
             DB::rollback();

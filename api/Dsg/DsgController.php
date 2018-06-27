@@ -12,7 +12,10 @@ use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\DsgCreationFailed;
 use App\Http\Resources\Dsg\DsgResource;
+use App\Exceptions\UpdatingRecordFailed;
+use App\Exceptions\PackageCreationFailed;
 use App\Http\Resources\User\CustomerResource;
 use App\Http\Resources\User\WithShipperResource;
 
@@ -36,14 +39,18 @@ class DsgController extends Controller
         $dsgId = $dsg->id;
         try {
             if (!$dsg) {
-                throw new AccountCreationFailed;
+                throw new DsgCreationFailed;
             }
 
             foreach ($packages_data['packages'] as $package) {
                 $package['dsg_id'] = $dsgId;
                 $item              = Package::find($package['id']);
                 $item->fill($package);
-                $item->save();
+                $saved = $item->save();
+
+                if (!$saved) {
+                    throw new PackageCreationFailed;
+                }
             }
         } catch (\Exception $e) {
             DB::rollback();
@@ -61,6 +68,11 @@ class DsgController extends Controller
     {
         $dsg     = Dsg::find($request->dsg_id);
         $deleted = $dsg->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -123,8 +135,13 @@ class DsgController extends Controller
      */
     public function massActivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Dsg::whereIn('id', $ids)->update(['active' => true]);
+        $ids     = request()->input('selected');
+        $updated = Dsg::whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Dsg Activated!', 'updated' => $ids]);
     }
 
@@ -133,8 +150,13 @@ class DsgController extends Controller
      */
     public function massDeactivate(Request $request)
     {
-        $ids = request()->input('selected');
-        Dsg::whereIn('id', $ids)->update(['active' => false]);
+        $ids     = request()->input('selected');
+        $updated = Dsg::whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Dsg Deactivated!', 'updated' => $ids]);
     }
 
@@ -148,7 +170,12 @@ class DsgController extends Controller
 
         $dsg         = Dsg::find($request->dsg_id);
         $dsg->active = $request->toggle;
-        $dsg->save();
+        $saved       = $dsg->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $dsg->active], 200);
     }
 
@@ -167,13 +194,17 @@ class DsgController extends Controller
         $updated = $dsg->update($dsg_data);
         try {
             if (!$updated) {
-                throw new AccountCreationFailed;
+                throw new UpdatingRecordFailed;
             }
 
             foreach ($packages_data['packages'] as $package) {
                 $item = Package::find($package['id']);
                 $item->fill($package);
-                $item->save();
+                $saved = $item->save();
+
+                if (!$save) {
+                    throw new UpdatingRecordFailed;
+                }
             }
         } catch (\Exception $e) {
             DB::rollback();

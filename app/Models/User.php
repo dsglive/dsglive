@@ -84,14 +84,20 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Client::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function dsg()
     {
         return $this->hasMany(Dsg::class);
     }
 
-    public function tickets()
+    /**
+     * @return mixed
+     */
+    public function isSuperAdmin()
     {
-        return $this->hasMany(Logistic::class);
+        return $this->id < 1000;
     }
 
     public function registerMediaCollections()
@@ -124,7 +130,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeEmployeeType($query)
@@ -141,6 +147,14 @@ class User extends Authenticatable implements HasMedia
     public function scopeOfType($query, $type)
     {
         return $query->where('type', $type);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Logistic::class);
     }
 
     /**

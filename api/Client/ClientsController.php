@@ -8,6 +8,8 @@ use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\ClientCreationFailed;
+use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\User\ClientResource;
 
 class ClientsController extends Controller
@@ -45,7 +47,7 @@ class ClientsController extends Controller
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
             if (!$client) {
-                throw new AccountCreationFailed;
+                throw new ClientCreationFailed;
             }
         } catch (\Exception $e) {
             DB::rollback();
@@ -63,6 +65,11 @@ class ClientsController extends Controller
     {
         $client  = Client::find($request->client_id);
         $deleted = $client->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -96,7 +103,12 @@ class ClientsController extends Controller
     {
         $ids     = request()->input('selected');
         $clients = $request->user()->clients();
-        $clients->whereIn('id', $ids)->update(['active' => true]);
+        $updated = $clients->whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Clients Activated!', 'updated' => $ids]);
     }
 
@@ -107,7 +119,12 @@ class ClientsController extends Controller
     {
         $ids     = request()->input('selected');
         $clients = $request->user()->clients();
-        $clients = $clients->whereIn('id', $ids)->update(['active' => false]);
+        $updated = $clients->whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Clients Deactivated!', 'updated' => $ids]);
     }
 
@@ -121,7 +138,12 @@ class ClientsController extends Controller
 
         $client         = Client::where('user_id', $user->id)->find($request->client_id);
         $client->active = $request->toggle;
-        $client->save();
+        $saved          = $client->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $client->active], 200);
     }
 
@@ -153,7 +175,11 @@ class ClientsController extends Controller
             'active'    => 'boolean'
         ]);
 
-        $client->update($data);
+        $updated = $client->update($data);
+
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
+        }
 
         return response()->json(['message' => 'Client Account Updated!']);
     }

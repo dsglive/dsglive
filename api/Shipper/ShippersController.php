@@ -8,6 +8,8 @@ use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\UpdatingRecordFailed;
+use App\Exceptions\ShipperCreationfailed;
 use App\Http\Resources\User\ShipperResource;
 
 class ShippersController extends Controller
@@ -43,7 +45,7 @@ class ShippersController extends Controller
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
             if (!$shipper) {
-                throw new AccountCreationFailed;
+                throw new ShipperCreationfailed;
             }
         } catch (\Exception $e) {
             DB::rollback();
@@ -59,8 +61,13 @@ class ShippersController extends Controller
      */
     public function delete(Request $request)
     {
-        $shipper  = Shipper::find($request->shipper_id);
+        $shipper = Shipper::find($request->shipper_id);
         $deleted = $shipper->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -92,7 +99,12 @@ class ShippersController extends Controller
     public function massActivate(Request $request)
     {
         $ids     = request()->input('selected');
-        Shipper::whereIn('id', $ids)->update(['active' => true]);
+        $updated = Shipper::whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Shippers Activated!', 'updated' => $ids]);
     }
 
@@ -102,7 +114,12 @@ class ShippersController extends Controller
     public function massDeactivate(Request $request)
     {
         $ids     = request()->input('selected');
-        Shipper::whereIn('id', $ids)->update(['active' => false]);
+        $updated = Shipper::whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Shippers Deactivated!', 'updated' => $ids]);
     }
 
@@ -112,10 +129,14 @@ class ShippersController extends Controller
      */
     public function toggleStatus(Request $request)
     {
-
-        $shipper = Shipper::find($request->shipper_id);
+        $shipper         = Shipper::find($request->shipper_id);
         $shipper->active = $request->toggle;
-        $shipper->save();
+        $saved           = $shipper->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $shipper->active], 200);
     }
 
@@ -146,7 +167,11 @@ class ShippersController extends Controller
             'active'    => 'boolean'
         ]);
 
-        $shipper->update($data);
+        $updated = $shipper->update($data);
+
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
+        }
 
         return response()->json(['message' => 'Shipper Account Updated!']);
     }

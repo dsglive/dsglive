@@ -12,6 +12,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\UsernameNotFound;
 use App\Exceptions\UserTokenNotFound;
+use App\Exceptions\UpdatingRecordFailed;
+use App\Exceptions\AccountCreationFailed;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\AccountResource;
 
@@ -101,6 +103,11 @@ class UsersController extends Controller
 
         $user    = User::find($request->user_id);
         $deleted = $user->delete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -144,8 +151,13 @@ class UsersController extends Controller
      */
     public function massActivate(Request $request)
     {
-        $ids   = $this->selectExceptSuperAdmin();
-        $users = User::whereIn('id', $ids)->update(['active' => true]);
+        $ids     = $this->selectExceptSuperAdmin();
+        $updated = User::whereIn('id', $ids)->update(['active' => true]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Users Activated!', 'updated' => $ids]);
     }
 
@@ -154,8 +166,13 @@ class UsersController extends Controller
      */
     public function massDeactivate(Request $request)
     {
-        $ids   = $this->selectExceptSuperAdmin();
-        $users = User::whereIn('id', $ids)->update(['active' => false]);
+        $ids     = $this->selectExceptSuperAdmin();
+        $updated = User::whereIn('id', $ids)->update(['active' => false]);
+
+        if (count($ids) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['message' => 'Selected Users Deactivated!', 'updated' => $ids]);
     }
 
@@ -179,13 +196,19 @@ class UsersController extends Controller
      */
     public function toggleStatus(Request $request)
     {
-        if (1 === $request->user_id) {
+        $user = User::find($request->user_id);
+
+        if ($user->isSuperAdmin()) {
             return response()->json(['message' => 'You Cannot Modify Super Admin!'], 400);
         }
 
-        $user         = User::find($request->user_id);
         $user->active = $request->toggle;
-        $user->save();
+        $saved        = $user->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
+
         return response()->json(['status' => $user->active], 200);
     }
 
@@ -230,32 +253,37 @@ class UsersController extends Controller
             ]
         ]);
 
-        // Only Update Password If password is filled with confirmation
         if ($request->password && $request->password_confirmation) {
             $user->password = $request->password;
         }
 
         $user->username = $request->username;
 
-        // avoid deactivating superadmin
-        if (1 === $user->id) {
+        if ($user->isSuperAdmin()) {
             $user->active = true;
         } else {
-            // Update Other User Status
             $user->active = $request->active;
         }
 
-        // Update  User
-        $user->save();
+        $saved = $user->save();
+
+        if (!$saved) {
+            throw new UpdatingRecordFailed;
+        }
 
         $profile = $user->profile;
-        // Update Profile
         $updated = $profile->update($data);
-        $roles           = request('roles');
-        // Avoid Deleting Super Admin as Admin!
-        if (1 !== $user->id) {
+
+        if (!$updated) {
+            throw new UpdatingRecordFailed;
+        }
+
+        $roles = request('roles');
+
+        if (!$user->isSuperAdmin()) {
             $user->syncRoles($roles);
         }
+
         return response()->json(['message' => 'User Account Updated!']);
     }
 
@@ -266,9 +294,14 @@ class UsersController extends Controller
     {
         $ids = request()->input('selected');
 
-// remove the superadmin on being toggle
-        if (($key = array_search('1', $ids)) !== false) {
-            unset($ids[$key]);
+        $except = array_filter($ids, function ($id) {
+            return $id < 1000;
+        });
+
+        if (count($except) > 0) {
+            foreach ($except as $key => $value) {
+                unset($ids[$key]);
+            }
         }
 
         return $ids;
