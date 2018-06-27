@@ -10,6 +10,7 @@ use App\Models\Logistic;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Exceptions\LogisticCreationFailed;
 use App\Http\Resources\User\CustomerResource;
@@ -116,7 +117,6 @@ class LogisticsController extends Controller
         if (!$logistic) {
             return response()->json(['message' => 'Cant Find Logistic With ID of '.$request->id]);
         }
-
         $data = $this->sanitizeData();
         DB::beginTransaction();
         $updated = $logistic->update($data);
@@ -124,7 +124,6 @@ class LogisticsController extends Controller
             if (!$updated) {
                 throw new UpdatingRecordFailed;
             }
-
             $this->toggleDelivered($logistic, $data);
         } catch (\Exception $e) {
             DB::rollback();
@@ -205,7 +204,7 @@ class LogisticsController extends Controller
     private function toggleDelivered(Logistic $logistic, $data)
     {
         if (request()->has('packages')) {
-            $old_delivered = $logistic->packages;
+            $old_delivered = $logistic->packages()->pluck('id')->toArray();
             $delivered     = $data['packages'];
             $undelivered   = array_diff($old_delivered, $delivered);
 
