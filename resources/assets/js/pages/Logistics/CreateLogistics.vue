@@ -530,7 +530,7 @@
             item-value="id"
             hint="Choose Packages To Be Delivered"
             persistent-hint
-            no-data-text="All The Client Packages Has Been Marked as Delivered"
+            no-data-text="No Client's Packages For Delivery"
             required
             max-height="auto"
             light
@@ -820,6 +820,16 @@ export default {
     createLogistics() {
       let self = this;
       self.form.busy = true;
+      if (self.form.type === "field_transfer") {
+        delete self.form.packages;
+      }
+      if (self.form.type === "delivery_ticket") {
+        delete self.form.pu_address_1;
+        delete self.form.pu_address_2;
+        delete self.form.pu_city;
+        delete self.form.pu_state;
+        delete self.form.pu_zip;
+      }
       self.form
         .post(route("api.logistics.create"), self.form)
         .then(response => {
@@ -831,7 +841,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">DSG Has Been Created!</p>`,
+            html: `<p class="title">Ticket Has Been Created!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
@@ -839,6 +849,16 @@ export default {
         })
         .catch(errors => {
           console.log(errors.response.data);
+          if (self.form.type === "field_transfer") {
+            self.form.packages = [];
+          }
+          if (self.form.type === "delivery_ticket") {
+            self.form.pu_address_1 = "";
+            self.form.pu_address_2 = "";
+            self.form.pu_city = "";
+            self.form.pu_state = "";
+            self.form.pu_zip = "";
+          }
           const failedModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
