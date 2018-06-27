@@ -469,18 +469,17 @@ export default {
             return c.id === newValue;
           });
           self.clients = customer.clients;
-          console.log("clients", self.clients);
           self.form.customer_name = customer.name;
-          //   self.form.client_name = null;
-          //   self.form.client_id = null;
+          self.form.client_name = null;
+          self.form.client_id = null;
           customer_id = newValue;
           customer_name = customer.name;
         } else {
           self.clients = [];
           self.form.customer_id = null;
           self.form.customer_name = null;
-          //   self.form.client_name = null;
-          //   self.form.client_id = null;
+          self.form.client_name = null;
+          self.form.client_id = null;
         }
         for (let i = 0; i < total; i++) {
           self.packages[i].customer_id = customer_id;
@@ -637,10 +636,6 @@ export default {
     this.date_processed = moment().format("YYYY-MM-DD");
     this.fetchDSG();
   },
-  mounted() {
-    this.form.client_name = this.client_name;
-    this.form.client_id = this.client_id;
-  },
   methods: {
     updateReceivingAmount() {
       let self = this;
@@ -757,9 +752,8 @@ export default {
       self.form.busy = true;
       self.form.packages = self.packages;
       self.form
-        .post(route("api.dsg.update",{dsg: self.form.dsg_id}), self.form)
+        .post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form)
         .then(response => {
-          console.log(response.data);
           self.$validator.reset();
           const successModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -774,7 +768,6 @@ export default {
           self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
         .catch(errors => {
-          console.log(errors);
           const failedModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
@@ -821,8 +814,6 @@ export default {
       let self = this;
       axios.get(route("api.dsg.edit", { id })).then(response => {
         let dsg = response.data.data;
-        console.log("dsg", dsg);
-        console.log("packages", dsg.packages);
         self.form.dsg_id = dsg.id;
         self.form.active = dsg.active;
         self.form.client_id = dsg.client_id;
@@ -848,7 +839,13 @@ export default {
         self.date_received = dsg.packages[0]["date_received"];
         self.date_processed = dsg.packages[0]["date_processed"];
         self.packages = dsg.packages;
+        self.client_name = dsg.client_name;
+        self.client_id = dsg.client_id;
       });
+      setTimeout(() => {
+        self.form.client_name = self.client_name;
+        self.form.client_id = self.client_id;
+      }, 1000);
     }
   }
 };
