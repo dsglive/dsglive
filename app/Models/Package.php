@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Package extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, SoftDeletes;
 
     /**
      * @var array
@@ -38,7 +39,8 @@ class Package extends Model implements HasMedia
         'date_repaired',
         'date_processed',
         'date_out',
-        'date_received'
+        'date_received',
+        'deleted_at'
     ];
 
     /**
@@ -50,6 +52,11 @@ class Package extends Model implements HasMedia
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
         'logistic_id'
     ];
+
+    public static function archived()
+    {
+        return self::onlyTrashed()->get();
+    }
 
     /**
      * @param $id
@@ -77,9 +84,14 @@ class Package extends Model implements HasMedia
         return $this->belongsTo(Dsg::class);
     }
 
-    public function ticket()
+    /**
+     * @param $id
+     */
+    public static function findByPackageID($id)
     {
-        return $this->belongsTo(Logistic::class);
+        return self::withTrashed()
+            ->where('id', $id)
+            ->first();
     }
 
     /**
@@ -207,6 +219,14 @@ class Package extends Model implements HasMedia
         } else {
             $this->attributes['repaired'] = $value;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function ticket()
+    {
+        return $this->belongsTo(Logistic::class);
     }
 
     /**

@@ -60,6 +60,7 @@ class CreateLogisticsTable extends Migration
             $table->string('pu_zip')->nullable()->comment('Zip Code');
             // added only on delivery
             $table->json('packages')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

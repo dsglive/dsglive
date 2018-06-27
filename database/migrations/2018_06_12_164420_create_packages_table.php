@@ -61,6 +61,7 @@ class CreatePackagesTable extends Migration
             $table->timestamp('date_delivered')->nullable() // for delivery fee
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
             // we also have package images and damage images to be handle by laravel image library, using media model
+            $table->softDeletes();
             $table->timestamps();
         });
     }

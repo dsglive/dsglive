@@ -66,7 +66,14 @@ class DsgController extends Controller
      */
     public function delete(Request $request)
     {
-        $dsg     = Dsg::find($request->dsg_id);
+        $dsg             = Dsg::find($request->dsg_id);
+        $ids             = $dsg->packages->pluck('id')->toArray();
+        $remove_packages = Package::whereIn('id', $ids)->delete();
+
+        if (count($ids) !== $remove_packages) {
+            throw new UpdatingRecordFailed;
+        }
+
         $deleted = $dsg->delete();
 
         if (!$deleted) {

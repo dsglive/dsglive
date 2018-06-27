@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Logistic extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var array
      */
@@ -24,18 +27,24 @@ class Logistic extends Model
      */
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
      * @var array
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @var string
      */
     protected $table = 'logistics';
+
+    public static function archived()
+    {
+        return self::onlyTrashed()->get();
+    }
 
     /**
      * @return mixed
@@ -51,6 +60,16 @@ class Logistic extends Model
     public function customer()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @param $id
+     */
+    public static function findByTicketID($id)
+    {
+        return self::withTrashed()
+            ->where('id', $id)
+            ->first();
     }
 
     /**
