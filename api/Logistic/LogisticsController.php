@@ -10,6 +10,7 @@ use App\Models\Logistic;
 use Illuminate\Http\Request;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
+use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\User\CustomerResource;
 use App\Http\Resources\Logistic\LogisticResource;
 
@@ -39,13 +40,18 @@ class LogisticsController extends Controller
     {
         $package = Logistic::find($id);
         // undo on packages the date_delivered and delivered field
-        $undelivered = $logistic->packages;
+        $undelivered          = $logistic->packages;
         $undelivered_packages = Package::whereIn('id', $undelivered);
-        $undelivered_packages->update([
-            'delivered' => 0,
+        $updated              = $undelivered_packages->update([
+            'delivered'      => 0,
             'date_delivered' => null,
-            'logistic_id' => null
+            'logistic_id'    => null
         ]);
+
+        if (count($undelivered) !== $updated) {
+            throw new UpdatingRecordFailed;
+        }
+
         $package->delete();
         return response()->json(['message' => 'Logistic Deleted!']);
     }
@@ -100,12 +106,11 @@ class LogisticsController extends Controller
         $data = $this->sanitizeData();
         DB::beginTransaction();
         $updated = $logistic->update($data);
-
-        //! IMPORTANT TO DO!!! Loop thru packages!
         try {
             if (!$updated) {
-                throw new AccountCreationFailed;
+                throw new UpdatingRecordFailed;
             }
+            $this->toggleDelivered($logistic, $data);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['message' => $e->getMessage()], 400);
@@ -191,20 +196,28 @@ class LogisticsController extends Controller
 
             if (count($delivered) > 0) {
                 $delivered_packages = Package::whereIn('id', $delivered);
-                $delivered_packages->update([
+                $updated            = $delivered_packages->update([
                     'delivered'      => 1,
                     'date_delivered' => $data['date_delivered'],
                     'logistic_id'    => $logistic->id
                 ]);
+
+                if (count($delivered) !== $updated) {
+                    throw new UpdatingRecordFailed;
+                }
             }
 
             if (count($undelivered) > 0) {
                 $undelivered_packages = Package::whereIn('id', $undelivered);
-                $undelivered_packages->update([
+                $updated              = $undelivered_packages->update([
                     'delivered'      => 0,
                     'date_delivered' => null,
                     'logistic_id'    => null
                 ]);
+
+                if (count($undelivered) !== $updated) {
+                    throw new UpdatingRecordFailed;
+                }
             }
         }
     }
