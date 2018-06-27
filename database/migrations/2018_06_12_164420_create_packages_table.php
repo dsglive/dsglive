@@ -55,6 +55,7 @@ class CreatePackagesTable extends Migration
             $table->string('damage_description')->nullable()->comment('when mark as damaged make this required');
             $table->boolean('repaired')->default(0);
             $table->timestamp('date_repaired')->nullable()->comment('when mark as repaired make this required');
+            $table->unsignedInteger('logistic_id')->nullable()->index()->comment('id from logistics table');
             $table->boolean('delivered')->default(0)
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
             $table->timestamp('date_delivered')->nullable() // for delivery fee
