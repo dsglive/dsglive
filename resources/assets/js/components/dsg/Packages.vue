@@ -8,6 +8,7 @@
     <v-card>
       <v-toolbar class="blue-grey">
         <v-btn
+          v-if="!readonly"
           flat 
           icon
           color="blue lighten-4" 
@@ -16,6 +17,7 @@
           <v-icon x-large>add_circle</v-icon>
         </v-btn>
         <v-btn
+          v-if="!readonly"
           flat 
           icon
           color="green lighten-2" 
@@ -27,6 +29,7 @@
         <v-toolbar-title class="text-md-center white--text">PID#:{{ item.id }}</v-toolbar-title>
         <v-spacer/>
         <v-btn
+          v-if="!readonly"
           flat 
           icon
           color="red" 
@@ -89,6 +92,8 @@
               v-model="item.bin_id"
               :error-messages="errors.collect('bin')"
               :class="{ 'error--text': errors.has('bin') }"
+              :readonly="readonly"
+              :disabled="readonly"
               item-text="code"
               item-value="id"
               required
@@ -110,6 +115,8 @@
               v-model="item.handling_type"
               :error-messages="errors.collect('handling')"
               :class="{ 'error--text': errors.has('handling') }"
+              :readonly="readonly"
+              :disabled="readonly"
               item-text="name"
               item-value="id"
               required
@@ -131,6 +138,8 @@
               v-model="item.store_at"
               :error-messages="errors.collect('store_at')"
               :class="{ 'error--text': errors.has('store_at') }"
+              :readonly="readonly"
+              :disabled="readonly"
               required
               label="Store At"
               light
@@ -149,6 +158,7 @@
               v-model="item.style_no"
               :error-messages="errors.collect('style_no')"
               :class="{ 'error--text': errors.has('style_no') }"
+              :readonly="readonly"
               label="Style No."
               prepend-icon="style"
               data-vv-name="style_no"
@@ -162,6 +172,7 @@
           >
             <v-text-field
               v-model="item.length"
+              :readonly="readonly"
               label="Length"
               suffix="ft"
               prepend-icon="keyboard_tab"
@@ -175,6 +186,7 @@
           >
             <v-text-field
               v-model="item.width"
+              :readonly="readonly"
               label="Width"
               suffix="ft"
               prepend-icon="swap_horiz"
@@ -188,6 +200,7 @@
           >
             <v-text-field
               v-model="item.height"
+              :readonly="readonly"
               label="Height"
               suffix="ft"
               prepend-icon="swap_vert"
@@ -204,6 +217,7 @@
               v-model="item.cube"
               :error-messages="errors.collect('cube')"
               :class="{ 'error--text': errors.has('cube') }"
+              :readonly="readonly"
               label="Cube"
               suffix="ft³"
               prepend-icon="fa-cube"
@@ -217,6 +231,7 @@
             md2
           >
             <v-switch
+              :disabled="readonly"
               v-model="item.damaged"
               :label="getDamageStatus(item.damaged)"
             />
@@ -240,6 +255,7 @@
               v-validate="'required'"
               v-model="item.description"
               :error-messages="errors.collect('description')"
+              :readonly="readonly"
               :class="{ 'error--text': errors.has('description') }"
               counter
               maxlength="255"
@@ -261,6 +277,7 @@
             <v-textarea
               v-if="item.damaged"
               v-model="item.damage_description"
+              :readonly="readonly"
               counter
               maxlength="255"
               full-width
@@ -282,6 +299,7 @@
             offset-md10
           >
             <v-switch
+              :disabled="readonly"
               v-model="item.repaired"
               :label="getRepairedStatus(item.repaired)"
             />
@@ -293,6 +311,7 @@
             order-md2
           >
             <v-switch
+              :disabled="readonly"
               v-model="item.repaired"
               :label="getRepairedStatus(item.repaired)"
             />
@@ -314,6 +333,7 @@
             >
               <v-text-field
                 slot="activator"
+                :disabled="readonly"
                 v-model="item.date_repaired"
                 label="Date Repaired"
                 prepend-icon="event_note"
@@ -336,7 +356,8 @@
           </v-flex>
         </v-layout>
         <v-layout
-          row 
+          v-if="!readonly" 
+          row
           wrap
           pa-0
           ma-0
@@ -415,6 +436,10 @@ export default {
     form: {
       type: Object,
       required: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
