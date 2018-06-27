@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Create New Ticket</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Update Ticket# {{ id }}</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <v-btn
@@ -585,6 +585,12 @@ export default {
     ModalLayout
   },
   mixins: [validationError],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data: () => ({
     /* Always Declare Your Form Object */
     form: new Form({
@@ -619,7 +625,11 @@ export default {
     date_delivered_modal: false,
     customers: [],
     clients: [],
-    packages: []
+    packages: [],
+    delivered_packages: [],
+    choosen_packages: [],
+    customer_id: null,
+    client_id: null
   }),
   computed: {
     workingTime() {
@@ -655,6 +665,7 @@ export default {
           self.form.client_id = null;
           customer_id = newValue;
           customer_name = customer.name;
+          self.packages = [];
         } else {
           self.clients = [];
           self.form.customer_id = null;
@@ -679,14 +690,24 @@ export default {
             if (client != undefined) {
               self.form.client_name = client.name;
               self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
               this.getClientPackages();
             }
           }
         } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
+          self.form.client_id = client_id;
+          self.form.client_name = newName;
+          self.packages = [];
+        }
+      },
+      deep: false
+    },
+    "form.packages": {
+      handler: function(newValue) {
+        if (
+          this.client_id === this.form.client_id &&
+          this.client_name === this.form.client_name
+        ) {
+          this.choosen_packages = newValue;
         }
       },
       deep: false
@@ -734,12 +755,56 @@ export default {
       deep: false
     }
   },
-  mounted() {
+  created() {
     this.getInitialData();
-    this.form.date_delivered = moment().format("YYYY-MM-DD");
-    this.form.type = "field_transfer";
+    this.fetchTicket();
   },
   methods: {
+    fetchTicket() {
+      let id = this.id;
+      let self = this;
+      axios.get(route("api.logistics.edit", { id })).then(response => {
+        let ticket = response.data.data;
+        self.form.type = ticket.type;
+        self.form.client_id = ticket.client_id;
+        self.form.client_name = ticket.client_name;
+        self.form.customer_id = ticket.customer_id;
+        self.form.customer_name = ticket.customer_name;
+        self.form.date_delivered = ticket.date_delivered;
+        self.form.start_time = ticket.start_time;
+        self.form.end_time = ticket.end_time;
+        self.form.prep_time = ticket.prep_time;
+        self.form.travel_time = ticket.travel_time;
+        self.form.clean_up_time = ticket.clean_up_time;
+        self.form.total_time = ticket.total_time;
+        self.form.rate = ticket.rate;
+        self.form.surcharge = ticket.surcharge;
+        self.form.total_charges = ticket.total_charges;
+        self.form.notes = ticket.notes;
+        self.form.do_address_1 = ticket.do_address_1;
+        self.form.do_address_2 = ticket.do_address_2;
+        self.form.do_city = ticket.do_city;
+        self.form.do_state = ticket.do_state;
+        self.form.do_zip = ticket.do_zip;
+        self.form.pu_address_1 = ticket.pu_address_1;
+        self.form.pu_address_2 = ticket.pu_address_2;
+        self.form.pu_city = ticket.pu_city;
+        self.form.pu_state = ticket.pu_state;
+        self.form.pu_zip = ticket.pu_zip;
+
+        self.delivered_packages = ticket.items;
+        self.packages = ticket.items;
+
+        self.client_name = ticket.client_name;
+        self.client_id = ticket.client_id;
+
+        self.choosen_packages = ticket.packages;
+        self.form.packages = ticket.packages;
+      });
+      setTimeout(() => {
+        self.form.client_name = self.client_name;
+      }, 1000);
+    },
     computeTotal() {
       let working_time = this.workingTime ? this.workingTime : 0;
       let prep_time = this.form.prep_time ? this.form.prep_time : 0;
@@ -779,14 +844,25 @@ export default {
       });
     },
     getClientPackages() {
+      let self = this;
       axios
         .get(
           route("api.logistics.getClientPackages", {
-            client: this.form.client_id
+            client: self.form.client_id
           })
         )
         .then(response => {
-          this.packages = response.data;
+          let undelivered = response.data;
+          if (
+            self.client_id === self.form.client_id &&
+            self.client_name === self.form.client_name
+          ) {
+            self.packages = undelivered.concat(self.delivered_packages);
+            self.form.packages = self.choosen_packages;
+          } else {
+            self.packages = undelivered;
+            self.form.packages = [];
+          }
         });
     },
     submit() {
@@ -794,7 +870,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.createLogistics();
+          self.updateLogistics();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -809,7 +885,7 @@ export default {
         }
       });
     },
-    createLogistics() {
+    updateLogistics() {
       let self = this;
       self.form.busy = true;
       if (self.form.type === "field_transfer") {
@@ -823,7 +899,7 @@ export default {
         delete self.form.pu_zip;
       }
       self.form
-        .post(route("api.logistics.create"), self.form)
+        .post(route("api.logistics.update", { logistic: self.id }), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();
@@ -837,7 +913,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-            self.$nextTick(() => self.$router.push({ name: "logistics" }));
+          self.$nextTick(() => self.$router.push({ name: "logistics" }));
         })
         .catch(errors => {
           console.log(errors.response.data);

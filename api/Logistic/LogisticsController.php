@@ -77,6 +77,7 @@ class LogisticsController extends Controller
         if (!$logistic) {
             return response()->json(['message' => 'Cant Find Logistic With ID of '.$request->id]);
         }
+        $logistic->load('items');
 
         return new LogisticResource($logistic);
     }

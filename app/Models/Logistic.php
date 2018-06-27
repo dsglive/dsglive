@@ -12,6 +12,8 @@ class Logistic extends Model
     protected $casts = [
         'customer_id'    => 'integer',
         'client_id'      => 'integer',
+        'start_time'     => 'string',
+        'end_time'       => 'string',
         'total_time'     => 'float',
         'date_delivered' => 'date:Y-m-d',
         'packages'       => 'array'
