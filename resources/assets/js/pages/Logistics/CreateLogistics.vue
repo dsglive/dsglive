@@ -631,17 +631,14 @@ export default {
   }),
   computed: {
     workingTime() {
-      var start_time = this.form.start_time;
-      var start_hr = parseInt(start_time.substring(0, 2));
-      console.log("starting_hr", start_hr);
-      var start_min = parseInt(start_time.substring(2, 4));
-      console.log("start_min", start_min);
-      var end_time = this.form.end_time;
-      var end_hr = parseInt(end_time.substring(0, 2));
-      console.log("end_hr", end_hr);
-      var end_min = parseInt(end_time.substring(2, 4));
-      var hr_diff = end_hr - start_hr;
-      var min_diff = Math.abs(end_min - start_min) / 60;
+      let start_time = this.form.start_time;
+      let start_hr = parseInt(start_time.substring(0, 2));
+      let start_min = parseInt(start_time.substring(2, 4));
+      let end_time = this.form.end_time;
+      let end_hr = parseInt(end_time.substring(0, 2));
+      let end_min = parseInt(end_time.substring(2, 4));
+      let hr_diff = end_hr - start_hr;
+      let min_diff = Math.abs(end_min - start_min) / 60;
       return hr_diff + min_diff;
     }
   },
