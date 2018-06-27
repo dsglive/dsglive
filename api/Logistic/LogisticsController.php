@@ -181,13 +181,13 @@ class LogisticsController extends Controller
             ],
 
             'do_address_1'   => 'required',
-            'do_address_2'   => 'required',
+            'do_address_2'   => 'nullable',
             'do_city'        => 'required',
             'do_state'       => 'required',
             'do_zip'         => 'required',
 
             'pu_address_1'   => 'sometimes|required',
-            'pu_address_2'   => 'sometimes|required',
+            'pu_address_2'   => 'sometimes|nullable',
             'pu_city'        => 'sometimes|required',
             'pu_state'       => 'sometimes|required',
             'pu_zip'         => 'sometimes|required',

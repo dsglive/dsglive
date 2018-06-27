@@ -344,14 +344,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.pu_address_2"
-            :error-messages="errorMessages('pu_address_2')"
-            :class="{ 'error--text': hasErrors('pu_address_2') }"
             light
             label="Address 2"
             prepend-icon="looks_two"
-            data-vv-name="pu_address_2"
           />
         </v-flex>
         <v-flex 
@@ -447,14 +443,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.do_address_2"
-            :error-messages="errorMessages('do_address_2')"
-            :class="{ 'error--text': hasErrors('do_address_2') }"
             light
             label="Address 2"
             prepend-icon="looks_two"
-            data-vv-name="do_address_2"
           />
         </v-flex>
         <v-flex 
@@ -845,7 +837,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          //   self.$nextTick(() => self.$router.push({ name: "logistics" }));
+            self.$nextTick(() => self.$router.push({ name: "logistics" }));
         })
         .catch(errors => {
           console.log(errors.response.data);
