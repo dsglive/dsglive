@@ -39,6 +39,13 @@ class LogisticsController extends Controller
     {
         $package = Logistic::find($id);
         // undo on packages the date_delivered and delivered field
+        $undelivered = $logistic->packages;
+        $undelivered_packages = Package::whereIn('id', $undelivered);
+        $undelivered_packages->update([
+            'delivered' => 0,
+            'date_delivered' => null,
+            'logistic_id' => null
+        ]);
         $package->delete();
         return response()->json(['message' => 'Logistic Deleted!']);
     }
@@ -181,7 +188,6 @@ class LogisticsController extends Controller
             $old_delivered = $logistic->packages;
             $delivered     = $data['packages'];
             $undelivered   = array_diff($old_delivered, $delivered);
-            $packages      = Package::whereIn('id', $delivered)->get();
 
             if (count($delivered) > 0) {
                 $delivered_packages = Package::whereIn('id', $delivered);
