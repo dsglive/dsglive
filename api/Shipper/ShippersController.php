@@ -29,7 +29,7 @@ class ShippersController extends Controller
             'email'     => 'required|email|unique:shippers',
             'phone'     => 'required',
             'address_1' => 'required',
-            'address_2' => 'required',
+            'address_2' => 'nullable',
             'city'      => 'required',
             'state'     => 'required',
             'zip'       => [
@@ -157,7 +157,7 @@ class ShippersController extends Controller
             ],
             'phone'     => 'required',
             'address_1' => 'required',
-            'address_2' => 'required',
+            'address_2' => 'nullable',
             'city'      => 'required',
             'state'     => 'required',
             'zip'       => [
