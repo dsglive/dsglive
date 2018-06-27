@@ -45,7 +45,7 @@ class UsersController extends Controller
             'last_name'             => 'required',
             'phone'                 => 'required',
             'address_1'             => 'required',
-            'address_2'             => 'required',
+            'address_2'             => 'nullable',
             'city'                  => 'required',
             'state'                 => 'required',
             'zip'                   => [
@@ -238,7 +238,7 @@ class UsersController extends Controller
             'last_name'             => 'required',
             'phone'                 => 'required',
             'address_1'             => 'required',
-            'address_2'             => 'required',
+            'address_2'             => 'nullable',
             'city'                  => 'required',
             'state'                 => 'required',
             'zip'                   => [
