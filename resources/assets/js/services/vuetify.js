@@ -33,7 +33,8 @@ import {
   VCombobox,
   VDatePicker,
   VRadioGroup,
-  VDataIterator
+  VDataIterator,
+  VDivider
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -68,7 +69,8 @@ Vue.use(Vuetify, {
     VCombobox,
     VDatePicker,
     VRadioGroup,
-    VDataIterator
+    VDataIterator,
+    VDivider
   },
   //! Define Your Theme Here
   theme: {
