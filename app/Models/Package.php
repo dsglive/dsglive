@@ -47,7 +47,8 @@ class Package extends Model implements HasMedia
     protected $fillable = ['dsg_id', 'customer_id', 'customer_name', 'client_id', 'client_name', 'shipper_id',
         'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_out', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
-        'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered'
+        'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
+        'logistic_id'
     ];
 
     /**
@@ -74,6 +75,11 @@ class Package extends Model implements HasMedia
     public function dsg()
     {
         return $this->belongsTo(Dsg::class);
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Logistic::class);
     }
 
     /**
@@ -131,8 +137,8 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
-     * @param $id
+     * @param  $query
+     * @param  $id
      * @return mixed
      */
     public function scopeOfClient($query, $id)
