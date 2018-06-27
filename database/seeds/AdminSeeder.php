@@ -29,18 +29,17 @@ class AdminSeeder extends Seeder
         $user->assignRole('admin');
 
         $profile = Profile::create([
-            'company_name' => config('app.name'),
-            'first_name'   => $faker->firstNameMale,
-            'last_name'    => $faker->lastName,
+            'company_name' => config('admin.company_name'),
+            'first_name'   => config('admin.first_name'),
+            'last_name'    => config('admin.last_name'),
             'email'        => config('admin.email'),
-            'phone'        => $faker->isbn10,
-            'address_1'    => $faker->streetAddress,
-            'address_2'    => $faker->secondaryAddress,
-            'city'         => $faker->city,
-            'state'        => $faker->state,
-            'zip'          => $faker->postcode,
-            'country'      => $faker->country,
-            'notes'        => $faker->sentence($nbWords = 10, $variableNbWords = true)
+            'phone'        => config('admin.phone'),
+            'address_1'    => config('admin.address_1'),
+            'address_2'    => config('admin.address_2'),
+            'city'         => config('admin.city'),
+            'state'        => config('admin.state'),
+            'zip'          => config('admin.zip'),
+            'country'      => config('admin.country')
         ]);
         $user->profile()->save($profile);
         $user->save();
