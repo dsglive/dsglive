@@ -32,7 +32,8 @@ import {
   VDialog,
   VCombobox,
   VDatePicker,
-  VRadioGroup
+  VRadioGroup,
+  VDataIterator
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -66,7 +67,8 @@ Vue.use(Vuetify, {
     VDialog,
     VCombobox,
     VDatePicker,
-    VRadioGroup
+    VRadioGroup,
+    VDataIterator
   },
   //! Define Your Theme Here
   theme: {

@@ -35,18 +35,35 @@ class Logistic extends Model
      */
     protected $table = 'logistics';
 
-    public function packages()
+    /**
+     * @return mixed
+     */
+    public function client()
     {
-        return $this->hasMany(Package::class);
+        return $this->belongsTo(Client::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function customer()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function client()
+    /**
+     * @return mixed
+     */
+    public function items()
     {
-        return $this->belongsTo(Client::class);
+        return $this->hasMany(Package::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
     }
 }

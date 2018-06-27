@@ -138,7 +138,7 @@
               {{ props.item.client_name }}
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.type }}
+              {{ titleCase(props.item.type) }}
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.date_delivered }}
@@ -147,6 +147,21 @@
               {{ props.item.total_charges }}
             </td>
             <td class="title text-xs-center">
+              <v-flex 
+                v-if="props.item.type === 'delivery_ticket' && props.item.items.length > 0" 
+                class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                  light 
+                  flat 
+                  icon 
+                  @click="props.expanded = !props.expanded"
+                >
+                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                  <v-icon v-if="props.expanded">fa-compress</v-icon>
+                </v-btn>
+              </v-flex>
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -184,6 +199,77 @@
               </v-flex>
             </td>
           </tr>
+        </template>
+        <!-- Expand Section -->
+        <template 
+          slot="expand" 
+          slot-scope="props"
+        >
+          <v-container fluid>
+            <v-card 
+              light 
+              flat 
+              text-xs-center
+            >
+              <v-toolbar class="secondary">
+                <v-spacer/>
+                <v-toolbar-title class="text-xs-center white--text">Delivered Packages</v-toolbar-title>
+                <v-spacer/>
+                <span class="title white--text"> Count: {{ props.item.items.length }} </span>
+              </v-toolbar>
+              <v-container fluid>
+                <v-data-iterator
+                  :items="props.item.items"
+                  :rows-per-page-items="rowsPerPageItems"
+                  :pagination.sync="iteratorPagination"
+                  content-tag="v-layout"
+                  row
+                  wrap
+                >
+                  <v-flex
+                    slot="item"
+                    slot-scope="props"
+                    xs6
+                  >
+                    <v-card>
+                      <v-card-title><h4>Package ID: {{ props.item.id }}</h4></v-card-title>
+                      <v-divider/>
+                      <v-list dense>
+                        <v-list-tile>
+                          <v-list-tile-content>DSG #:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.dsg_id }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Style #:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.style_no }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Description:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.description }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Bin:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.bin_name }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Cube:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.cube }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Date Processed:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.date_processed }}</v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>Date Received:</v-list-tile-content>
+                          <v-list-tile-content class="align-end">{{ props.item.date_received }}</v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-card>
+                  </v-flex>
+                </v-data-iterator>
+              </v-container>
+            </v-card>
+          </v-container>
         </template>
         <!-- Pagination Section -->
         <template 
@@ -239,6 +325,7 @@ export default {
   },
   mixins: [validationError],
   data: () => ({
+    rowsPerPageItems: [1,2],
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
     /* table */
@@ -252,14 +339,27 @@ export default {
       },
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "Type", value: "type", align: "left", sortable: true },
-      { text: "Delivery Date", value: "date_delivered", align: "left", sortable: true },
-      { text: "Delivery Fee", value: "total_charges", align: "left", sortable: true },
+      {
+        text: "Delivery Date",
+        value: "date_delivered",
+        align: "left",
+        sortable: true
+      },
+      {
+        text: "Delivery Fee",
+        value: "total_charges",
+        align: "left",
+        sortable: true
+      },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     selected: [],
     pagination: {
-      sortBy: "name"
+      sortBy: "name",
+    },
+    iteratorPagination:{
+        rowsPerPage:2
     },
     ticketForm: new Form({}),
     search: "",
@@ -279,11 +379,20 @@ export default {
     self.fetchTickets();
   },
   methods: {
+    titleCase(key) {
+      let newStr = key.replace(/_/g, " ");
+      return newStr.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    },
     viewPdf() {
       console.log("viewing PDF");
     },
     editTicket(logistics) {
-      vm.$router.push({ name: "edit-logistics", params: { id: `${logistics.id}` } });
+      vm.$router.push({
+        name: "edit-logistics",
+        params: { id: `${logistics.id}` }
+      });
     },
     createTicket() {
       vm.$router.push({ name: "create-logistics" });
@@ -292,7 +401,10 @@ export default {
       let self = this;
       self.ticketForm.busy = true;
       try {
-        const payload = await axios.post(route("api.logistics.index"), self.ticketForm);
+        const payload = await axios.post(
+          route("api.logistics.index"),
+          self.ticketForm
+        );
         self.items = payload.data.data;
         self.ticketForm = new Form({});
       } catch ({ errors, message }) {

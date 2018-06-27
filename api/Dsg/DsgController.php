@@ -202,7 +202,7 @@ class DsgController extends Controller
                 $item->fill($package);
                 $saved = $item->save();
 
-                if (!$save) {
+                if (!$saved) {
                     throw new UpdatingRecordFailed;
                 }
             }

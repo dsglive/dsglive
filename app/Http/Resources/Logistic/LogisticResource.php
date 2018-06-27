@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Logistic;
 
+use Illuminate\Support\Carbon;
+use App\Http\Resources\Dsg\PackageResource;
 use Illuminate\Http\Resources\Json\Resource;
 
 class LogisticResource extends Resource
@@ -14,6 +16,10 @@ class LogisticResource extends Resource
      */
     public function toArray($request)
     {
+        Carbon::serializeUsing(function ($carbon) {
+            return $carbon->format('Y-m-d');
+        });
+
         return [
             'id'             => $this->id,
             'customer_id'    => $this->customer_id,
@@ -42,7 +48,8 @@ class LogisticResource extends Resource
             'pu_city'        => $this->pu_city,
             'pu_state'       => $this->pu_state,
             'pu_zip'         => $this->pu_zip,
-            'packages'       => $this->packages
+            'packages'       => $this->packages,
+            'items'          => $this->whenLoaded('items', $this->items),
         ];
     }
 }

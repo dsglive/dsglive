@@ -100,7 +100,7 @@ class LogisticsController extends Controller
 
     public function index()
     {
-        $logistics = Logistic::all();
+        $logistics = Logistic::with('items')->get();
         return LogisticResource::collection($logistics);
     }
 
