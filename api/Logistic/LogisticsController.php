@@ -42,23 +42,25 @@ class LogisticsController extends Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete(Logistic $logistic)
     {
-        $package = Logistic::find($id);
         // undo on packages the date_delivered and delivered field
-        $undelivered          = $logistic->packages;
-        $undelivered_packages = Package::whereIn('id', $undelivered);
-        $updated              = $undelivered_packages->update([
-            'delivered'      => 0,
-            'date_delivered' => null,
-            'logistic_id'    => null
-        ]);
+        $undelivered = $logistic->packages;
 
-        if (count($undelivered) !== $updated) {
-            throw new UpdatingRecordFailed;
+        if ($undelivered && count($undelivered) > 0) {
+            $undelivered_packages = Package::whereIn('id', $undelivered);
+            $updated              = $undelivered_packages->update([
+                'delivered'      => 0,
+                'date_delivered' => null,
+                'logistic_id'    => null
+            ]);
+
+            if (count($undelivered) !== $updated) {
+                throw new UpdatingRecordFailed;
+            }
         }
 
-        $deleted = $package->delete();
+        $deleted = $logistic->delete();
 
         if (!$deleted) {
             throw new UpdatingRecordFailed;

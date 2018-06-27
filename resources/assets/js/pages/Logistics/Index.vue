@@ -192,7 +192,7 @@
                   flat 
                   icon 
                   color="error" 
-                  @click="deleteDsg(props.item)"
+                  @click="deleteTicket(props.item)"
                 >
                   <v-icon>fa-trash</v-icon>
                 </v-btn>
@@ -416,26 +416,24 @@ export default {
         self.ticketForm.busy = false;
       }
     },
-    deleteDsg(logistics) {
+    deleteTicket(logistics) {
       let self = this;
       self.deleteTicketForm.logistics_id = logistics.id;
       let index = _.findIndex(self.items, { id: logistics.id });
       axios
-        .post(route("api.logistics.delete"), self.deleteTicketForm)
+        .post(route("api.logistics.delete",{ logistic:logistics.id }), self.deleteTicketForm)
         .then(response => {
-          if (response.data.status === true) {
             self.$delete(self.items, index);
-            let toggleModal = swal.mixin({
+            let deleteModal = swal.mixin({
               confirmButtonClass: "v-btn blue-grey  subheading white--text",
               buttonsStyling: false
             });
-            toggleModal({
+            deleteModal({
               title: "Success",
-              html: `<p class="title">Dsg Deleted!</p>`,
+              html: `<p class="title">Ticket Deleted!</p>`,
               type: "success",
               confirmButtonText: "Back"
             });
-          }
         })
         .catch(errors => {
           const deleteModal = swal.mixin({

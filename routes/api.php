@@ -5,7 +5,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Logistics Management
     Route::post('/logistics', 'Logistic\LogisticsController@index')->name('api.logistics.index');
     Route::post('/logistics/create', 'Logistic\LogisticsController@create')->name('api.logistics.create');
-    Route::post('/logistics/delete', 'Logistic\LogisticsController@delete')->name('api.logistics.delete');
+    Route::post('/logistics/{logistic}/delete', 'Logistic\LogisticsController@delete')->name('api.logistics.delete');
     Route::get('/logistics/{logistic}/edit', 'Logistic\LogisticsController@edit')->name('api.logistics.edit');
     Route::post('/logistics/{logistic}/update', 'Logistic\LogisticsController@update')->name('api.logistics.update');
     Route::get('/logistics/getInitialData', 'Logistic\LogisticsController@getInitialData')
