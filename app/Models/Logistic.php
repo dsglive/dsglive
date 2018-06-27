@@ -39,4 +39,14 @@ class Logistic extends Model
     {
         return $this->hasMany(Package::class);
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

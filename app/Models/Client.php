@@ -43,6 +43,11 @@ class Client extends Model
         return $this->hasMany(Dsg::class);
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Logistic::class);
+    }
+
     /**
      * @param $email
      */

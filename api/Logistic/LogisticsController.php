@@ -184,9 +184,8 @@ class LogisticsController extends Controller
      */
     private function toggleDelivered($data, $logistic)
     {
-// compare the new data packages with current logistic packages
-
-// chances that client has all the item delivered already
+        // compare the new data packages with current logistic packages
+        // chances that client has all the item delivered already
         // to track this we need to add logistic_id on packages to track down specific logistic
         $delivered = $logistic->packages()->get();
         $packages  = Package::whereIn('id', $data['packages']);

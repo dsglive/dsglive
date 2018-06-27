@@ -84,6 +84,16 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Client::class);
     }
 
+    public function dsg()
+    {
+        return $this->hasMany(Dsg::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Logistic::class);
+    }
+
     public function registerMediaCollections()
     {
         // enable single file
