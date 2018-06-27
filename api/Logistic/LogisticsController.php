@@ -20,12 +20,15 @@ class LogisticsController extends Controller
         $this->middleware(['role:admin']);
     }
 
+    /**
+     * @return mixed
+     */
     public function create()
     {
         $data     = $this->sanitizeData();
         $logistic = new Logistic();
         $logistic->fill($data)->save();
-        $this->markAsDelivered($data, $logistic->id);
+        $this->toggleDelivered($logistic, $data);
         return response()->json(['message' => 'Ticket Created!'], 201);
     }
 
@@ -106,17 +109,6 @@ class LogisticsController extends Controller
         return response()->json(['message' => 'Logistic#:'.$logistic->id.' Updated!']);
     }
 
-    /**
-     * @param $data
-     */
-    private function markAsDelivered($data, $id)
-    {
-        if (count($data['packages']) > 0) {
-            $packages = Package::whereIn('id', $data['packages']);
-            $packages->update(['delivered' => 1, 'date_delivered' => $data['date_delivered'], 'logistic_id' => $id]);
-        }
-    }
-
     private function sanitizeData()
     {
         return request()->validate([
@@ -180,14 +172,34 @@ class LogisticsController extends Controller
     }
 
     /**
+     * @param Logistic $logistic
      * @param $data
      */
-    private function toggleDelivered($data, $logistic)
+    private function toggleDelivered(Logistic $logistic, $data)
     {
-        // compare the new data packages with current logistic packages
-        // chances that client has all the item delivered already
-        // to track this we need to add logistic_id on packages to track down specific logistic
-        $delivered = $logistic->packages()->get();
-        $packages  = Package::whereIn('id', $data['packages']);
+        if (request()->has('packages')) {
+            $old_delivered = $logistic->packages;
+            $delivered     = $data['packages'];
+            $undelivered   = array_diff($old_delivered, $delivered);
+            $packages      = Package::whereIn('id', $delivered)->get();
+
+            if (count($delivered) > 0) {
+                $delivered_packages = Package::whereIn('id', $delivered);
+                $delivered_packages->update([
+                    'delivered'      => 1,
+                    'date_delivered' => $data['date_delivered'],
+                    'logistic_id'    => $logistic->id
+                ]);
+            }
+
+            if (count($undelivered) > 0) {
+                $undelivered_packages = Package::whereIn('id', $undelivered);
+                $undelivered_packages->update([
+                    'delivered'      => 0,
+                    'date_delivered' => null,
+                    'logistic_id'    => null
+                ]);
+            }
+        }
     }
 }
