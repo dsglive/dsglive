@@ -23,9 +23,9 @@ class LogisticsController extends Controller
     public function create()
     {
         $data     = $this->sanitizeData();
-        return $data;
         $logistic = new Logistic();
         $logistic->fill($data)->save();
+        $this->markAsDelivered($data, $logistic->id);
         return response()->json(['message' => 'Ticket Created!'], 201);
     }
 
@@ -35,6 +35,7 @@ class LogisticsController extends Controller
     public function delete($id)
     {
         $package = Logistic::find($id);
+        // undo on packages the date_delivered and delivered field
         $package->delete();
         return response()->json(['message' => 'Logistic Deleted!']);
     }
@@ -105,65 +106,89 @@ class LogisticsController extends Controller
         return response()->json(['message' => 'Logistic#:'.$logistic->id.' Updated!']);
     }
 
+    /**
+     * @param $data
+     */
+    private function markAsDelivered($data, $id)
+    {
+        if (count($data['packages']) > 0) {
+            $packages = Package::whereIn('id', $data['packages']);
+            $packages->update(['delivered' => 1, 'date_delivered' => $data['date_delivered'], 'logistic_id' => $id]);
+        }
+    }
+
     private function sanitizeData()
     {
         return request()->validate([
-            'customer_id'   => 'required|exists:users,id',
-            'customer_name' => 'required_with:customer_id',
-            'client_id'     => 'nullable|exists:clients,id',
-            'client_name'   => 'required',
+            'customer_id'    => 'required|exists:users,id',
+            'customer_name'  => 'required_with:customer_id',
+            'client_id'      => 'nullable|exists:clients,id',
+            'client_name'    => 'required',
+            'date_delivered' => 'required|date',
+            'start_time'     => 'required|integer',
+            'end_time'       => 'required|integer|gte:start_time',
+            'prep_time'      => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'travel_time'    => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'clean_up_time'  => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'total_time'     => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'rate'           => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'surcharge'      => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'total_charges'  => [
+                'required',
+                new RateMustBeAFloat
+            ],
+            'notes'          => 'nullable',
 
-            'start_time'    => 'nullable|integer',
-            'end_time'      => 'nullable|integer',
-            'prep_time'     => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'travel_time'   => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'clean_up_time' => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'total_time'    => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'rate'          => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'surcharge'     => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'total_charges' => [
-                'required',
-                new RateMustBeAFloat
-            ],
-            'notes'         => 'nullable',
-
-            'type'          => [
+            'type'           => [
                 'required',
                 Rule::in(['delivery_ticket', 'field_transfer'])
             ],
 
-            'do_address_1'  => 'required',
-            'do_address_2'  => 'required',
-            'do_city'       => 'required',
-            'do_state'      => 'required',
-            'do_zip'        => 'required',
+            'do_address_1'   => 'required',
+            'do_address_2'   => 'required',
+            'do_city'        => 'required',
+            'do_state'       => 'required',
+            'do_zip'         => 'required',
 
-            'pu_address_1'  => 'sometimes|required',
-            'pu_address_2'  => 'sometimes|required',
-            'pu_city'       => 'sometimes|required',
-            'pu_state'      => 'sometimes|required',
-            'pu_zip'        => 'sometimes|required',
+            'pu_address_1'   => 'sometimes|required',
+            'pu_address_2'   => 'sometimes|required',
+            'pu_city'        => 'sometimes|required',
+            'pu_state'       => 'sometimes|required',
+            'pu_zip'         => 'sometimes|required',
 
-            'packages'      => 'sometimes|required|json'
+            'packages'       => 'sometimes|required|array'
 
         ]);
+    }
+
+    /**
+     * @param $data
+     */
+    private function toggleDelivered($data, $logistic)
+    {
+// compare the new data packages with current logistic packages
+
+// chances that client has all the item delivered already
+        // to track this we need to add logistic_id on packages to track down specific logistic
+        $delivered = $logistic->packages()->get();
+        $packages  = Package::whereIn('id', $data['packages']);
     }
 }
