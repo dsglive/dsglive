@@ -23,6 +23,7 @@ class LogisticsController extends Controller
     public function create()
     {
         $data     = $this->sanitizeData();
+        return $data;
         $logistic = new Logistic();
         $logistic->fill($data)->save();
         return response()->json(['message' => 'Ticket Created!'], 201);
@@ -107,14 +108,13 @@ class LogisticsController extends Controller
     private function sanitizeData()
     {
         return request()->validate([
-            'dsg_id'        => 'required|exists:dsg,id',
             'customer_id'   => 'required|exists:users,id',
             'customer_name' => 'required_with:customer_id',
             'client_id'     => 'nullable|exists:clients,id',
             'client_name'   => 'required',
 
-            'start_time'    => 'nullable|datetime',
-            'end_time'      => 'nullable|datetime',
+            'start_time'    => 'nullable|integer',
+            'end_time'      => 'nullable|integer',
             'prep_time'     => [
                 'required',
                 new RateMustBeAFloat

@@ -11,5 +11,9 @@ if (Config::get('app.debug') === true) {
     });
 }
 
+Horizon::auth(function ($request) {
+    return true;
+});
+
 /* Set Vue Front End Endpoint */
 Route::get('/{vue?}', 'DomainController@app')->where('vue', '[\/\w\.-]*')->name('home.page');

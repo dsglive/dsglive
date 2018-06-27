@@ -16,7 +16,6 @@ class LogisticResource extends Resource
     {
         return [
             'id'             => $this->id,
-            'dsg_id'         => $this->dsg_id,
             'customer_id'    => $this->customer_id,
             'customer_name'  => $this->customer_name,
             'client_id'      => $this->client_id,

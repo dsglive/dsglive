@@ -148,7 +148,7 @@
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true, regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/}"
             v-model="form.start_time"
             :error-messages="errorMessages('start_time')"
             :class="{ 'error--text': hasErrors('start_time') }"
@@ -163,7 +163,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true , regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/,min_value:form.start_time}"
             v-model="form.end_time"
             :error-messages="errorMessages('end_time')"
             :class="{ 'error--text': hasErrors('end_time') }"
@@ -178,7 +178,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true, integer:true, min_value:0 }"
             v-model="form.prep_time"
             :error-messages="errorMessages('prep_time')"
             :class="{ 'error--text': hasErrors('prep_time') }"
@@ -193,12 +193,12 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true, integer:true, min_value:0 }"
             v-model="form.travel_time"
             :error-messages="errorMessages('travel_time')"
             :class="{ 'error--text': hasErrors('travel_time') }"
             light
-            label="Prep Time"
+            label="Travel Time"
             prepend-icon="access_time"
             data-vv-name="travel_time"
           />
@@ -208,7 +208,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true, integer:true, min_value:0 }"
             v-model="form.clean_up_time"
             :error-messages="errorMessages('clean_up_time')"
             :class="{ 'error--text': hasErrors('clean_up_time') }"
@@ -218,14 +218,32 @@
             data-vv-name="clean_up_time"
           />
         </v-flex>
-        
         <v-flex 
           xs12
           lg2
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true,integer: true, min_value:0 }"
+            v-model="form.total_time"
+            :error-messages="errorMessages('total_time')"
+            :class="{ 'error--text': hasErrors('total_time') }"
+            light
+            readonly
+            disabled
+            label="Total Time"
+            prepend-icon="av_timer"
+            data-vv-name="total_time"
+            hint="Total No. Of Hours"
+            persistent-hint
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg2
+        >
+          <v-text-field
+            v-validate="{ required: true, integer:true, min_value:0 }"
             v-model="form.rate"
             :error-messages="errorMessages('rate')"
             :class="{ 'error--text': hasErrors('rate') }"
@@ -239,10 +257,10 @@
         </v-flex>
         <v-flex 
           xs12
-          lg2
+          lg3
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ required: true, integer: true, min_value:0 }"
             v-model="form.surcharge"
             :error-messages="errorMessages('surcharge')"
             :class="{ 'error--text': hasErrors('surcharge') }"
@@ -252,25 +270,6 @@
             append-icon="fa-percent"
             data-vv-name="surcharge"
             hint="Percentage ie. 20% = 20"
-            persistent-hint
-          />
-        </v-flex>
-        <v-flex 
-          xs12
-          lg3
-        >
-          <v-text-field
-            v-validate="{ required: true }"
-            v-model="form.total_time"
-            :error-messages="errorMessages('total_time')"
-            :class="{ 'error--text': hasErrors('total_time') }"
-            light
-            readonly
-            disabled
-            label="Total Time"
-            prepend-icon="av_timer"
-            data-vv-name="total_time"
-            hint="Total No. Of Hours"
             persistent-hint
           />
         </v-flex>
@@ -603,15 +602,15 @@ export default {
       customer_id: null,
       customer_name: null,
       date_delivered: null,
-      start_time: null,
-      end_time: null,
-      prep_time: null,
-      travel_time: null,
-      clean_up_time: null,
-      total_time: null,
-      rate: null,
-      surcharge: null,
-      total_charges: null,
+      start_time: "",
+      end_time: "",
+      prep_time: 0,
+      travel_time: 0,
+      clean_up_time: 0,
+      total_time: 0,
+      rate: "",
+      surcharge: 0,
+      total_charges: "",
       notes: null,
       do_address_1: null,
       do_address_2: null,
@@ -630,6 +629,22 @@ export default {
     clients: [],
     packages: []
   }),
+  computed: {
+    workingTime() {
+      var start_time = this.form.start_time;
+      var start_hr = parseInt(start_time.substring(0, 2));
+      console.log("starting_hr", start_hr);
+      var start_min = parseInt(start_time.substring(2, 4));
+      console.log("start_min", start_min);
+      var end_time = this.form.end_time;
+      var end_hr = parseInt(end_time.substring(0, 2));
+      console.log("end_hr", end_hr);
+      var end_min = parseInt(end_time.substring(2, 4));
+      var hr_diff = end_hr - start_hr;
+      var min_diff = Math.abs(end_min - start_min) / 60;
+      return hr_diff + min_diff;
+    }
+  },
   watch: {
     customers: {
       handler: function(newValue) {},
@@ -686,6 +701,48 @@ export default {
         }
       },
       deep: false
+    },
+    "form.start_time": {
+      handler: function(newName) {
+        this.computeTotal();
+      },
+      deep: false
+    },
+    "form.end_time": {
+      handler: function(newName) {
+        this.computeTotal();
+      },
+      deep: false
+    },
+    "form.prep_time": {
+      handler: function(newName) {
+        this.computeTotal();
+      },
+      deep: false
+    },
+    "form.travel_time": {
+      handler: function(newName) {
+        this.computeTotal();
+      },
+      deep: false
+    },
+    "form.clean_up_time": {
+      handler: function(newName) {
+        this.computeTotal();
+      },
+      deep: false
+    },
+    "form.rate": {
+      handler: function(newName) {
+        this.computeTotalCharge();
+      },
+      deep: false
+    },
+    "form.surcharge": {
+      handler: function(newName) {
+        this.computeTotalCharge();
+      },
+      deep: false
     }
   },
   mounted() {
@@ -694,6 +751,34 @@ export default {
     this.form.type = "field_transfer";
   },
   methods: {
+    computeTotal() {
+      let working_time = this.workingTime ? this.workingTime : 0;
+      let prep_time = this.form.prep_time ? this.form.prep_time : 0;
+      let travel_time = this.form.travel_time ? this.form.travel_time : 0;
+      let clean_up_time = this.form.clean_up_time ? this.form.clean_up_time : 0;
+      let total =
+        parseFloat(working_time) +
+        parseFloat(prep_time) +
+        parseFloat(travel_time) +
+        parseFloat(clean_up_time);
+      if (total < 0) {
+        total = 0;
+      }
+      this.form.total_time = total;
+      return total;
+    },
+    computeTotalCharge() {
+      let total_time = parseFloat(this.form.total_time);
+      let rate = parseFloat(this.form.rate);
+      let surcharge = parseFloat(this.form.surcharge) / 100;
+      if (this.form.surcharge === null || this.form.surcharge === "") {
+        surcharge = 0;
+      }
+      let total_rate = total_time * rate;
+      let total = 0;
+      total = total_rate + surcharge * total_rate;
+      this.form.total_charges = total;
+    },
     getText: function getText(item) {
       return `DSG# ${item.dsg_id}|Style# ${item.style_no}|Description: ${
         item.description
@@ -753,7 +838,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "dsg" }));
+          //   self.$nextTick(() => self.$router.push({ name: "logistics" }));
         })
         .catch(errors => {
           console.log(errors.response.data);

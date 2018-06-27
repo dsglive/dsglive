@@ -10,7 +10,6 @@ class Logistic extends Model
      * @var array
      */
     protected $casts = [
-        'dsg_id'         => 'integer',
         'customer_id'    => 'integer',
         'client_id'      => 'integer',
         'start_time'     => 'datetime:Y-m-d H:m',
