@@ -211,13 +211,9 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.address_2"
-            :error-messages="errorMessages('address_2')"
-            :class="{ 'error--text': hasErrors('address_2') }"
             label="Address 2"
             prepend-icon="looks_two"
-            data-vv-name="address_2"
           />
         </v-flex>
         <v-flex 
