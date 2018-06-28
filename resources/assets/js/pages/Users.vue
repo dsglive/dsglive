@@ -459,13 +459,12 @@
                       px-1>
                       <v-autocomplete
                         :items="roles"
-                        v-model="props.item.roles"
+                        v-model="props.item.roles[0]"
                         readonly
                         label="Account Type"
                         color="primary"
                         light
                         chips
-                        tags
                         prepend-icon="fa-tags"
                       >
                         <template 
