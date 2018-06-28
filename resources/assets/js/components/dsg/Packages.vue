@@ -26,7 +26,7 @@
           <v-icon x-large>file_copy</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-md-center white--text">PID#:{{ item.id }}</v-toolbar-title>
+        <v-toolbar-title class="text-md-center white--text">Package# {{ index }}</v-toolbar-title>
         <v-spacer/>
         <v-btn
           v-if="!readonly"
@@ -440,6 +440,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    index: {
+        type: Number,
+        default: 1
     }
   },
   data: () => ({
@@ -542,7 +546,8 @@ export default {
       });
     },
     updatetotalCube() {
-      this.item.cube = this.item.length * this.item.width * this.item.height;
+      let volume = this.item.length * this.item.width * this.item.height;
+      this.item.cube = (volume/1728).toFixed(4);
     },
     save(item, date) {
       let ref = `date_repaired_${item.id}`;

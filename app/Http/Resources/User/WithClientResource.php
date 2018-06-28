@@ -18,6 +18,11 @@ class WithClientResource extends Resource
             'id' => $this->id,
             'active' => $this->active,
             'name' => $this->name ?? 'Unknown',
+            'address_1' => $this->address_1,
+            'address_2' => $this->address_2,
+            'city' => $this->city,
+            'state' => $this->state,
+            'zip' => $this->zip,
         ];
     }
 }

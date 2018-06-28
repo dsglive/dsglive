@@ -148,7 +148,7 @@
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true, regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/}"
+            v-validate="{ regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/}"
             v-model="form.start_time"
             :error-messages="errorMessages('start_time')"
             :class="{ 'error--text': hasErrors('start_time') }"
@@ -163,7 +163,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true , regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/,min_value:form.start_time}"
+            v-validate="{ regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/,min_value:form.start_time}"
             v-model="form.end_time"
             :error-messages="errorMessages('end_time')"
             :class="{ 'error--text': hasErrors('end_time') }"
@@ -178,7 +178,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true, integer:true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.prep_time"
             :error-messages="errorMessages('prep_time')"
             :class="{ 'error--text': hasErrors('prep_time') }"
@@ -193,7 +193,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true, integer:true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.travel_time"
             :error-messages="errorMessages('travel_time')"
             :class="{ 'error--text': hasErrors('travel_time') }"
@@ -208,7 +208,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true, integer:true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.clean_up_time"
             :error-messages="errorMessages('clean_up_time')"
             :class="{ 'error--text': hasErrors('clean_up_time') }"
@@ -224,7 +224,7 @@
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true,integer: true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.total_time"
             :error-messages="errorMessages('total_time')"
             :class="{ 'error--text': hasErrors('total_time') }"
@@ -243,7 +243,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true, integer:true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.rate"
             :error-messages="errorMessages('rate')"
             :class="{ 'error--text': hasErrors('rate') }"
@@ -260,7 +260,7 @@
           lg3
         >
           <v-text-field
-            v-validate="{ required: true, integer: true, min_value:0 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.surcharge"
             :error-messages="errorMessages('surcharge')"
             :class="{ 'error--text': hasErrors('surcharge') }"
@@ -278,7 +278,7 @@
           lg3
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ decimal:4 }"
             v-model="form.total_charges"
             :error-messages="errorMessages('total_charges')"
             :class="{ 'error--text': hasErrors('total_charges') }"
@@ -619,21 +619,18 @@ export default {
     date_delivered_modal: false,
     customers: [],
     clients: [],
+    client: {
+      id: null,
+      active: false,
+      name: null,
+      do_address_1: null,
+      do_address_2: null,
+      do_city: null,
+      do_state: null,
+      do_zip: null
+    },
     packages: []
   }),
-  computed: {
-    workingTime() {
-      let start_time = this.form.start_time;
-      let start_hr = parseInt(start_time.substring(0, 2));
-      let start_min = parseInt(start_time.substring(2, 4));
-      let end_time = this.form.end_time;
-      let end_hr = parseInt(end_time.substring(0, 2));
-      let end_min = parseInt(end_time.substring(2, 4));
-      let hr_diff = end_hr - start_hr;
-      let min_diff = Math.abs(end_min - start_min) / 60;
-      return hr_diff + min_diff;
-    }
-  },
   watch: {
     customers: {
       handler: function(newValue) {},
@@ -682,6 +679,7 @@ export default {
               client_id = client.id;
               client_name = client.name;
               this.getClientPackages();
+              this.setDropOffAddress(client);
             }
           }
         } else {
@@ -693,31 +691,31 @@ export default {
     },
     "form.start_time": {
       handler: function(newName) {
-        this.computeTotal();
+        this.debouncedComputeTotal();
       },
       deep: false
     },
     "form.end_time": {
       handler: function(newName) {
-        this.computeTotal();
+        this.debouncedComputeTotal();
       },
       deep: false
     },
     "form.prep_time": {
       handler: function(newName) {
-        this.computeTotal();
+        this.debouncedComputeTotal();
       },
       deep: false
     },
     "form.travel_time": {
       handler: function(newName) {
-        this.computeTotal();
+        this.debouncedComputeTotal();
       },
       deep: false
     },
     "form.clean_up_time": {
       handler: function(newName) {
-        this.computeTotal();
+        this.debouncedComputeTotal();
       },
       deep: false
     },
@@ -734,26 +732,87 @@ export default {
       deep: false
     }
   },
+  created() {
+    this.debouncedComputeTotal = _.debounce(this.computeTotal, 2000);
+  },
   mounted() {
     this.getInitialData();
     this.form.date_delivered = moment().format("YYYY-MM-DD");
     this.form.type = "field_transfer";
   },
   methods: {
+    workingTime() {
+      let start_time = this.form.start_time;
+      let end_time = this.form.end_time;
+      let start_hr = 0;
+      let start_min = 0;
+      let end_hr = 0;
+      let end_min = 0;
+      if (start_time !== null) {
+        let start_count = (start_time.match(/\d/g) || []).length;
+        if (start_count > 1) {
+          start_hr = parseInt(start_time.substring(0, 2));
+        }
+        if (start_count > 3) {
+          start_min = parseInt(start_time.substring(2, 4));
+        }
+      }
+      if (end_time !== null) {
+        let end_count = (end_time.match(/\d/g) || []).length;
+        if (end_count > 1) {
+          end_hr = parseInt(end_time.substring(0, 2));
+        }
+        if (end_count > 3) {
+          end_min = parseInt(end_time.substring(2, 4));
+        }
+      }
+      let hr_diff = 0;
+      let min_diff = 0;
+      hr_diff = end_hr - start_hr;
+      if (hr_diff < 0) {
+        hr_diff = 0;
+      }
+      min_diff = Math.abs(end_min - start_min) / 60;
+      if (min_diff < 0) {
+        min_diff = 0;
+      }
+      return hr_diff + min_diff;
+    },
+    setDropOffAddress(client) {
+      this.client = {
+        id: client.id,
+        active: client.active,
+        name: client.name,
+        do_address_1: client.address_1,
+        do_address_2: client.address_2,
+        do_city: client.city,
+        do_state: client.state,
+        do_zip: client.zip
+      };
+      this.form.do_address_1 = client.address_1;
+      this.form.do_address_2 = client.address_2;
+      this.form.do_city = client.city;
+      this.form.do_state = client.state;
+      this.form.do_zip = client.zip;
+    },
     computeTotal() {
-      let working_time = this.workingTime ? this.workingTime : 0;
+      let working_time = this.workingTime();
       let prep_time = this.form.prep_time ? this.form.prep_time : 0;
       let travel_time = this.form.travel_time ? this.form.travel_time : 0;
       let clean_up_time = this.form.clean_up_time ? this.form.clean_up_time : 0;
-      let total =
-        parseFloat(working_time) +
-        parseFloat(prep_time) +
-        parseFloat(travel_time) +
-        parseFloat(clean_up_time);
+      console.log("working_time", parseFloat(working_time));
+      console.log("prep_time", parseFloat(prep_time));
+      console.log("travel_time", parseFloat(travel_time));
+      console.log("clean_up_time", parseFloat(clean_up_time));
+      let total = 0;
+      total += parseFloat(working_time);
+      total += parseFloat(prep_time);
+      total += parseFloat(travel_time);
+      total += parseFloat(clean_up_time);
       if (total < 0) {
         total = 0;
       }
-      this.form.total_time = total;
+      this.form.total_time = total.toFixed(4);
       return total;
     },
     computeTotalCharge() {
@@ -766,7 +825,7 @@ export default {
       let total_rate = total_time * rate;
       let total = 0;
       total = total_rate + surcharge * total_rate;
-      this.form.total_charges = total;
+      this.form.total_charges = total.toFixed(4);
     },
     getText: function getText(item) {
       return `DSG# ${item.dsg_id}|Style# ${item.style_no}|Description: ${
@@ -786,6 +845,7 @@ export default {
           })
         )
         .then(response => {
+          this.form.packages = [];
           this.packages = response.data;
         });
     },
@@ -837,7 +897,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-            self.$nextTick(() => self.$router.push({ name: "logistics" }));
+          self.$nextTick(() => self.$router.push({ name: "logistics" }));
         })
         .catch(errors => {
           console.log(errors.response.data);

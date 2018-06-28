@@ -78,6 +78,7 @@ class LogisticsController extends Controller
         if (!$logistic) {
             return response()->json(['message' => 'Cant Find Logistic With ID of '.$request->id]);
         }
+
         $logistic->load('items');
 
         return new LogisticResource($logistic);
@@ -117,6 +118,7 @@ class LogisticsController extends Controller
         if (!$logistic) {
             return response()->json(['message' => 'Cant Find Logistic With ID of '.$request->id]);
         }
+
         $data = $this->sanitizeData();
         DB::beginTransaction();
         $updated = $logistic->update($data);
@@ -124,6 +126,7 @@ class LogisticsController extends Controller
             if (!$updated) {
                 throw new UpdatingRecordFailed;
             }
+
             $this->toggleDelivered($logistic, $data);
         } catch (\Exception $e) {
             DB::rollback();
@@ -143,34 +146,27 @@ class LogisticsController extends Controller
             'client_id'      => 'nullable|exists:clients,id',
             'client_name'    => 'required',
             'date_delivered' => 'required|date',
-            'start_time'     => 'required|integer',
-            'end_time'       => 'required|integer|gte:start_time',
+            'start_time'     => 'nullable',
+            'end_time'       => 'nullable',
             'prep_time'      => [
-                'required',
                 new RateMustBeAFloat
             ],
             'travel_time'    => [
-                'required',
                 new RateMustBeAFloat
             ],
             'clean_up_time'  => [
-                'required',
                 new RateMustBeAFloat
             ],
             'total_time'     => [
-                'required',
                 new RateMustBeAFloat
             ],
             'rate'           => [
-                'required',
                 new RateMustBeAFloat
             ],
             'surcharge'      => [
-                'required',
                 new RateMustBeAFloat
             ],
             'total_charges'  => [
-                'required',
                 new RateMustBeAFloat
             ],
             'notes'          => 'nullable',

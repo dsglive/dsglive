@@ -330,6 +330,7 @@
       <packages 
         v-for="(item,key) in packages" 
         :key="key"
+        :index="key+1"
         :item="item"
         :packages="packages"
         :bins="bins"
