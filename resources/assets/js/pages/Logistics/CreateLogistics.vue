@@ -510,8 +510,16 @@
         >
           <v-subheader
           >
-            Packages To Be Delivered:
+            Packages To Be Delivered ({{ packages.length }})
           </v-subheader>
+          <v-btn 
+            v-if="packages.length > 1"
+            color="secondary"
+            @click="toggleAll"
+          >
+            <span v-if="selected.length ===0">Select All</span>
+            <span v-else>Unselect All</span>
+          </v-btn>
           <v-autocomplete
             v-validate="'required'"
             :items="packages"
@@ -629,7 +637,8 @@ export default {
       do_state: null,
       do_zip: null
     },
-    packages: []
+    packages: [],
+    selected: []
   }),
   watch: {
     customers: {
@@ -741,6 +750,17 @@ export default {
     this.form.type = "field_transfer";
   },
   methods: {
+    toggleAll() {
+      let self = this;
+      if (this.selected.length ===0) {
+        this.selected = this.packages.map(item => {
+          return item.id;
+        });
+      }else{
+          this.selected =  []
+      }
+      this.form.packages = this.selected;
+    },
     workingTime() {
       let start_time = this.form.start_time;
       let end_time = this.form.end_time;

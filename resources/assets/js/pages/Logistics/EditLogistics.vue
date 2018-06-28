@@ -510,8 +510,16 @@
         >
           <v-subheader
           >
-            Packages To Be Delivered:
+            Packages To Be Delivered ({{ packages.length }})
           </v-subheader>
+          <v-btn 
+            v-if="packages.length > 1"
+            color="secondary"
+            @click="toggleAll"
+          >
+            <span v-if="selected.length ===0">Select All</span>
+            <span v-else>Unselect All</span>
+          </v-btn>
           <v-autocomplete
             v-validate="'required'"
             :items="packages"
@@ -639,7 +647,8 @@ export default {
       do_city: null,
       do_state: null,
       do_zip: null
-    }
+    },
+    selected: []
   }),
   watch: {
     customers: {
@@ -712,13 +721,13 @@ export default {
     },
     "form.start_time": {
       handler: function(newName) {
-        this.debouncedComputeTotal()
+        this.debouncedComputeTotal();
       },
       deep: false
     },
     "form.end_time": {
       handler: function(newName) {
-        this.debouncedComputeTotal()
+        this.debouncedComputeTotal();
       },
       deep: false
     },
@@ -759,6 +768,17 @@ export default {
     this.debouncedComputeTotal = _.debounce(this.computeTotal, 2000);
   },
   methods: {
+    toggleAll() {
+      let self = this;
+      if (this.selected.length === 0) {
+        this.selected = this.packages.map(item => {
+          return item.id;
+        });
+      } else {
+        this.selected = [];
+      }
+      this.form.packages = this.selected;
+    },
     setDropOffAddress(client) {
       this.client = {
         id: client.id,
@@ -849,12 +869,12 @@ export default {
       let hr_diff = 0;
       let min_diff = 0;
       hr_diff = end_hr - start_hr;
-      if(hr_diff < 0){
-          hr_diff = 0
+      if (hr_diff < 0) {
+        hr_diff = 0;
       }
       min_diff = Math.abs(end_min - start_min) / 60;
-      if(min_diff < 0){
-          min_diff = 0
+      if (min_diff < 0) {
+        min_diff = 0;
       }
       return hr_diff + min_diff;
     },
@@ -868,10 +888,10 @@ export default {
       console.log("travel_time", parseFloat(travel_time));
       console.log("clean_up_time", parseFloat(clean_up_time));
       let total = 0;
-      total += parseFloat(working_time)
-      total += parseFloat(prep_time)
-      total += parseFloat(travel_time)
-      total += parseFloat(clean_up_time)
+      total += parseFloat(working_time);
+      total += parseFloat(prep_time);
+      total += parseFloat(travel_time);
+      total += parseFloat(clean_up_time);
       if (total < 0) {
         total = 0;
       }
