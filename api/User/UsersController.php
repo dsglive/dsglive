@@ -31,7 +31,7 @@ class UsersController extends Controller
     {
         request()->validate([
             'username'              => 'required|unique:users',
-            'email'                 => 'required|email|unique:profiles',
+            'email'                 => 'nullable|email|unique:profiles',
             'password'              => 'required|min:6|confirmed',
             'password_confirmation' => 'required',
             'roles'                 => [
@@ -39,17 +39,17 @@ class UsersController extends Controller
                 'required',
                 'exists:roles,name'
             ],
-            'company_name'          => 'required',
+            'company_name'          => 'nullable',
             'active'                => 'boolean',
             'first_name'            => 'required',
             'last_name'             => 'required',
-            'phone'                 => 'required',
-            'address_1'             => 'required',
+            'phone'                 => 'nullable',
+            'address_1'             => 'nullable',
             'address_2'             => 'nullable',
-            'city'                  => 'required',
-            'state'                 => 'required',
+            'city'                  => 'nullable',
+            'state'                 => 'nullable',
             'zip'                   => [
-                'required',
+                'nullable',
                 new ValidateZip
             ]
         ]);
@@ -229,23 +229,21 @@ class UsersController extends Controller
             'active'                => 'required|boolean',
             'password'              => 'nullable|min:6|confirmed',
             'password_confirmation' => 'required_with:password',
-            'company_name'          => 'required',
+            'company_name'          => 'nullable',
             'email'                 => [
-                'required',
+                'nullable',
                 Rule::unique('profiles')->ignore($user->id, 'user_id')
             ],
             'first_name'            => 'required',
             'last_name'             => 'required',
             'phone'                 => 'required',
-            'address_1'             => 'required',
+            'address_1'             => 'nullable',
             'address_2'             => 'nullable',
-            'city'                  => 'required',
-            'state'                 => 'required',
+            'city'                  => 'nullable',
+            'state'                 => 'nullable',
             'zip'                   => [
-                'required',
                 new ValidateZip
             ],
-            'country'               => 'sometimes|required',
             'notes'                 => 'nullable|max:255',
             'roles'                 => [
                 'required',

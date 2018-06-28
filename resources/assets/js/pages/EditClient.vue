@@ -61,7 +61,7 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true, email: true }"
+            v-validate="{ email: true }"
             v-model="form.email"
             :error-messages="errorMessages('email')"
             :class="{ 'error--text': hasErrors('email') }"
@@ -76,13 +76,9 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.phone"
-            :error-messages="errorMessages('phone')"
-            :class="{ 'error--text': hasErrors('phone') }"
             label="Phone"
             prepend-icon="phone"
-            data-vv-name="phone"
           />
         </v-flex>
         <v-flex 
@@ -91,13 +87,9 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.address_1"
-            :error-messages="errorMessages('address_1')"
-            :class="{ 'error--text': hasErrors('address_1') }"
             label="Address 1"
             prepend-icon="looks_one"
-            data-vv-name="address_1"
           />
         </v-flex>
         <v-flex 
@@ -117,13 +109,9 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.city"
-            :error-messages="errorMessages('city')"
-            :class="{ 'error--text': hasErrors('city') }"
             label="City"
             prepend-icon="location_city"
-            data-vv-name="city"
           />
         </v-flex>
         <v-flex 
@@ -132,13 +120,9 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.state"
-            :error-messages="errorMessages('state')"
-            :class="{ 'error--text': hasErrors('state') }"
             label="State"
             prepend-icon="map"
-            data-vv-name="state"
           />
         </v-flex>
         <v-flex 
@@ -147,7 +131,7 @@
           offset-md2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ regex: /^\d{5}(?:[-\s]\d{4})?$/ }"
             v-model="form.zip"
             :error-messages="errorMessages('zip')"
             :class="{ 'error--text': hasErrors('zip') }"

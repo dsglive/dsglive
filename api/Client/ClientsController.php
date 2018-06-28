@@ -26,14 +26,14 @@ class ClientsController extends Controller
     {
         $data = request()->validate([
             'name'      => 'required',
-            'email'     => 'required|email|unique:clients',
-            'phone'     => 'required',
-            'address_1' => 'required',
+            'email'     => 'nullable|email|unique:clients',
+            'phone'     => 'nullable',
+            'address_1' => 'nullable',
             'address_2' => 'nullable',
-            'city'      => 'required',
-            'state'     => 'required',
+            'city'      => 'nullable',
+            'state'     => 'nullable',
             'zip'       => [
-                'required',
+                'nullable',
                 new ValidateZip
             ],
             'active'    => 'boolean'
@@ -160,16 +160,16 @@ class ClientsController extends Controller
         $data = $request->validate([
             'name'      => 'required',
             'email'     => [
-                'required',
+                'nullable',
                 Rule::unique('clients')->ignore($user->id, 'user_id')
             ],
-            'phone'     => 'required',
-            'address_1' => 'required',
+            'phone'     => 'nullable',
+            'address_1' => 'nullable',
             'address_2' => 'nullable',
-            'city'      => 'required',
-            'state'     => 'required',
+            'city'      => 'nullable',
+            'state'     => 'nullable',
             'zip'       => [
-                'required',
+                'nullable',
                 new ValidateZip
             ],
             'active'    => 'boolean'
