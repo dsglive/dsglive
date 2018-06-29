@@ -132,6 +132,17 @@ class Package extends Model implements HasMedia
 
     /**
      * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_received', [$from, $to]);
+    }
+
+    /**
+     * @param  $query
      * @return mixed
      */
     public function scopeDamaged($query)
@@ -146,6 +157,33 @@ class Package extends Model implements HasMedia
     public function scopeDelivered($query)
     {
         return $query->where('delivered', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownClient($query)
+    {
+        return $query->where('client_id', '!=', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownCustomer($query)
+    {
+        return $query->where('customer_id', '!=', 1001);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeNotYetOut($query)
+    {
+        return $query->whereNull('date_out');
     }
 
     /**
@@ -186,7 +224,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownCustomer($query)
@@ -195,7 +233,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownShipper($query)

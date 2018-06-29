@@ -65,6 +65,7 @@ class CreateDsgTable extends Migration
             // Responsible For Warehouse
             $table->boolean('active')->default(0)
                   ->comment('if not active then we query it on warehouse data table, active for receiving');
+            $table->timestamp('date_processed');
             $table->softDeletes();
             $table->timestamps();
         });

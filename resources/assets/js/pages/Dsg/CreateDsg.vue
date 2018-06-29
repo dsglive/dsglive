@@ -376,6 +376,7 @@ export default {
       total_pieces: 0,
       total_cube: 0,
       receiving_amount: 0,
+      date_processed: null,
       packages: []
     }),
     po_no: null,
@@ -755,6 +756,7 @@ export default {
       let self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
+      self.form.date_processed = self.date_processed;
       self.form
         .post(route("api.dsg.create"), self.form)
         .then(response => {

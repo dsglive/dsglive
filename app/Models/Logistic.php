@@ -87,4 +87,33 @@ class Logistic extends Model
     {
         return $this->hasMany(Package::class);
     }
+
+    /**
+     * @param $query
+     * @param $from
+     * @param $to
+     * @return mixed
+     */
+    public function scopeBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_delivered', [$from, $to]);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownClient($query)
+    {
+        return $query->where('client_id', '!=', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownCustomer($query)
+    {
+        return $query->where('customer_id', '!=', 1001);
+    }
 }

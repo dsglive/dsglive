@@ -100,8 +100,8 @@ class DsgController extends Controller
 
     public function getCustomers()
     {
-        $users = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->get();
-        $unknown = User::with(['profile','clients'])->unknownCustomer()->get();
+        $users     = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->get();
+        $unknown   = User::with(['profile', 'clients'])->unknownCustomer()->get();
         $customers = $unknown->concat($users);
         return CustomerResource::collection($customers);
     }
@@ -243,6 +243,7 @@ class DsgController extends Controller
             'located_by'        => 'required',
             'located_by_name'   => 'required_with:located_by',
             'total_pieces'      => 'required',
+            'date_processed'    => 'required',
             'total_cube'        => [
                 'required',
                 new RateMustBeAFloat

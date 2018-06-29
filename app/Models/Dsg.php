@@ -16,7 +16,8 @@ class Dsg extends Model
         'active'           => 'boolean',
         'receiving_amount' => 'float',
         'total_pieces'     => 'integer',
-        'total_cube'       => 'float'
+        'total_cube'       => 'float',
+        'date_processed' => 'date:Y-m-d',
     ];
 
     /**
@@ -27,7 +28,7 @@ class Dsg extends Model
     /**
      * @var array
      */
-    protected $guarded = ['id', 'deleted_at', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'deleted_at', 'created_at', 'updated_at', 'date_processed'];
 
     /**
      * @var string
@@ -113,6 +114,36 @@ class Dsg extends Model
     public function scopeActive($query)
     {
         return $query->where('active', 1);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeBillingCyle($query, $from, $to)
+    {
+        // add date_processed in dsg table plus add it on create and edit on DsgController
+        return $query->whereBetween('date_processed', [$from, $to]);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownClient($query)
+    {
+        return $query->where('client_id', '!=', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownCustomer($query)
+    {
+        return $query->where('customer_id', '!=', 1001);
     }
 
     /**
