@@ -116,6 +116,33 @@ class Dsg extends Model
     }
 
     /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeUnknownClient($query)
+    {
+        return $query->where('client_id', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeUnknownCustomer($query)
+    {
+        return $query->where('customer_id', 1001);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeUnknownShipper($query)
+    {
+        return $query->where('shipper_id', 1);
+    }
+
+    /**
      * Query For DSG that is warehouse!
      * @param  $query
      * @return mixed
