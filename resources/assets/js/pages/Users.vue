@@ -439,24 +439,22 @@
                     </v-flex>
                     <v-flex 
                       xs6
-                      px-1
                     >
-                      <v-text-field
-                        :value="props.item.country"
-                        label="Country"
-                        light
+                      <v-switch
+                        v-model="props.item.active"
+                        :label="getStatus(props.item.active)"
                         readonly
-                        prepend-icon="flag"
                       />
                     </v-flex>
+                    
                   </v-layout>
                   <v-layout 
                     row 
                     wrap
                   >
                     <v-flex 
-                      xs6 
-                      px-1>
+                      xs12
+                    >
                       <v-autocomplete
                         :items="roles"
                         v-model="props.item.roles[0]"
@@ -485,16 +483,7 @@
                         </template>
                       </v-autocomplete>
                     </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-switch
-                        v-model="props.item.active"
-                        :label="getStatus(props.item.active)"
-                        readonly
-                      />
-                    </v-flex>
+                    
                     <v-flex xs12>
                       <v-textarea
                         v-model="props.item.notes"
@@ -608,8 +597,8 @@ export default {
     self.fetchUsers();
   },
   methods: {
-    editUser(user){
-        vm.$router.push({name: "edit-user", params: { id: `${user.id}` }});
+    editUser(user) {
+      vm.$router.push({ name: "edit-user", params: { id: `${user.id}` } });
     },
     createUser() {
       vm.$router.push({ name: "create-user" });
@@ -700,15 +689,15 @@ export default {
           if (response.data.status === true) {
             self.$delete(self.items, index);
             let toggleModal = swal.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Success",
-          html: `<p class="title">User Deleted!</p>`,
-          type: "success",
-          confirmButtonText: "Back"
-        });
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">User Deleted!</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
           }
         })
         .catch(errors => {
