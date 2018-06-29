@@ -139,6 +139,20 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownCustomer($query)
+    {
+        return $query->where('id', '!=', 1001);
+    }
+
+    public function scopeUnknownCustomer($query)
+    {
+        return $query->where('id', 1001);
+    }
+
+    /**
      * $users = App\Models\User::ofType('admin')->get();
      * @param  $query
      * @param  $type

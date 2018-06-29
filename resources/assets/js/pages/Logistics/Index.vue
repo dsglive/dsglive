@@ -129,12 +129,16 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td 
+              :class="{'red--text': props.item.customer_id === null || props.item.customer_id === 1001, 'accent--text': props.item.customer_id > 1001}" 
+              class="title text-xs-left"
+            >
               {{ props.item.customer_name }}
             </td>
             <td 
-              :class="{'red--text': props.item.client_id === null, 'accent--text': props.item.client_id !== null}" 
-              class="title text-xs-left">
+              :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
+              class="title text-xs-left"
+            >
               {{ props.item.client_name }}
             </td>
             <td class="title text-xs-left accent--text">

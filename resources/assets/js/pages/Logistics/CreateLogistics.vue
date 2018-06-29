@@ -278,7 +278,7 @@
           lg3
         >
           <v-text-field
-            v-validate="{ decimal:4 }"
+            v-validate="{ decimal:4, min_value:0 }"
             v-model="form.total_charges"
             :error-messages="errorMessages('total_charges')"
             :class="{ 'error--text': hasErrors('total_charges') }"
@@ -329,14 +329,10 @@
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.pu_address_1"
-            :error-messages="errorMessages('pu_address_1')"
-            :class="{ 'error--text': hasErrors('pu_address_1') }"
             light
             label="Address 1"
             prepend-icon="looks_one"
-            data-vv-name="pu_address_1"
           />
         </v-flex>
         <v-flex 
@@ -355,14 +351,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.pu_city"
-            :error-messages="errorMessages('pu_city')"
-            :class="{ 'error--text': hasErrors('pu_city') }"
             light
             label="City"
             prepend-icon="location_city"
-            data-vv-name="pu_city"
           />
         </v-flex>
         <v-flex 
@@ -370,14 +362,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.pu_state"
-            :error-messages="errorMessages('pu_state')"
-            :class="{ 'error--text': hasErrors('pu_state') }"
             light
             label="State"
             prepend-icon="map"
-            data-vv-name="pu_state"
           />
         </v-flex>
         <v-flex 
@@ -385,7 +373,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ regex: /^\d{5}(?:[-\s]\d{4})?$/ }"
             v-model="form.pu_zip"
             :error-messages="errorMessages('pu_zip')"
             :class="{ 'error--text': hasErrors('pu_zip') }"
@@ -428,14 +416,10 @@
           offset-lg1
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.do_address_1"
-            :error-messages="errorMessages('do_address_1')"
-            :class="{ 'error--text': hasErrors('do_address_1') }"
             light
             label="Address 1"
             prepend-icon="looks_one"
-            data-vv-name="do_address_1"
           />
         </v-flex>
         <v-flex 
@@ -454,14 +438,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.do_city"
-            :error-messages="errorMessages('do_city')"
-            :class="{ 'error--text': hasErrors('do_city') }"
             light
             label="City"
             prepend-icon="location_city"
-            data-vv-name="do_city"
           />
         </v-flex>
         <v-flex 
@@ -469,14 +449,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="form.do_state"
-            :error-messages="errorMessages('do_state')"
-            :class="{ 'error--text': hasErrors('do_state') }"
             light
             label="State"
             prepend-icon="map"
-            data-vv-name="do_state"
           />
         </v-flex>
         <v-flex 
@@ -484,7 +460,7 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
+            v-validate="{ regex: /^\d{5}(?:[-\s]\d{4})?$/ }"
             v-model="form.do_zip"
             :error-messages="errorMessages('do_zip')"
             :class="{ 'error--text': hasErrors('do_zip') }"
@@ -638,7 +614,17 @@ export default {
       do_zip: null
     },
     packages: [],
-    selected: []
+    selected: [],
+    unknownClient: {
+      active: false,
+      address_1: null,
+      address_2: null,
+      city: null,
+      id: 1,
+      name: "Unknown Client",
+      state: null,
+      zip: null
+    },
   }),
   watch: {
     customers: {
@@ -656,6 +642,10 @@ export default {
             return c.id === newValue;
           });
           self.clients = customer.clients;
+          _.remove(self.clients, {
+            id: 1
+          });
+          self.clients.unshift(self.unknownClient);
           self.form.customer_name = customer.name;
           self.form.client_name = null;
           self.form.client_id = null;
@@ -663,6 +653,7 @@ export default {
           customer_name = customer.name;
         } else {
           self.clients = [];
+          self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
           self.form.client_name = null;

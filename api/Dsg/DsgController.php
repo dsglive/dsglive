@@ -100,8 +100,10 @@ class DsgController extends Controller
 
     public function getCustomers()
     {
-        $users = User::with(['profile', 'clients'])->role('customer')->get();
-        return CustomerResource::collection($users);
+        $users = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->get();
+        $unknown = User::with(['profile','clients'])->unknownCustomer()->get();
+        $customers = $unknown->concat($users);
+        return CustomerResource::collection($customers);
     }
 
     public function getEmployees()

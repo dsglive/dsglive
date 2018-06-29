@@ -98,8 +98,10 @@ class LogisticsController extends Controller
 
     public function getInitialData()
     {
-        $users             = User::with(['profile', 'clients'])->role('customer')->get();
-        $data['customers'] = CustomerResource::collection($users);
+        $users             = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->get();
+        $unknown           = User::with(['profile', 'clients'])->unknownCustomer()->get();
+        $customers         = $unknown->concat($users);
+        $data['customers'] = CustomerResource::collection($customers);
         return response()->json(['data' => $data]);
     }
 
@@ -176,17 +178,17 @@ class LogisticsController extends Controller
                 Rule::in(['delivery_ticket', 'field_transfer'])
             ],
 
-            'do_address_1'   => 'required',
+            'do_address_1'   => 'nullable',
             'do_address_2'   => 'nullable',
-            'do_city'        => 'required',
-            'do_state'       => 'required',
-            'do_zip'         => 'required',
+            'do_city'        => 'nullable',
+            'do_state'       => 'nullable',
+            'do_zip'         => 'nullable',
 
-            'pu_address_1'   => 'sometimes|required',
+            'pu_address_1'   => 'sometimes|nullable',
             'pu_address_2'   => 'sometimes|nullable',
-            'pu_city'        => 'sometimes|required',
-            'pu_state'       => 'sometimes|required',
-            'pu_zip'         => 'sometimes|required',
+            'pu_city'        => 'sometimes|nullable',
+            'pu_state'       => 'sometimes|nullable',
+            'pu_zip'         => 'sometimes|nullable',
 
             'packages'       => 'sometimes|required|array'
 

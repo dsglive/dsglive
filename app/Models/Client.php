@@ -43,11 +43,6 @@ class Client extends Model
         return $this->hasMany(Dsg::class);
     }
 
-    public function tickets()
-    {
-        return $this->hasMany(Logistic::class);
-    }
-
     /**
      * @param $email
      */
@@ -57,12 +52,30 @@ class Client extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeActive($query)
     {
         return $query->where('active', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownClient($query)
+    {
+        return $query->where('id', '!=', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUnknownClient($query)
+    {
+        return $query->where('id', 1);
     }
 
     /**
@@ -75,6 +88,14 @@ class Client extends Model
         } else {
             $this->attributes['email'] = $value;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Logistic::class);
     }
 
     /**

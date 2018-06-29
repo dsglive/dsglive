@@ -390,7 +390,17 @@ export default {
     employees: [],
     packages: [],
     handling_rates: [],
-    storage_rates: []
+    storage_rates: [],
+    unknownClient: {
+      active: false,
+      address_1: null,
+      address_2: null,
+      city: null,
+      id: 1,
+      name: "Unknown Client",
+      state: null,
+      zip: null
+    },
   }),
   watch: {
     po_no: {
@@ -460,6 +470,10 @@ export default {
             return c.id === newValue;
           });
           self.clients = customer.clients;
+          _.remove(self.clients, {
+            id: 1
+          });
+          self.clients.unshift(self.unknownClient);
           self.form.customer_name = customer.name;
           self.form.client_name = null;
           self.form.client_id = null;
@@ -467,6 +481,7 @@ export default {
           customer_name = customer.name;
         } else {
           self.clients = [];
+          self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
           self.form.client_name = null;

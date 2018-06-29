@@ -386,7 +386,16 @@ export default {
     date_processed: null,
     date_processed_modal: false,
     customers: [],
-    clients: [],
+    unknownClient: {
+      active: false,
+      address_1: null,
+      address_2: null,
+      city: null,
+      id: 1,
+      name: "Unknown Client",
+      state: null,
+      zip: null
+    },
     shippers: [],
     employees: [],
     packages: [],
@@ -461,6 +470,10 @@ export default {
             return c.id === newValue;
           });
           self.clients = customer.clients;
+          _.remove(self.clients, {
+            id: 1
+          });
+          self.clients.unshift(self.unknownClient);
           self.form.customer_name = customer.name;
           self.form.client_name = null;
           self.form.client_id = null;
@@ -468,6 +481,7 @@ export default {
           customer_name = customer.name;
         } else {
           self.clients = [];
+          self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
           self.form.client_name = null;
@@ -760,8 +774,7 @@ export default {
           self.$nextTick(() => self.$router.push({ name: "dsg" }));
         })
         .catch(errors => {
-            console.log(errors.response.data)
-            const failedModal = swal.mixin({
+          const failedModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -771,7 +784,6 @@ export default {
             type: "error",
             confirmButtonText: "Ok"
           });
-
         });
     },
     resetForm() {

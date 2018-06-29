@@ -43,6 +43,24 @@ class Shipper extends Model
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptUnknownShipper($query)
+    {
+        return $query->where('id', '!=', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUnknownShipper($query)
+    {
+        return $query->where('id', 1);
+    }
+
+    /**
      * @param $value
      */
     public function setEmailAttribute($value)

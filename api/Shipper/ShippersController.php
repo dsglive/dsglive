@@ -26,14 +26,14 @@ class ShippersController extends Controller
     {
         $data = request()->validate([
             'name'      => 'required',
-            'email'     => 'required|email|unique:shippers',
-            'phone'     => 'required',
-            'address_1' => 'required',
+            'email'     => 'nullable|email|unique:shippers',
+            'phone'     => 'nullable',
+            'address_1' => 'nullable',
             'address_2' => 'nullable',
-            'city'      => 'required',
-            'state'     => 'required',
+            'city'      => 'nullable',
+            'state'     => 'nullable',
             'zip'       => [
-                'required',
+                'nullable',
                 new ValidateZip
             ],
             'active'    => 'boolean'
@@ -152,16 +152,16 @@ class ShippersController extends Controller
         $data = $request->validate([
             'name'      => 'required',
             'email'     => [
-                'required',
+                'nullable',
                 Rule::unique('shippers')->ignore($shipper->id, 'id')
             ],
-            'phone'     => 'required',
-            'address_1' => 'required',
+            'phone'     => 'nullable',
+            'address_1' => 'nullable',
             'address_2' => 'nullable',
-            'city'      => 'required',
-            'state'     => 'required',
+            'city'      => 'nullable',
+            'state'     => 'nullable',
             'zip'       => [
-                'required',
+                'nullable',
                 new ValidateZip
             ],
             'active'    => 'boolean'
