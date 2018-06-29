@@ -132,17 +132,6 @@ class Package extends Model implements HasMedia
 
     /**
      * @param  $query
-     * @param  $from
-     * @param  $to
-     * @return mixed
-     */
-    public function scopeBillingCyle($query, $from, $to)
-    {
-        return $query->whereBetween('date_received', [$from, $to]);
-    }
-
-    /**
-     * @param  $query
      * @return mixed
      */
     public function scopeDamaged($query)
@@ -157,6 +146,17 @@ class Package extends Model implements HasMedia
     public function scopeDelivered($query)
     {
         return $query->where('delivered', 1);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeDeliveryBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_delivered', [$from, $to]);
     }
 
     /**
@@ -178,10 +178,10 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
-    public function scopeNotYetOut($query)
+    public function scopeInStorage($query)
     {
         return $query->whereNull('date_out');
     }
@@ -198,11 +198,63 @@ class Package extends Model implements HasMedia
 
     /**
      * @param  $query
+     * @param  $from
+     * @return mixed
+     */
+    public function scopePriorDeliveryBillingCyle($query, $from)
+    {
+        return $query->whereDate('date_delivered', '<', $from);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @return mixed
+     */
+    public function scopePriorReceivingBillingCyle($query, $from)
+    {
+        return $query->whereDate('date_processed', '<', $from);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @return mixed
+     */
+    public function scopePriorStorageBillingCyle($query, $from)
+    {
+        return $query->whereDate('date_received', '<', $from);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeReceivingBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_processed', [$from, $to]);
+    }
+
+    /**
+     * @param  $query
      * @return mixed
      */
     public function scopeRepaired($query)
     {
         return $query->where('repaired', 1);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeStorageBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_received', [$from, $to]);
     }
 
     /**
@@ -239,6 +291,33 @@ class Package extends Model implements HasMedia
     public function scopeUnknownShipper($query)
     {
         return $query->where('shipper_id', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeWithNoDeliveryInvoiceYet($query)
+    {
+        return $query->where('delivery_invoiced', 0);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeWithNoReceivingInvoiceYet($query)
+    {
+        return $query->where('receiving_invoiced', 0);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeWithNoStorageInvoiceYet($query)
+    {
+        return $query->where('storage_invoiced', 0);
     }
 
     /**

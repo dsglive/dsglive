@@ -31,7 +31,9 @@ class CreateMiscFeeTable extends Migration
             $table->string('client_name')->nullable();
             $table->float('amount', 8, 4)->nullable();
             $table->string('notes')->nullable();
+            $table->boolean('invoiced')->default(0);
             $table->timestamp('invoice_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

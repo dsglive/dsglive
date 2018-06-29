@@ -89,9 +89,9 @@ class Logistic extends Model
     }
 
     /**
-     * @param $query
-     * @param $from
-     * @param $to
+     * @param  $query
+     * @param  $from
+     * @param  $to
      * @return mixed
      */
     public function scopeBillingCyle($query, $from, $to)
@@ -100,7 +100,7 @@ class Logistic extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeExceptUnknownClient($query)
@@ -109,11 +109,30 @@ class Logistic extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeExceptUnknownCustomer($query)
     {
         return $query->where('customer_id', '!=', 1001);
+    }
+
+    /**
+     * @param  $query
+     * @param  $from
+     * @return mixed
+     */
+    public function scopePriorBillingCyle($query, $from)
+    {
+        return $query->whereDate('date_delivered', '<', $from);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeWithNoInvoiceYet($query)
+    {
+        return $query->where('invoiced', 0);
     }
 }

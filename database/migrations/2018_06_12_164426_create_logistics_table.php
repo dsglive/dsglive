@@ -58,6 +58,7 @@ class CreateLogisticsTable extends Migration
             $table->string('pu_city')->nullable();
             $table->string('pu_state')->nullable()->comment('State Name');
             $table->string('pu_zip')->nullable()->comment('Zip Code');
+            $table->boolean('invoiced')->comment('already has been used as item for invoice');
             // added only on delivery
             $table->json('packages')->nullable();
             $table->softDeletes();

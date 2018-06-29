@@ -17,7 +17,7 @@ class Dsg extends Model
         'receiving_amount' => 'float',
         'total_pieces'     => 'integer',
         'total_cube'       => 'float',
-        'date_processed' => 'date:Y-m-d',
+        'date_processed'   => 'date:Y-m-d'
     ];
 
     /**
@@ -148,6 +148,16 @@ class Dsg extends Model
 
     /**
      * @param  $query
+     * @param  $to
+     * @return mixed
+     */
+    public function scopePriorBillingCyle($query, $from)
+    {
+        return $query->whereDate('date_processed', '<', $from);
+    }
+
+    /**
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownClient($query)
@@ -181,6 +191,15 @@ class Dsg extends Model
     public function scopeWarehouse($query)
     {
         return $query->where('active', 0);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeWithNoInvoiceYet($query)
+    {
+        return $query->where('invoiced', 0);
     }
 
     /**
