@@ -27,7 +27,7 @@ class Dsg extends Model
     /**
      * @var array
      */
-    protected $guarded = ['id', 'deleted_at','created_at','updated_at'];
+    protected $guarded = ['id', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @var string

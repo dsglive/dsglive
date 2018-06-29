@@ -2,8 +2,8 @@
   <v-layout 
     row 
     wrap
-    pa-5
-    ma-5
+    px-5
+    mx-5
   >
     <v-flex xs12>
       <v-alert
@@ -25,13 +25,19 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="amber lighten-4">fa-users</v-icon> Customers: {{ stats.customers }}
-          <br>
-          <span class="caption">(Active Customer)</span>
+            x-large
+            color="pink lighten-4"
+          >
+            supervised_user_circle
+          </v-icon> 
+          <v-subheader class="white--text">Unknown Customer</v-subheader>
+          {{ stats.unknown_customer }}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -42,13 +48,19 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="brown lighten-3">location_city</v-icon> Warehouse  : {{ stats.warehouse }}
-          <br>
-          <span class="caption">(Dsg Needs Activation)</span>
+            x-large
+            color="cyan lighten-3"
+          >
+            person_pin
+          </v-icon> 
+          <v-subheader class="white--text">Unknown Client</v-subheader>
+          {{ stats.unknown_client }}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -59,13 +71,20 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="teal lighten-4">receipt</v-icon> Receiving: {{ stats.receiving }}
+            x-large
+            color="indigo lighten-5"
+          >
+            directions_boat
+          </v-icon> 
+          <v-subheader class="white--text">Unknown Shipper</v-subheader>
+          {{ stats.unknown_shipper }}
           <br>
-          <span class="caption">(DSG  Activated)</span>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -76,13 +95,19 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="red accent-1">broken_image</v-icon> Damaged Items: {{ stats.damaged }}
-          <br>
-          <span class="caption">(Needs Repair)</span>
+            x-large
+            color="brown lighten-3"
+          >
+            domain
+          </v-icon> 
+          <v-subheader class="white--text">Dsg Warehouse</v-subheader>
+          {{ stats.dsg_warehouse }}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -93,13 +118,19 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="blue lighten-5">fa-question-circle</v-icon> Unknown Clients: {{ stats.unknown }}
-          <br>
-          <span class="caption">(Needs Identification)</span>
+            x-large
+            color="teal lighten-3"
+          >
+            receipt
+          </v-icon> 
+          <v-subheader class="white--text">Dsg Receiving</v-subheader>
+          {{ stats.dsg_receiving }}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -110,13 +141,88 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
           <v-icon 
-            large 
-            color="indigo lighten-4">fa-truck</v-icon> Undelivered: {{ stats.undelivered }}
-          <br>
-          <span class="caption">(Available For Delivery)</span>
+            x-large
+            color="blue-grey lighten-5"
+          >
+            archive
+          </v-icon> 
+          <v-subheader class="white--text">Archived DSG</v-subheader>
+          {{ stats.dsg_archived }}
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
+          <v-icon 
+            x-large
+            color="amber lighten-2"
+          >
+            fa-truck
+          </v-icon> 
+          <v-subheader class="white--text">Undelivered Packages</v-subheader>
+          {{ stats.undelivered }}
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
+          <v-icon 
+            x-large
+            color="red accent-4"
+          >
+            broken_image
+          </v-icon> 
+          <v-subheader class="white--text">Damaged Packages</v-subheader>
+          {{ stats.damaged_packages }}
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="150px">
+        <v-card-text 
+          class="title" 
+          style="margin-left:auto;margin-right:auto;width:150px;"
+        >
+          <v-icon 
+            x-large
+            color="blue lighten-2"
+          >
+            build
+          </v-icon> 
+          <v-subheader class="white--text">Repaired Packages</v-subheader>
+          {{ stats.repaired_packages }}
         </v-card-text>
       </v-card>
     </v-flex>
@@ -127,12 +233,14 @@
 export default {
   data: () => ({
     stats: {
-      customers: null,
-      warehouse: null,
-      receiving: null,
-      damaged: null,
-      unknown: null,
-      undelivered: null
+      dsg_warehouse: null,
+      dsg_receiving: null,
+      dsg_archived:null,
+      repaired_packages: null,
+      damaged_packages: null,
+      unknown_customer: null,
+      unknown_client: null,
+      undelivered: null,
     }
   }),
   mounted() {
