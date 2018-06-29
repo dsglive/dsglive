@@ -63,7 +63,7 @@
           lg4
         >
 
-          <v-combobox
+          <v-autocomplete
             v-validate="'required'"
             v-model="form.client_name"
             :items="clients"
