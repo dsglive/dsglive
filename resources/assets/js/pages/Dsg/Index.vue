@@ -177,7 +177,8 @@
             </td>
             <td 
               :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
-              class="title text-xs-left">
+              class="title text-xs-left"
+            >
               {{ props.item.client_name }}
             </td>
             <td 
