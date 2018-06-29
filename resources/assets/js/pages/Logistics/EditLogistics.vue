@@ -94,7 +94,6 @@
             :items="clients"
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
-            :error="form.client_id === null"
             item-text="name"
             item-value="name"
             chips
