@@ -2,6 +2,14 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Misc Management
+    Route::post('/miscellaneous', 'Misc\MiscellaneousController@index')->name('api.misc.index');
+    Route::get('/miscellaneous/getCustomers', 'Misc\MiscellaneousController@getCustomers')
+        ->name('api.misc.getCustomers');
+    Route::post('/miscellaneous/create', 'Misc\MiscellaneousController@create')->name('api.misc.create');
+    Route::post('/miscellaneous/delete', 'Misc\MiscellaneousController@delete')->name('api.misc.delete');
+    Route::get('/miscellaneous/{misc}/edit', 'Misc\MiscellaneousController@edit')->name('api.misc.edit');
+    Route::post('/miscellaneous/{misc}/update', 'Misc\MiscellaneousController@update')->name('api.misc.update');
     //? Logistics Management
     Route::post('/logistics', 'Logistic\LogisticsController@index')->name('api.logistics.index');
     Route::post('/logistics/create', 'Logistic\LogisticsController@create')->name('api.logistics.create');
@@ -11,8 +19,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/logistics/getInitialData', 'Logistic\LogisticsController@getInitialData')
         ->name('api.logistics.getInitialData');
     Route::get('/logistics/clients/{client}/getClientPackages', 'Logistic\LogisticsController@getClientPackages')
-    ->name('api.logistics.getClientPackages');
-
+        ->name('api.logistics.getClientPackages');
 
     //? Dashboard Stats
     Route::post('/dashboard/admin/getStats', 'Dashboard\AdminStatsController@getStats')

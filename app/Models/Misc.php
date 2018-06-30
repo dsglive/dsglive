@@ -41,6 +41,37 @@ class Misc extends Model
      */
     protected $table = 'misc_fee';
 
+    public static function archived()
+    {
+        return self::onlyTrashed()->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
+    /**
+     * @param $id
+     */
+    public static function findMiscByID($id)
+    {
+        return self::withTrashed()
+            ->where('id', $id)
+            ->first();
+    }
+
     /**
      * @param  $query
      * @param  $from
@@ -87,15 +118,5 @@ class Misc extends Model
     public function scopeWithNoInvoiceYet($query)
     {
         return $query->where('invoiced', 0);
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(User::class, 'customer_id');
-    }
-
-    public function client()
-    {
-        return $this->belongsTo(Client::class, 'client_id');
     }
 }
