@@ -89,6 +89,15 @@
       />
       <v-link 
         v-if="$auth.check('admin')"
+        title="Miscellaneous" 
+        href="/miscellaneous" 
+        icon="note_add"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check('admin')"
         title="Invoicing" 
         href="/invoicing" 
         icon="fa-money"

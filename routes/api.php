@@ -20,7 +20,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.logistics.getInitialData');
     Route::get('/logistics/clients/{client}/getClientPackages', 'Logistic\LogisticsController@getClientPackages')
         ->name('api.logistics.getClientPackages');
-
     //? Dashboard Stats
     Route::post('/dashboard/admin/getStats', 'Dashboard\AdminStatsController@getStats')
         ->name('api.dashboard.admin.getStats');

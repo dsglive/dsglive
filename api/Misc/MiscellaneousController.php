@@ -2,7 +2,7 @@
 
 namespace Api\Misc;
 
-use App\Misc;
+use App\Models\Misc;
 use Api\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;

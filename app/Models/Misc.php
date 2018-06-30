@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,7 +33,7 @@ class Misc extends Model
      */
     protected $fillable = [
         'customer_id', 'customer_name', 'client_id', 'client_name',
-        'amoount', 'notes', 'invoiced', 'invoice_date'
+        'amount', 'notes', 'invoiced', 'invoice_date'
     ];
 
     /**
