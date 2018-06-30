@@ -61,7 +61,7 @@ class Client extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeExceptUnknownClient($query)
@@ -70,7 +70,7 @@ class Client extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownClient($query)

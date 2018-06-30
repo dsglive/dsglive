@@ -89,7 +89,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function dsg()
     {
-        return $this->hasMany(Dsg::class);
+        return $this->hasMany(Dsg::class, 'customer_id');
     }
 
     /**
@@ -98,6 +98,14 @@ class User extends Authenticatable implements HasMedia
     public function isSuperAdmin()
     {
         return $this->id < 1000;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function miscFees()
+    {
+        return $this->hasMany(Misc::class, 'customer_id');
     }
 
     public function registerMediaCollections()
@@ -139,17 +147,12 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeExceptUnknownCustomer($query)
     {
         return $query->where('id', '!=', 1001);
-    }
-
-    public function scopeUnknownCustomer($query)
-    {
-        return $query->where('id', 1001);
     }
 
     /**
@@ -164,11 +167,20 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUnknownCustomer($query)
+    {
+        return $query->where('id', 1001);
+    }
+
+    /**
      * @return mixed
      */
     public function tickets()
     {
-        return $this->hasMany(Logistic::class);
+        return $this->hasMany(Logistic::class, 'customer_id');
     }
 
     /**

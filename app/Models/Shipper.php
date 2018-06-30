@@ -43,7 +43,23 @@ class Shipper extends Model
     }
 
     /**
-     * @param $query
+     * @return mixed
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'shipper_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function receiving()
+    {
+        return $this->hasMany(Dsg::class, 'shipper_id');
+    }
+
+    /**
+     * @param  $query
      * @return mixed
      */
     public function scopeExceptUnknownShipper($query)
@@ -52,7 +68,7 @@ class Shipper extends Model
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownShipper($query)

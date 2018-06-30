@@ -88,4 +88,14 @@ class Misc extends Model
     {
         return $query->where('invoiced', 0);
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

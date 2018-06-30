@@ -113,6 +113,9 @@ class PackageController extends Controller
 
         $storage_fees_at_billing_cycle = Package::storageBillingCyle($from, $to)
             ->withNoStorageInvoiceYet()
+            //! we cannot mark it as it is since it is recurring , we need to think outside the box
+            //! all added columns are not yet added in fillable
+            //! maybe we dont need anymore this inStorage
             ->inStorage()
             // ->withNoReceivingInvoiceYet()
             // ->withNoDeliveryInvoiceYet()

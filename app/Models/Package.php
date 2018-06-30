@@ -81,7 +81,7 @@ class Package extends Model implements HasMedia
      */
     public function dsg()
     {
-        return $this->belongsTo(Dsg::class);
+        return $this->belongsTo(Dsg::class, 'dsg_id');
     }
 
     /**
@@ -361,7 +361,7 @@ class Package extends Model implements HasMedia
      */
     public function ticket()
     {
-        return $this->belongsTo(Logistic::class);
+        return $this->belongsTo(Logistic::class, 'logistic_id');
     }
 
     /**

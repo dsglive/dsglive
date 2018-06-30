@@ -43,14 +43,6 @@ class Dsg extends Model
     /**
      * @return mixed
      */
-    public function bin()
-    {
-        return $this->belongsTo(Bin::class);
-    }
-
-    /**
-     * @return mixed
-     */
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -61,7 +53,7 @@ class Dsg extends Model
      */
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**
@@ -79,7 +71,7 @@ class Dsg extends Model
      */
     public function inspector()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'inspected_by');
     }
 
     /**
@@ -87,7 +79,7 @@ class Dsg extends Model
      */
     public function locator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'located_by');
     }
 
     /**
@@ -103,7 +95,7 @@ class Dsg extends Model
      */
     public function receiver()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'received_by');
     }
 
     /**
@@ -215,6 +207,6 @@ class Dsg extends Model
      */
     public function writter()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'written_by');
     }
 }
