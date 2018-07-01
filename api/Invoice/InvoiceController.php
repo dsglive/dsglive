@@ -1,13 +1,13 @@
 <?php
 
-namespace Api\Package;
+namespace Api\Invoice;
 
 use Api\Controller;
 use App\Models\Dsg;
 use App\Models\Package;
 use App\Models\Logistic;
 
-class PackageController extends Controller
+class InvoiceController extends Controller
 {
     public function __construct()
     {
