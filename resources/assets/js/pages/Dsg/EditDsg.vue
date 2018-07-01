@@ -331,6 +331,7 @@
         :key="key"
         :index="key+1"
         :item="item"
+        :iteration="key"
         :packages="packages"
         :bins="bins"
         :handling-rates="handling_rates"
@@ -383,6 +384,7 @@ export default {
       total_pieces: 0,
       total_cube: 0,
       receiving_amount: 0,
+      date_processed: null,
       packages: []
     }),
     po_no: null,
@@ -439,6 +441,7 @@ export default {
         for (let i = 0; i < total; i++) {
           self.packages[i].date_processed = newValue;
         }
+        self.form.date_processed = newValue;
       },
       deep: true
     },
@@ -465,6 +468,10 @@ export default {
         self.updateTotalCube();
         self.updateReceivingAmount();
       },
+      deep: true
+    },
+    "form.packages": {
+      handler: function(newValue) {},
       deep: true
     },
     "form.customer_id": {
@@ -705,6 +712,7 @@ export default {
             item.shipper_id = self.form.shipper_id;
             item.shipper_name = self.form.shipper_name;
             self.packages.push(item);
+            self.form.packages.push(item);
           });
         } else {
           const validationModal = swal.mixin({
@@ -767,7 +775,7 @@ export default {
       self.form.busy = true;
       self.form.packages = self.packages;
       self.form
-        .post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form)
+        .post(route("api.dsg.update", { dsg: self.id }), self.form)
         .then(response => {
           self.$validator.reset();
           const successModal = swal.mixin({
@@ -795,30 +803,6 @@ export default {
           });
           self.form.busy = false;
         });
-    },
-    resetForm() {
-      let self = this;
-      self.form = new Form({
-        active: false,
-        client_id: null,
-        client_name: null,
-        customer_id: null,
-        customer_name: null,
-        shipper_id: null,
-        shipper_name: null,
-        received_by: null,
-        received_by_name: null,
-        written_by: null,
-        written_by_name: null,
-        inspected_by: null,
-        inspected_by_name: null,
-        located_by: null,
-        located_by_name: null,
-        total_pieces: null,
-        total_cube: null,
-        receiving_amount: null,
-        packages: []
-      });
     },
     redirectBack() {
       let self = this;
@@ -850,9 +834,15 @@ export default {
         self.form.receiving_amount = dsg.receiving_amount;
         self.client_id = dsg.client_id;
         self.client_name = dsg.client_name;
-        self.po_no = dsg.packages[0]["po_no"];
-        self.date_received = dsg.packages[0]["date_received"];
-        self.date_processed = dsg.packages[0]["date_processed"];
+        if (dsg.packages.length > 0) {
+          self.po_no = dsg.packages[0]["po_no"];
+          self.date_received = dsg.packages[0]["date_received"];
+          self.date_processed = dsg.packages[0]["date_processed"];
+        } else {
+          self.po_no = null;
+          self.date_received = moment().format("YYYY-MM-DD");
+          self.date_processed = moment().format("YYYY-MM-DD");
+        }
         self.packages = dsg.packages;
         self.client_name = dsg.client_name;
         self.client_id = dsg.client_id;

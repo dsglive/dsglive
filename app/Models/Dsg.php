@@ -14,6 +14,7 @@ class Dsg extends Model
      */
     protected $casts = [
         'active'           => 'boolean',
+        'invoiced'         => 'boolean',
         'receiving_amount' => 'float',
         'total_pieces'     => 'integer',
         'total_cube'       => 'float',

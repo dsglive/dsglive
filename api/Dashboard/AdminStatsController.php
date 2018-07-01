@@ -23,8 +23,8 @@ class AdminStatsController extends Controller
         $data['unknown_client']   = Dsg::unknownClient()->count();
         $data['unknown_customer'] = Dsg::unknownCustomer()->count();
         // per packages query
-        $data['repaired_packages'] = Package::repaired()->count();
-        $data['damaged_packages']  = Package::damaged()->count();
+        $data['repaired_packages'] = Package::repaired()->active()->count();
+        $data['damaged_packages']  = Package::damaged()->active()->count();
         $data['undelivered']       = Package::undelivered()->active()->count();
 
         return response()->json(['data' => $data]);

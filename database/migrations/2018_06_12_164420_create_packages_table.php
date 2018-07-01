@@ -61,9 +61,9 @@ class CreatePackagesTable extends Migration
             $table->timestamp('date_delivered')->nullable() // for delivery fee
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
             // we also have package images and damage images to be handle by laravel image library, using media model
-            $table->boolean('receiving_invoiced')->comment('already has been used as item for invoice');
-            $table->boolean('delivery_invoiced')->comment('already has been used as item for invoice');
-            $table->boolean('storage_invoiced')->comment('already has been used as item for invoice');
+            $table->boolean('receiving_invoiced')->default(0)->comment('already has been used as item for invoice');
+            $table->boolean('delivery_invoiced')->default(0)->comment('already has been used as item for invoice');
+            $table->boolean('storage_invoiced')->default(0)->comment('already has been used as item for invoice');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -96,15 +96,7 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
-      <v-link 
-        v-if="$auth.check('admin')"
-        title="Invoicing" 
-        href="/invoicing" 
-        icon="fa-money"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
+      <invoice-links/>
       <!-- Warehouse Type Account -->
       <v-link 
         v-if="$auth.check(['warehouse'])"
@@ -154,11 +146,12 @@ import VLink from "../components/VLink.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("auth");
 import InventoryLinks from "../components/InventoryLinks"
-
+import InvoiceLinks from "../components/InvoiceLinks"
 export default {
   components: {
     VLink,
-    InventoryLinks
+    InventoryLinks,
+    InvoiceLinks
   },
   data: () => ({
     drawer: false

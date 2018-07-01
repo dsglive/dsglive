@@ -90,8 +90,8 @@
               v-validate="'required'"
               :items="bins"
               v-model="item.bin_id"
-              :error-messages="errors.collect('bin')"
-              :class="{ 'error--text': errors.has('bin') }"
+              :error-messages="errorMessages(`packages.${iteration}.bin_id`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.bin_id`) }"
               :readonly="readonly"
               :disabled="readonly"
               item-text="code"
@@ -100,7 +100,7 @@
               label="Choose Bin"
               light
               prepend-icon="view_comfy"
-              data-vv-name="bin"
+              data-vv-name="`packages.${iteration}.bin_id`"
               hint="Choose Bin"
               persistent-hint
             />
@@ -113,8 +113,8 @@
               v-validate="'required'"
               :items="handlingRates"
               v-model="item.handling_type"
-              :error-messages="errors.collect('handling')"
-              :class="{ 'error--text': errors.has('handling') }"
+              :error-messages="errorMessages(`packages.${iteration}.handling_type`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.handling_type`) }"
               :readonly="readonly"
               :disabled="readonly"
               item-text="name"
@@ -123,7 +123,7 @@
               label="Choose Handling Note"
               light
               prepend-icon="receipt"
-              data-vv-name="handling"
+              data-vv-name="`packages.${iteration}.handling_type`"
               hint="Choose Handling Note"
               persistent-hint
             />
@@ -136,15 +136,15 @@
               v-validate="'required'"
               :items="store_at"
               v-model="item.store_at"
-              :error-messages="errors.collect('store_at')"
-              :class="{ 'error--text': errors.has('store_at') }"
+              :error-messages="errorMessages(`packages.${iteration}.store_at`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.store_at`) }"
               :readonly="readonly"
               :disabled="readonly"
               required
               label="Store At"
               light
               prepend-icon="dns"
-              data-vv-name="store_at"
+              data-vv-name="`packages.${iteration}.store_at`"
               hint="Choose Store At"
               persistent-hint
             />
@@ -156,12 +156,12 @@
             <v-text-field
               v-validate="'required'"
               v-model="item.style_no"
-              :error-messages="errors.collect('style_no')"
-              :class="{ 'error--text': errors.has('style_no') }"
+              :error-messages="errorMessages(`packages.${iteration}.style_no`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.style_no`) }"
               :readonly="readonly"
               label="Style No."
               prepend-icon="style"
-              data-vv-name="style_no"
+              data-vv-name="`packages.${iteration}.style_no`"
               hint="Required"
               persistent-hint
             />
@@ -215,13 +215,13 @@
             <v-text-field
               v-validate="'required'"
               v-model="item.cube"
-              :error-messages="errors.collect('cube')"
-              :class="{ 'error--text': errors.has('cube') }"
+              :error-messages="errorMessages(`packages.${iteration}.cube`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.cube`) }"
               :readonly="readonly"
               label="Cube"
               suffix="ft³"
               prepend-icon="fa-cube"
-              data-vv-name="cube"
+              data-vv-name="`packages.${iteration}.cube`"
               hint="Required"
               persistent-hint
             />
@@ -254,14 +254,14 @@
             <v-textarea
               v-validate="'required'"
               v-model="item.description"
-              :error-messages="errors.collect('description')"
               :readonly="readonly"
-              :class="{ 'error--text': errors.has('description') }"
+              :error-messages="errorMessages(`packages.${iteration}.description`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.description`) }"
               counter
               maxlength="255"
               full-width
               outline
-              data-vv-name="description"
+              data-vv-name="`packages.${index}.description`"
               hint="Required"
               persistent-hint
             />
@@ -275,14 +275,18 @@
               Damage Description:
             </v-subheader>
             <v-textarea
+              v-validate="'required: item.damaged'"
               v-if="item.damaged"
               v-model="item.damage_description"
               :readonly="readonly"
+              :error-messages="errorMessages(`packages.${iteration}.damage_description`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.damage_description`) }"
               counter
               maxlength="255"
               full-width
               outline
               hint="Required If Marked As Damaged"
+              data-vv-name="`packages.${iteration}.damage_description`"
               persistent-hint
             />
           </v-flex>
@@ -334,9 +338,12 @@
               <v-text-field
                 slot="activator"
                 :disabled="readonly"
+                :error-messages="errorMessages(`packages.${iteration}.date_repaired`)"
+                :class="{ 'error--text': hasErrors(`packages.${iteration}.date_repaired`) }"
                 v-model="item.date_repaired"
                 label="Date Repaired"
                 prepend-icon="event_note"
+                data-vv-name="`packages.${iteration}.date_repaired`"
                 readonly
               />
               <v-date-picker 
@@ -406,12 +413,14 @@
 <script>
 import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
 import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
+import validationError from "Mixins/validation-error";
 
 export default {
   components: {
     PackageImagesUploader,
     DamagedImagesUploader
   },
+  mixins: [validationError],
   props: {
     item: {
       type: Object,
@@ -442,8 +451,12 @@ export default {
       default: false
     },
     index: {
-        type: Number,
-        default: 1
+      type: Number,
+      default: 1
+    },
+    iteration: {
+      type: Number,
+      default: 0
     }
   },
   data: () => ({
@@ -481,10 +494,18 @@ export default {
     "item.bin_id": {
       handler: function(newValue) {
         let self = this;
-        let bin = _.find(self.bins, function(b) {
-          return b.id === newValue;
-        });
-        self.item.bin_name = bin.code;
+        if (newValue != null || newValue != undefined) {
+          if (self.bins.length > 0) {
+            let bin = _.find(self.bins, function(b) {
+              return b.id === newValue;
+            });
+            if (bin != undefined) {
+              self.item.bin_name = bin.code;
+            }
+          }
+        } else {
+          self.item.bin_name = null;
+        }
       },
       deep: false
     }
@@ -527,6 +548,7 @@ export default {
 
         item.description = self.item.description;
         self.packages.push(item);
+        self.form.packages.push(item);
       });
     },
     addNewPackage() {
@@ -547,7 +569,7 @@ export default {
     },
     updatetotalCube() {
       let volume = this.item.length * this.item.width * this.item.height;
-      this.item.cube = (volume/1728).toFixed(4);
+      this.item.cube = (volume / 1728).toFixed(4);
     },
     save(item, date) {
       let ref = `date_repaired_${item.id}`;

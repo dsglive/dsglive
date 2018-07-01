@@ -330,6 +330,7 @@
         v-for="(item,key) in packages" 
         :key="key"
         :index="key+1"
+        :iteration="key"
         :item="item"
         :packages="packages"
         :bins="bins"
@@ -386,6 +387,12 @@ export default {
     date_processed: null,
     date_processed_modal: false,
     customers: [],
+    clients: [],
+    shippers: [],
+    employees: [],
+    packages: [],
+    handling_rates: [],
+    storage_rates: [],
     unknownClient: {
       active: false,
       address_1: null,
@@ -395,12 +402,7 @@ export default {
       name: "Unknown Client",
       state: null,
       zip: null
-    },
-    shippers: [],
-    employees: [],
-    packages: [],
-    handling_rates: [],
-    storage_rates: []
+    }
   }),
   watch: {
     po_no: {
@@ -456,6 +458,10 @@ export default {
         self.updateTotalCube();
         self.updateReceivingAmount();
       },
+      deep: true
+    },
+    "form.packages": {
+      handler: function(newValue) {},
       deep: true
     },
     "form.customer_id": {
@@ -695,6 +701,7 @@ export default {
             item.shipper_id = self.form.shipper_id;
             item.shipper_name = self.form.shipper_name;
             self.packages.push(item);
+            self.form.packages.push(item);
           });
         } else {
           const validationModal = swal.mixin({

@@ -307,11 +307,11 @@ class DsgController extends Controller
                 new RateMustBeAFloat
             ],
             'packages.*.damaged'            => 'nullable|boolean',
-            'packages.*.damage_description' => 'nullable',
+            'packages.*.damage_description' => 'required_if:packages.*.damaged,true',
             'packages.*.repaired'           => 'nullable|boolean',
-            'packages.*.date_repaired'      => 'nullable|date',
+            'packages.*.date_repaired'      => 'required_if:packages.*.repaired,true',
             'packages.*.delivered'          => 'nullable|boolean',
-            'packages.*.date_delivered'     => 'nullable|date'
+            'packages.*.date_delivered'     => 'required_if:packages.*.delivered,true'
         ]);
     }
 }
