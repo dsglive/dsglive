@@ -94,5 +94,6 @@
   "phpfmt.smart_linebreak_after_curly": true,
   "phpfmt.indent_with_space": 4,
   "npm.runInTerminal": false,
-  "vscode-mysql.enableTelemetry": false
+  "vscode-mysql.enableTelemetry": false,
+  "phpcs.executablePath": "/home/uriah/.config/composer/vendor/bin/phpcs"
 }
