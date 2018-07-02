@@ -2,6 +2,8 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Invoice Api
+    Route::post('/generate/invoices', 'Invoice\InvoiceController@generateInvoice')->name('api.invoice.generate');
     //? Misc Management
     Route::post('/miscellaneous', 'Misc\MiscellaneousController@index')->name('api.misc.index');
     Route::get('/miscellaneous/getCustomers', 'Misc\MiscellaneousController@getCustomers')

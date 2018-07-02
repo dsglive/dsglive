@@ -4,6 +4,7 @@ namespace Api\Invoice;
 
 use Api\Controller;
 use App\Models\Dsg;
+use App\Models\Misc;
 use App\Models\Package;
 use App\Models\Logistic;
 
@@ -40,6 +41,20 @@ class InvoiceController extends Controller
             ->concat($uninvoiced_delivery_fees_before_billing_cycle);
 
         return $all_delivery_fees_ready_for_invoice;
+    }
+
+    public function generateInvoice()
+    {
+        $dates = request()->validate([
+            'date_started' => 'required',
+            'date_ended'   => 'required'
+        ]);
+        $data                  = [];
+        $data['receiving_fee'] = $this->generateReceivingFee($dates['date_started'], $dates['date_ended']);
+        $data['misc_fee']      = $this->generateMiscFee($dates['date_started'], $dates['date_ended']);
+        $data['storage_fee']   = $this->generateStorageFee($dates['date_started'], $dates['date_ended']);
+        $data['delivery_fee']  = $this->generateDeliveryFee($dates['date_started'], $dates['date_ended']);
+        return response()->json(['data' => $data]);
     }
 
     /**
