@@ -33,7 +33,8 @@ class CreateInvoiceTable extends Migration
             $table->float('delivery_fee', 8, 4)->nullable();
             $table->float('storage_fee', 8, 4)->nullable();
             $table->float('misc_fee', 8, 4)->nullable();
-            $table->float('total_amount', 8, 4);
+            $table->float('total_amount', 8, 4)->nullable();
+            $table->float('total_balance', 8, 4)->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamp('due_date')->nullable();

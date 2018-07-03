@@ -134,7 +134,7 @@
               d-flex>
               <v-flex class="xs6 white">
                 <v-btn 
-                  v-if="selected.length > 0"
+                  v-if="false"
                   :disabled="!$auth.check('admin')" 
                   block 
                   color="blue darken-4" 
@@ -152,7 +152,7 @@
               </v-flex>
               <v-flex class="xs6 white">
                 <v-btn 
-                  v-if="selected.length > 0"
+                  v-if="false"
                   :disabled="!$auth.check('admin')" 
                   block 
                   flat
@@ -182,7 +182,6 @@
         :pagination.sync="pagination"
         select-all
         item-key="id"
-        expand
       >
         <!-- Header Section -->
         <template
@@ -190,7 +189,7 @@
           slot-scope="props"
         >
           <tr>
-            <th>
+            <!-- <th>
               <v-checkbox
                 :input-value="props.all"
                 :indeterminate="props.indeterminate"
@@ -198,7 +197,7 @@
                 hide-details
                 @click.native="toggleAll"
               />
-            </th>
+            </th> -->
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -223,63 +222,31 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
+            <!-- <td class="title text-xs-left">
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
-            </td>
-            <td class="title text-xs-left accent--text">
-              {{ props.item.id }}
-            </td>
+            </td> -->
             <td class="title text-xs-left accent--text">
               {{ props.item.customer_name }}
             </td>
 
             <td class="title text-xs-left accent--text">
-              {{ props.item.receiving_fee }}
+              {{ props.item.receiving_fee.toFixed(4) }}
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.storage_fee }}
+              {{ props.item.storage_fee.toFixed(4) }}
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.delivery_fee }}
+              {{ props.item.delivery_fee.toFixed(4) }}
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.misc_fee }}
+              {{ props.item.misc_fee.toFixed(4) }}
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.weekly_total }}
-            </td>
-            <td class="title text-xs-left accent--text">
-              {{ props.item.total_balance }}
-            </td>
-            <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                  light 
-                  flat 
-                  icon 
-                  @click="props.expanded = !props.expanded"
-                >
-                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                  <v-icon v-if="props.expanded">fa-compress</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="viewInvoice(props.item)"
-                >
-                  <v-icon>fa-eye</v-icon>
-                </v-btn>
-              </v-flex>
+              {{ props.item.total.toFixed(4) }}
             </td>
           </tr>
         </template>
@@ -289,216 +256,6 @@
           slot-scope="{ pageStart, pageStop }"
         >
           From {{ pageStart }} to {{ pageStop }}
-        </template>
-        <!-- Expand Section -->
-        <template 
-          slot="expand" 
-          slot-scope="props"
-        >
-          <v-container fluid>
-            <v-card 
-              light 
-              flat 
-              text-xs-center
-            >
-              <v-card-media
-                class="white--text blue-grey"
-                height="75px"
-              >
-                <v-container 
-                  fill-height 
-                  fluid
-                >
-                  <v-layout fill-height>
-                    <v-flex 
-                      xs12 
-                      align-end 
-                      flexbox
-                    >
-                      <v-avatar text-xs-left>
-                        <img 
-                          :src="props.item.avatar" 
-                          :alt="props.item.name"
-                        >
-                      </v-avatar>
-                      <span class="headline">{{ props.item.name }}</span>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-media>
-              <v-card-title>
-                <v-container fluid>
-                  
-                  <p 
-                    class="title accent--text"
-                  >
-                    Account Details
-                  </p>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        v-model="props.item.username"
-                        label="Username"
-                        prepend-icon="fa-at"
-                        light
-                        readonly
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        :value="props.item.company_name"
-                        label="Company Name"
-                        light
-                        readonly
-                        prepend-icon="domain"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        v-model="props.item.email"
-                        label="Email"
-                        prepend-icon="fa-envelope"
-                        light
-                        readonly
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1>
-                      <v-text-field
-                        v-model="props.item.phone"
-                        label="Phone"
-                        light
-                        readonly
-                        prepend-icon="phone"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.first_name"
-                        label="First Name"
-                        light
-                        readonly
-                        prepend-icon="person"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.last_name"
-                        label="Last Name"
-                        light
-                        readonly
-                        prepend-icon="people"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.address_1"
-                        label="Address 1"
-                        light
-                        readonly
-                        prepend-icon="looks_one"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.address_2"
-                        label="Address 2"
-                        light
-                        readonly
-                        prepend-icon="looks_two"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.city"
-                        label="City"
-                        light
-                        readonly
-                        prepend-icon="location_city"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.state"
-                        label="State"
-                        light
-                        readonly
-                        prepend-icon="map"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                      px-1
-                    >
-                      <v-text-field
-                        :value="props.item.zip"
-                        label="Zip"
-                        light
-                        readonly
-                        prepend-icon="markunread_mailbox"
-                      />
-                    </v-flex>
-                    <v-flex 
-                      xs6
-                    >
-                      <v-switch
-                        v-model="props.item.active"
-                        :label="getStatus(props.item.active)"
-                        readonly
-                      />
-                    </v-flex>
-                    
-                  </v-layout>
-                  <v-layout 
-                    row 
-                    wrap
-                  >
-                    <v-flex xs12>
-                      <v-textarea
-                        v-model="props.item.notes"
-                        color="primary"
-                        readonly
-                      >
-                        <div slot="label">
-                          <span class="title">Notes: </span>
-                        </div>
-                      </v-textarea>
-                    </v-flex>
-                  </v-layout>
-
-                </v-container>
-              </v-card-title>
-
-            </v-card>
-          </v-container>
         </template>
         <!-- No Data Section -->
         <template slot="no-data">
@@ -552,7 +309,6 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "ID", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
         value: "customer_name",
@@ -573,19 +329,7 @@ export default {
         sortable: true
       },
       { text: "Misc", value: "misc_fee", align: "left", sortable: true },
-      {
-        text: "Week Total",
-        value: "weekly_total",
-        align: "left",
-        sortable: true
-      },
-      {
-        text: "Total Balance",
-        value: "total_balance",
-        align: "left",
-        sortable: true
-      },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
+      { text: "Total", value: "total", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
@@ -625,10 +369,9 @@ export default {
           self.form
         );
         self.items = payload.data.data;
-        self.form = new Form({
-          date_started: "",
-          date_ended: ""
-        });
+        for (let index = 0; index < self.items.length; index++) {
+            self.items[index]['total'] = self.items[index]['receiving_fee'] + self.items[index]['delivery_fee'] + self.items[index]['misc_fee'] + self.items[index]['storage_fee']
+        }
       } catch ({ errors, message }) {
         if (errors) {
           self.form.errors.set(errors);

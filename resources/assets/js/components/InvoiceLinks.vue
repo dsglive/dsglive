@@ -50,7 +50,7 @@ export default {
           title: "Invoices",
           items: [
             { title: "Generate Invoice", href: "/invoices/generate", action: "schedule" },
-            { title: "Invoices", href: "/invoices", action: "all_inbox" },
+            // { title: "Invoices", href: "/invoices", action: "all_inbox" },
           ]
         }
       ]

@@ -8,6 +8,7 @@ use App\Models\Misc;
 use App\Models\User;
 use App\Models\Package;
 use App\Models\Logistic;
+use App\Http\Resources\Invoice\GenerateInvoiceResource;
 
 class InvoiceController extends Controller
 {
@@ -17,12 +18,45 @@ class InvoiceController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function generateInvoice()
+    {
+        $dates = request()->validate([
+            'date_started' => 'required',
+            'date_ended'   => 'required'
+        ]);
+        $customers = User::with(['profile', 'receiving' => function ($query) use ($dates) {
+            return $query->whereBetween('date_processed', [$dates['date_started'], $dates['date_ended']])
+                         ->OrwhereDate('date_processed', '<=', $dates['date_ended'])
+                         ->where('client_id', '!=', 1)
+                         ->where('invoiced', 0);
+        }, 'delivery' => function ($query) use ($dates) {
+            return $query->whereBetween('date_delivered', [$dates['date_started'], $dates['date_ended']])
+                         ->OrwhereDate('date_delivered', '<=', $dates['date_ended'])
+                         ->where('client_id', '!=', 1)
+                         ->where('invoiced', 0);
+        }, 'misc' => function ($query) use ($dates) {
+            return $query->whereBetween('invoice_date', [$dates['date_started'], $dates['date_ended']])
+                         ->OrwhereDate('invoice_date', '<=', $dates['date_ended'])
+                         ->where('client_id', '!=', 1)
+                         ->where('invoiced', 0);
+        }, 'storage' => function ($query) use ($dates) {
+            return $query->whereNotNull('date_delivered')
+                         ->where('client_id', '!=', 1)
+                         ->where('invoiced', 0);
+        }])
+            ->role('customer')->exceptUnknownCustomer()->get();
+        return GenerateInvoiceResource::collection($customers);
+    }
+
+    /**
      * One Time Fee
      * @param  $from
      * @param  $to
      * @return mixed
      */
-    public function generateDeliveryFee($from, $to)
+    public function getDeliveryFee($from, $to)
     {
         $from                           = date($from);
         $to                             = date($to);
@@ -45,58 +79,11 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function generateInvoice()
-    {
-        $dates = request()->validate([
-            'date_started' => 'required',
-            'date_ended'   => 'required'
-        ]);
-        return $customers = User::with(['receiving' => function ($query) use ($dates) {
-            return $query->whereBetween('date_processed', [$dates['date_started'], $dates['date_ended']])
-                         ->OrwhereDate('date_processed', '<=', $dates['date_ended'])
-                         ->where('client_id', '!=', 1)
-                         ->where('invoiced', 0);
-        }, 'delivery' => function ($query) use ($dates) {
-            return $query->whereBetween('date_delivered', [$dates['date_started'], $dates['date_ended']])
-                         ->OrwhereDate('date_delivered', '<=', $dates['date_ended'])
-                         ->where('client_id', '!=', 1)
-                         ->where('invoiced', 0);
-        }, 'misc' => function ($query) use ($dates) {
-            return $query->whereBetween('invoice_date', [$dates['date_started'], $dates['date_ended']])
-                         ->OrwhereDate('invoice_date', '<=', $dates['date_ended'])
-                         ->where('client_id', '!=', 1)
-                         ->where('invoiced', 0);
-        }, 'storage' => function ($query) use ($dates) {
-            return $query->whereDate('date_received', '<=', $dates['date_started'])
-                         ->where('client_id', '!=', 1);
-            // to compute for storage fee
-            // count number of days date_received to date_delivered
-        }])
-            ->role('customer')->exceptUnknownCustomer()->get();
-    }
-
-    // public function generateInvoice()
-    // {
-    //     $dates = request()->validate([
-    //         'date_started' => 'required',
-    //         'date_ended'   => 'required'
-    //     ]);
-    //     $data                  = [];
-    //     $data['receiving_fee'] = $this->generateReceivingFee($dates['date_started'], $dates['date_ended']);
-    //     $data['misc_fee']      = $this->generateMiscFee($dates['date_started'], $dates['date_ended']);
-    //     $data['storage_fee']   = $this->generateStorageFee($dates['date_started'], $dates['date_ended']);
-    //     $data['delivery_fee']  = $this->generateDeliveryFee($dates['date_started'], $dates['date_ended']);
-    //     return response()->json(['data' => $data]);
-    // }
-
-    /**
      * @param  $from
      * @param  $to
      * @return mixed
      */
-    public function generateMiscFee($from, $to)
+    public function getMiscFee($from, $to)
     {
         $from = date($from);
         $to   = date($to);
@@ -124,7 +111,7 @@ class InvoiceController extends Controller
      * @param $from
      * @param $to
      */
-    public function generateReceivingFee($from, $to)
+    public function getReceivingFee($from, $to)
     {
         $from = date($from);
         $to   = date($to);
@@ -155,7 +142,7 @@ class InvoiceController extends Controller
      * @param  $to
      * @return mixed
      */
-    public function generateStorageFee($from, $to)
+    public function getStorageFee($from, $to)
     {
         $from = date($from);
         $to   = date($to);

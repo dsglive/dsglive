@@ -23,6 +23,7 @@ class Package extends Model implements HasMedia
         'damaged'        => 'boolean',
         'delivered'      => 'boolean',
         'repaired'       => 'boolean',
+        'invoiced'       => 'boolean',
         'storage_fee'    => 'float',
         'date_delivered' => 'date:Y-m-d',
         'date_repaired'  => 'date:Y-m-d',
@@ -48,7 +49,7 @@ class Package extends Model implements HasMedia
         'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
-        'logistic_id'
+        'logistic_id', 'invoiced'
     ];
 
     public static function archived()
@@ -130,6 +131,17 @@ class Package extends Model implements HasMedia
 
     /**
      * @param  $query
+     * @param  $from
+     * @param  $to
+     * @return mixed
+     */
+    public function scopeBillingCyle($query, $from, $to)
+    {
+        return $query->whereBetween('date_received', [$from, $to]);
+    }
+
+    /**
+     * @param  $query
      * @return mixed
      */
     public function scopeDamaged($query)
@@ -144,17 +156,6 @@ class Package extends Model implements HasMedia
     public function scopeDelivered($query)
     {
         return $query->where('delivered', 1);
-    }
-
-    /**
-     * @param  $query
-     * @param  $from
-     * @param  $to
-     * @return mixed
-     */
-    public function scopeDeliveryBillingCyle($query, $from, $to)
-    {
-        return $query->whereBetween('date_delivered', [$from, $to]);
     }
 
     /**
@@ -181,7 +182,7 @@ class Package extends Model implements HasMedia
      */
     public function scopeInStorage($query)
     {
-        return $query->whereNull('date_out');
+        return $query->whereNull('date_delivered');
     }
 
     /**
@@ -196,63 +197,11 @@ class Package extends Model implements HasMedia
 
     /**
      * @param  $query
-     * @param  $from
-     * @return mixed
-     */
-    public function scopePriorDeliveryBillingCyle($query, $from)
-    {
-        return $query->whereDate('date_delivered', '<', $from);
-    }
-
-    /**
-     * @param  $query
-     * @param  $from
-     * @return mixed
-     */
-    public function scopePriorReceivingBillingCyle($query, $from)
-    {
-        return $query->whereDate('date_processed', '<', $from);
-    }
-
-    /**
-     * @param  $query
-     * @param  $from
-     * @return mixed
-     */
-    public function scopePriorStorageBillingCyle($query, $from)
-    {
-        return $query->whereDate('date_received', '<', $from);
-    }
-
-    /**
-     * @param  $query
-     * @param  $from
-     * @param  $to
-     * @return mixed
-     */
-    public function scopeReceivingBillingCyle($query, $from, $to)
-    {
-        return $query->whereBetween('date_processed', [$from, $to]);
-    }
-
-    /**
-     * @param  $query
      * @return mixed
      */
     public function scopeRepaired($query)
     {
         return $query->where('repaired', 1);
-    }
-
-    /**
-     * @param  $query
-     * @param  $from
-     * @param  $to
-     * @return mixed
-     */
-    public function scopeStorageBillingCyle($query, $from, $to)
-    {
-        return $query->whereBetween('date_received', [$from, $to]);
     }
 
     /**
@@ -295,27 +244,9 @@ class Package extends Model implements HasMedia
      * @param  $query
      * @return mixed
      */
-    public function scopeWithNoDeliveryInvoiceYet($query)
+    public function scopeWithNoInvoiceYet($query)
     {
-        return $query->where('delivery_invoiced', 0);
-    }
-
-    /**
-     * @param  $query
-     * @return mixed
-     */
-    public function scopeWithNoReceivingInvoiceYet($query)
-    {
-        return $query->where('receiving_invoiced', 0);
-    }
-
-    /**
-     * @param  $query
-     * @return mixed
-     */
-    public function scopeWithNoStorageInvoiceYet($query)
-    {
-        return $query->where('storage_invoiced', 0);
+        return $query->where('invoiced', 0);
     }
 
     /**
@@ -339,6 +270,18 @@ class Package extends Model implements HasMedia
             $this->attributes['delivered'] = 0;
         } else {
             $this->attributes['delivered'] = $value;
+        }
+    }
+
+    /**
+     * @param $value
+     */
+    public function setInvoicedAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['invoiced'] = 0;
+        } else {
+            $this->attributes['invoiced'] = $value;
         }
     }
 
