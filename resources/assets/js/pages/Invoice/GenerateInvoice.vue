@@ -357,7 +357,6 @@ export default {
   },
   mounted() {
     let self = this;
-    self.generateInvoice();
   },
   methods: {
     async generateInvoice() {
@@ -370,7 +369,11 @@ export default {
         );
         self.items = payload.data.data;
         for (let index = 0; index < self.items.length; index++) {
-            self.items[index]['total'] = self.items[index]['receiving_fee'] + self.items[index]['delivery_fee'] + self.items[index]['misc_fee'] + self.items[index]['storage_fee']
+          self.items[index]["total"] =
+            self.items[index]["receiving_fee"] +
+            self.items[index]["delivery_fee"] +
+            self.items[index]["misc_fee"] +
+            self.items[index]["storage_fee"];
         }
       } catch ({ errors, message }) {
         if (errors) {
