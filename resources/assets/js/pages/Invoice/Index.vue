@@ -260,7 +260,7 @@ export default {
   methods: {
     goToGenerateInvoice() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "invoices" }));
+      self.$nextTick(() => self.$router.push({ name: "generate-invoices" }));
     },
     fetchInvoices() {
       let self = this;
