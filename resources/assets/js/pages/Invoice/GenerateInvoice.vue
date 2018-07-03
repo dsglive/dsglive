@@ -234,19 +234,19 @@
             </td>
 
             <td class="title text-xs-left accent--text">
-              {{ props.item.receiving_fee.toFixed(4) }}
+              <span v-if="props.item.receiving_fee">{{ props.item.receiving_fee.toFixed(4) }}</span>
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.storage_fee.toFixed(4) }}
+              <span v-if="props.item.storage_fee">{{ props.item.storage_fee.toFixed(4) }}</span>
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.delivery_fee.toFixed(4) }}
+              <span v-if="props.item.delivery_fee">{{ props.item.delivery_fee.toFixed(4) }}</span>
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.misc_fee.toFixed(4) }}
+              <span v-if="props.item.misc_fee">{{ props.item.misc_fee.toFixed(4) }}</span>
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.total.toFixed(4) }}
+              <span v-if="props.item.total">{{ props.item.total.toFixed(4) }}</span>
             </td>
           </tr>
         </template>
@@ -355,9 +355,6 @@ export default {
       deep: true
     }
   },
-  mounted() {
-    let self = this;
-  },
   methods: {
     async generateInvoice() {
       let self = this;
@@ -369,11 +366,7 @@ export default {
         );
         self.items = payload.data.data;
         for (let index = 0; index < self.items.length; index++) {
-          self.items[index]["total"] =
-            self.items[index]["receiving_fee"] +
-            self.items[index]["delivery_fee"] +
-            self.items[index]["misc_fee"] +
-            self.items[index]["storage_fee"];
+            self.items[index]['total'] = self.items[index]['receiving_fee'] + self.items[index]['delivery_fee'] + self.items[index]['misc_fee'] + self.items[index]['storage_fee']
         }
       } catch ({ errors, message }) {
         if (errors) {
