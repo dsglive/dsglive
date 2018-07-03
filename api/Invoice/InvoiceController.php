@@ -18,11 +18,6 @@ class InvoiceController extends Controller
         $this->middleware(['role:admin']);
     }
 
-    public function index()
-    {
-        return Invoice::all();
-    }
-
     /**
      * @return mixed
      */
@@ -34,6 +29,7 @@ class InvoiceController extends Controller
         ]);
         $customers = User::with(['profile', 'receiving' => function ($query) use ($dates) {
             return $query->where('invoiced', false)
+                         ->where('active', true)
                          ->where('client_id', '!=', 1)
                          ->whereBetween('date_processed', [$dates['date_started'], $dates['date_ended']])
                          ->whereDate('date_processed', '<=', $dates['date_ended']);
@@ -188,7 +184,10 @@ class InvoiceController extends Controller
         return $all_storage_fees_ready_for_invoice;
     }
 
-    
+    public function index()
+    {
+        return Invoice::all();
+    }
 
     public function massCreateInvoice()
     {
@@ -216,6 +215,7 @@ class InvoiceController extends Controller
                 ], $customer);
             }
         }
+
         return response()->json(['message' => 'Mass Invoice Creation Done!']);
     }
 }

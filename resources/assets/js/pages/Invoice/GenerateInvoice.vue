@@ -341,13 +341,17 @@ export default {
             self.items[index]["misc_fee"] +
             self.items[index]["storage_fee"];
         }
-      } catch ({ errors, message }) {
-        if (errors) {
-          self.form.errors.set(errors);
-        }
-        if (message) {
-        }
-        self.form.busy = false;
+      } catch (errors) {
+        let toggleModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Validation Error!",
+            html: '<p class="title">Please Pick a Date Started and Date Ended!</p>',
+            type: "warning",
+            confirmButtonText: "Back"
+          });
       }
     },
     viewInvoice(customer) {
