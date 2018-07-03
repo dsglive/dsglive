@@ -38,7 +38,6 @@ class CreatePackagesTable extends Migration
             $table->string('bin_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamp('date_received')->nullable();  // for storage fee (start billing)
-            $table->timestamp('date_out')->nullable();       // for storage fee (stop billing)
             $table->timestamp('date_processed')->nullable(); // for receiving fee
             $table->string('po_no')->nullable();
             $table->string('style_no')->nullable();
@@ -58,12 +57,9 @@ class CreatePackagesTable extends Migration
             $table->unsignedInteger('logistic_id')->nullable()->index()->comment('id from logistics table');
             $table->boolean('delivered')->default(0)
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
-            $table->timestamp('date_delivered')->nullable() // for delivery fee
+            $table->timestamp('date_delivered')->nullable() // for delivery fee // for storage fee (stop billing)
                   ->comment('updated when delivery ticket has packages, linked with logistics table');
             // we also have package images and damage images to be handle by laravel image library, using media model
-            $table->boolean('receiving_invoiced')->default(0)->comment('already has been used as item for invoice');
-            $table->boolean('delivery_invoiced')->default(0)->comment('already has been used as item for invoice');
-            $table->boolean('storage_invoiced')->default(0)->comment('already has been used as item for invoice');
             $table->softDeletes();
             $table->timestamps();
         });

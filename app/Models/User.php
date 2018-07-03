@@ -87,6 +87,14 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return mixed
      */
+    public function delivery()
+    {
+        return $this->hasMany(Logistic::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
     public function dsg()
     {
         return $this->hasMany(Dsg::class, 'customer_id');
@@ -103,9 +111,41 @@ class User extends Authenticatable implements HasMedia
     /**
      * @return mixed
      */
+    public function logistics()
+    {
+        return $this->hasMany(Logistic::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function misc()
+    {
+        return $this->hasMany(Misc::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
     public function miscFees()
     {
         return $this->hasMany(Misc::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function receiving()
+    {
+        return $this->hasMany(Dsg::class, 'customer_id');
     }
 
     public function registerMediaCollections()
@@ -167,12 +207,20 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownCustomer($query)
     {
         return $query->where('id', 1001);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function storage()
+    {
+        return $this->hasMany(Package::class, 'customer_id');
     }
 
     /**

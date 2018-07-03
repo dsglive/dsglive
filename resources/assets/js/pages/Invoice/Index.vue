@@ -6,7 +6,7 @@
         row 
         wrap>
         <v-flex 
-          d-flex 
+          d-flex    
           xs12 
           sm7>
           <v-layout 

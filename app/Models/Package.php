@@ -27,7 +27,6 @@ class Package extends Model implements HasMedia
         'date_delivered' => 'date:Y-m-d',
         'date_repaired'  => 'date:Y-m-d',
         'date_processed' => 'date:Y-m-d',
-        'date_out'       => 'date:Y-m-d',
         'date_received'  => 'date:Y-m-d'
     ];
 
@@ -38,7 +37,6 @@ class Package extends Model implements HasMedia
         'date_delivered',
         'date_repaired',
         'date_processed',
-        'date_out',
         'date_received',
         'deleted_at'
     ];
@@ -47,7 +45,7 @@ class Package extends Model implements HasMedia
      * @var array
      */
     protected $fillable = ['dsg_id', 'customer_id', 'customer_name', 'client_id', 'client_name', 'shipper_id',
-        'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_out', 'date_processed',
+        'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
         'logistic_id'

@@ -39,7 +39,7 @@ class Misc extends Model
     /**
      * @var string
      */
-    protected $table = 'misc_fee';
+    protected $table = 'misc';
 
     public static function archived()
     {
