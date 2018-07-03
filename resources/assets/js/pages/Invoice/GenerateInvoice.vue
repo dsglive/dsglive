@@ -124,7 +124,7 @@
                   right
                   color="blue darken-4" 
                 >
-                  schedule
+                  all_inbox
                 </v-icon>
               </v-btn>
             </v-flex>
