@@ -139,7 +139,7 @@
         :search="search"
         :pagination.sync="pagination"
         select-all
-        item-key="id"
+        item-key="customer_name"
       >
         <!-- Header Section -->
         <template
@@ -184,7 +184,7 @@
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
-                @click="props.selected = !props.selected"
+                @click.native="props.selected = !props.selected"
               />
             </td>
             <td class="title text-xs-left accent--text">
