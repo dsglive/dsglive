@@ -23,25 +23,26 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('customer_id')->nullable()->index()->comment('id from users table');
             $table->string('customer_name')->nullable()->comment('if customer id is null , we save an unknown customer');
-            $table->unsignedInteger('client_id')->nullable()->index()->comment('id from clients table');
-            $table->string('client_name')->nullable()->comment('if client id is null , we save an unknown client');
             $table->float('receiving_fee', 8, 4)->nullable();
+            $table->json('receiving')->nullable();
             $table->float('delivery_fee', 8, 4)->nullable();
+            $table->json('delivery')->nullable();
             $table->float('storage_fee', 8, 4)->nullable();
+            $table->json('storage')->nullable();
             $table->float('misc_fee', 8, 4)->nullable();
-            $table->float('total_amount', 8, 4)->nullable();
-            $table->float('total_balance', 8, 4)->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->json('misc')->nullable();
+            $table->float('total', 8, 4)->nullable();
+            $table->float('balance', 8, 4)->nullable();
+            $table->timestamp('date_started')->nullable();
+            $table->timestamp('date_ended')->nullable();
             $table->timestamp('due_date')->nullable();
             $table->boolean('overdue')->default(0);
-            $table->text('notes');
+            $table->string('notes')->nullable();
             $table->timestamps();
-
         });
     }
 }

@@ -41,16 +41,19 @@ class GenerateInvoiceResource extends Resource
                     return $carry + $item->receiving_amount;
                 });
             }),
+            'receiving' => $this->whenLoaded('receiving', $this->receiving),
             'delivery_fee'  => $this->whenLoaded('delivery', function () {
                 return $this->delivery->reduce(function ($carry, $item) {
                     return $carry + $item->total_charges;
                 });
             }),
+            'delivery' => $this->whenLoaded('delivery', $this->delivery),
             'misc_fee'      => $this->whenLoaded('misc', function () {
                 return $this->misc->reduce(function ($carry, $item) {
                     return $carry + $item->amount;
                 });
             }),
+            'misc' => $this->whenLoaded('misc', $this->misc),
             'storage_fee'   => $this->whenLoaded('storage', function () {
                 return $this->storage->reduce(function ($carry, $item) {
                     $rate = $item->storage_fee * $item->cube;
@@ -58,6 +61,7 @@ class GenerateInvoiceResource extends Resource
                     return $carry + $rate * $days;
                 });
             }),
+            'storage' => $this->whenLoaded('storage', $this->storage),
             'date_started'  => $request->input('date_started'),
             'date_ended'    => $request->input('date_ended')
         ];

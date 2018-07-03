@@ -109,68 +109,26 @@
           <v-layout 
             row 
             wrap>
-            <v-flex 
-              xs12 
-              class="white"
-              d-flex>
+            <v-flex class="xs12 white">
               <v-btn 
+                v-if="selected.length>0"
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="blue darken-4" 
                 dark
                 flat
-                @click="generateInvoice()">
+                @click="massCreateInvoice">
                 Generate Invoice
                 <v-icon
+                  large
                   right
-                  color="primary" 
+                  color="blue darken-4" 
                 >
                   schedule
                 </v-icon>
               </v-btn>
             </v-flex>
-            <v-flex 
-              xs12 
-              d-flex>
-              <v-flex class="xs6 white">
-                <v-btn 
-                  v-if="false"
-                  :disabled="!$auth.check('admin')" 
-                  block 
-                  color="blue darken-4" 
-                  dark
-                  flat
-                  @click="massActivate">
-                  <v-icon
-                    large
-                    color="blue darken-4" 
-                  >
-                    link
-                  </v-icon>
-                  Activate Selected
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs6 white">
-                <v-btn 
-                  v-if="false"
-                  :disabled="!$auth.check('admin')" 
-                  block 
-                  flat
-                  color="error" 
-                  dark
-                  @click="massDeactivate">
-                  <v-icon
-                    large
-                    color="error" 
-                  >
-                    link_off
-                  </v-icon>
-                  Deactivate Selected
-                </v-btn>
-              </v-flex>
-            </v-flex>
           </v-layout>
-          
         </v-flex>
       </v-layout>
       <!-- User Data Table -->
@@ -189,7 +147,7 @@
           slot-scope="props"
         >
           <tr>
-            <!-- <th>
+            <th>
               <v-checkbox
                 :input-value="props.all"
                 :indeterminate="props.indeterminate"
@@ -197,7 +155,7 @@
                 hide-details
                 @click.native="toggleAll"
               />
-            </th> -->
+            </th>
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -222,13 +180,13 @@
           slot-scope="props"
         >
           <tr>
-            <!-- <td class="title text-xs-left">
+            <td class="title text-xs-left">
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
-            </td> -->
+            </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.customer_name }}
             </td>
@@ -263,19 +221,19 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            No Invoice Generated Yet!
+            Pick Date Started and Date Ended To
             <v-btn 
               :disabled="!$auth.check('admin')" 
               color="white" 
               flat
               dark
               @click="generateInvoice">
-              Generate Invoice
+              Fetch Billables
               <v-icon
                 right
                 color="primary" 
               >
-                schedule
+                attach_money
               </v-icon>
             </v-btn>
           </v-alert>
@@ -333,13 +291,11 @@ export default {
     ],
     items: [],
     selected: [],
+    mass_create_invoices: new Form({}),
     pagination: {
       sortBy: "name"
     },
-    toggleForm: new Form({
-      toggle: false,
-      invoice_id: null
-    }),
+    toggleForm: new Form({}),
     search: "",
     domain: window.location.hostname,
     form: new Form({
@@ -356,6 +312,19 @@ export default {
     }
   },
   methods: {
+    massCreateInvoice() {
+    let self = this;
+    let customers = [];
+    for (let index = 0; index < self.selected.length; index++) {
+          customers.push(self.selected[index]['customer_id'])
+        }
+        self.mass_create_invoices = self.selected
+      axios
+        .post(route("api.invoice.massCreateInvoice"), self.mass_create_invoices)
+        .then(response => {
+          console.log("invoices", response.data);
+        });
+    },
     async generateInvoice() {
       let self = this;
       self.form.busy = true;
@@ -366,7 +335,11 @@ export default {
         );
         self.items = payload.data.data;
         for (let index = 0; index < self.items.length; index++) {
-            self.items[index]['total'] = self.items[index]['receiving_fee'] + self.items[index]['delivery_fee'] + self.items[index]['misc_fee'] + self.items[index]['storage_fee']
+          self.items[index]["total"] =
+            self.items[index]["receiving_fee"] +
+            self.items[index]["delivery_fee"] +
+            self.items[index]["misc_fee"] +
+            self.items[index]["storage_fee"];
         }
       } catch ({ errors, message }) {
         if (errors) {
@@ -377,20 +350,20 @@ export default {
         self.form.busy = false;
       }
     },
-    viewInvoice(invoice) {
+    viewInvoice(customer) {
       vm.$router.push({
         name: "view-invoice",
-        params: { id: `${invoice.id}` }
+        params: { id: `${customer.id}` }
       });
     },
-    toggleStatus(invoice) {
+    toggleStatus(customer) {
       let self = this;
-      self.toggleForm.toggle = invoice.active;
-      self.toggleForm.invoice_id = invoice.id;
+      self.toggleForm = customer;
       axios
-        .post(route("api.invoice.toggleStatus"), self.toggleForm)
+        .post(route("api.invoice.create"), self.toggleForm)
         .then(response => {
           console.log(response.data);
+          toggleForm: new Form({});
         })
         .catch(errors => {
           let toggleModal = swal.mixin({
@@ -403,14 +376,8 @@ export default {
             type: "warning",
             confirmButtonText: "Back"
           });
+          toggleForm: new Form({});
         });
-    },
-    getStatus(status) {
-      if (status) {
-        return "Active";
-      } else {
-        return "Inactive";
-      }
     },
     toProperCase(key) {
       let newStr = key.replace(/_/g, " ");
