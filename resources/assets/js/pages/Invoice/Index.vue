@@ -215,7 +215,12 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Started At", value: "date_started", align: "left", sortable: true },
+      {
+        text: "Started At",
+        value: "date_started",
+        align: "left",
+        sortable: true
+      },
       { text: "Ended At", value: "date_ended", align: "left", sortable: true },
       {
         text: "Receiving",
@@ -231,7 +236,7 @@ export default {
         sortable: true
       },
       { text: "Misc", value: "misc_fee", align: "left", sortable: true },
-      { text: "Total", value: "total", align: "left", sortable: true },
+      { text: "Total", value: "total", align: "left", sortable: true }
       //   { text: "Actions", value: "actions", align: "left", sortable: false }
     ],
     items: [],
@@ -254,9 +259,8 @@ export default {
   },
   methods: {
     goToGenerateInvoice() {
-      vm.$router.push({
-        name: "generate-invoice"
-      });
+      let self = this;
+      self.$nextTick(() => self.$router.push({ name: "home" }));
     },
     fetchInvoices() {
       let self = this;
