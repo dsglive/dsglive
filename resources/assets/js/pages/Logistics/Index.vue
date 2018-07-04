@@ -330,7 +330,6 @@ export default {
   mixins: [validationError],
   data: () => ({
     rowsPerPageItems: [1,2],
-    contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
     /* table */
     headers: [

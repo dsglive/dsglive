@@ -23,8 +23,8 @@
         wrap
         my-3
         py-3
-        mx-3
-        px-3
+        mx-1
+        px-1
       >
         <v-flex 
           xs12
@@ -87,10 +87,117 @@
             label="Misc Fee"
           />
         </v-flex>
+        <v-flex 
+          xs12
+          lg10
+          offset-lg1
+        >
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search Client"
+            single-line
+            hide-details
+            light
+          />
+        </v-flex>
       </v-layout>
-      
+      <v-container fluid>
+        <v-layout
+          row 
+          mx-5
+          px-5
+        >
+          <v-data-table
+            v-model="selected"
+            :headers="headers"
+            :items="items"
+            :search="search"
+            :pagination.sync="pagination"
+            item-key="client_id"
+          >
+            <template
+              slot="headers" 
+              slot-scope="props"
+            >
+              <tr>
+                <th 
+                  v-for="header in props.headers" 
+                  :key="header.text"
+                  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 
+                           header.value === pagination.sortBy ? 'name' : '', 
+                           {'text-xs-left': header.align === 'left', 
+                            'text-xs-right': header.align === 'right', 
+                            'text-xs-center': header.align === 'center'},
+                           $vuetify.breakpoint.width >= 600 && 'title']"
+                  @click="changeSort(header.value)"
+                >
+                  <span>
+                    <v-icon>arrow_upward</v-icon>
+                    {{ header.text }}
+                  </span>
+                </th>
+              </tr>
+            </template>
+            <!-- Row Section -->
+            <template 
+              slot="items" 
+              slot-scope="props"
+            >
+              <tr>
+                <td class="title text-xs-left accent--text">
+                  {{ props.item.client_id }}
+                </td>
+                <td class="title text-xs-left accent--text">
+                  {{ props.item.client_name[0] }}
+                </td>
+                <td 
+                  class="title text-xs-left"
+                >
+                  {{ props.item.receiving_fee }}
+                </td>
+                <td 
+                  class="title text-xs-left"
+                >
+                  {{ props.item.delivery_fee }}
+                </td>
+                <td class="title text-xs-left accent--text">
+                  {{ props.item.storage_fee }}
+                </td>
+                <td class="title text-xs-center accent--text">
+                  {{ props.item.misc_fee }}
+                </td>
+              </tr>
+            </template>
+            <!-- Expand Section -->
+            <!-- Pagination Section -->
+            <template 
+              slot="pageText"
+              slot-scope="{ pageStart, pageStop }"
+            >
+              From {{ pageStart }} to {{ pageStop }}
+            </template>
+            <!-- No Data Section -->
+            <template slot="no-data">
+              <v-alert 
+                :value="true" 
+                color="blue-grey" 
+                icon="warning">
+                Opps! No Clients
+              </v-alert>
+            </template>
+            <!-- No Search Result Section -->
+            <v-alert 
+              slot="no-results" 
+              :value="true" 
+              color="blue-grey" 
+              icon="warning">
+              Your search for "{{ search }}" found no results.
+            </v-alert>
+          </v-data-table>
+        </v-layout>
+      </v-container>
     </v-card>
-
   </modal-layout>
 </template>
 
@@ -116,7 +223,26 @@ export default {
       storage_fee: null,
       misc_fee: null
     },
-    clients: []
+    clients: [],
+    headers: [
+      { text: "Client ID#", value: "client_id", align: "left", sortable: true },
+      { text: "Name#", value: "client_name[0]", align: "left", sortable: true },
+      {
+        text: "Receiving Fee",
+        value: "receiving_fee",
+        align: "left",
+        sortable: true
+      },
+      { text: "Delivery Fee", value: "delivery_fee", align: "left", sortable: true },
+      { text: "Storage Fee", value: "storage_fee", align: "left", sortable: true },
+      { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true },
+    ],
+    items: [],
+    selected: [],
+    pagination: {
+      sortBy: "name",
+    },
+    search: "",
   }),
   watch: {
     clients: {
@@ -144,6 +270,7 @@ export default {
         let data = response.data;
         self.clients = data.clients
         self.customer = data.customer
+        self.items = data.clients;
         console.log("data", data);
       });
     }
