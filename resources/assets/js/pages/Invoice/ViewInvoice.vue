@@ -18,6 +18,76 @@
         <v-toolbar-title class="text-xs-center white--text">Viewing Invoice# {{ id }}</v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
+      <v-layout 
+        row 
+        wrap
+        my-3
+        py-3
+        mx-3
+        px-3
+      >
+        <v-flex 
+          xs12
+          lg2
+          offset-lg1
+        >
+          <v-text-field
+            v-model="customer.customer_name"
+            light
+            readonly
+            disabled
+            label="Customer"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg2
+        >
+          <v-text-field
+            v-model="customer.receiving_fee"
+            light
+            readonly
+            disabled
+            label="Receiving Fee"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg2
+        >
+          <v-text-field
+            v-model="customer.delivery_fee"
+            light
+            readonly
+            disabled
+            label="Delivery Fee"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg2
+        >
+          <v-text-field
+            v-model="customer.storage_fee"
+            light
+            readonly
+            disabled
+            label="Storage Fee"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          lg2
+        >
+          <v-text-field
+            v-model="customer.misc_fee"
+            light
+            readonly
+            disabled
+            label="Misc Fee"
+          />
+        </v-flex>
+      </v-layout>
       
     </v-card>
 
@@ -52,7 +122,12 @@ export default {
     clients: {
       handler: function(newValue) {},
       deep: true
+    },
+    customer: {
+      handler: function(newValue) {},
+      deep: false
     }
+
   },
   created() {
     this.fetchInvoice();

@@ -166,6 +166,7 @@ class InvoiceController extends Controller
         }
         $customer = [
             'customer_id' => $invoice->customer_id,
+            'customer_name' => $invoice->customer_name,
             'receiving_fee' => $invoice->receiving_fee,
             'delivery_fee' => $invoice->delivery_fee,
             'storage_fee' => $invoice->storage_fee,
@@ -212,7 +213,10 @@ class InvoiceController extends Controller
         }
 
         foreach ($customers as $customer) {
-            if (count($customer['receiving']) > 0 || count($customer['delivery']) > 0 || count($customer['misc']) > 0 || count($customer['storage']) > 0) {
+            if (count($customer['receiving']) > 0 ||
+            count($customer['delivery']) > 0 ||
+            count($customer['misc']) > 0 ||
+            count($customer['storage']) > 0) {
                 Invoice::firstOrCreate([
                     'customer_name' => $customer['customer_name'],
                     'date_started'  => $customer['date_started'],
