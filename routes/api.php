@@ -8,8 +8,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.invoice.massCreateInvoice');
     Route::post('/invoices', 'Invoice\InvoiceController@index')
         ->name('api.invoice.index');
-    // Route::get('/invoices/view/{invoice}', 'Invoice\InvoiceController@view')
-    // ->name('api.invoice.view');
+    Route::get('/invoices/view/{invoice}', 'Invoice\InvoiceController@view')
+    ->name('api.invoice.view');
     Route::get('/invoices/delete/{invoice}', 'Invoice\InvoiceController@delete')
         ->name('api.invoice.delete');
 
@@ -136,6 +136,3 @@ Route::post('/auth/register', 'Auth\RegisterController@register')->name('api.aut
 Route::post('/auth/login', 'Auth\LoginController@login')->name('api.auth.login');
 //? Router For Sending Customer Email
 Route::post('/@contact', 'Homepage\ContactUsController@contact')->name('api.@contact');
-
-Route::get('/invoices/view/{invoice}', 'Invoice\InvoiceController@view')
-    ->name('api.invoice.view');
