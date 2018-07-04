@@ -136,10 +136,10 @@
                   :disabled="!$auth.check('admin')" 
                   flat 
                   icon 
-                  color="error" 
-                  @click="deleteInvoice(props.item)"
+                  color="amber lighten-2" 
+                  @click="viewInvoice(props.item)"
                 >
-                  <v-icon>fa-trash</v-icon>
+                  <v-icon>fa-eye</v-icon>
                 </v-btn>
               </v-flex>
               <v-flex class="xs12">
@@ -147,10 +147,10 @@
                   :disabled="!$auth.check('admin')" 
                   flat 
                   icon 
-                  color="amber lighten-2" 
-                  @click="viewInvoice(props.item)"
+                  color="error" 
+                  @click="deleteInvoice(props.item)"
                 >
-                  <v-icon>fa-eye</v-icon>
+                  <v-icon>fa-trash</v-icon>
                 </v-btn>
               </v-flex>
             </td>
