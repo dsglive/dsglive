@@ -6,12 +6,13 @@ use Api\Controller;
 use App\Models\Dsg;
 use App\Models\Misc;
 use App\Models\User;
+use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Package;
 use App\Models\Logistic;
 use Illuminate\Support\Carbon;
-use App\Http\Resources\Invoice\GenerateInvoiceResource;
 use Illuminate\Auth\EloquentUserProvider;
+use App\Http\Resources\Invoice\GenerateInvoiceResource;
 
 class InvoiceController extends Controller
 {
@@ -120,6 +121,7 @@ class InvoiceController extends Controller
 
             return [
                     'client_id' => $item,
+                    'client_name' => collect([]),
                     'receiving_fee' => collect([]),
                     'delivery_fee' => collect([]),
                     'storage_fee' => collect([]),
@@ -132,6 +134,8 @@ class InvoiceController extends Controller
         });
 
         foreach ($clients as $index => $id) {
+            $client = Client::find($id['client_id']);
+            $clients[$index]['client_name']->push($client->name);
             foreach ($misc as $key => $item) {
                 if ($clients[$index]['client_id'] === $item['client_id']) {
                     $clients[$index]['misc_fee']->push($item['misc_fee']);
