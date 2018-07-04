@@ -17,7 +17,7 @@ class InvoiceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin']);
+        // $this->middleware(['role:admin']);
     }
 
     /**
@@ -118,7 +118,8 @@ class InvoiceController extends Controller
 
         $clients = $merge->map(function ($item, $key) {
 
-            return [$item => [
+            return [
+                    'client_id' => $item,
                     'receiving_fee' => collect([]),
                     'delivery_fee' => collect([]),
                     'storage_fee' => collect([]),
@@ -127,36 +128,35 @@ class InvoiceController extends Controller
                     'logistic_ids' => collect([]),
                     'packages_ids' => collect([]),
                     'misc_ids' => collect([])
-            ]
             ];
         });
 
         foreach ($clients as $index => $id) {
             foreach ($misc as $key => $item) {
-                if (isset($clients[$index][$item['client_id']]['misc_fee'])) {
-                    $clients[$index][$item['client_id']]['misc_fee']->push($item['misc_fee']);
-                    $clients[$index][$item['client_id']]['misc_ids']->push($item['misc_id']);
+                if ($clients[$index]['client_id'] === $item['client_id']) {
+                    $clients[$index]['misc_fee']->push($item['misc_fee']);
+                    $clients[$index]['misc_ids']->push($item['misc_id']);
                 }
             }
             
             foreach ($receiving as $key => $item) {
-                if (isset($clients[$index][$item['client_id']]['receiving_fee'])) {
-                    $clients[$index][$item['client_id']]['receiving_fee']->push($item['receiving_fee']);
-                    $clients[$index][$item['client_id']]['receiving_ids']->push($item['dsg_id']);
+                if ($clients[$index]['client_id'] === $item['client_id']) {
+                    $clients[$index]['receiving_fee']->push($item['receiving_fee']);
+                    $clients[$index]['receiving_ids']->push($item['dsg_id']);
                 }
             }
             
             foreach ($delivery as $key => $item) {
-                if (isset($clients[$index][$item['client_id']]['delivery_fee'])) {
-                    $clients[$index][$item['client_id']]['delivery_fee']->push($item['delivery_fee']);
-                    $clients[$index][$item['client_id']]['logistic_ids']->push($item['logistic_id']);
+                if ($clients[$index]['client_id'] === $item['client_id']) {
+                    $clients[$index]['delivery_fee']->push($item['delivery_fee']);
+                    $clients[$index]['logistic_ids']->push($item['logistic_id']);
                 }
             }
 
             foreach ($storage as $key => $item) {
-                if (isset($clients[$index][$item['client_id']]['storage_fee'])) {
-                    $clients[$index][$item['client_id']]['storage_fee']->push($item['storage_fee']);
-                    $clients[$index][$item['client_id']]['packages_ids']->push($item['package_id']);
+                if ($clients[$index]['client_id'] === $item['client_id']) {
+                    $clients[$index]['storage_fee']->push($item['storage_fee']);
+                    $clients[$index]['packages_ids']->push($item['package_id']);
                 }
             }
         }
