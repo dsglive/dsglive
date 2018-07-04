@@ -116,8 +116,8 @@
             <td class="title text-xs-left accent--text">
               <span v-if="props.item.total">{{ props.item.total.toFixed(4) }}</span>
             </td>
-            <!-- <td class="title text-xs-center">
-              <v-flex 
+            <td class="title text-xs-center">
+              <!-- <v-flex 
                 class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -130,8 +130,30 @@
                   <v-icon v-if="!props.expanded">fa-expand</v-icon>
                   <v-icon v-if="props.expanded">fa-compress</v-icon>
                 </v-btn>
+              </v-flex> -->
+              <v-flex class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="error" 
+                  @click="deleteInvoice(props.item)"
+                >
+                  <v-icon>fa-trash</v-icon>
+                </v-btn>
               </v-flex>
-            </td> -->
+              <v-flex class="xs12">
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="amber lighten-2" 
+                  @click="viewInvoice(props.item)"
+                >
+                  <v-icon>fa-eye</v-icon>
+                </v-btn>
+              </v-flex>
+            </td>
           </tr>
         </template>
         <!-- Expand Section -->
@@ -245,8 +267,8 @@ export default {
         sortable: true
       },
       { text: "Misc", value: "misc_fee", align: "left", sortable: true },
-      { text: "Total", value: "total", align: "left", sortable: true }
-      //   { text: "Actions", value: "actions", align: "left", sortable: false }
+      { text: "Total", value: "total", align: "left", sortable: true },
+      { text: "Actions", value: "actions", align: "left", sortable: false }
     ],
     items: [],
     selected: [],
@@ -267,6 +289,44 @@ export default {
     self.fetchInvoices();
   },
   methods: {
+    viewInvoice(invoice){
+        let self = this
+        self.$nextTick(() => self.$router.push({ name: "view-invoice", params: { id: `${invoice.id}` }}));
+    },
+    deleteInvoice(invoice) {
+      let self = this;
+      let id = invoice.id;
+      let index = _.findIndex(self.items, { id: invoice.id });
+      axios
+        .get(route("api.invoice.delete", { id }))
+        .then(response => {
+          if (response.status === 200) {
+            self.$delete(self.items, index);
+            let toggleModal = swal.mixin({
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">${response.data.message}</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
+          }
+        })
+        .catch(errors => {
+          const deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Oops! Something Went Wrong...",
+            html: `<p class="title">${errors.response.data.message}</p>`,
+            type: "error",
+            confirmButtonText: "Back"
+          });
+        });
+    },
     goToGenerateInvoice() {
       let self = this;
       self.$nextTick(() => self.$router.push({ name: "generate-invoices" }));
@@ -274,7 +334,6 @@ export default {
     fetchInvoices() {
       let self = this;
       axios.post(route("api.invoice.index")).then(response => {
-        console.log(response.data);
         self.items = response.data;
       });
     },

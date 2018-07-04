@@ -17,7 +17,7 @@ class InvoiceController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['role:admin']);
+        $this->middleware(['role:admin']);
     }
 
     /**
@@ -129,9 +129,8 @@ class InvoiceController extends Controller
                     'misc_ids' => collect([])
             ]
             ];
-           
-
         });
+
         foreach ($clients as $index => $id) {
             foreach ($misc as $key => $item) {
                 if (isset($clients[$index][$item['client_id']]['misc_fee'])) {
@@ -178,7 +177,19 @@ class InvoiceController extends Controller
         $client_ids = array_unique(array_merge($client_ids, $d));
         return $client_ids;
     }
-
+    public function delete(Invoice $invoice)
+    {
+        $receiving = collect($invoice->receiving)->pluck('id')->toArray();
+        Dsg::whereIn('id', $receiving)->update(['invoiced' => false]);
+        $delivery = collect($invoice->delivery)->pluck('id')->toArray();
+        Logistic::whereIn('id', $delivery)->update(['invoiced' => false]);
+        $storage = collect($invoice->storage)->pluck('id')->toArray();
+        Package::whereIn('id', $storage)->update(['invoiced' => false]);
+        $misc = collect($invoice->misc)->pluck('id')->toArray();
+        Misc::whereIn('id', $misc)->update(['invoiced' => false]);
+        $invoice->delete();
+        return response()->json(['message' => 'Invoice Deleted!']);
+    }
     public function massCreateInvoice()
     {
         $customers = request()->all();
