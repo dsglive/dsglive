@@ -23,8 +23,8 @@
         wrap
         my-3
         py-3
-        mx-1
-        px-1
+        mx-5
+        px-5
       >
         <v-flex 
           xs12
