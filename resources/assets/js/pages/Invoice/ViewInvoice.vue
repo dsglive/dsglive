@@ -152,12 +152,12 @@
                   {{ props.item.client_name[0] }}
                 </td>
                 <td 
-                  class="title text-xs-left"
+                  class="title text-xs-left accent--text"
                 >
                   {{ props.item.receiving_fee }}
                 </td>
                 <td 
-                  class="title text-xs-left"
+                  class="title text-xs-left accent--text"
                 >
                   {{ props.item.delivery_fee }}
                 </td>
@@ -206,7 +206,7 @@ import ModalLayout from "Layouts/ModalLayout.vue";
 import swal from "sweetalert2";
 export default {
   components: {
-    ModalLayout,
+    ModalLayout
   },
   props: {
     id: {
@@ -233,14 +233,24 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Delivery Fee", value: "delivery_fee", align: "left", sortable: true },
-      { text: "Storage Fee", value: "storage_fee", align: "left", sortable: true },
-      { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true },
+      {
+        text: "Delivery Fee",
+        value: "delivery_fee",
+        align: "left",
+        sortable: true
+      },
+      {
+        text: "Storage Fee",
+        value: "storage_fee",
+        align: "left",
+        sortable: true
+      },
+      { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
     pagination: {
-      sortBy: "name",
+      sortBy: "name"
     },
     search: "",
   }),
@@ -253,7 +263,6 @@ export default {
       handler: function(newValue) {},
       deep: false
     }
-
   },
   created() {
     this.fetchInvoice();
@@ -268,10 +277,16 @@ export default {
       let self = this;
       axios.get(route("api.invoice.view", { id })).then(response => {
         let data = response.data;
-        self.clients = data.clients
-        self.customer = data.customer
+        self.clients = data.clients;
+        self.customer = data.customer;
         self.items = data.clients;
-        console.log("data", data);
+        self.items.forEach(element => {
+            console.log('element',element)
+            element.receiving_fee =  _.sum(element.receiving_fee)
+            element.delivery_fee =  _.sum(element.delivery_fee)
+            element.misc_fee =  _.sum(element.misc_fee)
+            element.storage_fee =  _.sum(element.storage_fee)
+        });
       });
     }
   }
