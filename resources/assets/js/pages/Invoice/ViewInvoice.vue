@@ -102,11 +102,12 @@
           />
         </v-flex>
       </v-layout>
-      <v-container fluid>
+      <v-container>
         <v-layout
           row 
-          mx-5
-          px-5
+          wrap
+          pa-0
+          ma-0
         >
           <v-data-table
             v-model="selected"
