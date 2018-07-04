@@ -8,6 +8,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.invoice.massCreateInvoice');
     Route::post('/invoices', 'Invoice\InvoiceController@index')
         ->name('api.invoice.index');
+    Route::get('/invoices/view/{invoice}', 'Invoice\InvoiceController@view')
+    ->name('api.invoice.view');
 
     //? Misc Management
     Route::post('/miscellaneous', 'Misc\MiscellaneousController@index')->name('api.misc.index');
