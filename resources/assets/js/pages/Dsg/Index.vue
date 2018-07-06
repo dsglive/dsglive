@@ -83,7 +83,7 @@
                   >
                     link
                   </v-icon>
-                  Activate Selected
+                  Mark As Received
                 </v-btn>
               </v-flex>
               <v-flex class="xs6 white">
@@ -101,7 +101,7 @@
                   >
                     link_off
                   </v-icon>
-                  Deactivate Selected
+                  Mark As Warehouse
                 </v-btn>
               </v-flex>
             </v-flex>
@@ -380,9 +380,9 @@ export default {
     },
     getStatus(status) {
       if (status) {
-        return "Active";
+        return "received";
       } else {
-        return "Inactive";
+        return "warehouse";
       }
     },
     async fetchDsg() {
