@@ -488,7 +488,7 @@
             Packages To Be Delivered ({{ packages.length }})
           </v-subheader>
           <v-btn 
-            v-if="packages.length > 1"
+            v-if="packages.length > 0"
             color="secondary"
             @click="toggleAll"
           >
