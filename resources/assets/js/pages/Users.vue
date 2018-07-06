@@ -161,9 +161,6 @@
               />
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.id }}
-            </td>
-            <td class="title text-xs-left accent--text">
               {{ props.item.name }}
             </td>
 
@@ -554,7 +551,6 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Email", value: "email", align: "left", sortable: true },
       { text: "Username", value: "username", align: "left", sortable: true },

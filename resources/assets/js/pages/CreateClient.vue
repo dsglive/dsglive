@@ -46,7 +46,7 @@
             data-vv-name="name"
           />
         </v-flex>
-        <v-flex 
+        <!-- <v-flex 
           xs12 
           md8 
           offset-md2
@@ -55,7 +55,7 @@
             v-model="form.active"
             :label="getStatus(form.active)"
           />
-        </v-flex>
+        </v-flex> -->
         <v-flex 
           xs12 
           md8 

@@ -100,7 +100,7 @@ class DsgController extends Controller
 
     public function getCustomers()
     {
-        $users     = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->get();
+        $users     = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->active()->get();
         $unknown   = User::with(['profile', 'clients'])->unknownCustomer()->get();
         $customers = $unknown->concat($users);
         return CustomerResource::collection($customers);
@@ -108,7 +108,7 @@ class DsgController extends Controller
 
     public function getEmployees()
     {
-        $users = User::with('profile')->where('id', '!=', 1)->role('admin')->get();
+        $users = User::with('profile')->where('id', '!=', 1)->role('admin')->active()->get();
         return CustomerResource::collection($users);
     }
 
@@ -120,7 +120,9 @@ class DsgController extends Controller
 
     public function getShippers()
     {
-        $shippers = Shipper::all();
+        $active = Shipper::exceptUnknownShipper()->active()->get();
+        $unknown = Shipper::unknownShipper()->get();
+        $shippers = $unknown->concat($active);
         return WithShipperResource::collection($shippers);
     }
 

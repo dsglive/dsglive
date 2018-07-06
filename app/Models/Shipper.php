@@ -59,6 +59,15 @@ class Shipper extends Model
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
+    /**
      * @param  $query
      * @return mixed
      */

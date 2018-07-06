@@ -167,9 +167,6 @@
               />
             </td>
             <td class="title text-xs-left accent--text">
-              {{ props.item.id }}
-            </td>
-            <td class="title text-xs-left accent--text">
               {{ props.item.name }}
             </td>
 
@@ -270,7 +267,6 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Amount", value: "amount", align: "left", sortable: true },
       { text: "Type", value: "type", align: "left", sortable: true },
