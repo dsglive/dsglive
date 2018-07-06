@@ -46,20 +46,20 @@
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createBin">
                 Create New Bin
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   view_module
                 </v-icon>
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-plus-circle
                 </v-icon>

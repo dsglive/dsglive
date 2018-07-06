@@ -106,7 +106,7 @@
                     :disabled="form.busy"
                     block
                     flat
-                    color="red lighten-2"
+                    color="primary"
                     class="white--text"
                     type="submit"
                   >Yes, Log Me Out</v-btn>

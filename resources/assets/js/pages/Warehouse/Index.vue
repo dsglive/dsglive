@@ -45,20 +45,20 @@
               d-flex>
               <v-btn 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createWarehouse">
                 Create New Warehouse
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   receipt
                 </v-icon>
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-plus-circle
                 </v-icon>

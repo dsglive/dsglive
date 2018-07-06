@@ -46,14 +46,14 @@
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createMisc">
                 Create New Miscellaneous
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   note_add
                 </v-icon>

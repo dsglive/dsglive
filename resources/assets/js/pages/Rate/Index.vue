@@ -46,20 +46,20 @@
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createRate">
                 Create New Rate
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   attach_money
                 </v-icon>
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-plus-circle
                 </v-icon>

@@ -231,7 +231,6 @@
               Fetch Billables
               <v-icon
                 right
-                color="primary" 
               >
                 attach_money
               </v-icon>

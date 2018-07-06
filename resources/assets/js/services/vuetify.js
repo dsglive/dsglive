@@ -74,7 +74,7 @@ Vue.use(Vuetify, {
   },
   //! Define Your Theme Here
   theme: {
-    primary: "#ef9a9a",
+    primary: "#800020",
     secondary: "#607d8b",
     accent: "#4db6ac",
     error: "#b71c1c",

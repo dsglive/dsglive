@@ -81,7 +81,7 @@
                 :disabled="errors.any()"
                 block 
                 type="submit" 
-                color="primary"
+                color="accent"
               >
                 Sign In 
                 <v-icon right>fa-sign-in</v-icon>

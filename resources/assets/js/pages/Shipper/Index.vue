@@ -46,20 +46,20 @@
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createShipper">
                 Create New Shipper
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-ship
                 </v-icon>
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-plus-circle
                 </v-icon>

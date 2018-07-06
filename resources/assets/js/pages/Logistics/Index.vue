@@ -46,20 +46,20 @@
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 block 
-                color="primary" 
+                color="accent" 
                 dark
                 flat
                 @click="createTicket">
                 Create New Ticket
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   confirmation_number
                 </v-icon>
                 <v-icon
                   right
-                  color="primary" 
+                  color="accent" 
                 >
                   fa-plus-circle
                 </v-icon>

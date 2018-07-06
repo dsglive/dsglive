@@ -1,6 +1,6 @@
 <template>
   <v-toolbar 
-    color="red lighten-2" 
+    color="primary" 
     fixed 
     app
   >
