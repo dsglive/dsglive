@@ -77,8 +77,8 @@
         </v-flex>
         <v-flex 
           d-flex 
-          xs12 
-          sm7>
+          xs12
+        >
           <v-layout 
             row 
             wrap>

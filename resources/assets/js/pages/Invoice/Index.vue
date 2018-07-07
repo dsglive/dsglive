@@ -8,7 +8,7 @@
         <v-flex 
           d-flex    
           xs12 
-          sm7>
+        >
           <v-layout 
             row 
             wrap>
@@ -49,7 +49,7 @@
           slot-scope="props"
         >
           <tr>
-            <th>
+            <!-- <th>
               <v-checkbox
                 :input-value="props.all"
                 :indeterminate="props.indeterminate"
@@ -57,7 +57,7 @@
                 hide-details
                 @click.native="toggleAll"
               />
-            </th>
+            </th> -->
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -82,13 +82,13 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
+            <!-- <td class="title text-xs-left">
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
-            </td>
+            </td> -->
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>

@@ -167,11 +167,12 @@ class InvoiceController extends Controller
         $customer = [
             'customer_id' => $invoice->customer_id,
             'customer_name' => $invoice->customer_name,
-            'receiving_fee' => $invoice->receiving_fee,
-            'delivery_fee' => $invoice->delivery_fee,
-            'storage_fee' => $invoice->storage_fee,
-            'misc_fee' => $invoice->misc_fee
+            'receiving_fee' => $invoice->receiving_fee ?? 0,
+            'delivery_fee' => $invoice->delivery_fee ?? 0,
+            'storage_fee' => $invoice->storage_fee ?? 0,
+            'misc_fee' => $invoice->misc_fee ?? 0
         ];
+        $customer['total'] = $customer['receiving_fee'] + $customer['delivery_fee'] + $customer['storage_fee'] + $customer['misc_fee'];
         return response()->json(['clients' => $clients, 'customer' => $customer]);
     }
 

@@ -1,35 +1,35 @@
 <template>
   <modal-layout class="white">
-    <v-card :flat="true">
-      <v-toolbar 
-        fixed 
-        app 
-        class="primary"
+    <v-toolbar 
+      fixed 
+      app 
+      class="primary"
+    >
+      <v-btn 
+        flat 
+        icon 
+        color="white"
+        @click.native="redirectBack()"
       >
-        <v-btn 
-          flat 
-          icon 
-          color="white"
-          @click.native="redirectBack()"
-        >
-          <v-icon>arrow_back</v-icon>
-        </v-btn>
-        <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Viewing Invoice# {{ id }}</v-toolbar-title>
-        <v-spacer/>
-      </v-toolbar>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-spacer/>
+      <v-toolbar-title class="text-xs-center white--text">Viewing Invoice# {{ id }}</v-toolbar-title>
+      <v-spacer/>
+    </v-toolbar>
+    <v-container
+      fluid
+    >
       <v-layout 
         row 
         wrap
         my-3
         py-3
-        mx-5
-        px-5
+        px-1
       >
         <v-flex 
           xs12
           lg2
-          offset-lg1
         >
           <v-text-field
             v-model="customer.customer_name"
@@ -89,8 +89,19 @@
         </v-flex>
         <v-flex 
           xs12
-          lg10
-          offset-lg1
+          lg2
+        >
+          <v-text-field
+            v-model="customer.total"
+            light
+            readonly
+            disabled
+            label="Total"
+          />
+        </v-flex>
+        <v-flex 
+          xs12
+          px-1
         >
           <v-text-field
             v-model="search"
@@ -102,103 +113,99 @@
           />
         </v-flex>
       </v-layout>
-      <v-container>
-        <v-layout
-          row 
-          wrap
-          pa-0
-          ma-0
+      <v-data-table
+        v-model="selected"
+        :headers="headers"
+        :items="items"
+        :search="search"
+        :pagination.sync="pagination"
+        item-key="client_id"
+      >
+        <template
+          slot="headers" 
+          slot-scope="props"
         >
-          <v-data-table
-            v-model="selected"
-            :headers="headers"
-            :items="items"
-            :search="search"
-            :pagination.sync="pagination"
-            item-key="client_id"
-          >
-            <template
-              slot="headers" 
-              slot-scope="props"
+          <tr>
+            <th 
+              v-for="header in props.headers" 
+              :key="header.text"
+              :class="['column sortable', pagination.descending ? 'desc' : 'asc', 
+                       header.value === pagination.sortBy ? 'name' : '', 
+                       {'text-xs-left': header.align === 'left', 
+                        'text-xs-right': header.align === 'right', 
+                        'text-xs-center': header.align === 'center'},
+                       $vuetify.breakpoint.width >= 600 && 'title']"
+              @click="changeSort(header.value)"
             >
-              <tr>
-                <th 
-                  v-for="header in props.headers" 
-                  :key="header.text"
-                  :class="['column sortable', pagination.descending ? 'desc' : 'asc', 
-                           header.value === pagination.sortBy ? 'name' : '', 
-                           {'text-xs-left': header.align === 'left', 
-                            'text-xs-right': header.align === 'right', 
-                            'text-xs-center': header.align === 'center'},
-                           $vuetify.breakpoint.width >= 600 && 'title']"
-                  @click="changeSort(header.value)"
-                >
-                  <span>
-                    <v-icon>arrow_upward</v-icon>
-                    {{ header.text }}
-                  </span>
-                </th>
-              </tr>
-            </template>
-            <!-- Row Section -->
-            <template 
-              slot="items" 
-              slot-scope="props"
+              <span>
+                <v-icon>arrow_upward</v-icon>
+                {{ header.text }}
+              </span>
+            </th>
+          </tr>
+        </template>
+        <!-- Row Section -->
+        <template 
+          slot="items" 
+          slot-scope="props"
+        >
+          <tr>
+            <td class="title text-xs-left accent--text">
+              {{ props.item.client_name[0] }}
+            </td>
+            <td 
+              class="title text-xs-left accent--text"
             >
-              <tr>
-                <td class="title text-xs-left accent--text">
-                  {{ props.item.client_id }}
-                </td>
-                <td class="title text-xs-left accent--text">
-                  {{ props.item.client_name[0] }}
-                </td>
-                <td 
-                  class="title text-xs-left accent--text"
-                >
-                  {{ props.item.receiving_fee }}
-                </td>
-                <td 
-                  class="title text-xs-left accent--text"
-                >
-                  {{ props.item.delivery_fee }}
-                </td>
-                <td class="title text-xs-left accent--text">
-                  {{ props.item.storage_fee }}
-                </td>
-                <td class="title text-xs-center accent--text">
-                  {{ props.item.misc_fee }}
-                </td>
-              </tr>
-            </template>
-            <!-- Expand Section -->
-            <!-- Pagination Section -->
-            <template 
-              slot="pageText"
-              slot-scope="{ pageStart, pageStop }"
+              <span v-if="props.item.receiving_fee">{{ props.item.receiving_fee.toFixed(4) }}</span>
+              <span v-else>{{ props.item.receiving_fee }}</span>
+            </td>
+            <td 
+              class="title text-xs-left accent--text"
             >
-              From {{ pageStart }} to {{ pageStop }}
-            </template>
-            <!-- No Data Section -->
-            <template slot="no-data">
-              <v-alert 
-                :value="true" 
-                color="blue-grey" 
-                icon="warning">
-                Opps! No Clients
-              </v-alert>
-            </template>
-            <!-- No Search Result Section -->
-            <v-alert 
-              slot="no-results" 
-              :value="true" 
-              color="blue-grey" 
-              icon="warning">
-              Your search for "{{ search }}" found no results.
-            </v-alert>
-          </v-data-table>
-        </v-layout>
-      </v-container>
-    </v-card>
+              <span v-if="props.item.delivery_fee">{{ props.item.delivery_fee.toFixed(4) }}</span>
+              <span v-else>{{ props.item.delivery_fee }}</span>
+            </td>
+            <td class="title text-xs-left accent--text">
+              <span v-if="props.item.storage_fee">{{ props.item.storage_fee.toFixed(4) }}</span>
+              <span v-else>{{ props.item.storage_fee }}</span>
+            </td>
+            <td class="title text-xs-center accent--text">
+              <span v-if="props.item.misc_fee">{{ props.item.misc_fee.toFixed(4) }}</span>
+              <span v-else>{{ props.item.misc_fee }}</span>
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.total.toFixed(4) }}
+            </td>
+          </tr>
+        </template>
+        <!-- Expand Section -->
+        <!-- Pagination Section -->
+        <template 
+          slot="pageText"
+          slot-scope="{ pageStart, pageStop }"
+        >
+          From {{ pageStart }} to {{ pageStop }}
+        </template>
+        <!-- No Data Section -->
+        <template slot="no-data">
+          <v-alert 
+            :value="true" 
+            color="blue-grey" 
+            icon="warning">
+            Opps! No Clients
+          </v-alert>
+        </template>
+        <!-- No Search Result Section -->
+        <v-alert 
+          slot="no-results" 
+          :value="true" 
+          color="blue-grey" 
+          icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </v-data-table>
+    </v-container>
+    
   </modal-layout>
 </template>
 
@@ -219,15 +226,14 @@ export default {
     /* Always Declare Your Form Object */
     customer: {
       customer_id: null,
-      receiving_fee: null,
-      delivery_fee: null,
-      storage_fee: null,
-      misc_fee: null
+      receiving_fee: 0,
+      delivery_fee: 0,
+      storage_fee: 0,
+      misc_fee: 0
     },
     clients: [],
     headers: [
-      { text: "Client ID#", value: "client_id", align: "left", sortable: true },
-      { text: "Name#", value: "client_name[0]", align: "left", sortable: true },
+      { text: "Client Name", value: "client_name[0]", align: "left", sortable: true },
       {
         text: "Receiving Fee",
         value: "receiving_fee",
@@ -246,7 +252,8 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true }
+      { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true },
+      { text: "Total", value: "total", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
@@ -287,6 +294,7 @@ export default {
             element.delivery_fee =  _.sum(element.delivery_fee)
             element.misc_fee =  _.sum(element.misc_fee)
             element.storage_fee =  _.sum(element.storage_fee)
+            element.total = element.receiving_fee + element.delivery_fee + element.misc_fee + element.storage_fee
         });
       });
     }
