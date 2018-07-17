@@ -14,7 +14,7 @@
               <v-text-field
                 v-model="search"
                 append-icon="search"
-                label="Search Damaged Package"
+                label="Search Damaged Packages"
                 single-line
                 hide-details
                 light
