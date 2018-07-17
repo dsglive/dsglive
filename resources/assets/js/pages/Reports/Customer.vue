@@ -21,15 +21,15 @@
               v-validate="'required'"
               :items="customers"
               v-model="form.customer_id"
-              :error-messages="errorMessages('customer_id')"
-              :class="{ 'error--text': hasErrors('customer_id') }"
+              :error-messages="errorMessages('customer')"
+              :class="{ 'error--text': hasErrors('customer') }"
               item-text="name"
               item-value="id"
               required
               label="Choose Customer"
               light
               prepend-icon="supervised_user_circle"
-              data-vv-name="customer_id"
+              data-vv-name="customer"
               hint="Choose Customer"
               persistent-hint
             />

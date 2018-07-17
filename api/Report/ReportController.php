@@ -47,7 +47,7 @@ class ReportController extends Controller
      */
     public function reportByClient(Request $request)
     {
-        $packages = Package::where('client_id', request()->input('client_id'))->active()->get();
+        $packages = Package::where('client_id', $request->input('client_id'))->active()->get();
         return PackageResource::collection($packages);
     }
 
