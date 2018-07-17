@@ -102,7 +102,7 @@
                   <v-icon>fa-eye</v-icon>
                 </v-btn>
               </v-flex>
-              <v-flex class="xs12">
+              <!-- <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
                   flat 
@@ -112,7 +112,7 @@
                 >
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
-              </v-flex>
+              </v-flex> -->
             </td>
           </tr>
         </template>
