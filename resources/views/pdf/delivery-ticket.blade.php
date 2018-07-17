@@ -124,7 +124,7 @@
                     Hourly Rate:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $rate }}</span>
+                    <span style="padding-left:25px;">{{ $rate }} USD</span>
                 </td>
 
                 <td style="width: 15%; color: darkblue; text-align: right; padding-left: 10px; padding: 3px 0 3px; vertical-align: bottom;">
@@ -185,7 +185,7 @@
         </thead>
         <tbody>
             <?php $item_cube = 0; ?>
-            <?php foreach ($packages as $item) : ?>
+            @foreach($packages as $item)
             <tr style="border-bottom: 1px solid #ccc;">
                 <td style="border-bottom: 1px solid #ccc;">
                     {{ $item['dsg_id'] }}
@@ -207,7 +207,7 @@
                 </td>
                 <?php $item_cube += $item['cube']; ?>
             </tr>
-            <?php endforeach; ?>
+            @endforeach
             <tr>
                 <td colspan=5><strong>Total Cube for Delivery</strong></td>
                 <td style="text-align: center;"><strong><?php echo $item_cube; ?></strong></td>
