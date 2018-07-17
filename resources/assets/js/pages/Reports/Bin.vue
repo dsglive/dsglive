@@ -255,7 +255,7 @@ export default {
       this.items.forEach(item => {
         total += item.cube;
       });
-      return `${total} cu.ft`;
+      return `${total.toFixed(4)} cu.ft`;
     }
   },
   watch: {

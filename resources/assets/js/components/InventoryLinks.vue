@@ -50,10 +50,10 @@ export default {
           title: "Inventories",
           items: [
             { title: "Unknown Report", href: "/reports/unknown", action: "fa-question-circle" },
-            { title: "Damaged Items", href: "/reports/damaged", action: "broken_image" },
-            { title: "Bin Inventories", href: "/reports/bin", action: "apps" },
-            { title: "Customer Inventories", href: "/reports/customer", action: "local_library" },
-            { title: "Client Inventories", href: "/reports/clients", action: "perm_contact_calendar" }
+            { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" },
+            { title: "Bin Report", href: "/reports/bin", action: "apps" },
+            { title: "Customer Report", href: "/reports/customer", action: "local_library" },
+            { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }
           ]
         }
       ]
