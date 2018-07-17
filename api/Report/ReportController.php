@@ -61,13 +61,8 @@ class ReportController extends Controller
     }
 
     /**
-     * @param Dsg $dsg
+     * @param Package $package
      */
-    public function viewDamagedDsg(Dsg $dsg)
-    {
-        return new DsgResource($dsg);
-    }
-
     public function viewPackage(Package $package)
     {
         return new PackageResource($package);
