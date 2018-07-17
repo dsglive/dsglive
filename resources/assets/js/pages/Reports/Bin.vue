@@ -10,7 +10,7 @@
             xs12
             text-xs-center
           >
-            <h2 class="display-1">Search Bins</h2>
+            <h2 class="display-1">Bin Report</h2>
             <v-divider/>
           </v-flex>
           <v-flex 
