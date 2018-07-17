@@ -324,7 +324,6 @@ export default {
             let client = _.find(self.clients, function(c) {
               return c.name == newName;
             });
-            console.log(client)
             if (client != undefined) {
               self.form.client_name = client.name;
               self.form.client_id = client.id;
@@ -363,7 +362,6 @@ export default {
     async fetchPackages() {
       let self = this;
       self.form.busy = true;
-      console.log('power')
       try {
         const payload = await axios.post(
           route("api.report.reportByClient"),
