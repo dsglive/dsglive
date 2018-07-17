@@ -77,7 +77,7 @@
                 <td style="width: 50%; color: darkblue; text-align: center;">
                     <h3>Delivery Ticket#: {{ $id }}
                     </h3>
-                    <p style="font-style: italic">Date: {{ $date_delivered }}
+                    <p style="font-style: italic">Date Delivered: {{ $date_delivered }}
                     </p>
                 </td>
 
