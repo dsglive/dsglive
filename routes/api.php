@@ -2,6 +2,20 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Reports
+    Route::post('/reports/reportAllUnknown', 'Report\ReportController@reportAllUnknown')
+        ->name('api.report.reportAllUnknown');
+    Route::post('/reports/reportByBin', 'Report\ReportController@reportByBin')
+        ->name('api.report.reportByBin');
+    Route::post('/reports/reportByCustomer', 'Report\ReportController@reportByCustomer')
+        ->name('api.report.reportByCustomer');
+    Route::post('/reports/reportByClient', 'Report\ReportController@reportByClient')
+        ->name('api.report.reportByClient');
+    Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')
+        ->name('api.report.reportAllDamaged');
+    Route::post('/reports/viewPackage/{package}', 'Report\ReportController@viewPackage')
+        ->name('api.report.viewPackage');
+
     //? Invoice Api
     Route::post('/generate/invoices', 'Invoice\InvoiceController@generateInvoice')->name('api.invoice.generate');
     Route::post('/invoices/mass-create', 'Invoice\InvoiceController@massCreateInvoice')
@@ -9,7 +23,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/invoices', 'Invoice\InvoiceController@index')
         ->name('api.invoice.index');
     Route::get('/invoices/view/{invoice}', 'Invoice\InvoiceController@view')
-    ->name('api.invoice.view');
+        ->name('api.invoice.view');
     Route::get('/invoices/delete/{invoice}', 'Invoice\InvoiceController@delete')
         ->name('api.invoice.delete');
 

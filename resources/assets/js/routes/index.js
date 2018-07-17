@@ -12,6 +12,7 @@ import logistics from "Routes/logistics";
 import warehouse from "Routes/warehouse";
 import misc from "Routes/misc";
 import invoices from "Routes/invoices"
+import reports from "Routes/reports"
 
 let routeFiles = [];
 /* Multi Route Files */
@@ -29,7 +30,8 @@ const routes = routeFiles.concat(
   logistics,
   warehouse,
   misc,
-  invoices
+  invoices,
+  reports
   /* add here Other Routes File */
 );
 export default routes;

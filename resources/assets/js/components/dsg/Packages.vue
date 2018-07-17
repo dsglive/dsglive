@@ -250,6 +250,18 @@
           >
             <v-subheader>
               Package Description:
+              <v-spacer/>
+              <v-btn
+                flat 
+                icon
+                @click="viewImages()"
+              >
+                <v-icon 
+                  color="blue" 
+                >
+                  image
+                </v-icon>
+              </v-btn>
             </v-subheader>
             <v-textarea
               v-validate="'required'"
@@ -273,6 +285,18 @@
           >
             <v-subheader v-if="item.damaged">
               Damage Description:
+              <v-spacer/>
+              <v-btn
+                flat 
+                icon
+                @click="viewDamageImages()"
+              >
+                <v-icon 
+                  color="red" 
+                >
+                  broken_image
+                </v-icon>
+              </v-btn>
             </v-subheader>
             <v-textarea
               v-validate="'required: item.damaged'"
@@ -406,6 +430,14 @@
           </v-flex>
         </v-layout>
       </v-container>  
+      <images 
+        :id="item.id" 
+        :images="item.package_images"
+      />
+      <damage-images 
+        :id="item.id" 
+        :images="item.damaged_images"
+      />
     </v-card>
   </v-layout>
 </template>
@@ -414,11 +446,15 @@
 import PackageImagesUploader from "Components/uploads/PackageImagesUploader";
 import DamagedImagesUploader from "Components/uploads/DamagedImagesUploader";
 import validationError from "Mixins/validation-error";
+import Images from "Components/packages/Images.vue";
+import DamageImages from "Components/packages/DamageImages.vue";
 
 export default {
   components: {
     PackageImagesUploader,
-    DamagedImagesUploader
+    DamagedImagesUploader,
+    Images,
+    DamageImages
   },
   mixins: [validationError],
   props: {
@@ -511,6 +547,12 @@ export default {
     }
   },
   methods: {
+    viewDamageImages() {
+      Bus.$emit(`view-damaged-package-${this.item.id}-images`);
+    },
+    viewImages() {
+      Bus.$emit(`view-package-${this.item.id}-images`);
+    },
     clonePackage() {
       let self = this;
       axios.post(route("api.package.add")).then(response => {

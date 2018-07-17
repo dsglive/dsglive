@@ -53,7 +53,7 @@ export default {
             { title: "Damaged Items", href: "/reports/damaged", action: "broken_image" },
             { title: "Bin Inventories", href: "/reports/bin", action: "apps" },
             { title: "Customer Inventories", href: "/reports/customer", action: "local_library" },
-            { title: "Client Inventories", href: "/client-inventories", action: "perm_contact_calendar" }
+            { title: "Client Inventories", href: "/reports/clients", action: "perm_contact_calendar" }
           ]
         }
       ]
