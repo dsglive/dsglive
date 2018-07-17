@@ -44,6 +44,7 @@
             <v-btn 
               color="secondary" 
               block
+              @click="viewPDF()"
             >
               View As PDF
               <v-icon 
@@ -233,7 +234,7 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Cube", value: "cube", align: "left", sortable: true },
+      { text: "Cube", value: "cube", align: "left", sortable: true }
     ],
     items: [],
     bins: [],
@@ -250,10 +251,10 @@ export default {
   }),
   computed: {
     total_cube() {
-        let total = 0
-        this.items.forEach(item => {
-             total += item.cube
-        })
+      let total = 0;
+      this.items.forEach(item => {
+        total += item.cube;
+      });
       return `${total} cu.ft`;
     }
   },
@@ -271,6 +272,9 @@ export default {
     self.getBins();
   },
   methods: {
+    viewPDF() {
+      console.log("viewing pdf");
+    },
     getBins() {
       let self = this;
       axios.post(route("api.bin.index")).then(response => {
@@ -283,18 +287,15 @@ export default {
         params: { id: `${id}` }
       });
     },
-    editPackage(id) {
-      this.$router.push({
-        name: "edit-damaged-package",
-        params: { id: `${id}` }
-      });
-    },
     async fetchPackages() {
       let self = this;
       console.log("power");
       self.form.busy = true;
       try {
-        const payload = await axios.post(route("api.report.reportByBin"),self.form);
+        const payload = await axios.post(
+          route("api.report.reportByBin"),
+          self.form
+        );
         self.items = payload.data.data;
       } catch ({ errors, message }) {
         if (errors) {
@@ -304,10 +305,6 @@ export default {
         }
         self.form.busy = false;
       }
-    },
-    toggleAll() {
-      if (this.selected.length) this.selected = [];
-      else this.selected = this.items.slice();
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
