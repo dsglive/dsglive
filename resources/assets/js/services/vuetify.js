@@ -34,7 +34,8 @@ import {
   VDatePicker,
   VRadioGroup,
   VDataIterator,
-  VDivider
+  VDivider,
+  VJumbotron
 } from "vuetify";
 
 Vue.use(Vuetify, {
@@ -70,7 +71,8 @@ Vue.use(Vuetify, {
     VDatePicker,
     VRadioGroup,
     VDataIterator,
-    VDivider
+    VDivider,
+    VJumbotron
   },
   //! Define Your Theme Here
   theme: {

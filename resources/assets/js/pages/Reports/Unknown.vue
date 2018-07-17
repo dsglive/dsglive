@@ -30,9 +30,11 @@
         :items="items"
         :search="search"
         :pagination.sync="pagination"
+        :rows-per-page-items="[{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
         select-all
         item-key="id"
         expand
+        hide-actions
       >
         <!-- Header Section -->
         <template

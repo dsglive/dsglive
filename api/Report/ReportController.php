@@ -38,7 +38,7 @@ class ReportController extends Controller
      */
     public function reportByBin(Request $request)
     {
-        $packages = Package::where('bin_name', request()->input('name'))->active()->get();
+        $packages = Package::where('bin_name', $request->input('bin_name'))->active()->get();
         return PackageResource::collection($packages);
     }
 
