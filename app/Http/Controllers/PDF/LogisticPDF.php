@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\PDF;
 
+use PDF;
 use App\Models\Logistic;
 use App\Http\Controllers\Controller;
-use PDF;
 
 class LogiscticPDF extends Controller
 {
     /**
+     * @param Logistic $logistic
      * @return mixed
      */
     public function viewPDF(Logistic $logistic)
