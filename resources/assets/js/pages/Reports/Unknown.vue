@@ -1,6 +1,25 @@
 <template>
   <main-layout>
-    <v-container fluid>
+    <v-jumbotron>
+      <v-container 
+        fluid>
+        <v-layout 
+          row 
+          wrap>
+          <v-flex 
+            xs12
+            text-xs-center
+          >
+            <h2 class="display-1">Unknown Report</h2>
+            <v-divider/>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-jumbotron>
+    <v-container 
+      fluid
+      style="margin-top:-350px;"
+    >
       <!-- Search and Action Buttons -->
       <v-layout 
         row 
