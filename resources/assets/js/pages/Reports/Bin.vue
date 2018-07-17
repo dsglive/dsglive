@@ -289,7 +289,6 @@ export default {
     },
     async fetchPackages() {
       let self = this;
-      console.log("power");
       self.form.busy = true;
       try {
         const payload = await axios.post(
