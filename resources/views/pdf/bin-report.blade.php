@@ -8,54 +8,20 @@
     </title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
+        @page {
+            margin: 180px 50px 120px;
+        }
+
+        #footer {
+            position: fixed;
+            left: 0px;
+            bottom: -100px;
+            right: 0px;
+            height: 50px;
+        }
+
         body {
-            background-color: #fff;
-            margin: 40px;
-            font-family: Lucida Grande, Verdana, Sans-serif;
-            font-size: 14px;
-            color: #4F5155;
-        }
-
-        a {
-            color: #003399;
-            background-color: transparent;
-            font-weight: normal;
-        }
-
-        .horizontal {
-            color: #444;
-            background-color: transparent;
-            border-bottom: 1px solid #D0D0D0;
-        }
-
-        .paragraph-line {
-            color: #444;
-            background-color: transparent;
-            border-bottom: 1px solid #D0D0D0;
-        }
-
-        .double-line {
-            color: #444;
-            background-color: transparent;
-            border-bottom-width: thick;
-            border-bottom: 2px solid #000000;
-        }
-
-        code {
-            font-family: Monaco, Verdana, Sans-serif;
-            font-size: 12px;
-            background-color: #f9f9f9;
-            border: 1px solid #D0D0D0;
-            color: #002166;
-            display: block;
-            margin: 14px 0 14px 0;
-            padding: 12px 10px 12px 10px;
-        }
-
-        /* apply page break */
-
-        .page-break {
-            page-break-after: always;
+            margin-top: 140px;
         }
 
         /* style table */
@@ -64,7 +30,6 @@
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
-            margin-bottom: 30px;
         }
 
         thead {
@@ -73,9 +38,19 @@
 
         td,
         th {
-            border: 1px solid #dddddd;
             text-align: left;
-            padding: 8px;
+            padding: 10px 0;
+            font-size: 15px;
+        }
+
+        td.borders,
+        th.borders {
+            border-top: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        td.padding-left {
+            padding-left: 10px;
         }
 
         /* tr:nth-child(even) {
@@ -85,103 +60,40 @@
         ul {
             list-style-type: none;
         }
-
-        /* Create three unequal columns that floats next to each other */
-
-        .row {
-            width: 100%;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-
-        .left {
-            display: inline-block;
-            text-align: left;
-        }
-
-        .right {
-            display: inline-block;
-            text-align: right;
-        }
-
-        .middle {
-            display: inline-block;
-            text-align: center;
-        }
-
-        .tab {
-            -moz-tab-size: 4;
-            /* Firefox */
-            -o-tab-size: 4;
-            /* Opera 10.6-12.1 */
-            tab-size: 4;
-        }
-
-        #footer {
-            position: fixed;
-            bottom: 0px;
-            left: 0px;
-            margin-bottom: 0px;
-        }
-
-        .indent-hanging {
-            margin-left: 115px;
-            text-indent: -45px;
-        }
-
-        input,
-        textarea,
-        select {
-            border: dashed 1mm red;
-            background: #FCC;
-            color: #400;
-            text-align: left;
-            font-size: 11pt;
-        }
     </style>
 
-    <div class="horizontal" />
     <br>
-    <div class="row">
-        <div class="left" style="width: 25%; color: darkblue;">
-            <span>Designer Services Group</span>
-            <span>(407) 331-1200</span><br>
-            <span>(407) 331-0870 fax</span>
-        </div>
-
-        <div class="middle" style="width: 50%; color: darkblue;">
-            <h2 style="padding-top:-20px;">Current Bin List</h2>
-            <h3 style="padding-top:-10px; font-style: italic">Bin:
-                {{ $code }} <br> Total items: {{ count($packages) }}
-                <br> Total Cube:
-                {{ $total_cube }} cf</h3>
-            <!-- <span>Delivery Date: Oct-18-2016</span> -->
-        </div>
-
-        <div class="right" style="width: 25%; color: darkblue;">
-            <span>225 Pineda St - Unit 127</span>
-            <span>Longwood FL 32750</span>
-        </div>
-    </div>
-
-    <br><br>
-
-    <div class="double-line" />
-
-    <br>
-
-    <table>
-        <thead>
+    <header>
+    <table style="border-top: 2px solid #ccc; border-bottom: none;">
+        <tr>
+            <td style="width: 25%; color: darkblue; text-align: left;">
+                Designer Services Group<br> (407) 331-1200<br> (407) 331-0870 fax
+            </td>
+    
+            <td style="width: 50%; color: darkblue; text-align: center;">
+                <h2>Current Bin List</h2>
+                <h3 style="margin-top:-25px; font-style: italic">Bin: {{ $code }} <br> Total items: {{ count($packages) }}
+                    <br> Total Cube: {{ $total_cube }} cf</h3>
+            </td>
+    
+            <td style="width: 25%; color: darkblue; text-align: right;">
+                225 Pineda Street<br> Unit 127<br> Longwood, FL 32750
+            </td>
+        </tr>
+    </table>
+    </header>
+    <table style="background-color:#ccc;">
+        <thead style="border-top: 2px solid darkblue; border-bottom: 1px solid darkblue;">
             <tr>
                 <th>DSG #</th>
-                <th>Style</th>
+                <th>Style#</th>
                 <th>Item Description</th>
                 <th>Customer &amp; Client</th>
                 <th>Damage Description</th>
                 <th>Item Cube</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="margin-top:10px;">
             @foreach($packages as $item)
             <tr>
                 <td class="borders">
