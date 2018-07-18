@@ -350,6 +350,16 @@ export default {
             self.items[index]["misc_fee"] +
             self.items[index]["storage_fee"];
         }
+        let toggleModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Success!",
+            html: '<p class="title">You Successfully Fetch Billable Customers.</p>',
+            type: "warning",
+            confirmButtonText: "Back"
+          });
       } catch (errors) {
         let toggleModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
