@@ -188,7 +188,7 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            Opps! Invoices Yet!
+            Oops! No Invoices Yet!
             <v-btn 
               :disabled="!$auth.check('admin')" 
               color="white" 
