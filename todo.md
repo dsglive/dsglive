@@ -7,7 +7,7 @@
 - [x] Logistic PDF
 - [x] Bin Report PDF
 - [x] Customer Report PDF
-- [ ] Client Report PDF
+- [x] Client Report PDF
 - [ ] All Customer Weekly Invoice (Break Down All Clients)
 - [ ] Customer Weekly Invoice (Break Down All Clients)
 
