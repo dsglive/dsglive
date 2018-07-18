@@ -264,7 +264,10 @@ export default {
   },
   methods: {
     viewPDF() {
-      console.log("viewing pdf");
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/customer-report/${this.form.customer_id}`;
+      window.open(url);
     },
     getCustomers() {
       axios.get(route("api.dsg.getCustomers")).then(response => {

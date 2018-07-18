@@ -52,6 +52,14 @@ class Client extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class)->active();
+    }
+
+    /**
      * @param  $query
      * @return mixed
      */

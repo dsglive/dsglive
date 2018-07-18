@@ -44,7 +44,7 @@
             <v-btn 
               color="secondary" 
               block
-              @click="viewPdf(form.bin_id)"
+              @click="viewPDF(form.bin_id)"
             >
               View As PDF
               <v-icon 
@@ -280,7 +280,7 @@ export default {
     self.getBins();
   },
   methods: {
-    viewPdf(id) {
+    viewPDF(id) {
       let url = `${window.location.protocol}//${
         window.location.hostname
       }/pdf/bin-report/${id}`;

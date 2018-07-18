@@ -22,7 +22,7 @@ Route::get('/pdf', function () {
     return $pdf->inline();
 });
 
-//? PDF Pages
+//? PDF Report
 Route::get('/pdf/delivery-ticket/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
     ->name('home.pdf.delivery-ticket');
 Route::get('/pdf/field-transfer/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
@@ -33,6 +33,9 @@ Route::get('/pdf/receiving/{dsg}', 'PDF\DSGPDF@viewDSG')
     ->name('home.pdf.receiving');
 Route::get('/pdf/bin-report/{bin}', 'PDF\BinPDF@viewBin')
     ->name('home.pdf.bin');
+Route::get('/pdf/customer-report/{user}', 'PDF\CustomerPDF@viewCustomer')
+    ->name('home.pdf.customer');
+
 
 
 /* Set Vue Front End Endpoint */
