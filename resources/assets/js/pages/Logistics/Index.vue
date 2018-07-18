@@ -177,7 +177,6 @@
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
               </v-flex>
-              <!-- Add PDF Button
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -189,7 +188,6 @@
                   <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </v-flex>
-              -->
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -388,8 +386,30 @@ export default {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     },
-    viewPdf() {
-      console.log("viewing PDF");
+    kebabCase(string){
+        var result = string;
+
+        // Convert camelCase capitals to kebab-case.
+        result = result.replace(/([a-z][A-Z])/g, function(match) {
+            return match.substr(0, 1) + '-' + match.substr(1, 1).toLowerCase();
+        });
+
+        // Convert non-camelCase capitals to lowercase.
+        result = result.toLowerCase();
+
+        // Convert non-alphanumeric characters to hyphens
+        result = result.replace(/[^-a-z0-9]+/g, '-');
+
+        // Remove hyphens from both ends
+        result = result.replace(/^-+/, '').replace(/-$/, '');
+
+        return result;
+    },
+    viewPdf(ticket) {
+    let type = this.kebabCase(ticket.type)
+    let id = ticket.id
+    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
+    window.open(url)
     },
     editTicket(logistics) {
       vm.$router.push({

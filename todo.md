@@ -4,7 +4,7 @@
 
 - [ ] Warehouse PDF
 - [ ] Receiving PDF
-- [ ] Logistic PDF
+- [x] Logistic PDF
 - [ ] Bin Report PDF
 - [ ] Customer Report PDF
 - [ ] Client Report PDF

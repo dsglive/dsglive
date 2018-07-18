@@ -14,16 +14,19 @@ Horizon::auth(function ($request) {
     return true;
 });
 
-// Route::get('/pdf', function () {
-//     $data = Logistic::with('packages')->first()->toArray();
-//     $pdf  = PDF::loadView('pdf.invoice', $data)->setOption('footer-right', 'Page [page] of [toPage]')
-//                                                 ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
-//                                                 ->setOption('footer-font-size', 8);
-//     return $pdf->inline();
-// });
+Route::get('/pdf', function () {
+    $data = Logistic::with('packages')->first()->toArray();
+    $pdf  = PDF::loadView('pdf.invoice', $data)->setOption('footer-right', 'Page [page] of [toPage]')
+                                               ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
+                                               ->setOption('footer-font-size', 8);
+    return $pdf->inline();
+});
 
 //? PDF Pages
-Route::get('/pdf/delivery-ticket/{logistic}', 'PDF\LogiscticPDF@viewPDF')->name('home.pdf.logistic');
+Route::get('/pdf/delivery-ticket/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
+    ->name('home.pdf.delivery-ticket');
+Route::get('/pdf/field-transfer/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
+    ->name('home.pdf.field-transfer');
 
 /* Set Vue Front End Endpoint */
 Route::get('/{vue?}', 'DomainController@app')->where('vue', '[\/\w\.-]*')->name('home.page');

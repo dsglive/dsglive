@@ -42,7 +42,10 @@
             "App\\": "app/",
             "Api\\": "api/",
             "Vuetified\\": "vuetified/"
-        }
+        },
+        "files": [
+          "app/Helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
