@@ -215,7 +215,6 @@
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
               </v-flex>
-              <!-- Add PDF Button
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -227,7 +226,6 @@
                   <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </v-flex>
-              -->
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -347,8 +345,14 @@ export default {
     self.fetchDsg();
   },
   methods: {
-    viewPdf() {
-      console.log("viewing PDF");
+    viewPdf(dsg) {
+    let type = 'warehouse';
+    if(dsg.active){
+        type = 'receiving'
+    }
+    let id = dsg.id
+    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
+    window.open(url)
     },
     editDsg(dsg) {
       vm.$router.push({ name: "edit-dsg", params: { id: `${dsg.id}` } });

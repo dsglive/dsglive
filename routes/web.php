@@ -27,6 +27,10 @@ Route::get('/pdf/delivery-ticket/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
     ->name('home.pdf.delivery-ticket');
 Route::get('/pdf/field-transfer/{logistic}', 'PDF\LogiscticPDF@viewLogistic')
     ->name('home.pdf.field-transfer');
+Route::get('/pdf/warehouse/{dsg}', 'PDF\DSGPDF@viewDSG')
+    ->name('home.pdf.warehouse');
+Route::get('/pdf/receiving/{dsg}', 'PDF\DSGPDF@viewDSG')
+    ->name('home.pdf.receiving');
 
 /* Set Vue Front End Endpoint */
 Route::get('/{vue?}', 'DomainController@app')->where('vue', '[\/\w\.-]*')->name('home.page');
