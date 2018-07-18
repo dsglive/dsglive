@@ -160,7 +160,6 @@
                   <v-icon>fa-pencil</v-icon>
                 </v-btn>
               </v-flex>
-              <!-- Add PDF Button
               <v-flex class="xs12">
                 <v-btn 
                   flat 
@@ -171,7 +170,6 @@
                   <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </v-flex>
-              -->
               <v-flex 
                 v-if="!props.item.active"
                 class="xs12"
@@ -305,8 +303,14 @@ export default {
     self.fetchDsg();
   },
   methods: {
-    viewPdf() {
-      console.log("viewing PDF");
+    viewPdf(dsg) {
+    let type = 'warehouse';
+    if(dsg.active){
+        type = 'receiving'
+    }
+    let id = dsg.id
+    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
+    window.open(url)
     },
     viewWarehouse(dsg){
         vm.$router.push({ name: "view-warehouse", params: { id: `${dsg.id}` } });

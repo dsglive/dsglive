@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>@if($active)Receiver @else Warehouse @endif - DSG# {{ $id }}</title>
+<title>@if($active)Receiving @else Warehouse @endif - DSG# {{ $id }}</title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
         @page {
@@ -70,7 +70,7 @@
                 </td>
 
                 <td style="width: 50%; color: darkblue; text-align: center;">
-                    <h3>DSG#: {{ $id }}
+                    <h3>@if($active)Receiving @else Warehouse @endif - DSG#: {{ $id }}
                     </h3>
                     <p style="font-style: italic">Date:
                         @if($packages[0]['date_received'])
