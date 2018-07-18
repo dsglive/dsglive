@@ -186,14 +186,10 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="po_no"
-            :error-messages="errorMessages('po_no')"
-            :class="{ 'error--text': hasErrors('po_no') }"
             light
             label="PO No."
             prepend-icon="bookmark"
-            data-vv-name="po_no"
           />
         </v-flex>
         <v-flex 
@@ -765,7 +761,7 @@ export default {
       self.form.packages = self.packages;
       self.form.date_processed = self.date_processed;
       self.form
-        .post(route("api.dsg.create"), self.form)
+        .post(route("api.dsg.create"))
         .then(response => {
           console.log(response.data);
           self.$validator.reset();

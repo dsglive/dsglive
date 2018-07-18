@@ -26,7 +26,7 @@
           <v-icon x-large>file_copy</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-md-center white--text">Package# {{ index }}</v-toolbar-title>
+        <v-toolbar-title class="text-md-center white--text">Package {{ index }}</v-toolbar-title>
         <v-spacer/>
         <v-btn
           v-if="!readonly"
@@ -431,11 +431,11 @@
         </v-layout>
       </v-container>  
       <images 
-        :id="item.id" 
+        :id="`${item.id}`"
         :images="item.package_images"
       />
       <damage-images 
-        :id="item.id" 
+        :id="`${item.id}`" 
         :images="item.damaged_images"
       />
     </v-card>

@@ -766,6 +766,7 @@ export default {
       let self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
+      self.form.date_processed = self.date_processed;
       self.form
         .post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form)
         .then(response => {
@@ -776,7 +777,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Receiving Has Been Updated!</p>`,
+            html: `<p class="title">Warehouse DSG Has Been Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });

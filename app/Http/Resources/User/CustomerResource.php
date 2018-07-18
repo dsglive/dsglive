@@ -15,16 +15,21 @@ class CustomerResource extends Resource
      */
     public function toArray($request)
     {
-        $first_name = optional($this->profile)->first_name;
-        $last_name  = optional($this->profile)->last_name;
-        $name       = 'Unknown';
+        $name = 'Unknown';
 
-        if ($first_name) {
-            $name = $first_name;
-        }
+        if (optional($this->profile)->company_name) {
+            $name = $this->profile->company_name;
+        } else {
+            $first_name = optional($this->profile)->first_name;
+            $last_name  = optional($this->profile)->last_name;
 
-        if ($last_name) {
-            $name = $first_name.' '.$last_name;
+            if ($first_name) {
+                $name = $first_name;
+            }
+
+            if ($last_name) {
+                $name = $first_name.' '.$last_name;
+            }
         }
 
         return [

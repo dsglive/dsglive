@@ -38,7 +38,5 @@ Route::get('/pdf/customer-report/{user}', 'PDF\CustomerPDF@viewCustomer')
 Route::get('/pdf/client-report/{user}/{client}', 'PDF\ClientPDF@viewClient')
     ->name('home.pdf.client');
 
-
-
 /* Set Vue Front End Endpoint */
 Route::get('/{vue?}', 'DomainController@app')->where('vue', '[\/\w\.-]*')->name('home.page');

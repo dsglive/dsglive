@@ -17,6 +17,7 @@ use App\Http\Resources\Dsg\DsgResource;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Exceptions\PackageCreationFailed;
 use App\Http\Resources\User\CustomerResource;
+use App\Http\Resources\User\EmployeeResource;
 use App\Http\Resources\User\WithShipperResource;
 
 class DsgController extends Controller
@@ -108,8 +109,8 @@ class DsgController extends Controller
 
     public function getEmployees()
     {
-        $users = User::with('profile')->where('id', '!=', 1)->role('admin')->active()->get();
-        return CustomerResource::collection($users);
+        $users = User::with('profile')->where('id', '!=', 1)->role(['admin','warehouse'])->active()->get();
+        return EmployeeResource::collection($users);
     }
 
     public function getHandlingRates()
@@ -277,7 +278,7 @@ class DsgController extends Controller
             'packages.*.date_out'           => 'nullable|date',
             'packages.*.date_processed'     => 'required',
 
-            'packages.*.po_no'              => 'required',
+            'packages.*.po_no'              => 'nullable',
             'packages.*.style_no'           => 'required',
             'packages.*.length'             => [
                 'nullable',
