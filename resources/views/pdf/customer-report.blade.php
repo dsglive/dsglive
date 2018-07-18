@@ -81,75 +81,84 @@
         }
     </style>
 </head>
+
 <body>
-<br>
-<div class="row">
-    <div class="left" style="width: 25%; color: darkblue;">
-        <span>Designer Services Group</span>
-        <span>(407) 331-1200</span><br>
-        <span>(407) 331-0870 fax</span>
+    <br>
+    <div class="row">
+        <div class="left" style="width: 25%; color: darkblue;">
+            <span>Designer Services Group</span>
+            <span>(407) 331-1200</span><br>
+            <span>(407) 331-0870 fax</span>
+        </div>
+        <div class="middle" style="width: 49%; color: darkblue;">
+            <h2 style="padding-top:-20px;">Current Inverntory List</h2>
+            <h3 style="padding-top:-10px; font-style: italic">for {{ $profile['first_name'] }} {{ $profile['last_name'] }}
+            </h3>
+        </div>
+        <div class="right" style="width: 25%; color: darkblue;">
+            <span>225 Pineda St - Unit 127</span>
+            <span>Longwood FL 32750</span>
+        </div>
     </div>
-    <div class="middle" style="width: 49%; color: darkblue;">
-        <h2 style="padding-top:-20px;">Current Inverntory List</h2>
-        <h3 style="padding-top:-10px; font-style: italic">for {{ $profile['first_name'] }} {{ $profile['last_name'] }}
-        </h3>
-    </div>
-    <div class="right" style="width: 25%; color: darkblue;">
-        <span>225 Pineda St - Unit 127</span>
-        <span>Longwood FL 32750</span>
-    </div>
-</div>
-<hr style="border-color:black;">
-<br> @foreach($clients as $client) @if(count($client['packages'])>0)
-<table>
-    <thead>
-        <tr>
-            <th colspan="3" style="border-right: thin solid white">
-                Client: {{ $client['name'] }}
-            </th>
-            <th colspan="4" style="border-left:thin solid white; text-align:right">
-                Total items: {{ count($client['packages']) }} | Total Cube: {{ $client['total_cube'] }} cf
-            </th>
-        </tr>
-        <tr>
-            <th>Bin</th>
-            <th>DSG #</th>
-            <th>Style #</th>
-            <th>Description</th>
-            <th>Shipper</th>
-            <th>Damage (if any)</th>
-            <th>Cube</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($client['packages'] as $item)
-        <tr>
-            <td class="borders">
-                {{ $item['bin_name'] }}
-            </td>
-            <td class="borders">
-                {{ $item['dsg_id'] }}
-            </td>
-            <td class="borders">
-                {{ $item['style_no'] }}
-            </td>
-            <td class="borders">
-                {{ $item['description'] }}
-            </td>
-            <td class="borders">
-                {{ $item['shipper_name'] }}
-            </td>
-            <td class="borders">
-                @if($item['damaged']) Damaged @else N/A @endif
-            </td>
-            <td class="borders">
-                {{ $item['cube'] }}
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-@endif @endforeach
+    <hr style="border-color:black;">
+    <br> 
+    <br>
+    @foreach($clients as $client) 
+    @if(count($client['packages'])>0)
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3" style="border-right: thin solid white">
+                    Client: {{ $client['name'] }}
+                </th>
+                <th colspan="4" style="border-left:thin solid white; text-align:right">
+                    Total items: {{ count($client['packages']) }} | Total Cube: {{ $client['total_cube'] }} cf
+                </th>
+            </tr>
+            <tr>
+                <th>Bin</th>
+                <th>DSG #</th>
+                <th>Style #</th>
+                <th>Description</th>
+                <th>Shipper</th>
+                <th>Damage (if any)</th>
+                <th>Cube</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($client['packages'] as $item)
+            <tr>
+                <td class="borders">
+                    {{ $item['bin_name'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['dsg_id'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['style_no'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['description'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['shipper_name'] }}
+                </td>
+                <td class="borders">
+                    @if($item['damaged']) 
+                    {{ $item['damage_description'] }}
+                    @else 
+                    None 
+                    @endif
+                </td>
+                <td class="borders">
+                    {{ $item['cube'] }}
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+    @endforeach
 </body>
+
 </html>
-    
