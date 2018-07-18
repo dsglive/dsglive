@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
-        <?php //echo $title ?>
+        Client Report for: {{ $name }}
     </title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
@@ -79,8 +79,8 @@
         }
 
         /* tr:nth-child(even) {
-    background-color: #dddddd;
-} */
+            background-color: #dddddd;
+        } */
 
         ul {
             list-style-type: none;
@@ -139,7 +139,8 @@
             font-size: 11pt;
         }
     </style>
-
+</head>
+<body>
     <div class="horizontal" />
     <br>
     <div class="row">
@@ -149,16 +150,15 @@
             <span>(407) 331-0870 fax</span>
         </div>
 
-        <div class="middle" style="width: 50%; color: darkblue;">
+        <div class="middle" style="width: 49%; color: darkblue;">
             <h2 style="padding-top:-20px;">Current Inventory List</h2>
             <h3 style="padding-top:-10px; font-style: italic">
                 Customer:
-                <?php echo $customers_name ?><br>Client:
-                <?php echo $clients_name ?><br> Total Items:
-                <?php echo count($client_items); ?> <br> Total Cube:
-                <?php echo $total_cube; ?> cf
+               {{ $customer['first_name'] }} {{ $customer['last_name'] }}<br>Client:
+               {{ $name }}<br> Total Items:
+               {{ count($packages) }} <br> Total Cube:
+               {{ $total_cube }} cf
             </h3>
-            <!-- <span>Delivery Date: Oct-18-2016</span> -->
         </div>
 
         <div class="right" style="width: 25%; color: darkblue;">
@@ -175,9 +175,6 @@
 
     <table>
         <thead>
-            <!-- <tr>
-      <th colspan="7">Client: <?php // echo $client[0]["client_name"] ?></th>
-    </tr> -->
             <tr>
                 <th>Bin</th>
                 <th>DSG #</th>
@@ -189,44 +186,32 @@
             </tr>
         </thead>
         <tbody>
-            <?php //echo "<tr><td>" . $client_items[0]->dsg_number . "</td></tr>"; ?>
-            <?php foreach ($client_items as $clientsKey => $client) {
-        // The following is ONE bin from $data['client_items'] array. This was sent from Reports Controller:
-        // array (size=4)
-        // 0 => 
-        //   object(stdClass)[32]                                         <- BTW Have in mind that this is an object!
-        //     public 'item_number' => string '108' (length=3)
-        //     public 'dsg_number' => string '543543' (length=6)
-        //     public 'customer_id' => string '11' (length=2)
-        //     public 'customer_name' => string 'Anne Rue Interiors' (length=18)
-        //     public 'client_id' => string '6' (length=1)
-        //     public 'client_name' => string 'Newcastle Model ' (length=16)
-        //     public 'shipper_id' => string '4' (length=1)
-        //     public 'shipper_name' => string 'Wayfair' (length=7)
-        //     public 'date_in' => string '2017-04-03' (length=10)
-        //     public 'date_out' => string '0000-00-00' (length=10)
-        //     public 'po_number' => string '909' (length=3)
-        //     public 'style_number' => string '321' (length=3)
-        //     public 'item_cube' => string '6.00' (length=4)
-        //     public 'handling' => string '2' (length=1)
-        //     public 'stored_on_floor' => string '1' (length=1)
-        //     public 'bin' => string '1' (length=1)
-        //     public 'item_description' => string '' (length=0)
-        //     public 'damaged_description' => string '' (length=0)
-        //     public 'damaged' => string '0' (length=1)
-        //     public 'repaired' => string '0' (length=1)
-        //     public 'repair_date' => string '0000-00-00 00:00:00' (length=19)
-        //     public 'delivered' => string '0' (length=1)
-        echo "<tr>";
-        echo "<td>" . $client->bin . "</td>";
-        echo "<td>" . $client->dsg_number . "</td>";
-        echo "<td>" . $client->style_number . "</td>";        
-        echo "<td>" . $client->item_description . "</td>";
-        echo "<td>" . $client->shipper_name . "</td>";
-        echo "<td>" . $client->damaged_description . "</td>";
-        echo "<td>" . $client->item_cube . "</td>";
-        echo "</tr>";
-        }
-    ?>
+        @foreach($packages as $item)
+        <tr>
+            <td class="borders">
+                {{ $item['bin_name'] }}
+            </td>
+            <td class="borders">
+                {{ $item['dsg_id'] }}
+            </td>
+            <td class="borders">
+                {{ $item['style_no'] }}
+            </td>
+            <td class="borders">
+                {{ $item['description'] }}
+            </td>
+            <td class="borders">
+                {{ $item['shipper_name'] }}
+            </td>
+            <td class="borders">
+                @if($item['damaged']) {{ $item['damage_description'] }}@endif
+            </td>
+            <td class="borders">
+                {{ $item['cube'] }}
+            </td>
+        </tr>
+        @endforeach
         </tbody>
     </table>
+</body>
+</html>

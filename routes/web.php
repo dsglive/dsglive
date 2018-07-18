@@ -35,6 +35,8 @@ Route::get('/pdf/bin-report/{bin}', 'PDF\BinPDF@viewBin')
     ->name('home.pdf.bin');
 Route::get('/pdf/customer-report/{user}', 'PDF\CustomerPDF@viewCustomer')
     ->name('home.pdf.customer');
+Route::get('/pdf/client-report/{user}/{client}', 'PDF\ClientPDF@viewClient')
+    ->name('home.pdf.client');
 
 
 
