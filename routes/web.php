@@ -31,6 +31,9 @@ Route::get('/pdf/warehouse/{dsg}', 'PDF\DSGPDF@viewDSG')
     ->name('home.pdf.warehouse');
 Route::get('/pdf/receiving/{dsg}', 'PDF\DSGPDF@viewDSG')
     ->name('home.pdf.receiving');
+Route::get('/pdf/bin-report/{bin}', 'PDF\BinPDF@viewBin')
+    ->name('home.pdf.bin');
+
 
 /* Set Vue Front End Endpoint */
 Route::get('/{vue?}', 'DomainController@app')->where('vue', '[\/\w\.-]*')->name('home.page');

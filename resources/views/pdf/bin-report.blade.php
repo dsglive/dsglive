@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
-        <?php //echo $title ?>
+        Bin {{ $code }} Report
     </title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
@@ -79,8 +79,8 @@
         }
 
         /* tr:nth-child(even) {
-    background-color: #dddddd;
-} */
+            background-color: #dddddd;
+        } */
 
         ul {
             list-style-type: none;
@@ -152,9 +152,9 @@
         <div class="middle" style="width: 50%; color: darkblue;">
             <h2 style="padding-top:-20px;">Current Bin List</h2>
             <h3 style="padding-top:-10px; font-style: italic">Bin:
-                <?php echo $bin_label; ?> <br> Total items:
-                <?php echo count($bin_items); ?> <br> Total Cube:
-                <?php echo $total_cube; ?> cf</h3>
+                {{ $code }} <br> Total items: {{ count($packages) }}
+                <br> Total Cube:
+                {{ $total_cube }} cf</h3>
             <!-- <span>Delivery Date: Oct-18-2016</span> -->
         </div>
 
@@ -172,9 +172,6 @@
 
     <table>
         <thead>
-            <!-- <tr>
-      <th colspan="7">Client: <?php // echo $bin[0]["client_name"] ?></th>
-    </tr> -->
             <tr>
                 <th>DSG #</th>
                 <th>Style</th>
@@ -185,43 +182,27 @@
             </tr>
         </thead>
         <tbody>
-            <?php //echo "<tr><td>" . $bin_items[0]->dsg_number . "</td></tr>"; ?>
-            <?php foreach ($bin_items as $binsKey => $bin) {
-        // The following is ONE bin from $data['bin_items'] array. This was sent from Reports Controller:
-        // 0 => 
-        // object(stdClass)[32]                                         <- BTW Have in mind that this is an object!
-        //     public 'item_number' => string '110' (length=3)
-        //     public 'dsg_number' => string '5129' (length=4)
-        //     public 'customer_id' => string '11' (length=2)
-        //     public 'customer_name' => string 'Anne Rue Interiors' (length=18)
-        //     public 'client_id' => string '6' (length=1)
-        //     public 'client_name' => string 'Newcastle Model ' (length=16)
-        //     public 'shipper_id' => string '3' (length=1)
-        //     public 'shipper_name' => string 'Restoration Hardware' (length=20)
-        //     public 'date_in' => string '2018-04-02' (length=10)
-        //     public 'date_out' => string '0000-00-00' (length=10)
-        //     public 'po_number' => string '44' (length=2)
-        //     public 'style_number' => string '17' (length=2)
-        //     public 'item_cube' => string '32.00' (length=5)
-        //     public 'handling' => string '4' (length=1)
-        //     public 'stored_on_floor' => string '0' (length=1)
-        //     public 'bin' => string '2' (length=1)
-        //     public 'item_description' => string 'first items ... desc.' (length=21)
-        //     public 'damaged_description' => string '' (length=0)
-        //     public 'damaged' => string '0' (length=1)
-        //     public 'repaired' => string '0' (length=1)
-        //     public 'repair_date' => string '0000-00-00 00:00:00' (length=19)
-        //     public 'delivered' => string '0' (length=1)
-        
-        echo "<tr>";
-        echo "<td>" . $bin->dsg_number . "</td>";
-        echo "<td>" . $bin->style_number . "</td>";
-        echo "<td>" . $bin->item_description . "</td>";
-        echo "<td>" . $bin->customer_name . " | " . $bin->client_name . "</td>";
-        echo "<td>" . $bin->damaged_description . "</td>";
-        echo "<td>" . $bin->item_cube . "</td>";
-        echo "</tr>";
-        }
-    ?>
+            @foreach($packages as $item)
+            <tr>
+                <td class="borders">
+                    {{ $item['dsg_id'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['style_no'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['description'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['customer_name'] }} | {{ $item['client_name'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['damage_description'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['cube'] }}
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
