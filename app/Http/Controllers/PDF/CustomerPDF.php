@@ -4,6 +4,8 @@ namespace App\Http\Controllers\PDF;
 
 use PDF;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\Package;
 use App\Http\Controllers\Controller;
 
 class CustomerPDF extends Controller
@@ -14,19 +16,27 @@ class CustomerPDF extends Controller
      */
     public function viewCustomer(User $user)
     {
+        $packages   = Package::where('customer_id', $user->id)->active()->get();
+        $client_ids = $packages->pluck('client_id')->unique();
+        $ids        = [];
+
+        foreach ($client_ids as $id) {
+            array_push($ids, $id);
+        }
+
         $user->load(['profile', 'clients.packages']);
-        $clients = $user->clients;
+        $data                   = $user->toArray();
+        $data['profile']        = $user->profile;
+        $data['clients'] = Client::findMany($ids);
+        $clients = $data['clients'];
 
         foreach ($clients as $index => $client) {
-            foreach ($client->packages as $key => $package) {
-                if ($package->dsg_id != $user->id) {
+            foreach ($client['packages'] as $key => $package) {
+                if ($package['customer_id'] != $user->id) {
                     unset($clients[$index]['packages'][$key]);
                 }
             }
         }
-
-        $data            = $user->toArray();
-        $data['profile'] = $user->profile;
 
         foreach ($data['clients'] as $index => $client) {
             if (count($client['packages']) > 0) {
