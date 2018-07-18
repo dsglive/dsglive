@@ -44,7 +44,7 @@
             <v-btn 
               color="secondary" 
               block
-              @click="viewPDF()"
+              @click="viewPdf(form.bin_id)"
             >
               View As PDF
               <v-icon 
@@ -244,7 +244,8 @@ export default {
       rowPerPage: "all"
     },
     form: new Form({
-      bin_name: ""
+      bin_name: "",
+      bin_id: ""
     }),
     search: "",
     domain: window.location.hostname
@@ -263,8 +264,15 @@ export default {
       handler: function(newValue) {},
       deep: true
     },
-    "form.bin_name"() {
-      this.fetchPackages();
+    "form.bin_name": {
+      handler: function(newValue) {
+        let bin = this.bins.find(bin => {
+          return (bin.name = newValue);
+        });
+        this.form.bin_id = bin.id;
+        this.fetchPackages();
+      },
+      deep: false
     }
   },
   mounted() {
@@ -272,8 +280,11 @@ export default {
     self.getBins();
   },
   methods: {
-    viewPDF() {
-      console.log("viewing pdf");
+    viewPdf(id) {
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/bin-report/${id}`;
+      window.open(url);
     },
     getBins() {
       let self = this;
