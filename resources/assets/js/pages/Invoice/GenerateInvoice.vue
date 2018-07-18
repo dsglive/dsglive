@@ -350,13 +350,17 @@ export default {
             self.items[index]["misc_fee"] +
             self.items[index]["storage_fee"];
         }
+        let message = 'You Successfully Fetch Billable Customers.';
+        if(self.items.length < 1){
+            message = 'No Billable Customer Yet.'
+        }
         let toggleModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
           toggleModal({
             title: "Success!",
-            html: '<p class="title">You Successfully Fetch Billable Customers.</p>',
+            html: `<p class="title">${message}</p>`,
             type: "warning",
             confirmButtonText: "Back"
           });
