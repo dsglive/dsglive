@@ -15,6 +15,16 @@ class CustomerPDF extends Controller
     public function viewCustomer(User $user)
     {
         $user->load(['profile', 'clients.packages']);
+        $clients = $user->clients;
+
+        foreach ($clients as $index => $client) {
+            foreach ($client->packages as $key => $package) {
+                if ($package->dsg_id != $user->id) {
+                    unset($clients[$index]['packages'][$key]);
+                }
+            }
+        }
+
         $data            = $user->toArray();
         $data['profile'] = $user->profile;
 
@@ -23,8 +33,11 @@ class CustomerPDF extends Controller
                 $total = 0;
 
                 foreach ($client['packages'] as $key => $package) {
-                    $total += $package['cube'];
+                    if ($package['customer_id'] === $data['id']) {
+                        $total += $package['cube'];
+                    }
                 }
+
                 $data['clients'][$index]['total_cube'] = $total;
             }
         }
