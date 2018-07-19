@@ -267,12 +267,12 @@ export default {
     "form.bin_name": {
       handler: function(newValue) {
         let bin = this.bins.find(bin => {
-          return (bin.name = newValue);
+          return bin.code === newValue;
         });
         this.form.bin_id = bin.id;
         this.fetchPackages();
       },
-      deep: false
+      deep: true
     }
   },
   mounted() {
