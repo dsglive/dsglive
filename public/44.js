@@ -1,1 +1,924 @@
-webpackJsonp([44],{"2yrZ":function(e,t,s){var a=s("VU/8")(null,s("tfR4"),!1,null,null,null);e.exports=a.exports},ACdS:function(e,t,s){var a=s("VU/8")(s("spdy"),s("iBut"),!1,null,null,null);e.exports=a.exports},iBut:function(e,t){e.exports={render:function(){var e=this,t=e.$createElement,s=e._self._c||t;return s("modal-layout",{staticClass:"white"},[s("v-toolbar",{staticClass:"primary",attrs:{fixed:"",app:""}},[s("v-btn",{attrs:{flat:"",icon:"",color:"white"},nativeOn:{click:function(t){e.redirectBack()}}},[s("v-icon",[e._v("arrow_back")])],1),e._v(" "),s("v-spacer"),e._v(" "),s("v-toolbar-title",{staticClass:"text-xs-center white--text"},[e._v("Viewing Invoice# "+e._s(e.id))]),e._v(" "),s("v-spacer")],1),e._v(" "),s("v-container",{attrs:{fluid:""}},[s("v-layout",{attrs:{row:"",wrap:"","my-3":"","py-3":"","px-1":""}},[s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Customer"},model:{value:e.customer.customer_name,callback:function(t){e.$set(e.customer,"customer_name",t)},expression:"customer.customer_name"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Receiving Fee"},model:{value:e.customer.receiving_fee,callback:function(t){e.$set(e.customer,"receiving_fee",t)},expression:"customer.receiving_fee"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Delivery Fee"},model:{value:e.customer.delivery_fee,callback:function(t){e.$set(e.customer,"delivery_fee",t)},expression:"customer.delivery_fee"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Storage Fee"},model:{value:e.customer.storage_fee,callback:function(t){e.$set(e.customer,"storage_fee",t)},expression:"customer.storage_fee"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Misc Fee"},model:{value:e.customer.misc_fee,callback:function(t){e.$set(e.customer,"misc_fee",t)},expression:"customer.misc_fee"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"",lg2:""}},[s("v-text-field",{attrs:{light:"",readonly:"",disabled:"",label:"Total"},model:{value:e.customer.total,callback:function(t){e.$set(e.customer,"total",t)},expression:"customer.total"}})],1),e._v(" "),s("v-flex",{attrs:{xs12:"","px-1":""}},[s("v-text-field",{attrs:{"append-icon":"search",label:"Search Client","single-line":"","hide-details":"",light:""},model:{value:e.search,callback:function(t){e.search=t},expression:"search"}})],1)],1),e._v(" "),s("v-data-table",{attrs:{headers:e.headers,items:e.items,search:e.search,pagination:e.pagination,"item-key":"client_id"},on:{"update:pagination":function(t){e.pagination=t}},scopedSlots:e._u([{key:"headers",fn:function(t){return[s("tr",e._l(t.headers,function(t){return s("th",{key:t.text,class:["column sortable",e.pagination.descending?"desc":"asc",t.value===e.pagination.sortBy?"name":"",{"text-xs-left":"left"===t.align,"text-xs-right":"right"===t.align,"text-xs-center":"center"===t.align},e.$vuetify.breakpoint.width>=600&&"title"],on:{click:function(s){e.changeSort(t.value)}}},[s("span",[s("v-icon",[e._v("arrow_upward")]),e._v("\n              "+e._s(t.text)+"\n            ")],1)])}))]}},{key:"items",fn:function(t){return[s("tr",[s("td",{staticClass:"title text-xs-left accent--text"},[e._v("\n            "+e._s(t.item.client_name[0])+"\n          ")]),e._v(" "),s("td",{staticClass:"title text-xs-left accent--text"},[t.item.receiving_fee?s("span",[e._v(e._s(t.item.receiving_fee.toFixed(4)))]):s("span",[e._v(e._s(t.item.receiving_fee))])]),e._v(" "),s("td",{staticClass:"title text-xs-left accent--text"},[t.item.delivery_fee?s("span",[e._v(e._s(t.item.delivery_fee.toFixed(4)))]):s("span",[e._v(e._s(t.item.delivery_fee))])]),e._v(" "),s("td",{staticClass:"title text-xs-left accent--text"},[t.item.storage_fee?s("span",[e._v(e._s(t.item.storage_fee.toFixed(4)))]):s("span",[e._v(e._s(t.item.storage_fee))])]),e._v(" "),s("td",{staticClass:"title text-xs-center accent--text"},[t.item.misc_fee?s("span",[e._v(e._s(t.item.misc_fee.toFixed(4)))]):s("span",[e._v(e._s(t.item.misc_fee))])]),e._v(" "),s("td",{staticClass:"title text-xs-center accent--text"},[e._v("\n            "+e._s(t.item.total.toFixed(4))+"\n          ")])])]}},{key:"pageText",fn:function(t){var s=t.pageStart,a=t.pageStop;return[e._v("\n        From "+e._s(s)+" to "+e._s(a)+"\n      ")]}}]),model:{value:e.selected,callback:function(t){e.selected=t},expression:"selected"}},[s("template",{slot:"no-data"},[s("v-alert",{attrs:{value:!0,color:"blue-grey",icon:"warning"}},[e._v("\n          Opps! No Clients\n        ")])],1),e._v(" "),s("v-alert",{attrs:{slot:"no-results",value:!0,color:"blue-grey",icon:"warning"},slot:"no-results"},[e._v('\n        Your search for "'+e._s(e.search)+'" found no results.\n      ')])],2)],1)],1)},staticRenderFns:[]}},spdy:function(e,t,s){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a=s("2yrZ"),i=s.n(a),n=s("e7x4");s.n(n);t.default={components:{ModalLayout:i.a},props:{id:{type:String,required:!0}},data:function(){return{customer:{customer_id:null,receiving_fee:0,delivery_fee:0,storage_fee:0,misc_fee:0},clients:[],headers:[{text:"Client Name",value:"client_name[0]",align:"left",sortable:!0},{text:"Receiving Fee",value:"receiving_fee",align:"left",sortable:!0},{text:"Delivery Fee",value:"delivery_fee",align:"left",sortable:!0},{text:"Storage Fee",value:"storage_fee",align:"left",sortable:!0},{text:"Misc Fee",value:"misc_fee",align:"left",sortable:!0},{text:"Total",value:"total",align:"left",sortable:!0}],items:[],selected:[],pagination:{sortBy:"name"},search:""}},watch:{clients:{handler:function(e){},deep:!0},customer:{handler:function(e){},deep:!1}},created:function(){this.fetchInvoice()},methods:{redirectBack:function(){var e=this;e.$nextTick(function(){return e.$router.push({name:"invoices"})})},fetchInvoice:function(){var e=this.id,t=this;axios.get(route("api.invoice.view",{id:e})).then(function(e){var s=e.data;t.clients=s.clients,t.customer=s.customer,t.items=s.clients,t.items.forEach(function(e){console.log("element",e),e.receiving_fee=_.sum(e.receiving_fee),e.delivery_fee=_.sum(e.delivery_fee),e.misc_fee=_.sum(e.misc_fee),e.storage_fee=_.sum(e.storage_fee),e.total=e.receiving_fee+e.delivery_fee+e.misc_fee+e.storage_fee})})}}}},tfR4:function(e,t){e.exports={render:function(){var e=this.$createElement,t=this._self._c||e;return t("v-app",{attrs:{standalone:""}},[t("v-content",{staticClass:"white"},[t("v-container",{staticClass:"pa-0 ma-0",attrs:{transition:"slide-x-transition",fluid:""}},[t("v-card",{attrs:{flat:!0}},[this._t("toolbar"),this._v(" "),this._t("default")],2)],1),this._v(" "),this._t("footer")],2)],1)},staticRenderFns:[]}}});
+webpackJsonp([44],{
+
+/***/ 1105:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      /* Always Declare Your Form Object */
+      customer: {
+        customer_id: null,
+        receiving_fee: 0,
+        delivery_fee: 0,
+        storage_fee: 0,
+        misc_fee: 0
+      },
+      clients: [],
+      headers: [{ text: "Client Name", value: "client_name[0]", align: "left", sortable: true }, {
+        text: "Receiving Fee",
+        value: "receiving_fee",
+        align: "left",
+        sortable: true
+      }, {
+        text: "Delivery Fee",
+        value: "delivery_fee",
+        align: "left",
+        sortable: true
+      }, {
+        text: "Storage Fee",
+        value: "storage_fee",
+        align: "left",
+        sortable: true
+      }, { text: "Misc Fee", value: "misc_fee", align: "left", sortable: true }, { text: "Total", value: "total", align: "left", sortable: true }],
+      items: [],
+      selected: [],
+      pagination: {
+        sortBy: "name"
+      },
+      search: ""
+    };
+  },
+  watch: {
+    clients: {
+      handler: function handler(newValue) {},
+      deep: true
+    },
+    customer: {
+      handler: function handler(newValue) {},
+      deep: false
+    }
+  },
+  created: function created() {
+    this.fetchInvoice();
+  },
+
+  methods: {
+    redirectBack: function redirectBack() {
+      var self = this;
+      self.$nextTick(function () {
+        return self.$router.push({ name: "invoices" });
+      });
+    },
+    fetchInvoice: function fetchInvoice() {
+      var id = this.id;
+      var self = this;
+      axios.get(route("api.invoice.view", { id: id })).then(function (response) {
+        var data = response.data;
+        self.clients = data.clients;
+        self.customer = data.customer;
+        self.items = data.clients;
+        self.items.forEach(function (element) {
+          console.log('element', element);
+          element.receiving_fee = _.sum(element.receiving_fee);
+          element.delivery_fee = _.sum(element.delivery_fee);
+          element.misc_fee = _.sum(element.misc_fee);
+          element.storage_fee = _.sum(element.storage_fee);
+          element.total = element.receiving_fee + element.delivery_fee + element.misc_fee + element.storage_fee;
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 1106:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal-layout",
+    { staticClass: "white" },
+    [
+      _c(
+        "v-toolbar",
+        { staticClass: "primary", attrs: { fixed: "", app: "" } },
+        [
+          _c(
+            "v-btn",
+            {
+              attrs: { flat: "", icon: "", color: "white" },
+              nativeOn: {
+                click: function($event) {
+                  _vm.redirectBack()
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("arrow_back")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-toolbar-title", { staticClass: "text-xs-center white--text" }, [
+            _vm._v("Viewing Invoice# " + _vm._s(_vm.id))
+          ]),
+          _vm._v(" "),
+          _c("v-spacer")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "v-layout",
+            {
+              attrs: { row: "", wrap: "", "my-3": "", "py-3": "", "px-1": "" }
+            },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Customer"
+                    },
+                    model: {
+                      value: _vm.customer.customer_name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "customer_name", $$v)
+                      },
+                      expression: "customer.customer_name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Receiving Fee"
+                    },
+                    model: {
+                      value: _vm.customer.receiving_fee,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "receiving_fee", $$v)
+                      },
+                      expression: "customer.receiving_fee"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Delivery Fee"
+                    },
+                    model: {
+                      value: _vm.customer.delivery_fee,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "delivery_fee", $$v)
+                      },
+                      expression: "customer.delivery_fee"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Storage Fee"
+                    },
+                    model: {
+                      value: _vm.customer.storage_fee,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "storage_fee", $$v)
+                      },
+                      expression: "customer.storage_fee"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Misc Fee"
+                    },
+                    model: {
+                      value: _vm.customer.misc_fee,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "misc_fee", $$v)
+                      },
+                      expression: "customer.misc_fee"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", lg2: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      light: "",
+                      readonly: "",
+                      disabled: "",
+                      label: "Total"
+                    },
+                    model: {
+                      value: _vm.customer.total,
+                      callback: function($$v) {
+                        _vm.$set(_vm.customer, "total", $$v)
+                      },
+                      expression: "customer.total"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", "px-1": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      "append-icon": "search",
+                      label: "Search Client",
+                      "single-line": "",
+                      "hide-details": "",
+                      light: ""
+                    },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-data-table",
+            {
+              attrs: {
+                headers: _vm.headers,
+                items: _vm.items,
+                search: _vm.search,
+                pagination: _vm.pagination,
+                "item-key": "client_id"
+              },
+              on: {
+                "update:pagination": function($event) {
+                  _vm.pagination = $event
+                }
+              },
+              scopedSlots: _vm._u([
+                {
+                  key: "headers",
+                  fn: function(props) {
+                    return [
+                      _c(
+                        "tr",
+                        _vm._l(props.headers, function(header) {
+                          return _c(
+                            "th",
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
+                                },
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        })
+                      )
+                    ]
+                  }
+                },
+                {
+                  key: "items",
+                  fn: function(props) {
+                    return [
+                      _c("tr", [
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.client_name[0]) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.receiving_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.receiving_fee.toFixed(4))
+                                  )
+                                ])
+                              : _c("span", [
+                                  _vm._v(_vm._s(props.item.receiving_fee))
+                                ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.delivery_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.delivery_fee.toFixed(4))
+                                  )
+                                ])
+                              : _c("span", [
+                                  _vm._v(_vm._s(props.item.delivery_fee))
+                                ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.storage_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.storage_fee.toFixed(4))
+                                  )
+                                ])
+                              : _c("span", [
+                                  _vm._v(_vm._s(props.item.storage_fee))
+                                ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            props.item.misc_fee
+                              ? _c("span", [
+                                  _vm._v(_vm._s(props.item.misc_fee.toFixed(4)))
+                                ])
+                              : _c("span", [
+                                  _vm._v(_vm._s(props.item.misc_fee))
+                                ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total.toFixed(4)) +
+                                "\n          "
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+                  }
+                },
+                {
+                  key: "pageText",
+                  fn: function(ref) {
+                    var pageStart = ref.pageStart
+                    var pageStop = ref.pageStop
+                    return [
+                      _vm._v(
+                        "\n        From " +
+                          _vm._s(pageStart) +
+                          " to " +
+                          _vm._s(pageStop) +
+                          "\n      "
+                      )
+                    ]
+                  }
+                }
+              ]),
+              model: {
+                value: _vm.selected,
+                callback: function($$v) {
+                  _vm.selected = $$v
+                },
+                expression: "selected"
+              }
+            },
+            [
+              _c(
+                "template",
+                { slot: "no-data" },
+                [
+                  _c(
+                    "v-alert",
+                    {
+                      attrs: {
+                        value: true,
+                        color: "blue-grey",
+                        icon: "warning"
+                      }
+                    },
+                    [_vm._v("\n          Opps! No Clients\n        ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-alert",
+                {
+                  attrs: {
+                    slot: "no-results",
+                    value: true,
+                    color: "blue-grey",
+                    icon: "warning"
+                  },
+                  slot: "no-results"
+                },
+                [
+                  _vm._v(
+                    '\n        Your search for "' +
+                      _vm._s(_vm.search) +
+                      '" found no results.\n      '
+                  )
+                ]
+              )
+            ],
+            2
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-cac12ace", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 936:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(371)
+/* script */
+var __vue_script__ = __webpack_require__(1105)
+/* template */
+var __vue_template__ = __webpack_require__(1106)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/pages/Invoice/ViewInvoice.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cac12ace", Component.options)
+  } else {
+    hotAPI.reload("data-v-cac12ace", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 950:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(371)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(951)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/layouts/ModalLayout.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-da953062", Component.options)
+  } else {
+    hotAPI.reload("data-v-da953062", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 951:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { standalone: "" } },
+    [
+      _c(
+        "v-content",
+        { staticClass: "white" },
+        [
+          _c(
+            "v-container",
+            {
+              staticClass: "pa-0 ma-0",
+              attrs: { transition: "slide-x-transition", fluid: "" }
+            },
+            [
+              _c(
+                "v-card",
+                { attrs: { flat: true } },
+                [_vm._t("toolbar"), _vm._v(" "), _vm._t("default")],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._t("footer")
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-da953062", module.exports)
+  }
+}
+
+/***/ })
+
+});

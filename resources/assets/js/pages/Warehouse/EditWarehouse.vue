@@ -764,7 +764,7 @@ export default {
       self.form.packages = self.packages;
       self.form.date_processed = self.date_processed;
       self.form
-        .post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form)
+        .post(route("api.dsg.update", { dsg: self.form.dsg_id }))
         .then(response => {
           self.$validator.reset();
           const successModal = swal.mixin({
