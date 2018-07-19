@@ -27,8 +27,8 @@ class ReportController extends Controller
      */
     public function reportAllUnknown(Request $request)
     {
-        $dsg = Package::where('client_id', 1)->orWhere('customer_id', 1)->active()
-                                             ->distinct()->pluck('dsg_id')->toArray();
+        $dsg = Package::where('customer_id', 1)->OrWhere('client_id', 1)->active()
+                                               ->distinct()->pluck('dsg_id')->toArray();
         $dsg = Dsg::whereIn('id', $dsg)->get();
         return DsgResource::collection($dsg);
     }
@@ -48,7 +48,7 @@ class ReportController extends Controller
     public function reportByClient(Request $request)
     {
         $packages = Package::where('client_id', $request->input('client_id'))
-        ->where('customer_id', $request->input('customer_id'))->active()->get();
+            ->where('customer_id', $request->input('customer_id'))->active()->get();
         return PackageResource::collection($packages);
     }
 
