@@ -33,7 +33,7 @@ mix.webpackConfig({
 
 mix.js("resources/assets/js/app.js", "public/js");
 mix.sass("resources/assets/sass/app.scss", "public/css");
-mix.sourceMaps();
+// mix.sourceMaps();
 
 if (mix.inProduction()) {
   /* extract all vendor */
