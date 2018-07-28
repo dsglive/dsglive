@@ -8,17 +8,6 @@
     </title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
-        @page {
-            margin: 180px 50px 120px;
-        }
-
-        #footer {
-            position: fixed;
-            left: 0px;
-            bottom: -100px;
-            right: 0px;
-            height: 50px;
-        }
 
         body {
             margin-top: 140px;
@@ -82,7 +71,7 @@
         </tr>
     </table>
     </header>
-    <table style="background-color:#ccc;">
+    <table >
         <thead style="border-top: 2px solid darkblue; border-bottom: 1px solid darkblue;">
             <tr>
                 <th>DSG #</th>
@@ -95,7 +84,7 @@
         </thead>
         <tbody style="margin-top:10px;">
             @foreach($packages as $item)
-            <tr>
+            <tr style="page-break-inside: avoid;">
                 <td class="borders">
                     {{ $item['dsg_id'] }}
                 </td>
@@ -106,7 +95,7 @@
                     {{ $item['description'] }}
                 </td>
                 <td class="borders">
-                    {{ $item['customer_name'] }} | {{ $item['client_name'] }}
+                    {{ $item['customer']['profile']['company_name'] }} | {{ $item['client_name'] }}
                 </td>
                 <td class="borders">
                     {{ $item['damage_description'] }}

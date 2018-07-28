@@ -26,7 +26,7 @@
           <v-icon x-large>file_copy</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-md-center white--text">Package {{ index }}</v-toolbar-title>
+        <v-toolbar-title class="text-md-center white--text">Item {{ index }}</v-toolbar-title>
         <v-spacer/>
         <v-btn
           v-if="!readonly"
@@ -154,15 +154,11 @@
             md2
           >
             <v-text-field
-              v-validate="'required'"
               v-model="item.style_no"
-              :error-messages="errorMessages(`packages.${iteration}.style_no`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.style_no`) }"
               :readonly="readonly"
               label="Style No."
               prepend-icon="style"
-              data-vv-name="`packages.${iteration}.style_no`"
-              hint="Required"
+              hint="Optional"
               persistent-hint
             />
           </v-flex>
@@ -249,7 +245,6 @@
             px-3
           >
             <v-subheader>
-              Package Description:
               <v-spacer/>
               <v-btn
                 flat 
@@ -263,28 +258,38 @@
                 </v-icon>
               </v-btn>
             </v-subheader>
-            <v-textarea
+            <v-text-field
               v-validate="'required'"
               v-model="item.description"
               :readonly="readonly"
               :error-messages="errorMessages(`packages.${iteration}.description`)"
               :class="{ 'error--text': hasErrors(`packages.${iteration}.description`) }"
-              counter
-              maxlength="255"
-              full-width
-              outline
               data-vv-name="`packages.${index}.description`"
               hint="Required"
               persistent-hint
+              label="Item Description"
+            />
+            <v-btn 
+              v-if="!readonly" 
+              block
+              flat
+              color="blue"
+              @click="openPackageImagesModal()"
+            >
+              Upload Package Images <v-icon right>add_photo_alternate</v-icon>
+            </v-btn>
+            <package-images-uploader 
+              :id="item.id" 
+              :item="item"
             />
           </v-flex>
           <v-flex 
+            v-if="item.damaged"
             sm12
             md6 
             px-3
           >
-            <v-subheader v-if="item.damaged">
-              Damage Description:
+            <v-subheader >
               <v-spacer/>
               <v-btn
                 flat 
@@ -292,52 +297,74 @@
                 @click="viewDamageImages()"
               >
                 <v-icon 
-                  color="red" 
+                  color="error" 
                 >
                   broken_image
                 </v-icon>
               </v-btn>
             </v-subheader>
-            <v-textarea
+            <v-text-field
               v-validate="'required: item.damaged'"
-              v-if="item.damaged"
               v-model="item.damage_description"
               :readonly="readonly"
               :error-messages="errorMessages(`packages.${iteration}.damage_description`)"
               :class="{ 'error--text': hasErrors(`packages.${iteration}.damage_description`) }"
-              counter
-              maxlength="255"
-              full-width
-              outline
               hint="Required If Marked As Damaged"
               data-vv-name="`packages.${iteration}.damage_description`"
               persistent-hint
+              label="Damaged Description"
+            />
+            <v-btn 
+              v-if="!readonly" 
+              block
+              flat
+              color="error"
+              @click="openDamagedImagesModal()"
+            >
+              Upload Damaged Images <v-icon right>broken_image</v-icon>
+            </v-btn>
+            <damaged-images-uploader 
+              :id="item.id" 
+              :item="item"
             />
           </v-flex>
         </v-layout>
+        
         <v-layout
-          v-if="item.damaged"
           row 
           wrap
         >
           <v-flex 
-            v-if="!item.repaired"
             sm12
-            md2
-            offset-md10
+            md8
           >
-            <v-switch
-              :disabled="readonly"
-              v-model="item.repaired"
-              :label="getRepairedStatus(item.repaired)"
+            <v-subheader>
+              Notes:
+            </v-subheader>
+            <v-textarea
+              v-validate="'required'"
+              v-model="item.notes"
+              :readonly="readonly"
+              :error-messages="errorMessages(`packages.${iteration}.notes`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.notes`) }"
+              counter
+              maxlength="255"
+              full-width
+              outline
+              hint="Optional"
+              data-vv-name="`packages.${iteration}.notes`"
+              persistent-hint
             />
           </v-flex>
           <v-flex 
-            v-else
+            v-if="item.damaged"
             sm12
             md2
             order-md2
           >
+            <v-subheader>
+              Is Item Repaired?
+            </v-subheader>
             <v-switch
               :disabled="readonly"
               v-model="item.repaired"
@@ -347,9 +374,11 @@
           <v-flex 
             v-if="item.repaired"
             sm12
-            offset-md8
             md2
           >
+            <v-subheader>
+              When is it Repaired?
+            </v-subheader>
             <v-dialog
               :ref="`date_repaired_${item.id}`"
               v-model="date_repaired_modal"
@@ -386,49 +415,7 @@
             </v-dialog>
           </v-flex>
         </v-layout>
-        <v-layout
-          v-if="!readonly" 
-          row
-          wrap
-          pa-0
-          ma-0
-        >
-          <v-flex 
-            sm12
-            md6
-          >
-            <v-btn 
-              block
-              flat
-              color="blue"
-              @click="openPackageImagesModal()"
-            >
-              Upload Package Images <v-icon right>add_photo_alternate</v-icon>
-            </v-btn>
-            <package-images-uploader 
-              :id="item.id" 
-              :item="item"
-            />
-          </v-flex>
-          <v-flex 
-            v-if="item.damaged"
-            sm12
-            md6
-          >
-            <v-btn 
-              block
-              flat
-              color="orange"
-              @click="openDamagedImagesModal()"
-            >
-              Upload Damaged Images <v-icon right>broken_image</v-icon>
-            </v-btn>
-            <damaged-images-uploader 
-              :id="item.id" 
-              :item="item"
-            />
-          </v-flex>
-        </v-layout>
+        
       </v-container>  
       <images 
         :id="`${item.id}`"
@@ -611,7 +598,7 @@ export default {
     },
     updatetotalCube() {
       let volume = this.item.length * this.item.width * this.item.height;
-      this.item.cube = (volume / 1728).toFixed(4);
+      this.item.cube = Math.ceil((volume / 1728).toFixed(4));
     },
     save(item, date) {
       let ref = `date_repaired_${item.id}`;

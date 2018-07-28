@@ -279,7 +279,7 @@ class DsgController extends Controller
             'packages.*.date_processed'     => 'required',
 
             'packages.*.po_no'              => 'nullable',
-            'packages.*.style_no'           => 'required',
+            'packages.*.style_no'           => 'nullable',
             'packages.*.length'             => [
                 'nullable',
                 new RateMustBeAFloat

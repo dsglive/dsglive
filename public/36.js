@@ -2000,7 +2000,7 @@ var render = function() {
                     [
                       _c("v-subheader", [
                         _vm._v(
-                          "\n          Packages To Be Delivered (" +
+                          "\n          Items To Be Delivered (" +
                             _vm._s(_vm.packages.length) +
                             ")\n        "
                         )

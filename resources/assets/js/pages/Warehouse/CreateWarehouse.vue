@@ -327,6 +327,7 @@
         v-for="(item,key) in packages" 
         :key="key"
         :item="item"
+        :index="key + 1"
         :packages="packages"
         :bins="bins"
         :handling-rates="handling_rates"

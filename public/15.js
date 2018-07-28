@@ -268,8 +268,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -659,7 +657,7 @@ var render = function() {
                     [
                       _c(
                         "v-flex",
-                        { attrs: { "d-flex": "" } },
+                        { attrs: { xs12: "", sm6: "" } },
                         [
                           _c(
                             "v-card",
@@ -692,32 +690,17 @@ var render = function() {
                           )
                         ],
                         1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                {
-                  attrs: { "d-flex": "", xs12: "", sm5: "", "child-flex": "" }
-                },
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
+                      ),
+                      _vm._v(" "),
                       _c(
                         "v-flex",
-                        { staticClass: "xs12 white" },
+                        { attrs: { xs12: "", sm6: "", "d-flex": "" } },
                         [
                           _vm.selected.length > 0
                             ? _c(
                                 "v-btn",
                                 {
+                                  staticStyle: { "margin-top": "30px" },
                                   attrs: {
                                     disabled: !_vm.$auth.check("admin"),
                                     block: "",

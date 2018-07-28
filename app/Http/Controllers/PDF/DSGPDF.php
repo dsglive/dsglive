@@ -14,9 +14,9 @@ class DSGPDF extends Controller
      */
     public function viewDSG(Dsg $dsg)
     {
-        $data = $dsg->load('packages', 'customer')->toArray();
+        $data = $dsg->load('packages', 'customer.profile')->toArray();
         $data['customer']['profile'] = $dsg->customer->profile;
-        $pdf  = PDF::loadView('pdf.dsg', $data)
+        $pdf  = PDF::loadView('pdf.warehouse', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
             ->setOption('footer-font-size', 8);

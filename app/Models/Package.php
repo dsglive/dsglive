@@ -49,7 +49,7 @@ class Package extends Model implements HasMedia
         'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
-        'logistic_id', 'invoiced'
+        'logistic_id', 'invoiced','notes'
     ];
 
     public static function archived()
@@ -81,6 +81,11 @@ class Package extends Model implements HasMedia
     public function dsg()
     {
         return $this->belongsTo(Dsg::class, 'dsg_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**

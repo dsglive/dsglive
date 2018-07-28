@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53,14 +53,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Components_packages_Images_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_Components_packages_Images_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Components_packages_DamageImages_vue__ = __webpack_require__(991);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Components_packages_DamageImages_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Components_packages_DamageImages_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -479,7 +471,7 @@ var render = function() {
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-toolbar-title", { staticClass: "text-xs-center white--text" }, [
-            _vm._v("View Package# " + _vm._s(_vm.id))
+            _vm._v("View Item ID# " + _vm._s(_vm.id))
           ]),
           _vm._v(" "),
           _c("v-spacer")
@@ -845,7 +837,7 @@ var render = function() {
                   _c(
                     "v-subheader",
                     [
-                      _vm._v("\n          Package Description:\n          "),
+                      _vm._v("\n          Item Description:\n          "),
                       _c("v-spacer"),
                       _vm._v(" "),
                       _c(
@@ -869,14 +861,8 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-textarea", {
-                    attrs: {
-                      readonly: "",
-                      counter: "",
-                      maxlength: "255",
-                      "full-width": "",
-                      outline: ""
-                    },
+                  _c("v-text-field", {
+                    attrs: { readonly: "" },
                     model: {
                       value: _vm.package.description,
                       callback: function($$v) {
@@ -925,14 +911,8 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.package.damaged
-                    ? _c("v-textarea", {
-                        attrs: {
-                          readonly: "",
-                          counter: "",
-                          maxlength: "255",
-                          "full-width": "",
-                          outline: ""
-                        },
+                    ? _c("v-text-field", {
+                        attrs: { readonly: "" },
                         model: {
                           value: _vm.package.damage_description,
                           callback: function($$v) {
@@ -1711,7 +1691,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-toolbar-title", { staticClass: "white--text" }, [
-                _vm._v("Package # " + _vm._s(_vm.id) + " Images")
+                _vm._v("Item # " + _vm._s(_vm.id) + " Images")
               ]),
               _vm._v(" "),
               _c("v-spacer")
@@ -1769,7 +1749,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n        No Uploaded Images For This Package\n      "
+                        "\n        No Uploaded Images For This Item\n      "
                       )
                     ]
                   )
@@ -2037,7 +2017,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-toolbar-title", { staticClass: "white--text" }, [
-                _vm._v("Package # " + _vm._s(_vm.id) + " Damaged Images")
+                _vm._v("Item # " + _vm._s(_vm.id) + " Damaged Images")
               ]),
               _vm._v(" "),
               _c("v-spacer")
@@ -2095,7 +2075,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n        No Uploaded Damaged Images For This Package\n      "
+                        "\n        No Uploaded Damaged Images For This Item\n      "
                       )
                     ]
                   )

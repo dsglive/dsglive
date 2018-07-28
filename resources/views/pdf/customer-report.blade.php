@@ -92,7 +92,7 @@
         </div>
         <div class="middle" style="width: 49%; color: darkblue;">
             <h2 style="padding-top:-20px;">Current Inverntory List</h2>
-            <h3 style="padding-top:-10px; font-style: italic">for {{ $profile['first_name'] }} {{ $profile['last_name'] }}
+            <h3 style="padding-top:-10px; font-style: italic">for {{ $profile['company_name'] }}
             </h3>
         </div>
         <div class="right" style="width: 25%; color: darkblue;">
@@ -127,7 +127,7 @@
         </thead>
         <tbody>
             @foreach($client['packages'] as $item)
-            <tr>
+            <tr style="page-break-inside: avoid;">
                 <td class="borders">
                     {{ $item['bin_name'] }}
                 </td>

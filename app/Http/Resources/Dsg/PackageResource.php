@@ -50,6 +50,7 @@ class PackageResource extends Resource
             'date_repaired'      => $this->date_repaired,
             'delivered'          => $this->delivered,
             'date_delivered'     => $this->date_delivered,
+            'notes'              => $this->notes,
             'package_images'     => $this->whenLoaded('media', $this->getPackageImages()),
             'damaged_images'     => $this->whenLoaded('media', $this->getDamagedImages())
         ];
