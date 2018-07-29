@@ -346,16 +346,25 @@ export default {
   },
   methods: {
     viewPdf(dsg) {
-    let type = 'warehouse';
-    if(dsg.active){
-        type = 'receiving'
-    }
-    let id = dsg.id
-    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
-    window.open(url)
+      let type = "warehouse";
+      if (dsg.active) {
+        type = "receiving";
+      }
+      let id = dsg.id;
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/${type}/${id}`;
+      window.open(url);
     },
     editDsg(dsg) {
-      vm.$router.push({ name: "edit-dsg", params: { id: `${dsg.id}` } });
+      if (dsg.active === true) {
+        vm.$router.push({ name: "edit-dsg", params: { id: `${dsg.id}` } });
+      } else {
+        vm.$router.push({
+          name: "edit-warehouse",
+          params: { id: `${dsg.id}` }
+        });
+      }
     },
     createDsg() {
       vm.$router.push({ name: "create-dsg" });

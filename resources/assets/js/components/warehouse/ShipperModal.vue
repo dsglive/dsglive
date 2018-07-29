@@ -51,6 +51,8 @@
           <v-switch
             v-model="form.active"
             :label="getStatus(form.active)"
+            hint="Note: Active Shipper is Searchable On Warehouse/Receiving/Logistic Forms"
+            persistent-hint
           />
         </v-flex>
         <v-flex 

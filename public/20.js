@@ -6083,6 +6083,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6142,6 +6148,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       client_id: null,
       client_name: null
     };
+  },
+  computed: {
+    customerHint: function customerHint() {
+      if (this.form.customer_id === null) {
+        return "Create A New Or Search On Available Customer";
+      } else {
+        return "Customer Verified";
+      }
+    },
+    clientHint: function clientHint() {
+      if (this.form.client_id === null || this.form.client_id === 1) {
+        return "Create A New Or Search On Available Client";
+      } else {
+        return "Client Verified";
+      }
+    },
+    shipperHint: function shipperHint() {
+      if (this.form.shipper_id === null) {
+        return "Create A New Or Search On Available Shipper";
+      } else {
+        return "Shipper Verified";
+      }
+    }
   },
   watch: {
     po_no: {
@@ -6678,6 +6707,7 @@ var render = function() {
                     attrs: {
                       items: _vm.customers,
                       "error-messages": _vm.errorMessages("customer"),
+                      hint: _vm.customerHint,
                       "item-text": "name",
                       "item-value": "id",
                       readonly: "",
@@ -6686,7 +6716,8 @@ var render = function() {
                       light: "",
                       chips: "",
                       "prepend-icon": "supervised_user_circle",
-                      "data-vv-name": "customer"
+                      "data-vv-name": "customer",
+                      "persistent-hint": ""
                     },
                     model: {
                       value: _vm.form.customer_id,
@@ -6718,6 +6749,7 @@ var render = function() {
                       items: _vm.clients,
                       "error-messages": _vm.errorMessages("client"),
                       error: _vm.form.client_id === null,
+                      hint: _vm.clientHint,
                       "item-text": "name",
                       "item-value": "name",
                       chips: "",
@@ -6727,7 +6759,8 @@ var render = function() {
                       readonly: "",
                       label: "Choose Client or Type Name",
                       "prepend-icon": "fa-users",
-                      "data-vv-name": "client"
+                      "data-vv-name": "client",
+                      "persistent-hint": ""
                     },
                     model: {
                       value: _vm.form.client_name,
@@ -6762,11 +6795,13 @@ var render = function() {
                       "item-value": "id",
                       required: "",
                       readonly: "",
+                      hint: _vm.shipperHint,
                       label: "Choose Shipper",
                       light: "",
                       chips: "",
                       "prepend-icon": "fa-ship",
-                      "data-vv-name": "shipper"
+                      "data-vv-name": "shipper",
+                      "persistent-hint": ""
                     },
                     model: {
                       value: _vm.form.shipper_id,
@@ -7123,6 +7158,48 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7c0fad85", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 1156:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1157);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(946)("d26755d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1157:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -8449,6 +8526,10 @@ module.exports = function listToStyles (parentId, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1156)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
@@ -8457,7 +8538,7 @@ var __vue_template__ = __webpack_require__(951)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */

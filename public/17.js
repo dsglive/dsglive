@@ -359,16 +359,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     viewPdf: function viewPdf(dsg) {
-      var type = 'warehouse';
+      var type = "warehouse";
       if (dsg.active) {
-        type = 'receiving';
+        type = "receiving";
       }
       var id = dsg.id;
       var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
       window.open(url);
     },
     editDsg: function editDsg(dsg) {
-      vm.$router.push({ name: "edit-dsg", params: { id: "" + dsg.id } });
+      if (dsg.active === true) {
+        vm.$router.push({ name: "edit-dsg", params: { id: "" + dsg.id } });
+      } else {
+        vm.$router.push({
+          name: "edit-warehouse",
+          params: { id: "" + dsg.id }
+        });
+      }
     },
     createDsg: function createDsg() {
       vm.$router.push({ name: "create-dsg" });

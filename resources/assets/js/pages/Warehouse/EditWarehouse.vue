@@ -43,7 +43,7 @@
           lg4
         >
           <v-subheader
-            v-if="$auth.check(['admin','warehouse'])"
+            v-if="$auth.check(['admin'])"
           >
             <v-spacer/>
             <v-btn 
@@ -117,7 +117,7 @@
           lg4
         >
           <v-subheader
-            v-if="$auth.check(['admin','warehouse'])"
+            v-if="$auth.check(['admin'])"
           >
             <v-spacer/>
             <v-btn 
@@ -193,7 +193,7 @@
           lg4
         >
           <v-subheader
-            v-if="$auth.check(['admin','warehouse'])"
+            v-if="$auth.check(['admin'])"
           >
             <v-spacer/>
             <v-btn 
@@ -1041,7 +1041,12 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+      if (self.$auth.check(["admin"])) {
+        self.$nextTick(() => self.$router.push({ name: "dsg" }));
+      }
+      if (self.$auth.check(["warehouse"])) {
+        self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+      }
     },
     fetchDSG() {
       let id = this.id;
@@ -1085,9 +1090,4 @@ export default {
 };
 </script>
 
-<style>
-.v-messages__message {
-  color: #e57373;
-}
-</style>
 
