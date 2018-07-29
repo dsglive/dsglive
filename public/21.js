@@ -6137,23 +6137,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -6196,23 +6179,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       date_received_modal: false,
       date_processed: null,
       date_processed_modal: false,
-      customers: [],
-      clients: [],
-      shippers: [],
       employees: [],
       packages: [],
       handling_rates: [],
-      storage_rates: [],
-      unknownClient: {
-        active: false,
-        address_1: null,
-        address_2: null,
-        city: null,
-        id: 1,
-        name: "Unknown Client",
-        state: null,
-        zip: null
-      }
+      storage_rates: []
     };
   },
   watch: {
@@ -6250,18 +6220,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       handler: function handler(newValue) {},
       deep: true
     },
-    customers: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
-    shippers: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
-    employees: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
     packages: {
       handler: function handler(newValue) {
         var self = this;
@@ -6270,94 +6228,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         self.updateReceivingAmount();
       },
       deep: true
-    },
-    "form.customer_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var total = this.packages.length;
-        var customer_id = null;
-        var customer_name = null;
-
-        if (newValue != undefined) {
-          var customer = _.find(self.customers, function (c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
-        } else {
-          self.clients = [];
-          self.clients.push(self.unknownClient);
-          self.form.customer_id = null;
-          self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
-        }
-      },
-      deep: false
-    },
-    "form.shipper_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var total = this.packages.length;
-        var shipper_id = null;
-        var shipper_name = null;
-
-        if (newValue != undefined) {
-          var shipper = _.find(self.shippers, function (c) {
-            return c.id === newValue;
-          });
-          self.form.shipper_name = shipper.name;
-          shipper_id = shipper.id;
-          shipper_name = shipper.name;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].shipper_id = shipper_id;
-          self.packages[i].shipper_name = shipper_name;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function handler(newName) {
-        var self = this;
-        var total = this.packages.length;
-        var client_id = null;
-        var client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            var client = _.find(self.clients, function (c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
-        }
-      },
-      deep: false
     },
     "form.received_by": {
       handler: function handler(newID) {
@@ -6445,8 +6315,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    this.getCustomers();
-    this.getShippers();
     this.getEmployees();
     this.getBins();
     this.getHandlingRates();
@@ -6733,7 +6601,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-autocomplete", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -6744,23 +6612,18 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("customer") },
                     attrs: {
-                      items: _vm.customers,
                       "error-messages": _vm.errorMessages("customer"),
-                      "item-text": "name",
-                      "item-value": "id",
                       required: "",
-                      label: "Choose Customer",
-                      light: "",
-                      chips: "",
+                      label: "Type Customer Name",
                       "prepend-icon": "supervised_user_circle",
                       "data-vv-name": "customer"
                     },
                     model: {
-                      value: _vm.form.customer_id,
+                      value: _vm.form.customer_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "customer_id", $$v)
+                        _vm.$set(_vm.form, "customer_name", $$v)
                       },
-                      expression: "form.customer_id"
+                      expression: "form.customer_name"
                     }
                   })
                 ],
@@ -6771,7 +6634,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-combobox", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -6782,16 +6645,9 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("client") },
                     attrs: {
-                      items: _vm.clients,
                       "error-messages": _vm.errorMessages("client"),
-                      error: _vm.form.client_id === null,
-                      "item-text": "name",
-                      "item-value": "name",
-                      chips: "",
-                      light: "",
-                      dense: "",
                       required: "",
-                      label: "Choose Client or Type Name",
+                      label: "Type Client Name",
                       "prepend-icon": "fa-users",
                       "data-vv-name": "client"
                     },
@@ -6811,7 +6667,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-autocomplete", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -6822,23 +6678,18 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("shipper") },
                     attrs: {
-                      items: _vm.shippers,
                       "error-messages": _vm.errorMessages("shipper"),
-                      "item-text": "name",
-                      "item-value": "id",
                       required: "",
-                      label: "Choose Shipper",
-                      light: "",
-                      chips: "",
+                      label: "Type Shipper Name",
                       "prepend-icon": "fa-ship",
                       "data-vv-name": "shipper"
                     },
                     model: {
-                      value: _vm.form.shipper_id,
+                      value: _vm.form.shipper_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "shipper_id", $$v)
+                        _vm.$set(_vm.form, "shipper_name", $$v)
                       },
-                      expression: "form.shipper_id"
+                      expression: "form.shipper_name"
                     }
                   })
                 ],

@@ -42,8 +42,61 @@
           xs12
           lg4
         >
+          <v-subheader
+            v-if="$auth.check(['admin','warehouse'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleCustomerModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_customer"
+              flat 
+              icon 
+              color="blue"
+              @click="search_customer = !search_customer"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_customer = !search_customer"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
+            v-validate="'required'"
+            v-if="!search_customer"
+            v-model="form.customer_name"
+            :error-messages="errorMessages('customer')"
+            :class="{ 'error--text': hasErrors('customer') }"
+            :error="form.customer_id === null"
+            :hint="customerHint"
+            required
+            label="Customer Name"
+            prepend-icon="supervised_user_circle"
+            data-vv-name="customer"
+            persistent-hint
+          />
+              
           <v-autocomplete
             v-validate="'required'"
+            v-else
             :items="customers"
             v-model="form.customer_id"
             :error-messages="errorMessages('customer')"
@@ -55,6 +108,7 @@
             light
             chips
             prepend-icon="supervised_user_circle"
+            style="margin-top:5px;"
             data-vv-name="customer"
           />
         </v-flex>
@@ -62,9 +116,60 @@
           xs12
           lg4
         >
-
+          <v-subheader
+            v-if="$auth.check(['admin','warehouse'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleClientModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_client"
+              flat 
+              icon 
+              color="blue"
+              @click="search_client = !search_client"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_client = !search_client"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
+            v-validate="'required'"
+            v-if="!search_client"
+            v-model="form.client_name"
+            :error-messages="errorMessages('client')"
+            :class="{ 'error--text': hasErrors('client') }"
+            :error="form.client_id === null"
+            :hint="clientHint"
+            required
+            label="Client Name"
+            prepend-icon="fa-users"
+            data-vv-name="client"
+            persistent-hint
+          />
           <v-combobox
             v-validate="'required'"
+            v-else
             v-model="form.client_name"
             :items="clients"
             :error-messages="errorMessages('client')"
@@ -72,6 +177,7 @@
             :error="form.client_id === null"
             item-text="name"
             item-value="name"
+            style="margin-top:5px;"
             chips
             light
             dense
@@ -86,14 +192,67 @@
           xs12
           lg4
         >
+          <v-subheader
+            v-if="$auth.check(['admin','warehouse'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleShipperModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_shipper"
+              flat 
+              icon 
+              color="blue"
+              @click="search_shipper = !search_shipper"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_shipper = !search_shipper"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
+            v-validate="'required'"
+            v-if="!search_shipper"
+            v-model="form.shipper_name"
+            :error-messages="errorMessages('shipper')"
+            :class="{ 'error--text': hasErrors('shipper') }"
+            :error="form.shipper_id === null"
+            :hint="shipperHint"
+            required
+            label="Type Shipper Name"
+            prepend-icon="fa-ship"
+            data-vv-name="shipper"
+            persistent-hint
+          />
           <v-autocomplete
             v-validate="'required'"
+            v-else
             :items="shippers"
             v-model="form.shipper_id"
             :error-messages="errorMessages('shipper')"
             :class="{ 'error--text': hasErrors('shipper') }"
             item-text="name"
             item-value="id"
+            style="margin-top:5px;"
             required
             label="Choose Shipper"
             light
@@ -333,6 +492,9 @@
         :storage-rates="storage_rates"
         :form="form"
       />
+      <customer-modal/>
+      <client-modal/>
+      <shipper-modal/>
       <!-- End Package -->
     </v-card>
 
@@ -345,10 +507,16 @@ import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
 import Packages from "Components/dsg/Packages";
+import CustomerModal from "Components/warehouse/CustomerModal";
+import ClientModal from "Components/warehouse/ClientModal";
+import ShipperModal from "Components/warehouse/ShipperModal";
 export default {
   components: {
     ModalLayout,
-    Packages
+    Packages,
+    CustomerModal,
+    ClientModal,
+    ShipperModal
   },
   mixins: [validationError],
   props: {
@@ -406,7 +574,33 @@ export default {
       state: null,
       zip: null
     },
+    search_customer: false,
+    search_client: false,
+    search_shipper:false,
   }),
+  computed:{
+      customerHint(){
+          if(this.form.customer_id === null){
+              return 'Create A New Or Search On Available Customer'
+          }else{
+              return 'Customer Verified'
+          }
+      },
+      clientHint(){
+          if(this.form.client_id === null || this.form.client_id === 1){
+              return 'Create A New Or Search On Available Client'
+          }else{
+              return 'Client Verified'
+          }
+      },
+      shipperHint(){
+          if(this.form.shipper_id === null){
+              return 'Create A New Or Search On Available Shipper'
+          }else{
+              return 'Shipper Verified'
+          }
+      }
+  },
   watch: {
     po_no: {
       handler: function(newValue) {
@@ -646,8 +840,29 @@ export default {
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
     this.fetchDSG();
+    Bus.$on("customer-created", (data) => {
+      console.log(data.user)
+      // update update customers,customer id , customer_name , clients
+    });
+    Bus.$on("client-created", (data) => {
+      console.log(data)
+      // push to array of customer clients, update client-id and client name
+    });
+    Bus.$on("shipper-created", (data) => {
+      console.log(data)
+      // push to array of shippers, update shipper-id, shipper-name
+    });
   },
   methods: {
+    toggleCustomerModal() {
+      Bus.$emit("open-customer-modal");
+    },
+    toggleClientModal(){
+        Bus.$emit("open-client-modal");
+    },
+    toggleShipperModal(){
+        Bus.$emit("open-shipper-modal");
+    },
     updateReceivingAmount() {
       let self = this;
       let total = self.packages.length;
@@ -862,3 +1077,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-messages__message {
+  color: #e57373;
+}
+</style>
+

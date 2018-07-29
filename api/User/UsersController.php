@@ -16,6 +16,7 @@ use App\Exceptions\UpdatingRecordFailed;
 use App\Exceptions\AccountCreationFailed;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\AccountResource;
+use App\Http\Resources\User\CustomerResource;
 
 class UsersController extends Controller
 {
@@ -90,6 +91,10 @@ class UsersController extends Controller
         }
 
         DB::commit();
+        $user->clients;
+        $user->profile;
+        $user = new CustomerResource($user);
+        return response()->json(['user' => $user], 201);
     }
 
     /**

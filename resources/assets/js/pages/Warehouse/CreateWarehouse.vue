@@ -42,18 +42,13 @@
           xs12
           lg4
         >
-          <v-autocomplete
+          <v-text-field
             v-validate="'required'"
-            :items="customers"
-            v-model="form.customer_id"
+            v-model="form.customer_name"
             :error-messages="errorMessages('customer')"
             :class="{ 'error--text': hasErrors('customer') }"
-            item-text="name"
-            item-value="id"
             required
-            label="Choose Customer"
-            light
-            chips
+            label="Type Customer Name"
             prepend-icon="supervised_user_circle"
             data-vv-name="customer"
           />
@@ -63,20 +58,13 @@
           lg4
         >
 
-          <v-combobox
+          <v-text-field
             v-validate="'required'"
             v-model="form.client_name"
-            :items="clients"
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
-            :error="form.client_id === null"
-            item-text="name"
-            item-value="name"
-            chips
-            light
-            dense
             required
-            label="Choose Client or Type Name"
+            label="Type Client Name"
             prepend-icon="fa-users"
             data-vv-name="client"
           />
@@ -86,18 +74,13 @@
           xs12
           lg4
         >
-          <v-autocomplete
+          <v-text-field
             v-validate="'required'"
-            :items="shippers"
-            v-model="form.shipper_id"
+            v-model="form.shipper_name"
             :error-messages="errorMessages('shipper')"
             :class="{ 'error--text': hasErrors('shipper') }"
-            item-text="name"
-            item-value="id"
             required
-            label="Choose Shipper"
-            light
-            chips
+            label="Type Shipper Name"
             prepend-icon="fa-ship"
             data-vv-name="shipper"
           />
@@ -381,23 +364,10 @@ export default {
     date_received_modal: false,
     date_processed: null,
     date_processed_modal: false,
-    customers: [],
-    clients: [],
-    shippers: [],
     employees: [],
     packages: [],
     handling_rates: [],
     storage_rates: [],
-    unknownClient: {
-      active: false,
-      address_1: null,
-      address_2: null,
-      city: null,
-      id: 1,
-      name: "Unknown Client",
-      state: null,
-      zip: null
-    },
   }),
   watch: {
     po_no: {
@@ -434,18 +404,6 @@ export default {
       handler: function(newValue) {},
       deep: true
     },
-    customers: {
-      handler: function(newValue) {},
-      deep: true
-    },
-    shippers: {
-      handler: function(newValue) {},
-      deep: true
-    },
-    employees: {
-      handler: function(newValue) {},
-      deep: true
-    },
     packages: {
       handler: function(newValue) {
         let self = this;
@@ -454,94 +412,6 @@ export default {
         self.updateReceivingAmount();
       },
       deep: true
-    },
-    "form.customer_id": {
-      handler: function(newValue) {
-        let self = this;
-        let total = this.packages.length;
-        let customer_id = null;
-        let customer_name = null;
-
-        if (newValue != undefined) {
-          let customer = _.find(self.customers, function(c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
-        } else {
-          self.clients = [];
-          self.clients.push(self.unknownClient);
-          self.form.customer_id = null;
-          self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
-        }
-      },
-      deep: false
-    },
-    "form.shipper_id": {
-      handler: function(newValue) {
-        let self = this;
-        let total = this.packages.length;
-        let shipper_id = null;
-        let shipper_name = null;
-
-        if (newValue != undefined) {
-          let shipper = _.find(self.shippers, function(c) {
-            return c.id === newValue;
-          });
-          self.form.shipper_name = shipper.name;
-          shipper_id = shipper.id;
-          shipper_name = shipper.name;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].shipper_id = shipper_id;
-          self.packages[i].shipper_name = shipper_name;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function(newName) {
-        let self = this;
-        let total = this.packages.length;
-        let client_id = null;
-        let client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            let client = _.find(self.clients, function(c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
-        }
-      },
-      deep: false
     },
     "form.received_by": {
       handler: function(newID) {
@@ -629,8 +499,6 @@ export default {
     }
   },
   mounted() {
-    this.getCustomers();
-    this.getShippers();
     this.getEmployees();
     this.getBins();
     this.getHandlingRates();

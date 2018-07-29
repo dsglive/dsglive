@@ -299,6 +299,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -631,7 +633,12 @@ var render = function() {
                 { staticClass: "xs6 md4" },
                 [
                   _c("v-switch", {
-                    attrs: { label: _vm.getStatus(_vm.form.active) },
+                    attrs: {
+                      label: _vm.getStatus(_vm.form.active),
+                      hint:
+                        "Note: Active User is Searchable On Warehouse/Receiving/Logistic Forms",
+                      "persistent-hint": ""
+                    },
                     model: {
                       value: _vm.form.active,
                       callback: function($$v) {

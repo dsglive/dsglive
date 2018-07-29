@@ -95165,7 +95165,7 @@ var ViewWarehouse = function ViewWarehouse() {
   path: "/warehouse/dsg/:id/edit",
   component: EditWarehouse,
   name: "edit-warehouse",
-  meta: { auth: ["warehouse"] },
+  meta: { auth: ["warehouse", "admin"] },
   props: true
   /* End Users Routes */
 }]);

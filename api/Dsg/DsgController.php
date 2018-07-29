@@ -231,12 +231,12 @@ class DsgController extends Controller
     private function sanitizeDsg()
     {
         return request()->validate([
-            'customer_id'       => 'required',
-            'customer_name'     => 'required_with:customer_id',
+            'customer_id'       => 'nullable',
+            'customer_name'     => 'nullable',
             'client_id'         => 'nullable',
             'client_name'       => 'nullable',
-            'shipper_id'        => 'required',
-            'shipper_name'      => 'required_with:shipper_name',
+            'shipper_id'        => 'nullable',
+            'shipper_name'      => 'nullable',
             'received_by'       => 'required',
             'received_by_name'  => 'required_with:received_by',
             'written_by'        => 'required',
@@ -264,11 +264,11 @@ class DsgController extends Controller
         return request()->validate([
             'packages.*.id'                 => 'required|exists:packages,id',
             'packages.*.dsg_id'             => 'nullable|exists:dsg,id',
-            'packages.*.customer_id'        => 'required|exists:users,id',
+            'packages.*.customer_id'        => 'nullable|exists:users,id',
             'packages.*.customer_name'      => 'required_with:customer_id',
             'packages.*.client_id'          => 'nullable|exists:clients,id',
             'packages.*.client_name'        => 'nullable',
-            'packages.*.shipper_id'         => 'required|exists:shippers,id',
+            'packages.*.shipper_id'         => 'nullable|exists:shippers,id',
             'packages.*.shipper_name'       => 'required_with:shipper_id',
             'packages.*.bin_id'             => 'required|exists:bins,id',
             'packages.*.bin_name'           => 'required_with:bin_id',

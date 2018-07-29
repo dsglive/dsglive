@@ -14,3 +14,20 @@
 - The warehouse needs FULL range of freedom when entering orders. They need to be able to type exactly what they see on the paperwork in front of them into WRITE-IN-FIELDS that have no consequence as to whether or not an official record for customer, client, or shipper has been
 
 - [ x ] On iPad, every package is labeled as “package 1” – this problem does not occur on desktop.
+
+- On Admin dashboard if the item is click for example edit dsg ,
+  it will check if the status is warehouse or received
+  then it will redirect to the correct link
+- On warehouse we need to overhaul create
+- On Warehouse we need to overhaul edit
+  for warehouse type account only
+  (v-textfield)
+  additional for admin
+  (v-autocomplete) Search for existing users
+  (Account Creation Modal) (Customer)
+  (Client Creation Modal) (Client)
+
+- admin
+  can use search, visible
+  can use add , visible
+  can use back, visible
