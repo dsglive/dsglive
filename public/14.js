@@ -1,6 +1,6 @@
 webpackJsonp([14],{
 
-/***/ 1081:
+/***/ 1130:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,163 +9,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(961);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(947);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(949);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -348,22 +200,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
   data: function data() {
     return {
-      rowsPerPageItems: [1, 2],
+      contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Ticket#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Type", value: "type", align: "left", sortable: true }, {
-        text: "Delivery Date",
-        value: "date_delivered",
-        align: "left",
-        sortable: true
-      }, {
-        text: "Delivery Fee",
-        value: "total_charges",
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
+        text: "Damaged Description",
+        value: "damage_description",
         align: "left",
         sortable: true
       }, { text: "Actions", value: "actions", align: "right", sortable: false }],
@@ -372,14 +219,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       pagination: {
         sortBy: "name"
       },
-      iteratorPagination: {
-        rowsPerPage: 2
-      },
-      ticketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       search: "",
-      deleteTicketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        logistics_id: null
-      }),
       domain: window.location.hostname
     };
   },
@@ -391,51 +232,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchTickets();
+    self.fetchDsg();
   },
 
   methods: {
-    titleCase: function titleCase(key) {
-      var newStr = key.replace(/_/g, " ");
-      return newStr.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+    viewItem: function viewItem(id) {
+      this.$router.push({ name: "view-damaged-package", params: { id: "" + id } });
     },
-    kebabCase: function kebabCase(string) {
-      var result = string;
-
-      // Convert camelCase capitals to kebab-case.
-      result = result.replace(/([a-z][A-Z])/g, function (match) {
-        return match.substr(0, 1) + '-' + match.substr(1, 1).toLowerCase();
-      });
-
-      // Convert non-camelCase capitals to lowercase.
-      result = result.toLowerCase();
-
-      // Convert non-alphanumeric characters to hyphens
-      result = result.replace(/[^-a-z0-9]+/g, '-');
-
-      // Remove hyphens from both ends
-      result = result.replace(/^-+/, '').replace(/-$/, '');
-
-      return result;
+    editPackage: function editPackage(id) {
+      this.$router.push({ name: "edit-damaged-package", params: { id: "" + id } });
     },
-    viewPdf: function viewPdf(ticket) {
-      var type = this.kebabCase(ticket.type);
-      var id = ticket.id;
-      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
-      window.open(url);
-    },
-    editTicket: function editTicket(logistics) {
-      vm.$router.push({
-        name: "edit-logistics",
-        params: { id: "" + logistics.id }
-      });
-    },
-    createTicket: function createTicket() {
-      vm.$router.push({ name: "create-logistics" });
-    },
-    fetchTickets: function () {
+    fetchDsg: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -444,16 +251,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               case 0:
                 self = this;
 
-                self.ticketForm.busy = true;
+                self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.logistics.index"), self.ticketForm);
+                return axios.post(route("api.report.reportAllDamaged"), self.form);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.ticketForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                self.form = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
                 _context.next = 17;
                 break;
 
@@ -464,10 +271,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 message = _context.t0.message;
 
                 if (errors) {
-                  self.ticketForm.errors.set(errors);
+                  self.form.errors.set(errors);
                 }
                 if (message) {}
-                self.ticketForm.busy = false;
+                self.form.busy = false;
 
               case 17:
               case "end":
@@ -477,41 +284,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, _callee, this, [[2, 10]]);
       }));
 
-      function fetchTickets() {
+      function fetchDsg() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchTickets;
+      return fetchDsg;
     }(),
-    deleteTicket: function deleteTicket(logistics) {
-      var self = this;
-      self.deleteTicketForm.logistics_id = logistics.id;
-      var index = _.findIndex(self.items, { id: logistics.id });
-      axios.post(route("api.logistics.delete", { logistic: logistics.id }), self.deleteTicketForm).then(function (response) {
-        self.$delete(self.items, index);
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Success",
-          html: "<p class=\"title\">Ticket Deleted!</p>",
-          type: "success",
-          confirmButtonText: "Back"
-        });
-      }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-      });
-    },
     toggleAll: function toggleAll() {
       if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
     },
@@ -528,7 +306,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1082:
+/***/ 1131:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -539,8 +317,41 @@ var render = function() {
     "main-layout",
     [
       _c(
+        "v-jumbotron",
+        [
+          _c(
+            "v-container",
+            { attrs: { fluid: "" } },
+            [
+              _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", "text-xs-center": "" } },
+                    [
+                      _c("h2", { staticClass: "display-1" }, [
+                        _vm._v("Damaged Report")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-container",
-        { attrs: { fluid: "" } },
+        { staticStyle: { "margin-top": "-350px" }, attrs: { fluid: "" } },
         [
           _c(
             "v-layout",
@@ -548,110 +359,31 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { attrs: { "d-flex": "", xs12: "", sm7: "" } },
+                { attrs: { xs12: "" } },
                 [
                   _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
+                    "v-card",
+                    { attrs: { light: "", flat: "" } },
                     [
                       _c(
-                        "v-flex",
-                        { attrs: { "d-flex": "" } },
+                        "v-card-title",
                         [
-                          _c(
-                            "v-card",
-                            { attrs: { light: "", flat: "" } },
-                            [
-                              _c(
-                                "v-card-title",
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      "append-icon": "search",
-                                      label: "Search Ticket",
-                                      "single-line": "",
-                                      "hide-details": "",
-                                      light: ""
-                                    },
-                                    model: {
-                                      value: _vm.search,
-                                      callback: function($$v) {
-                                        _vm.search = $$v
-                                      },
-                                      expression: "search"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                {
-                  attrs: { "d-flex": "", xs12: "", sm5: "", "child-flex": "" }
-                },
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      _c(
-                        "v-flex",
-                        {
-                          staticClass: "white",
-                          attrs: { xs12: "", "d-flex": "" }
-                        },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                disabled: !_vm.$auth.check("admin"),
-                                block: "",
-                                color: "accent",
-                                dark: "",
-                                flat: ""
-                              },
-                              on: { click: _vm.createTicket }
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "search",
+                              label: "Search Damaged Packages",
+                              "single-line": "",
+                              "hide-details": "",
+                              light: ""
                             },
-                            [
-                              _vm._v(
-                                "\n              Create New Ticket\n              "
-                              ),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                confirmation_number\n              "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                fa-plus-circle\n              "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
                         ],
                         1
                       )
@@ -673,9 +405,13 @@ var render = function() {
                 items: _vm.items,
                 search: _vm.search,
                 pagination: _vm.pagination,
+                "rows-per-page-items": [
+                  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
+                ],
                 "select-all": "",
                 "item-key": "id",
-                expand: ""
+                expand: "",
+                "hide-actions": ""
               },
               on: {
                 "update:pagination": function($event) {
@@ -689,70 +425,46 @@ var render = function() {
                     return [
                       _c(
                         "tr",
-                        [
-                          _c(
+                        _vm._l(props.headers, function(header) {
+                          return _c(
                             "th",
-                            [
-                              _c("v-checkbox", {
-                                attrs: {
-                                  "input-value": props.all,
-                                  indeterminate: props.indeterminate,
-                                  primary: "",
-                                  "hide-details": ""
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
                                 },
-                                nativeOn: {
-                                  click: function($event) {
-                                    return _vm.toggleAll($event)
-                                  }
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(props.headers, function(header) {
-                            return _c(
-                              "th",
-                              {
-                                key: header.text,
-                                class: [
-                                  "column sortable",
-                                  _vm.pagination.descending ? "desc" : "asc",
-                                  header.value === _vm.pagination.sortBy
-                                    ? "name"
-                                    : "",
-                                  {
-                                    "text-xs-left": header.align === "left",
-                                    "text-xs-right": header.align === "right",
-                                    "text-xs-center": header.align === "center"
-                                  },
-                                  _vm.$vuetify.breakpoint.width >= 600 &&
-                                    "title"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
                                 ],
-                                on: {
-                                  click: function($event) {
-                                    _vm.changeSort(header.value)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  [
-                                    _c("v-icon", [_vm._v("arrow_upward")]),
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(header.text) +
-                                        "\n            "
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                1
+                              )
+                            ]
+                          )
+                        })
                       )
                     ]
                   }
@@ -764,30 +476,11 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left" },
-                          [
-                            _c("v-checkbox", {
-                              attrs: {
-                                active: props.selected,
-                                "input-value": props.selected
-                              },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.id) +
+                                _vm._s(props.item.dsg_id) +
                                 "\n          "
                             )
                           ]
@@ -833,13 +526,21 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
+                        _c("td", { staticClass: "title text-xs-left" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(props.item.po_no) +
+                              "\n          "
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(_vm.titleCase(props.item.type)) +
+                                _vm._s(props.item.style_no) +
                                 "\n          "
                             )
                           ]
@@ -851,19 +552,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.date_delivered) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.total_charges) +
+                                _vm._s(props.item.damage_description) +
                                 "\n          "
                             )
                           ]
@@ -873,51 +562,6 @@ var render = function() {
                           "td",
                           { staticClass: "title text-xs-center" },
                           [
-                            props.item.type === "delivery_ticket" &&
-                            props.item.items.length > 0
-                              ? _c(
-                                  "v-flex",
-                                  { staticClass: "xs12" },
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        class: {
-                                          "amber--text": props.expanded,
-                                          amber: props.expanded,
-                                          teal: !props.expanded,
-                                          "teal--text": !props.expanded
-                                        },
-                                        attrs: {
-                                          disabled: !_vm.$auth.check("admin"),
-                                          light: "",
-                                          flat: "",
-                                          icon: ""
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            props.expanded = !props.expanded
-                                          }
-                                        }
-                                      },
-                                      [
-                                        !props.expanded
-                                          ? _c("v-icon", [_vm._v("fa-expand")])
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.expanded
-                                          ? _c("v-icon", [
-                                              _vm._v("fa-compress")
-                                            ])
-                                          : _vm._e()
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
                             _c(
                               "v-flex",
                               { staticClass: "xs12" },
@@ -929,67 +573,15 @@ var render = function() {
                                       disabled: !_vm.$auth.check("admin"),
                                       flat: "",
                                       icon: "",
-                                      color: "blue"
+                                      color: "amber lighten-2"
                                     },
                                     on: {
                                       click: function($event) {
-                                        _vm.editTicket(props.item)
+                                        _vm.viewItem(props.item.id)
                                       }
                                     }
                                   },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "purple"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewPdf(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteTicket(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  [_c("v-icon", [_vm._v("fa-eye")])],
                                   1
                                 )
                               ],
@@ -999,325 +591,6 @@ var render = function() {
                           1
                         )
                       ])
-                    ]
-                  }
-                },
-                {
-                  key: "expand",
-                  fn: function(props) {
-                    return [
-                      _c(
-                        "v-container",
-                        { attrs: { fluid: "" } },
-                        [
-                          _c(
-                            "v-card",
-                            {
-                              attrs: {
-                                light: "",
-                                flat: "",
-                                "text-xs-center": ""
-                              }
-                            },
-                            [
-                              _c(
-                                "v-toolbar",
-                                { staticClass: "secondary" },
-                                [
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-toolbar-title",
-                                    {
-                                      staticClass: "text-xs-center white--text"
-                                    },
-                                    [_vm._v("Delivered Packages")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    { staticClass: "title white--text" },
-                                    [
-                                      _vm._v(
-                                        " Count: " +
-                                          _vm._s(props.item.items.length) +
-                                          " "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-container",
-                                { attrs: { fluid: "" } },
-                                [
-                                  _c("v-data-iterator", {
-                                    attrs: {
-                                      items: props.item.items,
-                                      "rows-per-page-items":
-                                        _vm.rowsPerPageItems,
-                                      pagination: _vm.iteratorPagination,
-                                      "content-tag": "v-layout",
-                                      row: "",
-                                      wrap: ""
-                                    },
-                                    on: {
-                                      "update:pagination": function($event) {
-                                        _vm.iteratorPagination = $event
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "item",
-                                        fn: function(props) {
-                                          return _c(
-                                            "v-flex",
-                                            { attrs: { xs6: "" } },
-                                            [
-                                              _c(
-                                                "v-card",
-                                                [
-                                                  _c("v-card-title", [
-                                                    _c("h4", [
-                                                      _vm._v(
-                                                        "Package ID: " +
-                                                          _vm._s(props.item.id)
-                                                      )
-                                                    ])
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-divider"),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-list",
-                                                    { attrs: { dense: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("DSG #:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .dsg_id
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Style #:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .style_no
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Description:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .description
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Bin:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .bin_name
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Cube:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .cube
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Date Processed:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .date_processed
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Date Received:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .date_received
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        }
-                                      }
-                                    ])
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
                     ]
                   }
                 },
@@ -1362,33 +635,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! No Ticket Created Yet!, \n          "
-                      ),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            disabled: !_vm.$auth.check("admin"),
-                            color: "white",
-                            flat: "",
-                            dark: ""
-                          },
-                          on: { click: _vm.createTicket }
-                        },
-                        [
-                          _vm._v(
-                            "\n            Create New Ticket\n            "
-                          ),
-                          _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v(
-                              "\n              confirmation_number\n            "
-                            )
-                          ])
-                        ],
-                        1
+                        "\n          Opps! There are No Damaged Packages Yet!, \n        "
                       )
-                    ],
-                    1
+                    ]
                   )
                 ],
                 1
@@ -1429,21 +678,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-ff6f65ee", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-876d0b90", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 924:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1081)
+var __vue_script__ = __webpack_require__(1130)
 /* template */
-var __vue_template__ = __webpack_require__(1082)
+var __vue_template__ = __webpack_require__(1131)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1460,7 +709,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Logistics/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/Damaged.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1469,9 +718,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ff6f65ee", Component.options)
+    hotAPI.createRecord("data-v-876d0b90", Component.options)
   } else {
-    hotAPI.reload("data-v-ff6f65ee", Component.options)
+    hotAPI.reload("data-v-876d0b90", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1502,7 +751,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(949)
+var listToStyles = __webpack_require__(947)
 
 /*
 type StyleObject = {
@@ -1713,6 +962,40 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 947:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1736,7 +1019,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -2720,41 +2003,7 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-
-/***/ 952:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2762,7 +2011,7 @@ module.exports = function listToStyles (parentId, list) {
 
 exports.__esModule = true;
 
-var _assign = __webpack_require__(953);
+var _assign = __webpack_require__(955);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -2784,42 +2033,42 @@ exports.default = _assign2.default || function (target) {
 
 /***/ }),
 
-/***/ 953:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(954), __esModule: true };
-
-/***/ }),
-
-/***/ 954:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(955);
-module.exports = __webpack_require__(45).Object.assign;
-
-
-/***/ }),
-
 /***/ 955:
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(76);
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(956) });
-
+module.exports = { "default": __webpack_require__(956), __esModule: true };
 
 /***/ }),
 
 /***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(957);
+module.exports = __webpack_require__(45).Object.assign;
+
+
+/***/ }),
+
+/***/ 957:
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(76);
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(958) });
+
+
+/***/ }),
+
+/***/ 958:
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = __webpack_require__(375);
-var gOPS = __webpack_require__(957);
-var pIE = __webpack_require__(958);
+var gOPS = __webpack_require__(959);
+var pIE = __webpack_require__(960);
 var toObject = __webpack_require__(377);
 var IObject = __webpack_require__(376);
 var $assign = Object.assign;
@@ -2853,7 +2102,7 @@ module.exports = !$assign || __webpack_require__(155)(function () {
 
 /***/ }),
 
-/***/ 957:
+/***/ 959:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -2861,7 +2110,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 958:
+/***/ 960:
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
@@ -2869,15 +2118,15 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 959:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(960)
+var __vue_script__ = __webpack_require__(962)
 /* template */
-var __vue_template__ = __webpack_require__(984)
+var __vue_template__ = __webpack_require__(986)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2917,14 +2166,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 960:
+/***/ 962:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__ = __webpack_require__(961);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__ = __webpack_require__(963);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__ = __webpack_require__(966);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__ = __webpack_require__(968);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__);
 //
 //
@@ -2958,19 +2207,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 961:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(962)
+  __webpack_require__(964)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(964)
+var __vue_script__ = __webpack_require__(966)
 /* template */
-var __vue_template__ = __webpack_require__(965)
+var __vue_template__ = __webpack_require__(967)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3010,13 +2259,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 962:
+/***/ 964:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(963);
+var content = __webpack_require__(965);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3037,7 +2286,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 963:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -3052,7 +2301,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 964:
+/***/ 966:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3143,7 +2392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 965:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3238,15 +2487,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 966:
+/***/ 968:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(967)
+var __vue_script__ = __webpack_require__(969)
 /* template */
-var __vue_template__ = __webpack_require__(983)
+var __vue_template__ = __webpack_require__(985)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3286,19 +2535,19 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 967:
+/***/ 969:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(954);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__ = __webpack_require__(968);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__ = __webpack_require__(970);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__ = __webpack_require__(973);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__ = __webpack_require__(975);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__ = __webpack_require__(978);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__ = __webpack_require__(980);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__);
 
 //
@@ -3492,19 +2741,19 @@ var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* cre
 
 /***/ }),
 
-/***/ 968:
+/***/ 970:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(969)
+  __webpack_require__(971)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(971)
+var __vue_script__ = __webpack_require__(973)
 /* template */
-var __vue_template__ = __webpack_require__(972)
+var __vue_template__ = __webpack_require__(974)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3544,13 +2793,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 969:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(970);
+var content = __webpack_require__(972);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3571,7 +2820,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 970:
+/***/ 972:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -3586,7 +2835,7 @@ exports.push([module.i, "\n.styleAvatar[data-v-2c0f8c2e] {\n  position: relative
 
 /***/ }),
 
-/***/ 971:
+/***/ 973:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3700,7 +2949,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 972:
+/***/ 974:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3796,19 +3045,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 973:
+/***/ 975:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(974)
+  __webpack_require__(976)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(976)
+var __vue_script__ = __webpack_require__(978)
 /* template */
-var __vue_template__ = __webpack_require__(977)
+var __vue_template__ = __webpack_require__(979)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3848,13 +3097,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 974:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(975);
+var content = __webpack_require__(977);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3875,7 +3124,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 975:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -3890,7 +3139,7 @@ exports.push([module.i, "\n.v-list__group__header__append-icon{\n    color: #fff
 
 /***/ }),
 
-/***/ 976:
+/***/ 978:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3961,7 +3210,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 977:
+/***/ 979:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4073,19 +3322,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 978:
+/***/ 980:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(979)
+  __webpack_require__(981)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(981)
+var __vue_script__ = __webpack_require__(983)
 /* template */
-var __vue_template__ = __webpack_require__(982)
+var __vue_template__ = __webpack_require__(984)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4125,13 +3374,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 979:
+/***/ 981:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(980);
+var content = __webpack_require__(982);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4152,7 +3401,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 980:
+/***/ 982:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4167,7 +3416,7 @@ exports.push([module.i, "\n.v-list__group__header__append-icon{\n    color: #fff
 
 /***/ }),
 
-/***/ 981:
+/***/ 983:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4238,7 +3487,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 982:
+/***/ 984:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4350,7 +3599,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 983:
+/***/ 985:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4576,7 +3825,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 984:
+/***/ 986:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

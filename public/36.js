@@ -7,8 +7,8 @@ webpackJsonp([36],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(950);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(947);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(949);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
@@ -582,12 +582,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
   data: function data() {
     return {
       /* Always Declare Your Form Object */
@@ -623,11 +617,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       date_delivered_modal: false,
       customers: [],
       clients: [],
-      packages: [],
-      delivered_packages: [],
-      choosen_packages: [],
-      customer_id: null,
-      client_id: null,
       client: {
         id: null,
         active: false,
@@ -638,6 +627,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         do_state: null,
         do_zip: null
       },
+      packages: [],
       selected: [],
       unknownClient: {
         active: false,
@@ -676,7 +666,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           self.form.client_id = null;
           customer_id = newValue;
           customer_name = customer.name;
-          self.packages = [];
         } else {
           self.clients = [];
           self.clients.push(self.unknownClient);
@@ -702,22 +691,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (client != undefined) {
               self.form.client_name = client.name;
               self.form.client_id = client.id;
+              client_id = client.id;
+              client_name = client.name;
               this.getClientPackages();
               this.setDropOffAddress(client);
             }
           }
         } else {
-          self.form.client_id = client_id;
-          self.form.client_name = newName;
-          self.packages = [];
-        }
-      },
-      deep: false
-    },
-    "form.packages": {
-      handler: function handler(newValue) {
-        if (this.client_id === this.form.client_id && this.client_name === this.form.client_name) {
-          this.choosen_packages = newValue;
+          self.form.client_id = null;
+          self.form.client_name = null;
         }
       },
       deep: false
@@ -766,9 +748,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   created: function created() {
-    this.getInitialData();
-    this.fetchTicket();
     this.debouncedComputeTotal = _.debounce(this.computeTotal, 2000);
+  },
+  mounted: function mounted() {
+    this.getInitialData();
+    this.form.date_delivered = moment().format("YYYY-MM-DD");
+    this.form.type = "field_transfer";
   },
 
   methods: {
@@ -782,68 +767,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.selected = [];
       }
       this.form.packages = this.selected;
-    },
-    setDropOffAddress: function setDropOffAddress(client) {
-      this.client = {
-        id: client.id,
-        active: client.active,
-        name: client.name,
-        do_address_1: client.address_1,
-        do_address_2: client.address_2,
-        do_city: client.city,
-        do_state: client.state,
-        do_zip: client.zip
-      };
-      this.form.do_address_1 = client.address_1;
-      this.form.do_address_2 = client.address_2;
-      this.form.do_city = client.city;
-      this.form.do_state = client.state;
-      this.form.do_zip = client.zip;
-    },
-    fetchTicket: function fetchTicket() {
-      var id = this.id;
-      var self = this;
-      axios.get(route("api.logistics.edit", { id: id })).then(function (response) {
-        var ticket = response.data.data;
-        self.form.type = ticket.type;
-        self.form.client_id = ticket.client_id;
-        self.form.client_name = ticket.client_name;
-        self.form.customer_id = ticket.customer_id;
-        self.form.customer_name = ticket.customer_name;
-        self.form.date_delivered = ticket.date_delivered;
-        self.form.start_time = ticket.start_time;
-        self.form.end_time = ticket.end_time;
-        self.form.prep_time = ticket.prep_time;
-        self.form.travel_time = ticket.travel_time;
-        self.form.clean_up_time = ticket.clean_up_time;
-        self.form.total_time = ticket.total_time;
-        self.form.rate = ticket.rate;
-        self.form.surcharge = ticket.surcharge;
-        self.form.total_charges = ticket.total_charges;
-        self.form.notes = ticket.notes;
-        self.form.do_address_1 = ticket.do_address_1;
-        self.form.do_address_2 = ticket.do_address_2;
-        self.form.do_city = ticket.do_city;
-        self.form.do_state = ticket.do_state;
-        self.form.do_zip = ticket.do_zip;
-        self.form.pu_address_1 = ticket.pu_address_1;
-        self.form.pu_address_2 = ticket.pu_address_2;
-        self.form.pu_city = ticket.pu_city;
-        self.form.pu_state = ticket.pu_state;
-        self.form.pu_zip = ticket.pu_zip;
-
-        self.delivered_packages = ticket.items;
-        self.packages = ticket.items;
-
-        self.client_name = ticket.client_name;
-        self.client_id = ticket.client_id;
-
-        self.choosen_packages = ticket.packages;
-        self.form.packages = ticket.packages;
-      });
-      setTimeout(function () {
-        self.form.client_name = self.client_name;
-      }, 1000);
     },
     workingTime: function workingTime() {
       var start_time = this.form.start_time;
@@ -881,6 +804,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         min_diff = 0;
       }
       return hr_diff + min_diff;
+    },
+    setDropOffAddress: function setDropOffAddress(client) {
+      this.client = {
+        id: client.id,
+        active: client.active,
+        name: client.name,
+        do_address_1: client.address_1,
+        do_address_2: client.address_2,
+        do_city: client.city,
+        do_state: client.state,
+        do_zip: client.zip
+      };
+      this.form.do_address_1 = client.address_1;
+      this.form.do_address_2 = client.address_2;
+      this.form.do_city = client.city;
+      this.form.do_state = client.state;
+      this.form.do_zip = client.zip;
     },
     computeTotal: function computeTotal() {
       var working_time = this.workingTime();
@@ -926,18 +866,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     getClientPackages: function getClientPackages() {
-      var self = this;
+      var _this2 = this;
+
       axios.get(route("api.logistics.getClientPackages", {
-        client: self.form.client_id
+        client: this.form.client_id
       })).then(function (response) {
-        var undelivered = response.data;
-        if (self.client_id === self.form.client_id && self.client_name === self.form.client_name) {
-          self.packages = undelivered.concat(self.delivered_packages);
-          self.form.packages = self.choosen_packages;
-        } else {
-          self.packages = undelivered;
-          self.form.packages = [];
-        }
+        _this2.form.packages = [];
+        _this2.packages = response.data;
       });
     },
     submit: function submit() {
@@ -945,7 +880,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.updateLogistics();
+          self.createLogistics();
         } else {
           var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -960,7 +895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    updateLogistics: function updateLogistics() {
+    createLogistics: function createLogistics() {
       var self = this;
       self.form.busy = true;
       if (self.form.type === "field_transfer") {
@@ -973,7 +908,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         delete self.form.pu_state;
         delete self.form.pu_zip;
       }
-      self.form.post(route("api.logistics.update", { logistic: self.id }), self.form).then(function (response) {
+      self.form.post(route("api.logistics.create"), self.form).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
@@ -1062,7 +997,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Update Ticket# " + _vm._s(_vm.id))]
+                [_vm._v("Create New Ticket")]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -2127,55 +2062,13 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-71626e40", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-10ca036e", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1156:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1157);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(946)("d26755d4", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1157:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 926:
+/***/ 925:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -2200,7 +2093,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Logistics/EditLogistics.vue"
+Component.options.__file = "resources/assets/js/pages/Logistics/CreateLogistics.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -2209,9 +2102,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-71626e40", Component.options)
+    hotAPI.createRecord("data-v-10ca036e", Component.options)
   } else {
-    hotAPI.reload("data-v-71626e40", Component.options)
+    hotAPI.reload("data-v-10ca036e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2242,7 +2135,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(949)
+var listToStyles = __webpack_require__(947)
 
 /*
 type StyleObject = {
@@ -2453,6 +2346,40 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 947:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2476,7 +2403,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -3460,53 +3387,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-
 /***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(1156)
+  __webpack_require__(951)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(951)
+var __vue_template__ = __webpack_require__(953)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3547,6 +3440,48 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 951:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(952);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(946)("d26755d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 952:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

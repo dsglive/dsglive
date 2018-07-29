@@ -1,129 +1,17 @@
 webpackJsonp([40],{
 
-/***/ 1049:
+/***/ 1045:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(373);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__ = __webpack_require__(950);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(947);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(948);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(949);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 //
 //
 //
@@ -308,21 +196,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ModalLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default.a
+    ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
   data: function data() {
     return {
       /* Always Declare Your Form Object */
-      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        username: null,
+      form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
+        name: null,
         active: false,
-        roles: [],
-        password: null,
-        password_confirmation: null,
-        company_name: null,
-        first_name: null,
-        last_name: null,
         email: null,
         phone: null,
         address_1: null,
@@ -332,21 +214,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         zip: null,
         country: null,
         notes: null
-      }),
-      roles: [],
-      password_visible: false
+      })
     };
   },
-  computed: {
-    icon: function icon() {
-      return this.password_visible ? "visibility" : "visibility_off";
-    }
-  },
-  mounted: function mounted() {
-    var self = this;
-    self.fetchRoles();
-  },
-
   methods: {
     getStatus: function getStatus(status) {
       if (status) {
@@ -360,9 +230,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.createUser();
+          self.createClient();
         } else {
-          var validationModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -375,39 +245,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    createUser: function createUser() {
+    createClient: function createClient() {
       var self = this;
       self.form.busy = true;
 
-      self.form.post(route("api.user.create"), self.form).then(function (response) {
+      self.form.post(route("api.client.create")).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
-        var successModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+        var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">User Has Been Created!</p>",
+          html: "<p class=\"title\">Client Has Been Created!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
         self.$nextTick(function () {
-          return self.$router.push({ name: "users" });
+          return self.$router.push({ name: "clients" });
         });
       }).catch(function (errors) {});
     },
     resetForm: function resetForm() {
       var self = this;
-      self.form = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        username: null,
+      self.form = new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
         active: false,
-        roles: [],
-        password: null,
-        password_confirmation: null,
-        company_name: null,
-        first_name: null,
-        last_name: null,
+        name: null,
         email: null,
         phone: null,
         address_1: null,
@@ -419,56 +283,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         notes: null
       });
     },
-    fetchRoles: function () {
-      var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-        var self, payload, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                self = this;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.get(route("api.roles.index"));
-
-              case 4:
-                payload = _context.sent;
-
-                self.roles = payload.data;
-                _context.next = 14;
-                break;
-
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                errors = _context.t0.errors;
-                message = _context.t0.message;
-
-                if (errors) {
-                  console.log("fetchRoles:errors", errors);
-                }
-                if (message) {
-                  console.log("fetchRoles:error-message", message);
-                }
-
-              case 14:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 8]]);
-      }));
-
-      function fetchRoles() {
-        return _ref.apply(this, arguments);
-      }
-
-      return fetchRoles;
-    }(),
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "users" });
+        return self.$router.push({ name: "clients" });
       });
     }
   }
@@ -476,7 +294,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1050:
+/***/ 1046:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -514,7 +332,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("User Creation Page")]
+                [_vm._v("Client Creation Page")]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -563,200 +381,23 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: "required|max:255|min:6|alpha_dash",
-                        expression: "'required|max:255|min:6|alpha_dash'"
+                        value: { required: true },
+                        expression: "{ required: true }"
                       }
                     ],
-                    staticClass: "primary--text",
-                    class: { "error--text": _vm.hasErrors("username") },
+                    class: { "error--text": _vm.hasErrors("name") },
                     attrs: {
-                      "error-messages": _vm.errorMessages("username"),
-                      name: "username",
-                      label: "Username",
-                      "data-vv-name": "username",
-                      counter: "255",
-                      "prepend-icon": "fa-user"
+                      "error-messages": _vm.errorMessages("name"),
+                      label: "Client Name",
+                      "prepend-icon": "fa-user",
+                      "data-vv-name": "name"
                     },
                     model: {
-                      value: _vm.form.username,
+                      value: _vm.form.name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "username", $$v)
+                        _vm.$set(_vm.form, "name", $$v)
                       },
-                      expression: "form.username"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { staticClass: "xs6 md4 offset-md2" },
-                [
-                  _c("v-autocomplete", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("roles") },
-                    attrs: {
-                      items: _vm.roles,
-                      "error-messages": _vm.errorMessages("roles"),
-                      required: "",
-                      color: "blue-grey",
-                      label: "Select Account Type",
-                      light: "",
-                      chips: "",
-                      clearable: "",
-                      "deletable-chips": "",
-                      "prepend-icon": "fa-tags",
-                      "data-vv-name": "roles"
-                    },
-                    model: {
-                      value: _vm.form.roles,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "roles", $$v)
-                      },
-                      expression: "form.roles"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { staticClass: "xs6 md4" },
-                [
-                  _c("v-switch", {
-                    attrs: {
-                      label: _vm.getStatus(_vm.form.active),
-                      hint:
-                        "Note: Active User is Searchable On Warehouse/Receiving/Logistic Forms",
-                      "persistent-hint": ""
-                    },
-                    model: {
-                      value: _vm.form.active,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "active", $$v)
-                      },
-                      expression: "form.active"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required|min:6|confirmed:confirmation",
-                        expression: "'required|min:6|confirmed:confirmation'"
-                      }
-                    ],
-                    staticClass: "primary--text",
-                    class: { "error--text": _vm.hasErrors("password") },
-                    attrs: {
-                      "append-icon": _vm.icon,
-                      type: !_vm.password_visible ? "password" : "text",
-                      "error-messages": _vm.errorMessages("password"),
-                      name: "password",
-                      label: "Password",
-                      "data-vv-name": "password",
-                      "prepend-icon": "fa-key",
-                      counter: "255"
-                    },
-                    on: {
-                      "click:append": function() {
-                        return (_vm.password_visible = !_vm.password_visible)
-                      }
-                    },
-                    model: {
-                      value: _vm.form.password,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "password", $$v)
-                      },
-                      expression: "form.password"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    ref: "confirmation",
-                    staticClass: "primary--text",
-                    class: {
-                      "error--text": _vm.hasErrors("password_confirmation")
-                    },
-                    attrs: {
-                      "append-icon": _vm.icon,
-                      type: !_vm.password_visible ? "password" : "text",
-                      "error-messages": _vm.errorMessages(
-                        "password_confirmation"
-                      ),
-                      name: "password_confirmation",
-                      label: "Confirm Password",
-                      "prepend-icon": "fa-copy",
-                      counter: "255"
-                    },
-                    on: {
-                      "click:append": function() {
-                        return (_vm.password_visible = !_vm.password_visible)
-                      }
-                    },
-                    model: {
-                      value: _vm.form.password_confirmation,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "password_confirmation", $$v)
-                      },
-                      expression: "form.password_confirmation"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { alpha_spaces: true },
-                        expression: "{ alpha_spaces: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("company_name") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("company_name"),
-                      label: "Company Name",
-                      "prepend-icon": "domain",
-                      "data-vv-name": "company_name"
-                    },
-                    model: {
-                      value: _vm.form.company_name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "company_name", $$v)
-                      },
-                      expression: "form.company_name"
+                      expression: "form.name"
                     }
                   })
                 ],
@@ -789,72 +430,6 @@ var render = function() {
                         _vm.$set(_vm.form, "email", $$v)
                       },
                       expression: "form.email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true, regex: /^[a-zA-Z0-9 ]+$/ },
-                        expression:
-                          "{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("first_name") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("first_name"),
-                      label: "First Name",
-                      "prepend-icon": "person",
-                      "data-vv-name": "first_name"
-                    },
-                    model: {
-                      value: _vm.form.first_name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "first_name", $$v)
-                      },
-                      expression: "form.first_name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true, regex: /^[a-zA-Z0-9 ]+$/ },
-                        expression:
-                          "{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("last_name") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("last_name"),
-                      label: "Last Name",
-                      "prepend-icon": "people",
-                      "data-vv-name": "last_name"
-                    },
-                    model: {
-                      value: _vm.form.last_name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "last_name", $$v)
-                      },
-                      expression: "form.last_name"
                     }
                   })
                 ],
@@ -1054,63 +629,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-77718d38", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1db9b5b8", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1156:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1157);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(946)("d26755d4", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1157:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 909:
+/***/ 906:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1049)
+var __vue_script__ = __webpack_require__(1045)
 /* template */
-var __vue_template__ = __webpack_require__(1050)
+var __vue_template__ = __webpack_require__(1046)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1127,7 +660,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/CreateUser.vue"
+Component.options.__file = "resources/assets/js/pages/CreateClient.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1136,9 +669,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-77718d38", Component.options)
+    hotAPI.createRecord("data-v-1db9b5b8", Component.options)
   } else {
-    hotAPI.reload("data-v-77718d38", Component.options)
+    hotAPI.reload("data-v-1db9b5b8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1169,7 +702,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(949)
+var listToStyles = __webpack_require__(947)
 
 /*
 type StyleObject = {
@@ -1380,6 +913,40 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 947:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1403,7 +970,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -2387,53 +1954,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-
 /***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(1156)
+  __webpack_require__(951)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(951)
+var __vue_template__ = __webpack_require__(953)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2474,6 +2007,48 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 951:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(952);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(946)("d26755d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 952:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

@@ -1,300 +1,23 @@
 webpackJsonp([37],{
 
-/***/ 1083:
+/***/ 1053:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(950);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(947);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(948);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(949);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
+
+
 //
 //
 //
@@ -579,310 +302,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
+    ModalLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
       /* Always Declare Your Form Object */
-      form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
-        type: false,
-        client_id: null,
-        client_name: null,
-        customer_id: null,
-        customer_name: null,
-        date_delivered: null,
-        start_time: "",
-        end_time: "",
-        prep_time: 0,
-        travel_time: 0,
-        clean_up_time: 0,
-        total_time: 0,
-        rate: "",
-        surcharge: 0,
-        total_charges: "",
-        notes: null,
-        do_address_1: null,
-        do_address_2: null,
-        do_city: null,
-        do_state: null,
-        do_zip: null,
-        pu_address_1: null,
-        pu_address_2: null,
-        pu_city: null,
-        pu_state: null,
-        pu_zip: null,
-        packages: []
-      }),
-      date_delivered_modal: false,
-      customers: [],
-      clients: [],
-      client: {
-        id: null,
+      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        username: null,
         active: false,
-        name: null,
-        do_address_1: null,
-        do_address_2: null,
-        do_city: null,
-        do_state: null,
-        do_zip: null
-      },
-      packages: [],
-      selected: [],
-      unknownClient: {
-        active: false,
+        roles: [],
+        password: null,
+        password_confirmation: null,
+        company_name: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        phone: null,
         address_1: null,
         address_2: null,
         city: null,
-        id: 1,
-        name: "Unknown Client",
         state: null,
-        zip: null
-      }
+        zip: null,
+        country: null,
+        notes: null
+      }),
+      roles: [],
+      password_visible: false
     };
   },
-  watch: {
-    customers: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
-    "form.customer_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var customer_id = null;
-        var customer_name = null;
-
-        if (newValue != undefined) {
-          var customer = _.find(self.customers, function (c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
-        } else {
-          self.clients = [];
-          self.clients.push(self.unknownClient);
-          self.form.customer_id = null;
-          self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function handler(newName) {
-        var self = this;
-        var client_id = null;
-        var client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            var client = _.find(self.clients, function (c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-              this.getClientPackages();
-              this.setDropOffAddress(client);
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-      },
-      deep: false
-    },
-    "form.start_time": {
-      handler: function handler(newName) {
-        this.debouncedComputeTotal();
-      },
-      deep: false
-    },
-    "form.end_time": {
-      handler: function handler(newName) {
-        this.debouncedComputeTotal();
-      },
-      deep: false
-    },
-    "form.prep_time": {
-      handler: function handler(newName) {
-        this.debouncedComputeTotal();
-      },
-      deep: false
-    },
-    "form.travel_time": {
-      handler: function handler(newName) {
-        this.debouncedComputeTotal();
-      },
-      deep: false
-    },
-    "form.clean_up_time": {
-      handler: function handler(newName) {
-        this.debouncedComputeTotal();
-      },
-      deep: false
-    },
-    "form.rate": {
-      handler: function handler(newName) {
-        this.computeTotalCharge();
-      },
-      deep: false
-    },
-    "form.surcharge": {
-      handler: function handler(newName) {
-        this.computeTotalCharge();
-      },
-      deep: false
+  computed: {
+    icon: function icon() {
+      return this.password_visible ? "visibility" : "visibility_off";
     }
   },
-  created: function created() {
-    this.debouncedComputeTotal = _.debounce(this.computeTotal, 2000);
-  },
   mounted: function mounted() {
-    this.getInitialData();
-    this.form.date_delivered = moment().format("YYYY-MM-DD");
-    this.form.type = "field_transfer";
+    var self = this;
+    self.fetchRoles();
+    self.fetchUser();
   },
 
   methods: {
-    toggleAll: function toggleAll() {
-      var self = this;
-      if (this.selected.length === 0) {
-        this.selected = this.packages.map(function (item) {
-          return item.id;
-        });
+    getStatus: function getStatus(status) {
+      if (status) {
+        return "Status: Active";
       } else {
-        this.selected = [];
+        return "Status: Inactive";
       }
-      this.form.packages = this.selected;
-    },
-    workingTime: function workingTime() {
-      var start_time = this.form.start_time;
-      var end_time = this.form.end_time;
-      var start_hr = 0;
-      var start_min = 0;
-      var end_hr = 0;
-      var end_min = 0;
-      if (start_time !== null) {
-        var start_count = (start_time.match(/\d/g) || []).length;
-        if (start_count > 1) {
-          start_hr = parseInt(start_time.substring(0, 2));
-        }
-        if (start_count > 3) {
-          start_min = parseInt(start_time.substring(2, 4));
-        }
-      }
-      if (end_time !== null) {
-        var end_count = (end_time.match(/\d/g) || []).length;
-        if (end_count > 1) {
-          end_hr = parseInt(end_time.substring(0, 2));
-        }
-        if (end_count > 3) {
-          end_min = parseInt(end_time.substring(2, 4));
-        }
-      }
-      var hr_diff = 0;
-      var min_diff = 0;
-      hr_diff = end_hr - start_hr;
-      if (hr_diff < 0) {
-        hr_diff = 0;
-      }
-      min_diff = Math.abs(end_min - start_min) / 60;
-      if (min_diff < 0) {
-        min_diff = 0;
-      }
-      return hr_diff + min_diff;
-    },
-    setDropOffAddress: function setDropOffAddress(client) {
-      this.client = {
-        id: client.id,
-        active: client.active,
-        name: client.name,
-        do_address_1: client.address_1,
-        do_address_2: client.address_2,
-        do_city: client.city,
-        do_state: client.state,
-        do_zip: client.zip
-      };
-      this.form.do_address_1 = client.address_1;
-      this.form.do_address_2 = client.address_2;
-      this.form.do_city = client.city;
-      this.form.do_state = client.state;
-      this.form.do_zip = client.zip;
-    },
-    computeTotal: function computeTotal() {
-      var working_time = this.workingTime();
-      var prep_time = this.form.prep_time ? this.form.prep_time : 0;
-      var travel_time = this.form.travel_time ? this.form.travel_time : 0;
-      var clean_up_time = this.form.clean_up_time ? this.form.clean_up_time : 0;
-      console.log("working_time", parseFloat(working_time));
-      console.log("prep_time", parseFloat(prep_time));
-      console.log("travel_time", parseFloat(travel_time));
-      console.log("clean_up_time", parseFloat(clean_up_time));
-      var total = 0;
-      total += parseFloat(working_time);
-      total += parseFloat(prep_time);
-      total += parseFloat(travel_time);
-      total += parseFloat(clean_up_time);
-      if (total < 0) {
-        total = 0;
-      }
-      this.form.total_time = total.toFixed(4);
-      return total;
-    },
-    computeTotalCharge: function computeTotalCharge() {
-      var total_time = parseFloat(this.form.total_time);
-      var rate = parseFloat(this.form.rate);
-      var surcharge = parseFloat(this.form.surcharge) / 100;
-      if (this.form.surcharge === null || this.form.surcharge === "") {
-        surcharge = 0;
-      }
-      var total_rate = total_time * rate;
-      var total = 0;
-      total = total_rate + surcharge * total_rate;
-      this.form.total_charges = total.toFixed(4);
-    },
-
-    getText: function getText(item) {
-      return "DSG# " + item.dsg_id + "|Style# " + item.style_no + "|Description: " + item.description;
-    },
-    getInitialData: function getInitialData() {
-      var _this = this;
-
-      axios.get(route("api.logistics.getInitialData")).then(function (response) {
-        _this.customers = response.data.data.customers;
-      });
-    },
-    getClientPackages: function getClientPackages() {
-      var _this2 = this;
-
-      axios.get(route("api.logistics.getClientPackages", {
-        client: this.form.client_id
-      })).then(function (response) {
-        _this2.form.packages = [];
-        _this2.packages = response.data;
-      });
     },
     submit: function submit() {
       var self = this;
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.createLogistics();
+          self.updateUser();
         } else {
-          var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
+          var validationModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -895,63 +376,141 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    createLogistics: function createLogistics() {
+    updateUser: function updateUser() {
       var self = this;
+      var id = self.id;
       self.form.busy = true;
-      if (self.form.type === "field_transfer") {
-        delete self.form.packages;
-      }
-      if (self.form.type === "delivery_ticket") {
-        delete self.form.pu_address_1;
-        delete self.form.pu_address_2;
-        delete self.form.pu_city;
-        delete self.form.pu_state;
-        delete self.form.pu_zip;
-      }
-      self.form.post(route("api.logistics.create"), self.form).then(function (response) {
+
+      self.form.post(route("api.user.update", { id: id }), self.form).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
-        var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
+        var successModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Ticket Has Been Created!</p>",
+          html: "<p class=\"title\">User Updated!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
         self.$nextTick(function () {
-          return self.$router.push({ name: "logistics" });
+          return self.$router.push({ name: "users" });
         });
-      }).catch(function (errors) {
-        console.log(errors.response.data);
-        if (self.form.type === "field_transfer") {
-          self.form.packages = [];
-        }
-        if (self.form.type === "delivery_ticket") {
-          self.form.pu_address_1 = "";
-          self.form.pu_address_2 = "";
-          self.form.pu_city = "";
-          self.form.pu_state = "";
-          self.form.pu_zip = "";
-        }
-        var failedModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        failedModal({
-          title: "Validation Error!",
-          html: "<p class=\"title\">Please Complete Form To Submit!</p>",
-          type: "error",
-          confirmButtonText: "Ok"
-        });
-      });
+      }).catch(function (errors) {});
     },
+    fetchRoles: function () {
+      var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        var self, payload, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.get(route("api.roles.index"));
+
+              case 4:
+                payload = _context.sent;
+
+                self.roles = payload.data;
+                _context.next = 14;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
+                errors = _context.t0.errors;
+                message = _context.t0.message;
+
+                if (errors) {
+                  console.log("fetchRoles:errors", errors);
+                }
+                if (message) {
+                  console.log("fetchRoles:error-message", message);
+                }
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 8]]);
+      }));
+
+      function fetchRoles() {
+        return _ref.apply(this, arguments);
+      }
+
+      return fetchRoles;
+    }(),
+    fetchUser: function () {
+      var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+        var id, self, payload, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                id = this.id;
+                self = this;
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios.get(route("api.user.edit", { id: id }));
+
+              case 5:
+                payload = _context2.sent;
+
+                self.form.username = payload.data.data.username;
+                self.form.active = payload.data.data.active;
+                self.form.roles = payload.data.data.roles[0];
+                self.form.company_name = payload.data.data.company_name;
+                self.form.first_name = payload.data.data.first_name;
+                self.form.last_name = payload.data.data.last_name;
+                self.form.email = payload.data.data.email;
+                self.form.phone = payload.data.data.phone;
+                self.form.address_1 = payload.data.data.address_1;
+                self.form.address_2 = payload.data.data.address_2;
+                self.form.city = payload.data.data.city;
+                self.form.state = payload.data.data.state;
+                self.form.zip = payload.data.data.zip;
+                self.form.country = payload.data.data.country;
+                self.form.notes = payload.data.data.notes;
+                self.form.password = "", self.form.password_confirmation = "";
+                _context2.next = 30;
+                break;
+
+              case 24:
+                _context2.prev = 24;
+                _context2.t0 = _context2["catch"](2);
+                errors = _context2.t0.errors;
+                message = _context2.t0.message;
+
+                if (errors) {
+                  console.log("fetchUsers:errors", errors);
+                }
+                if (message) {
+                  console.log("fetchUsers:error-message", message);
+                }
+
+              case 30:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 24]]);
+      }));
+
+      function fetchUser() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return fetchUser;
+    }(),
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "logistics" });
+        return self.$router.push({ name: "users" });
       });
     }
   }
@@ -959,7 +518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1084:
+/***/ 1054:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -976,7 +535,7 @@ var render = function() {
         [
           _c(
             "v-toolbar",
-            { staticClass: "primary", attrs: { fixed: "", app: "" } },
+            { staticClass: "primary" },
             [
               _c(
                 "v-btn",
@@ -997,7 +556,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Create New Ticket")]
+                [_vm._v("Edit User")]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -1035,70 +594,46 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-layout",
-            {
-              attrs: {
-                row: "",
-                wrap: "",
-                "my-0": "",
-                "py-0": "",
-                "mx-3": "",
-                "px-3": ""
-              }
-            },
+            { attrs: { row: "", wrap: "" } },
             [
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "", "offset-lg1": "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
-                  _c(
-                    "v-subheader",
-                    {
-                      staticClass: "indigo--text",
-                      staticStyle: { "margin-left": "-15px" }
-                    },
-                    [
-                      _vm._v(
-                        "\n          What Type Of Ticket Is This?\n        "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-radio-group",
-                    {
-                      staticStyle: { "margin-top": "-15px" },
-                      model: {
-                        value: _vm.form.type,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "type", $$v)
-                        },
-                        expression: "form.type"
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required|max:255|min:6|alpha_dash",
+                        expression: "'required|max:255|min:6|alpha_dash'"
                       }
-                    },
-                    [
-                      _c("v-radio", {
-                        attrs: {
-                          value: "delivery_ticket",
-                          label: "Delivery Ticket"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-radio", {
-                        attrs: {
-                          value: "field_transfer",
-                          label: "Field Transfer"
-                        }
-                      })
                     ],
-                    1
-                  )
+                    staticClass: "primary--text",
+                    class: { "error--text": _vm.hasErrors("username") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("username"),
+                      name: "username",
+                      label: "Username",
+                      "data-vv-name": "username",
+                      counter: "255",
+                      "prepend-icon": "fa-user"
+                    },
+                    model: {
+                      value: _vm.form.username,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "username", $$v)
+                      },
+                      expression: "form.username"
+                    }
+                  })
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg3: "" } },
+                { staticClass: "xs6 md4 offset-md2" },
                 [
                   _c("v-autocomplete", {
                     directives: [
@@ -1109,25 +644,26 @@ var render = function() {
                         expression: "'required'"
                       }
                     ],
-                    class: { "error--text": _vm.hasErrors("customer") },
+                    class: { "error--text": _vm.hasErrors("roles") },
                     attrs: {
-                      items: _vm.customers,
-                      "error-messages": _vm.errorMessages("customer"),
-                      "item-text": "name",
-                      "item-value": "id",
+                      items: _vm.roles,
+                      "error-messages": _vm.errorMessages("roles"),
                       required: "",
-                      label: "Choose Customer",
+                      color: "blue-grey",
+                      label: "Select Account Type",
                       light: "",
                       chips: "",
-                      "prepend-icon": "supervised_user_circle",
-                      "data-vv-name": "customer"
+                      clearable: "",
+                      "deletable-chips": "",
+                      "prepend-icon": "fa-tags",
+                      "data-vv-name": "roles"
                     },
                     model: {
-                      value: _vm.form.customer_id,
+                      value: _vm.form.roles,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "customer_id", $$v)
+                        _vm.$set(_vm.form, "roles", $$v)
                       },
-                      expression: "form.customer_id"
+                      expression: "form.roles"
                     }
                   })
                 ],
@@ -1136,37 +672,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg3: "" } },
+                { staticClass: "xs6 md4" },
                 [
-                  _c("v-autocomplete", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("client") },
-                    attrs: {
-                      items: _vm.clients,
-                      "error-messages": _vm.errorMessages("client"),
-                      "item-text": "name",
-                      "item-value": "name",
-                      chips: "",
-                      light: "",
-                      dense: "",
-                      required: "",
-                      label: "Choose Client or Type Name",
-                      "prepend-icon": "fa-users",
-                      "data-vv-name": "client"
-                    },
+                  _c("v-switch", {
+                    attrs: { label: _vm.getStatus(_vm.form.active) },
                     model: {
-                      value: _vm.form.client_name,
+                      value: _vm.form.active,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "client_name", $$v)
+                        _vm.$set(_vm.form, "active", $$v)
                       },
-                      expression: "form.client_name"
+                      expression: "form.active"
                     }
                   })
                 ],
@@ -1175,133 +690,161 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
-                [
-                  _c(
-                    "v-dialog",
-                    {
-                      ref: "date_delivered",
-                      attrs: {
-                        "return-value": _vm.form.date_delivered,
-                        persistent: "",
-                        lazy: "",
-                        "full-width": "",
-                        width: "290px"
-                      },
-                      on: {
-                        "update:returnValue": function($event) {
-                          _vm.$set(_vm.form, "date_delivered", $event)
-                        }
-                      },
-                      model: {
-                        value: _vm.date_delivered_modal,
-                        callback: function($$v) {
-                          _vm.date_delivered_modal = $$v
-                        },
-                        expression: "date_delivered_modal"
-                      }
-                    },
-                    [
-                      _c("v-text-field", {
-                        staticStyle: { "margin-top": "26px" },
-                        attrs: {
-                          slot: "activator",
-                          label: "Delivery Date",
-                          "prepend-icon": "event_available",
-                          readonly: ""
-                        },
-                        slot: "activator",
-                        model: {
-                          value: _vm.form.date_delivered,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "date_delivered", $$v)
-                          },
-                          expression: "form.date_delivered"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "v-date-picker",
-                        {
-                          attrs: { scrollable: "" },
-                          model: {
-                            value: _vm.form.date_delivered,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "date_delivered", $$v)
-                            },
-                            expression: "form.date_delivered"
-                          }
-                        },
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.date_delivered_modal = false
-                                }
-                              }
-                            },
-                            [_vm._v("Cancel")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.$refs.date_delivered.save(
-                                    _vm.form.date_delivered
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("OK")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "", "offset-lg1": "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: {
-                          regex: /^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/
-                        },
+                        value: "min:6|confirmed:confirmation",
+                        expression: "'min:6|confirmed:confirmation'"
+                      }
+                    ],
+                    staticClass: "primary--text",
+                    class: { "error--text": _vm.hasErrors("password") },
+                    attrs: {
+                      "append-icon": _vm.icon,
+                      type: !_vm.password_visible ? "password" : "text",
+                      "error-messages": _vm.errorMessages("password"),
+                      name: "password",
+                      label: "Password",
+                      "data-vv-name": "password",
+                      "prepend-icon": "fa-key",
+                      counter: "255"
+                    },
+                    on: {
+                      "click:append": function() {
+                        return (_vm.password_visible = !_vm.password_visible)
+                      }
+                    },
+                    model: {
+                      value: _vm.form.password,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "password", $$v)
+                      },
+                      expression: "form.password"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    ref: "confirmation",
+                    staticClass: "primary--text",
+                    class: {
+                      "error--text": _vm.hasErrors("password_confirmation")
+                    },
+                    attrs: {
+                      "append-icon": _vm.icon,
+                      type: !_vm.password_visible ? "password" : "text",
+                      "error-messages": _vm.errorMessages(
+                        "password_confirmation"
+                      ),
+                      name: "password_confirmation",
+                      label: "Confirm Password",
+                      "prepend-icon": "fa-copy",
+                      counter: "255"
+                    },
+                    on: {
+                      "click:append": function() {
+                        return (_vm.password_visible = !_vm.password_visible)
+                      }
+                    },
+                    model: {
+                      value: _vm.form.password_confirmation,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "password_confirmation", $$v)
+                      },
+                      expression: "form.password_confirmation"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Company Name", "prepend-icon": "domain" },
+                    model: {
+                      value: _vm.form.company_name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "company_name", $$v)
+                      },
+                      expression: "form.company_name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { email: true },
+                        expression: "{ email: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("email") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("email"),
+                      label: "Email",
+                      "prepend-icon": "mail",
+                      "data-vv-name": "email"
+                    },
+                    model: {
+                      value: _vm.form.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "email", $$v)
+                      },
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { required: true, regex: /^[a-zA-Z0-9 ]+$/ },
                         expression:
-                          "{ regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/}"
+                          "{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
                       }
                     ],
-                    class: { "error--text": _vm.hasErrors("start_time") },
+                    class: { "error--text": _vm.hasErrors("first_name") },
                     attrs: {
-                      "error-messages": _vm.errorMessages("start_time"),
-                      light: "",
-                      label: "Start Time",
-                      "prepend-icon": "timer",
-                      "data-vv-name": "start_time"
+                      "error-messages": _vm.errorMessages("first_name"),
+                      label: "First Name",
+                      "prepend-icon": "person",
+                      "data-vv-name": "first_name"
                     },
                     model: {
-                      value: _vm.form.start_time,
+                      value: _vm.form.first_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "start_time", $$v)
+                        _vm.$set(_vm.form, "first_name", $$v)
                       },
-                      expression: "form.start_time"
+                      expression: "form.first_name"
                     }
                   })
                 ],
@@ -1310,35 +853,31 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: {
-                          regex: /^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/,
-                          min_value: _vm.form.start_time
-                        },
+                        value: { required: true, regex: /^[a-zA-Z0-9 ]+$/ },
                         expression:
-                          "{ regex:/^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9])|(24:?00))$/,min_value:form.start_time}"
+                          "{ required: true, regex: /^[a-zA-Z0-9 ]+$/ }"
                       }
                     ],
-                    class: { "error--text": _vm.hasErrors("end_time") },
+                    class: { "error--text": _vm.hasErrors("last_name") },
                     attrs: {
-                      "error-messages": _vm.errorMessages("end_time"),
-                      light: "",
-                      label: "End Time",
-                      "prepend-icon": "timer",
-                      "data-vv-name": "end_time"
+                      "error-messages": _vm.errorMessages("last_name"),
+                      label: "Last Name",
+                      "prepend-icon": "people",
+                      "data-vv-name": "last_name"
                     },
                     model: {
-                      value: _vm.form.end_time,
+                      value: _vm.form.last_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "end_time", $$v)
+                        _vm.$set(_vm.form, "last_name", $$v)
                       },
-                      expression: "form.end_time"
+                      expression: "form.last_name"
                     }
                   })
                 ],
@@ -1347,31 +886,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("prep_time") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("prep_time"),
-                      light: "",
-                      label: "Prep Time",
-                      "prepend-icon": "access_time",
-                      "data-vv-name": "prep_time"
-                    },
+                    attrs: { label: "Phone", "prepend-icon": "phone" },
                     model: {
-                      value: _vm.form.prep_time,
+                      value: _vm.form.phone,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "prep_time", $$v)
+                        _vm.$set(_vm.form, "phone", $$v)
                       },
-                      expression: "form.prep_time"
+                      expression: "form.phone"
                     }
                   })
                 ],
@@ -1380,31 +904,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("travel_time") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("travel_time"),
-                      light: "",
-                      label: "Travel Time",
-                      "prepend-icon": "access_time",
-                      "data-vv-name": "travel_time"
-                    },
+                    attrs: { label: "Address 1", "prepend-icon": "looks_one" },
                     model: {
-                      value: _vm.form.travel_time,
+                      value: _vm.form.address_1,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "travel_time", $$v)
+                        _vm.$set(_vm.form, "address_1", $$v)
                       },
-                      expression: "form.travel_time"
+                      expression: "form.address_1"
                     }
                   })
                 ],
@@ -1413,31 +922,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("clean_up_time") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("clean_up_time"),
-                      light: "",
-                      label: "Clean Up Time",
-                      "prepend-icon": "access_time",
-                      "data-vv-name": "clean_up_time"
-                    },
+                    attrs: { label: "Address 2", "prepend-icon": "looks_two" },
                     model: {
-                      value: _vm.form.clean_up_time,
+                      value: _vm.form.address_2,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "clean_up_time", $$v)
+                        _vm.$set(_vm.form, "address_2", $$v)
                       },
-                      expression: "form.clean_up_time"
+                      expression: "form.address_2"
                     }
                   })
                 ],
@@ -1446,35 +940,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "", "offset-lg1": "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("total_time") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("total_time"),
-                      light: "",
-                      readonly: "",
-                      disabled: "",
-                      label: "Total Time",
-                      "prepend-icon": "av_timer",
-                      "data-vv-name": "total_time",
-                      hint: "Total No. Of Hours",
-                      "persistent-hint": ""
-                    },
+                    attrs: { label: "City", "prepend-icon": "location_city" },
                     model: {
-                      value: _vm.form.total_time,
+                      value: _vm.form.city,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "total_time", $$v)
+                        _vm.$set(_vm.form, "city", $$v)
                       },
-                      expression: "form.total_time"
+                      expression: "form.city"
                     }
                   })
                 ],
@@ -1483,33 +958,16 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("rate") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("rate"),
-                      light: "",
-                      label: "Rate",
-                      "prepend-icon": "fa-money",
-                      "data-vv-name": "rate",
-                      hint: "Delivery Charge Rate",
-                      "persistent-hint": ""
-                    },
+                    attrs: { label: "State", "prepend-icon": "map" },
                     model: {
-                      value: _vm.form.rate,
+                      value: _vm.form.state,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "rate", $$v)
+                        _vm.$set(_vm.form, "state", $$v)
                       },
-                      expression: "form.rate"
+                      expression: "form.state"
                     }
                   })
                 ],
@@ -1518,370 +976,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs12: "", lg3: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("surcharge") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("surcharge"),
-                      light: "",
-                      label: "Surchage",
-                      "prepend-icon": "money",
-                      "append-icon": "fa-percent",
-                      "data-vv-name": "surcharge",
-                      hint: "Percentage ie. 20% = 20",
-                      "persistent-hint": ""
-                    },
-                    model: {
-                      value: _vm.form.surcharge,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "surcharge", $$v)
-                      },
-                      expression: "form.surcharge"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg3: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { decimal: 4, min_value: 0 },
-                        expression: "{ decimal:4, min_value:0 }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("total_charges") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("total_charges"),
-                      light: "",
-                      readonly: "",
-                      disabled: "",
-                      label: "Total Charges",
-                      "prepend-icon": "attach_money",
-                      suffix: "USD",
-                      "data-vv-name": "total_charges",
-                      hint: "Delivery Fee",
-                      "persistent-hint": ""
-                    },
-                    model: {
-                      value: _vm.form.total_charges,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "total_charges", $$v)
-                      },
-                      expression: "form.total_charges"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm.form.type === "field_transfer"
-            ? _c(
-                "v-layout",
-                {
-                  attrs: {
-                    row: "",
-                    wrap: "",
-                    "my-0": "",
-                    "py-0": "",
-                    "mx-3": "",
-                    "px-3": ""
-                  }
-                },
-                [
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg10: "", "offset-lg1": "" } },
-                    [
-                      _c(
-                        "v-alert",
-                        {
-                          staticClass: "text-xs-center",
-                          attrs: {
-                            value: true,
-                            type: "info",
-                            color: "secondary",
-                            "my-0": "",
-                            "py-0": "",
-                            "mx-3": "",
-                            "px-3": ""
-                          }
-                        },
-                        [_vm._v("\n          Pick Up Address\n        ")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "", "offset-lg1": "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          light: "",
-                          label: "Address 1",
-                          "prepend-icon": "looks_one"
-                        },
-                        model: {
-                          value: _vm.form.pu_address_1,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "pu_address_1", $$v)
-                          },
-                          expression: "form.pu_address_1"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          light: "",
-                          label: "Address 2",
-                          "prepend-icon": "looks_two"
-                        },
-                        model: {
-                          value: _vm.form.pu_address_2,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "pu_address_2", $$v)
-                          },
-                          expression: "form.pu_address_2"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          light: "",
-                          label: "City",
-                          "prepend-icon": "location_city"
-                        },
-                        model: {
-                          value: _vm.form.pu_city,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "pu_city", $$v)
-                          },
-                          expression: "form.pu_city"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          light: "",
-                          label: "State",
-                          "prepend-icon": "map"
-                        },
-                        model: {
-                          value: _vm.form.pu_state,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "pu_state", $$v)
-                          },
-                          expression: "form.pu_state"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
-                    [
-                      _c("v-text-field", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: { regex: /^\d{5}(?:[-\s]\d{4})?$/ },
-                            expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
-                          }
-                        ],
-                        class: { "error--text": _vm.hasErrors("pu_zip") },
-                        attrs: {
-                          "error-messages": _vm.errorMessages("pu_zip"),
-                          light: "",
-                          label: "Zip",
-                          "prepend-icon": "markunread_mailbox",
-                          "data-vv-name": "pu_zip"
-                        },
-                        model: {
-                          value: _vm.form.pu_zip,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "pu_zip", $$v)
-                          },
-                          expression: "form.pu_zip"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "v-layout",
-            {
-              attrs: {
-                row: "",
-                wrap: "",
-                "my-0": "",
-                "py-0": "",
-                "mx-3": "",
-                "px-3": ""
-              }
-            },
-            [
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg10: "", "offset-lg1": "" } },
-                [
-                  _c("span", { staticClass: "text-xs-center title" }),
-                  _vm._v(" "),
-                  _c(
-                    "v-alert",
-                    {
-                      staticClass: "text-xs-center",
-                      attrs: {
-                        value: true,
-                        type: "info",
-                        color: "secondary",
-                        "my-0": "",
-                        "py-0": "",
-                        "mx-3": "",
-                        "px-3": ""
-                      }
-                    },
-                    [_vm._v("\n          Drop Off Address\n        ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "", "offset-lg1": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      light: "",
-                      label: "Address 1",
-                      "prepend-icon": "looks_one"
-                    },
-                    model: {
-                      value: _vm.form.do_address_1,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "do_address_1", $$v)
-                      },
-                      expression: "form.do_address_1"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      light: "",
-                      label: "Address 2",
-                      "prepend-icon": "looks_two"
-                    },
-                    model: {
-                      value: _vm.form.do_address_2,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "do_address_2", $$v)
-                      },
-                      expression: "form.do_address_2"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      light: "",
-                      label: "City",
-                      "prepend-icon": "location_city"
-                    },
-                    model: {
-                      value: _vm.form.do_city,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "do_city", $$v)
-                      },
-                      expression: "form.do_city"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { light: "", label: "State", "prepend-icon": "map" },
-                    model: {
-                      value: _vm.form.do_state,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "do_state", $$v)
-                      },
-                      expression: "form.do_state"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", lg2: "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
                     directives: [
@@ -1892,157 +987,77 @@ var render = function() {
                         expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
                       }
                     ],
-                    class: { "error--text": _vm.hasErrors("do_zip") },
+                    class: { "error--text": _vm.hasErrors("zip") },
                     attrs: {
-                      "error-messages": _vm.errorMessages("do_zip"),
-                      light: "",
+                      "error-messages": _vm.errorMessages("zip"),
                       label: "Zip",
                       "prepend-icon": "markunread_mailbox",
-                      "data-vv-name": "do_zip"
+                      "data-vv-name": "zip"
                     },
                     model: {
-                      value: _vm.form.do_zip,
+                      value: _vm.form.zip,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "do_zip", $$v)
+                        _vm.$set(_vm.form, "zip", $$v)
                       },
-                      expression: "form.do_zip"
+                      expression: "form.zip"
                     }
                   })
                 ],
                 1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm.form.type === "delivery_ticket"
-            ? _c(
-                "v-layout",
-                {
-                  attrs: {
-                    row: "",
-                    wrap: "",
-                    "my-0": "",
-                    "py-0": "",
-                    "mx-3": "",
-                    "px-3": ""
-                  }
-                },
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c(
-                    "v-flex",
-                    { attrs: { xs10: "", "offset-xs1": "" } },
-                    [
-                      _c("v-subheader", [
-                        _vm._v(
-                          "\n          Items To Be Delivered (" +
-                            _vm._s(_vm.packages.length) +
-                            ")\n        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.packages.length > 0
-                        ? _c(
-                            "v-btn",
-                            {
-                              attrs: { color: "secondary" },
-                              on: { click: _vm.toggleAll }
-                            },
-                            [
-                              _vm.selected.length === 0
-                                ? _c("span", [_vm._v("Select All")])
-                                : _c("span", [_vm._v("Unselect All")])
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("v-autocomplete", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        class: { "error--text": _vm.hasErrors("packages") },
-                        attrs: {
-                          items: _vm.packages,
-                          "error-messages": _vm.errorMessages("packages"),
-                          "item-text": _vm.getText,
-                          "item-value": "id",
-                          hint: "Choose Packages To Be Delivered",
-                          "persistent-hint": "",
-                          "no-data-text": "No Client's Packages For Delivery",
-                          required: "",
-                          "max-height": "auto",
-                          light: "",
-                          outline: "",
-                          tags: "",
-                          chips: "",
-                          "deletable-chips": "",
-                          "full-width": "",
-                          multiple: "",
-                          "multi-line": "",
-                          dense: "",
-                          auto: "",
-                          "hide-selected": "",
-                          "small-chips": "",
-                          clearable: "",
-                          "data-vv-name": "packages"
+                    "v-textarea",
+                    {
+                      attrs: { color: "teal" },
+                      model: {
+                        value: _vm.form.notes,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "notes", $$v)
                         },
-                        model: {
-                          value: _vm.form.packages,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "packages", $$v)
-                          },
-                          expression: "form.packages"
-                        }
-                      })
-                    ],
-                    1
+                        expression: "form.notes"
+                      }
+                    },
+                    [
+                      _c("div", { attrs: { slot: "label" }, slot: "label" }, [
+                        _vm._v("\n            Notes "),
+                        _c("small", [_vm._v("(optional)")])
+                      ])
+                    ]
                   )
                 ],
                 1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "v-layout",
-            {
-              attrs: {
-                row: "",
-                wrap: "",
-                "my-0": "",
-                "py-0": "",
-                "mx-3": "",
-                "px-3": ""
-              }
-            },
-            [
+              ),
+              _vm._v(" "),
               _c(
                 "v-flex",
-                { attrs: { xs10: "", "offset-xs1": "" } },
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
-                  _c("v-subheader", [_vm._v("\n          Notes:\n        ")]),
-                  _vm._v(" "),
-                  _c("v-textarea", {
-                    attrs: {
-                      counter: "",
-                      maxlength: "255",
-                      "full-width": "",
-                      outline: "",
-                      hint: "(Optional)",
-                      "persistent-hint": ""
-                    },
-                    model: {
-                      value: _vm.form.notes,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "notes", $$v)
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        loading: _vm.form.busy,
+                        disabled: _vm.errors.any() || _vm.form.busy,
+                        block: "",
+                        color: "accent"
                       },
-                      expression: "form.notes"
-                    }
-                  })
+                      on: {
+                        click: function($event) {
+                          _vm.submit()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n          Save "),
+                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -2062,63 +1077,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-10ca036e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-06dea49c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1156:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1157);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(946)("d26755d4", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1157:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 925:
+/***/ 910:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1083)
+var __vue_script__ = __webpack_require__(1053)
 /* template */
-var __vue_template__ = __webpack_require__(1084)
+var __vue_template__ = __webpack_require__(1054)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2135,7 +1108,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Logistics/CreateLogistics.vue"
+Component.options.__file = "resources/assets/js/pages/EditUser.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -2144,9 +1117,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10ca036e", Component.options)
+    hotAPI.createRecord("data-v-06dea49c", Component.options)
   } else {
-    hotAPI.reload("data-v-10ca036e", Component.options)
+    hotAPI.reload("data-v-06dea49c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2177,7 +1150,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(949)
+var listToStyles = __webpack_require__(947)
 
 /*
 type StyleObject = {
@@ -2388,6 +1361,40 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 947:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2411,7 +1418,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -3395,53 +2402,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-
 /***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(1156)
+  __webpack_require__(951)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(951)
+var __vue_template__ = __webpack_require__(953)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3482,6 +2455,48 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 951:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(952);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(946)("d26755d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 952:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
