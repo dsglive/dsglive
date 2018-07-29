@@ -108,6 +108,7 @@ class ClientsController extends Controller
         } else {
             $user = $request->user();
         }
+
         $clients = $user->clients;
         return ClientResource::collection($clients); // remove pagination
     }

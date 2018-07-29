@@ -68,7 +68,7 @@
                   dark
                   flat
                   @click="createClient">
-                  Create New Client
+                  Add New Client
                   <v-icon
                     right
                     color="primary" 

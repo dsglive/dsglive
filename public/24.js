@@ -787,7 +787,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                Create New Client\n                "
+                                    "\n                Add New Client\n                "
                                   ),
                                   _c(
                                     "v-icon",
