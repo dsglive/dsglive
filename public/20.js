@@ -5824,7 +5824,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 1091:
+/***/ 1110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5838,76 +5838,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages__ = __webpack_require__(996);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6236,17 +6166,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       handling_rates: [],
       storage_rates: [],
       client_id: null,
-      client_name: null,
-      unknownClient: {
-        active: false,
-        address_1: null,
-        address_2: null,
-        city: null,
-        id: 1,
-        name: "Unknown Client",
-        state: null,
-        zip: null
-      }
+      client_name: null
     };
   },
   watch: {
@@ -6317,10 +6237,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return c.id === newValue;
           });
           self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
           self.form.customer_name = customer.name;
           self.form.client_name = null;
           self.form.client_id = null;
@@ -6328,7 +6244,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           customer_name = customer.name;
         } else {
           self.clients = [];
-          self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
           self.form.client_name = null;
@@ -6611,8 +6526,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
-      self.form.date_processed = self.date_processed;
-      self.form.post(route("api.dsg.update", { dsg: self.form.dsg_id })).then(function (response) {
+      self.form.post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form).then(function (response) {
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -6620,7 +6534,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Warehouse DSG Has Been Updated!</p>",
+          html: "<p class=\"title\">Receiving Has Been Updated!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
@@ -6714,7 +6628,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1092:
+/***/ 1111:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -6752,38 +6666,10 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Update DSG# " + _vm._s(_vm.id))]
+                [_vm._v("Viewing DSG# " + _vm._s(_vm.id))]
               ),
               _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-items",
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: {
-                        loading: _vm.form.busy,
-                        disabled: _vm.errors.any() || _vm.form.busy,
-                        flat: "",
-                        color: "white"
-                      },
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.submit()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v("\n          Save\n          "),
-                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
+              _c("v-spacer")
             ],
             1
           ),
@@ -6820,6 +6706,7 @@ var render = function() {
                       "error-messages": _vm.errorMessages("customer"),
                       "item-text": "name",
                       "item-value": "id",
+                      readonly: "",
                       required: "",
                       label: "Choose Customer",
                       light: "",
@@ -6863,6 +6750,7 @@ var render = function() {
                       light: "",
                       dense: "",
                       required: "",
+                      readonly: "",
                       label: "Choose Client or Type Name",
                       "prepend-icon": "fa-users",
                       "data-vv-name": "client"
@@ -6899,6 +6787,7 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
+                      readonly: "",
                       label: "Choose Shipper",
                       light: "",
                       chips: "",
@@ -6937,6 +6826,7 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
+                      readonly: "",
                       label: "Received By",
                       light: "",
                       chips: "",
@@ -6975,6 +6865,7 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
+                      readonly: "",
                       label: "Written By",
                       light: "",
                       chips: "",
@@ -7013,6 +6904,7 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
+                      readonly: "",
                       label: "Inspected By",
                       light: "",
                       chips: "",
@@ -7051,6 +6943,7 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
+                      readonly: "",
                       label: "Located By",
                       light: "",
                       chips: "",
@@ -7074,10 +6967,22 @@ var render = function() {
                 { attrs: { xs12: "", lg2: "" } },
                 [
                   _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { required: true },
+                        expression: "{ required: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("po_no") },
                     attrs: {
+                      "error-messages": _vm.errorMessages("po_no"),
                       light: "",
+                      readonly: "",
                       label: "PO No.",
-                      "prepend-icon": "bookmark"
+                      "prepend-icon": "bookmark",
+                      "data-vv-name": "po_no"
                     },
                     model: {
                       value: _vm.po_no,
@@ -7095,96 +7000,20 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg2: "" } },
                 [
-                  _c(
-                    "v-dialog",
-                    {
-                      ref: "date_received",
-                      attrs: {
-                        "return-value": _vm.date_received,
-                        persistent: "",
-                        lazy: "",
-                        "full-width": "",
-                        width: "290px"
-                      },
-                      on: {
-                        "update:returnValue": function($event) {
-                          _vm.date_received = $event
-                        }
-                      },
-                      model: {
-                        value: _vm.date_received_modal,
-                        callback: function($$v) {
-                          _vm.date_received_modal = $$v
-                        },
-                        expression: "date_received_modal"
-                      }
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Date Received",
+                      "prepend-icon": "event_available",
+                      readonly: ""
                     },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          slot: "activator",
-                          label: "Date Received",
-                          "prepend-icon": "event_available",
-                          readonly: ""
-                        },
-                        slot: "activator",
-                        model: {
-                          value: _vm.date_received,
-                          callback: function($$v) {
-                            _vm.date_received = $$v
-                          },
-                          expression: "date_received"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "v-date-picker",
-                        {
-                          attrs: { scrollable: "" },
-                          model: {
-                            value: _vm.date_received,
-                            callback: function($$v) {
-                              _vm.date_received = $$v
-                            },
-                            expression: "date_received"
-                          }
-                        },
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.date_received_modal = false
-                                }
-                              }
-                            },
-                            [_vm._v("Cancel")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.$refs.date_received.save(
-                                    _vm.date_received
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("OK")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                    model: {
+                      value: _vm.date_received,
+                      callback: function($$v) {
+                        _vm.date_received = $$v
+                      },
+                      expression: "date_received"
+                    }
+                  })
                 ],
                 1
               ),
@@ -7193,96 +7022,22 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg2: "" } },
                 [
-                  _c(
-                    "v-dialog",
-                    {
-                      ref: "date_processed",
-                      attrs: {
-                        "return-value": _vm.date_processed,
-                        persistent: "",
-                        lazy: "",
-                        "full-width": "",
-                        width: "290px"
-                      },
-                      on: {
-                        "update:returnValue": function($event) {
-                          _vm.date_processed = $event
-                        }
-                      },
-                      model: {
-                        value: _vm.date_processed_modal,
-                        callback: function($$v) {
-                          _vm.date_processed_modal = $$v
-                        },
-                        expression: "date_processed_modal"
-                      }
+                  _c("v-text-field", {
+                    attrs: {
+                      slot: "activator",
+                      label: "Date Processed",
+                      "prepend-icon": "event_note",
+                      readonly: ""
                     },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          slot: "activator",
-                          label: "Date Processed",
-                          "prepend-icon": "event_note",
-                          readonly: ""
-                        },
-                        slot: "activator",
-                        model: {
-                          value: _vm.date_processed,
-                          callback: function($$v) {
-                            _vm.date_processed = $$v
-                          },
-                          expression: "date_processed"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "v-date-picker",
-                        {
-                          attrs: { scrollable: "" },
-                          model: {
-                            value: _vm.date_processed,
-                            callback: function($$v) {
-                              _vm.date_processed = $$v
-                            },
-                            expression: "date_processed"
-                          }
-                        },
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.date_processed_modal = false
-                                }
-                              }
-                            },
-                            [_vm._v("Cancel")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { flat: "", color: "primary" },
-                              on: {
-                                click: function($event) {
-                                  _vm.$refs.date_processed.save(
-                                    _vm.date_processed
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("OK")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                    slot: "activator",
+                    model: {
+                      value: _vm.date_processed,
+                      callback: function($$v) {
+                        _vm.date_processed = $$v
+                      },
+                      expression: "date_processed"
+                    }
+                  })
                 ],
                 1
               ),
@@ -7364,51 +7119,6 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "v-layout",
-            {
-              attrs: {
-                row: "",
-                wrap: "",
-                "my-0": "",
-                "py-0": "",
-                "mx-3": "",
-                "px-3": ""
-              }
-            },
-            [
-              !_vm.packages.length > 0
-                ? _c(
-                    "v-flex",
-                    { attrs: { xs12: "" } },
-                    [
-                      _c(
-                        "v-btn",
-                        {
-                          staticClass: "white--text",
-                          attrs: {
-                            disabled: _vm.errors.any(),
-                            color: "blue-grey",
-                            block: ""
-                          },
-                          on: { click: _vm.addNewPackage }
-                        },
-                        [
-                          _vm._v("\n          Add New Package "),
-                          _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v("library_add")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
           _vm._l(_vm.packages, function(item, key) {
             return _c("packages", {
               key: key,
@@ -7418,7 +7128,8 @@ var render = function() {
                 bins: _vm.bins,
                 "handling-rates": _vm.handling_rates,
                 "storage-rates": _vm.storage_rates,
-                form: _vm.form
+                form: _vm.form,
+                readonly: true
               }
             })
           })
@@ -7435,21 +7146,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7ac2e640", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7c0fad85", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 929:
+/***/ 930:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1091)
+var __vue_script__ = __webpack_require__(1110)
 /* template */
-var __vue_template__ = __webpack_require__(1092)
+var __vue_template__ = __webpack_require__(1111)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -7466,7 +7177,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Warehouse/EditWarehouse.vue"
+Component.options.__file = "resources/assets/js/pages/Warehouse/ViewWarehouse.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -7475,9 +7186,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7ac2e640", Component.options)
+    hotAPI.createRecord("data-v-7c0fad85", Component.options)
   } else {
-    hotAPI.reload("data-v-7ac2e640", Component.options)
+    hotAPI.reload("data-v-7c0fad85", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

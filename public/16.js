@@ -1,6 +1,6 @@
 webpackJsonp([16],{
 
-/***/ 1075:
+/***/ 1120:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -270,38 +270,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -318,32 +286,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
-        text: "Amount($)",
-        value: "receiving_amount",
+      }, {
+        text: "Receiving",
+        value: "receiving_fee",
         align: "left",
         sortable: true
-      }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      }, { text: "Storage", value: "storage_fee", align: "left", sortable: true }, {
+        text: "Delivery",
+        value: "delivery_fee",
+        align: "left",
+        sortable: true
+      }, { text: "Misc", value: "misc_fee", align: "left", sortable: true }, { text: "Total", value: "total", align: "left", sortable: true }],
       items: [],
       selected: [],
+      mass_create_invoices: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       pagination: {
         sortBy: "name"
       },
-      dsgForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
-      toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        toggle: false,
-        dsg_id: null
-      }),
+      toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       search: "",
-      deleteDsgForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        dsg_id: null
+      domain: window.location.hostname,
+      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        date_started: "",
+        date_ended: ""
       }),
-      domain: window.location.hostname
+      date_started_modal: "",
+      date_ended_modal: ""
     };
   },
   watch: {
@@ -352,263 +325,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       deep: true
     }
   },
-  mounted: function mounted() {
-    var self = this;
-    self.fetchDsg();
-  },
-
   methods: {
-    viewPdf: function viewPdf(dsg) {
-      var type = 'warehouse';
-      if (dsg.active) {
-        type = 'receiving';
-      }
-      var id = dsg.id;
-      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
-      window.open(url);
-    },
-    editDsg: function editDsg(dsg) {
-      vm.$router.push({ name: "edit-dsg", params: { id: "" + dsg.id } });
-    },
-    createDsg: function createDsg() {
-      vm.$router.push({ name: "create-dsg" });
-    },
-    toggleStatus: function toggleStatus(dsg) {
+    massCreateInvoice: function massCreateInvoice() {
       var self = this;
-      self.toggleForm.toggle = dsg.active;
-      self.toggleForm.dsg_id = dsg.id;
-      axios.post(route("api.dsg.toggleStatus"), self.toggleForm).then(function (response) {
-        console.log(response.data);
-      }).catch(function (errors) {
+      var customers = [];
+      for (var index = 0; index < self.selected.length; index++) {
+        customers.push(self.selected[index]['customer_id']);
+      }
+      self.mass_create_invoices = self.selected;
+      axios.post(route("api.invoice.massCreateInvoice"), self.mass_create_invoices).then(function (response) {
         var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
         toggleModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
+          title: "Success!",
+          html: '<p class="title">Invoice Generated!</p>',
+          type: "success",
+          confirmButtonText: "Ok"
+        });
+        self.$nextTick(function () {
+          return self.$router.push({ name: "invoices" });
         });
       });
     },
-    getStatus: function getStatus(status) {
-      if (status) {
-        return "received";
-      } else {
-        return "warehouse";
-      }
-    },
-    fetchDsg: function () {
+    generateInvoice: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-        var self, payload, errors, message;
+        var self, payload, index, message, toggleModal, _toggleModal;
+
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 self = this;
 
-                self.dsgForm.busy = true;
+                self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.dsg.index"), self.dsgForm);
+                return axios.post(route("api.invoice.generate"), self.form);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.dsgForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
-                _context.next = 17;
+                for (index = 0; index < self.items.length; index++) {
+                  self.items[index]["total"] = self.items[index]["receiving_fee"] + self.items[index]["delivery_fee"] + self.items[index]["misc_fee"] + self.items[index]["storage_fee"];
+                }
+                message = 'You Successfully Fetch Billable Customers.';
+
+                if (self.items.length < 1) {
+                  message = 'No Billable Customer Yet.';
+                }
+                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
+                  buttonsStyling: false
+                });
+
+                toggleModal({
+                  title: "Success!",
+                  html: "<p class=\"title\">" + message + "</p>",
+                  type: "warning",
+                  confirmButtonText: "Back"
+                });
+                _context.next = 18;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](2);
-                errors = _context.t0.errors;
-                message = _context.t0.message;
+                _toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
+                  buttonsStyling: false
+                });
 
-                if (errors) {
-                  self.dsgForm.errors.set(errors);
-                }
-                if (message) {}
-                self.dsgForm.busy = false;
+                _toggleModal({
+                  title: "Validation Error!",
+                  html: '<p class="title">Please Pick a Date Started and Date Ended!</p>',
+                  type: "warning",
+                  confirmButtonText: "Back"
+                });
 
-              case 17:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[2, 14]]);
       }));
 
-      function fetchDsg() {
+      function generateInvoice() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchDsg;
-    }(),
-    deleteDsg: function deleteDsg(dsg) {
-      var self = this;
-      self.deleteDsgForm.dsg_id = dsg.id;
-      var index = _.findIndex(self.items, { id: dsg.id });
-      axios.post(route("api.dsg.delete"), self.deleteDsgForm).then(function (response) {
-        if (response.data.status === true) {
-          self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success",
-            html: "<p class=\"title\">Dsg Deleted!</p>",
-            type: "success",
-            confirmButtonText: "Back"
-          });
-        }
-      }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-      });
-    },
-    massDeactivate: function () {
-      var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-                  selected: selected
-                });
-                _context2.prev = 3;
-                _context2.next = 6;
-                return axios.post(route("api.dsg.massDeactivate"), toggleStatusForm);
-
-              case 6:
-                payload = _context2.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = false;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context2.next = 20;
-                break;
-
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](3);
-                errors = _context2.t0.errors;
-                message = _context2.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 14]]);
-      }));
-
-      function massDeactivate() {
-        return _ref3.apply(this, arguments);
-      }
-
-      return massDeactivate;
-    }(),
-    massActivate: function () {
-      var _ref5 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-                  selected: selected
-                });
-                _context3.prev = 3;
-                _context3.next = 6;
-                return axios.post(route("api.dsg.massActivate"), toggleStatusForm);
-
-              case 6:
-                payload = _context3.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = true;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context3.next = 20;
-                break;
-
-              case 14:
-                _context3.prev = 14;
-                _context3.t0 = _context3["catch"](3);
-                errors = _context3.t0.errors;
-                message = _context3.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[3, 14]]);
-      }));
-
-      function massActivate() {
-        return _ref5.apply(this, arguments);
-      }
-
-      return massActivate;
+      return generateInvoice;
     }(),
     toggleAll: function toggleAll() {
       if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
@@ -626,7 +435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1076:
+/***/ 1121:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -646,7 +455,203 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { attrs: { "d-flex": "", xs12: "", sm7: "" } },
+                { attrs: { xs6: "" } },
+                [
+                  _c(
+                    "v-dialog",
+                    {
+                      ref: "date_started",
+                      attrs: {
+                        "return-value": _vm.form.date_started,
+                        persistent: "",
+                        lazy: "",
+                        "full-width": "",
+                        width: "290px"
+                      },
+                      on: {
+                        "update:returnValue": function($event) {
+                          _vm.$set(_vm.form, "date_started", $event)
+                        }
+                      },
+                      model: {
+                        value: _vm.date_started_modal,
+                        callback: function($$v) {
+                          _vm.date_started_modal = $$v
+                        },
+                        expression: "date_started_modal"
+                      }
+                    },
+                    [
+                      _c("v-text-field", {
+                        staticStyle: { "margin-top": "26px" },
+                        attrs: {
+                          slot: "activator",
+                          label: "Date Started",
+                          "prepend-icon": "event_available",
+                          readonly: ""
+                        },
+                        slot: "activator",
+                        model: {
+                          value: _vm.form.date_started,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "date_started", $$v)
+                          },
+                          expression: "form.date_started"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-date-picker",
+                        {
+                          attrs: { scrollable: "" },
+                          model: {
+                            value: _vm.form.date_started,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "date_started", $$v)
+                            },
+                            expression: "form.date_started"
+                          }
+                        },
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.date_started_modal = false
+                                }
+                              }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.$refs.date_started.save(
+                                    _vm.form.date_started
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("OK")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs6: "" } },
+                [
+                  _c(
+                    "v-dialog",
+                    {
+                      ref: "date_ended",
+                      attrs: {
+                        "return-value": _vm.form.date_ended,
+                        persistent: "",
+                        lazy: "",
+                        "full-width": "",
+                        width: "290px"
+                      },
+                      on: {
+                        "update:returnValue": function($event) {
+                          _vm.$set(_vm.form, "date_ended", $event)
+                        }
+                      },
+                      model: {
+                        value: _vm.date_ended_modal,
+                        callback: function($$v) {
+                          _vm.date_ended_modal = $$v
+                        },
+                        expression: "date_ended_modal"
+                      }
+                    },
+                    [
+                      _c("v-text-field", {
+                        staticStyle: { "margin-top": "26px" },
+                        attrs: {
+                          slot: "activator",
+                          label: "Date Ended",
+                          "prepend-icon": "event_available",
+                          readonly: ""
+                        },
+                        slot: "activator",
+                        model: {
+                          value: _vm.form.date_ended,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "date_ended", $$v)
+                          },
+                          expression: "form.date_ended"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-date-picker",
+                        {
+                          attrs: { scrollable: "" },
+                          model: {
+                            value: _vm.form.date_ended,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "date_ended", $$v)
+                            },
+                            expression: "form.date_ended"
+                          }
+                        },
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.date_ended_modal = false
+                                }
+                              }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.$refs.date_ended.save(_vm.form.date_ended)
+                                }
+                              }
+                            },
+                            [_vm._v("OK")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs12: "" } },
                 [
                   _c(
                     "v-layout",
@@ -666,7 +671,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       "append-icon": "search",
-                                      label: "Search Receiving",
+                                      label: "Search Customers",
                                       "single-line": "",
                                       "hide-details": "",
                                       light: ""
@@ -707,139 +712,44 @@ var render = function() {
                     [
                       _c(
                         "v-flex",
-                        {
-                          staticClass: "white",
-                          attrs: { xs12: "", "d-flex": "" }
-                        },
+                        { staticClass: "xs12 white" },
                         [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                disabled: !_vm.$auth.check("admin"),
-                                block: "",
-                                color: "accent",
-                                dark: "",
-                                flat: ""
-                              },
-                              on: { click: _vm.createDsg }
-                            },
-                            [
-                              _vm._v(
-                                "\n              Create New Receiving\n              "
-                              ),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
+                          _vm.selected.length > 0
+                            ? _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    disabled: !_vm.$auth.check("admin"),
+                                    block: "",
+                                    color: "blue darken-4",
+                                    dark: "",
+                                    flat: ""
+                                  },
+                                  on: { click: _vm.massCreateInvoice }
+                                },
                                 [
                                   _vm._v(
-                                    "\n                receipt\n              "
+                                    "\n              Generate Invoice\n              "
+                                  ),
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      attrs: {
+                                        large: "",
+                                        right: "",
+                                        color: "blue darken-4"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                all_inbox\n              "
+                                      )
+                                    ]
                                   )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                fa-plus-circle\n              "
-                                  )
-                                ]
+                                ],
+                                1
                               )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-flex",
-                        { attrs: { xs12: "", "d-flex": "" } },
-                        [
-                          _c(
-                            "v-flex",
-                            { staticClass: "xs6 white" },
-                            [
-                              _vm.selected.length > 0
-                                ? _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
-                                        block: "",
-                                        color: "blue darken-4",
-                                        dark: "",
-                                        flat: ""
-                                      },
-                                      on: { click: _vm.massActivate }
-                                    },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            large: "",
-                                            color: "blue darken-4"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  link\n                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                Mark As Received\n              "
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { staticClass: "xs6 white" },
-                            [
-                              _vm.selected.length > 0
-                                ? _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
-                                        block: "",
-                                        flat: "",
-                                        color: "error",
-                                        dark: ""
-                                      },
-                                      on: { click: _vm.massDeactivate }
-                                    },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: { large: "", color: "error" }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  link_off\n                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                Mark As Warehouse\n              "
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          )
+                            : _vm._e()
                         ],
                         1
                       )
@@ -862,8 +772,7 @@ var render = function() {
                 search: _vm.search,
                 pagination: _vm.pagination,
                 "select-all": "",
-                "item-key": "id",
-                expand: ""
+                "item-key": "customer_name"
               },
               on: {
                 "update:pagination": function($event) {
@@ -959,7 +868,7 @@ var render = function() {
                                 active: props.selected,
                                 "input-value": props.selected
                               },
-                              on: {
+                              nativeOn: {
                                 click: function($event) {
                                   props.selected = !props.selected
                                 }
@@ -975,103 +884,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.id) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "title text-xs-left",
-                            class: {
-                              "red--text":
-                                props.item.customer_id === null ||
-                                props.item.customer_id === 1001,
-                              "accent--text": props.item.customer_id > 1001
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
                                 _vm._s(props.item.customer_name) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "title text-xs-left",
-                            class: {
-                              "red--text":
-                                props.item.client_id === null ||
-                                props.item.client_id === 1,
-                              "accent--text": props.item.client_id > 1
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.client_name) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "title text-xs-left",
-                            class: {
-                              "red--text":
-                                props.item.shipper_id === null ||
-                                props.item.shipper_id === 1,
-                              "accent--text": props.item.shipper_id > 1
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.shipper_name) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.total_pieces) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.total_cube) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.receiving_amount) +
                                 "\n          "
                             )
                           ]
@@ -1081,110 +894,66 @@ var render = function() {
                           "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
-                            _c("v-switch", {
-                              attrs: {
-                                label: _vm.getStatus(props.item.active)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.toggleStatus(props.item)
-                                }
-                              },
-                              model: {
-                                value: props.item.active,
-                                callback: function($$v) {
-                                  _vm.$set(props.item, "active", $$v)
-                                },
-                                expression: "props.item.active"
-                              }
-                            })
-                          ],
-                          1
+                            props.item.receiving_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.receiving_fee.toFixed(4))
+                                  )
+                                ])
+                              : _vm._e()
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-center" },
+                          { staticClass: "title text-xs-left accent--text" },
                           [
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "purple"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewPdf(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
+                            props.item.storage_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.storage_fee.toFixed(4))
+                                  )
+                                ])
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.delivery_fee
+                              ? _c("span", [
+                                  _vm._v(
+                                    _vm._s(props.item.delivery_fee.toFixed(4))
+                                  )
+                                ])
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.misc_fee
+                              ? _c("span", [
+                                  _vm._v(_vm._s(props.item.misc_fee.toFixed(4)))
+                                ])
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            props.item.total
+                              ? _c("span", [
+                                  _vm._v(_vm._s(props.item.total.toFixed(4)))
+                                ])
+                              : _vm._e()
+                          ]
                         )
                       ])
                     ]
@@ -1230,7 +999,9 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v("\n          Opps! No Dsg Yet!, \n          "),
+                      _vm._v(
+                        "\n          Pick Date Started and Date Ended To\n          "
+                      ),
                       _c(
                         "v-btn",
                         {
@@ -1240,14 +1011,12 @@ var render = function() {
                             flat: "",
                             dark: ""
                           },
-                          on: { click: _vm.createDsg }
+                          on: { click: _vm.generateInvoice }
                         },
                         [
-                          _vm._v(
-                            "\n            Create New Receiving\n            "
-                          ),
+                          _vm._v("\n            Fetch Billables\n            "),
                           _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v("\n              receipt\n            ")
+                            _vm._v("\n              attach_money\n            ")
                           ])
                         ],
                         1
@@ -1294,21 +1063,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-51d0d2a4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0ac72d6e", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 921:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1075)
+var __vue_script__ = __webpack_require__(1120)
 /* template */
-var __vue_template__ = __webpack_require__(1076)
+var __vue_template__ = __webpack_require__(1121)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1325,7 +1094,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Dsg/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Invoice/GenerateInvoice.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1334,9 +1103,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-51d0d2a4", Component.options)
+    hotAPI.createRecord("data-v-0ac72d6e", Component.options)
   } else {
-    hotAPI.reload("data-v-51d0d2a4", Component.options)
+    hotAPI.reload("data-v-0ac72d6e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
