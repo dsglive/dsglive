@@ -12,7 +12,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="white--text">Package # {{ id }} Images</v-toolbar-title>
+        <v-toolbar-title class="white--text">Item # {{ id }} Images</v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <!-- add Here Images -->
@@ -53,7 +53,7 @@
           transition="scale-transition"
           outline
         >
-          No Uploaded Images For This Package
+          No Uploaded Images For This Item
         </v-alert>
       </v-container>
     </v-card>

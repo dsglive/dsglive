@@ -485,7 +485,7 @@
         >
           <v-subheader
           >
-            Packages To Be Delivered ({{ packages.length }})
+            Items To Be Delivered ({{ packages.length }})
           </v-subheader>
           <v-btn 
             v-if="packages.length > 0"

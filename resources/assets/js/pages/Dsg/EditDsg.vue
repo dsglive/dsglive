@@ -672,7 +672,7 @@ export default {
         totalCube = totalCube + Number(self.packages[i].cube);
       }
 
-      self.form.total_cube = totalCube;
+      self.form.total_cube = Math.ceil(totalCube);
     },
     getHandlingRates() {
       let self = this;

@@ -4,7 +4,7 @@
     fullscreen 
     transition="dialog-bottom-transition">
     <v-card :light="true">
-      <v-toolbar color="orange lighten-2">
+      <v-toolbar color="error">
         <v-btn 
           icon 
           class="white--text" 

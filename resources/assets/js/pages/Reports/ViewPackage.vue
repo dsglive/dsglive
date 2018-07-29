@@ -14,7 +14,7 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer/>
-      <v-toolbar-title class="text-xs-center white--text">View Package# {{ id }}</v-toolbar-title>
+      <v-toolbar-title class="text-xs-center white--text">View Item ID# {{ id }}</v-toolbar-title>
       <v-spacer/>
     </v-toolbar>
     <v-container 
@@ -212,7 +212,7 @@
           px-3
         >
           <v-subheader>
-            Package Description:
+            Item Description:
             <v-spacer/>
             <v-btn
               flat 
@@ -226,13 +226,9 @@
               </v-icon>
             </v-btn>
           </v-subheader>
-          <v-textarea
+          <v-text-field
             v-model="package.description"
             readonly
-            counter
-            maxlength="255"
-            full-width
-            outline
           />
         </v-flex>
         <v-flex 
@@ -255,14 +251,10 @@
               </v-icon>
             </v-btn>
           </v-subheader>
-          <v-textarea
+          <v-text-field
             v-if="package.damaged"
             v-model="package.damage_description"
             readonly
-            counter
-            maxlength="255"
-            full-width
-            outline
           />
         </v-flex>
       </v-layout>

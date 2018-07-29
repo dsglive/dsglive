@@ -1,6 +1,6 @@
 webpackJsonp([10],{
 
-/***/ 1107:
+/***/ 1126:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -216,6 +216,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -232,32 +248,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, {
-        text: "Customer",
-        value: "customer_name",
-        align: "left",
-        sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Bin", value: "bin_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
         text: "Description",
         value: "description",
         align: "left",
         sortable: true
-      }, {
-        text: "Damaged Description",
-        value: "damage_description",
-        align: "left",
-        sortable: true
       }, { text: "Cube", value: "cube", align: "left", sortable: true }],
       items: [],
-      bins: [],
+      customers: [],
+      clients: [],
       selected: [],
+      unknownClient: {
+        active: false,
+        address_1: null,
+        address_2: null,
+        city: null,
+        id: 1,
+        name: "Unknown Client",
+        state: null,
+        zip: null
+      },
       pagination: {
         sortBy: "name",
         rowPerPage: "all"
       },
       form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        bin_name: "",
-        bin_id: ""
+        customer_id: "",
+        customer_name: "",
+        client_name: "",
+        client_id: ""
       }),
       search: "",
       domain: window.location.hostname
@@ -277,31 +296,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       handler: function handler(newValue) {},
       deep: true
     },
-    "form.bin_name": {
+    "form.customer_id": {
       handler: function handler(newValue) {
-        var bin = this.bins.find(function (bin) {
-          return bin.code === newValue;
-        });
-        this.form.bin_id = bin.id;
-        this.fetchPackages();
+        var self = this;
+        var customer_id = null;
+        var customer_name = null;
+
+        if (newValue != undefined) {
+          var customer = _.find(self.customers, function (c) {
+            return c.id === newValue;
+          });
+          self.clients = customer.clients;
+          _.remove(self.clients, {
+            id: 1
+          });
+          self.clients.unshift(self.unknownClient);
+          self.form.customer_name = customer.name;
+          self.form.client_name = null;
+          self.form.client_id = null;
+          customer_id = newValue;
+          customer_name = customer.name;
+        } else {
+          self.clients = [];
+          self.clients.push(self.unknownClient);
+          self.form.customer_id = null;
+          self.form.customer_name = null;
+          self.form.client_name = null;
+          self.form.client_id = null;
+        }
       },
-      deep: true
+      deep: false
+    },
+    "form.client_name": {
+      handler: function handler(newName) {
+        var self = this;
+        var client_id = null;
+        var client_name = newName;
+
+        if (newName != null || newName != undefined) {
+          if (self.clients.length > 0) {
+            var client = _.find(self.clients, function (c) {
+              return c.name == newName;
+            });
+            if (client != undefined) {
+              self.form.client_name = client.name;
+              self.form.client_id = client.id;
+              client_id = client.id;
+              client_name = client.name;
+              self.fetchPackages();
+            }
+          }
+        } else {
+          self.form.client_id = null;
+          self.form.client_name = null;
+        }
+      },
+      deep: false
     }
   },
   mounted: function mounted() {
     var self = this;
-    self.getBins();
+    self.getCustomers();
   },
 
   methods: {
-    viewPDF: function viewPDF(id) {
-      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/bin-report/" + id;
+    viewPDF: function viewPDF() {
+      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/client-report/" + this.form.customer_id + "/" + this.form.client_id;
       window.open(url);
     },
-    getBins: function getBins() {
-      var self = this;
-      axios.post(route("api.bin.index")).then(function (response) {
-        self.bins = response.data.data;
+    getCustomers: function getCustomers() {
+      var _this = this;
+
+      axios.get(route("api.dsg.getCustomers")).then(function (response) {
+        _this.customers = response.data.data;
       });
     },
     viewItem: function viewItem(id) {
@@ -322,7 +389,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportByBin"), self.form);
+                return axios.post(route("api.report.reportByClient"), self.form);
 
               case 5:
                 payload = _context.sent;
@@ -370,7 +437,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1108:
+/***/ 1127:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -396,7 +463,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Bin Report")
+                        _vm._v("Client Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -417,26 +484,65 @@ var render = function() {
                             expression: "'required'"
                           }
                         ],
-                        class: { "error--text": _vm.hasErrors("bin_name") },
+                        class: { "error--text": _vm.hasErrors("customer") },
                         attrs: {
-                          items: _vm.bins,
-                          "error-messages": _vm.errorMessages("bin_name"),
-                          "item-text": "code",
-                          "item-value": "code",
+                          items: _vm.customers,
+                          "error-messages": _vm.errorMessages("customer"),
+                          "item-text": "name",
+                          "item-value": "id",
                           required: "",
-                          label: "Choose Bin",
+                          label: "Choose Customer",
                           light: "",
-                          "prepend-icon": "view_comfy",
-                          "data-vv-name": "bin_name",
-                          hint: "Choose Bin",
+                          "prepend-icon": "supervised_user_circle",
+                          "data-vv-name": "customer",
+                          hint: "Choose Customer",
                           "persistent-hint": ""
                         },
                         model: {
-                          value: _vm.form.bin_name,
+                          value: _vm.form.customer_id,
                           callback: function($$v) {
-                            _vm.$set(_vm.form, "bin_name", $$v)
+                            _vm.$set(_vm.form, "customer_id", $$v)
                           },
-                          expression: "form.bin_name"
+                          expression: "form.customer_id"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", md6: "", "offset-md3": "" } },
+                    [
+                      _c("v-autocomplete", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        class: { "error--text": _vm.hasErrors("client") },
+                        attrs: {
+                          items: _vm.clients,
+                          "error-messages": _vm.errorMessages("client"),
+                          "item-text": "name",
+                          "item-value": "name",
+                          required: "",
+                          label: "Choose Client",
+                          light: "",
+                          "prepend-icon": "fa-users",
+                          "data-vv-name": "client",
+                          hint: "Choose Customer",
+                          "persistent-hint": ""
+                        },
+                        model: {
+                          value: _vm.form.client_name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "client_name", $$v)
+                          },
+                          expression: "form.client_name"
                         }
                       })
                     ],
@@ -454,7 +560,7 @@ var render = function() {
                               attrs: { color: "secondary", block: "" },
                               on: {
                                 click: function($event) {
-                                  _vm.viewPDF(_vm.form.bin_id)
+                                  _vm.viewPDF()
                                 }
                               }
                             },
@@ -501,7 +607,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-container",
-        { staticStyle: { "margin-top": "-190px" }, attrs: { fluid: "" } },
+        { staticStyle: { "margin-top": "-120px" }, attrs: { fluid: "" } },
         [
           _c(
             "v-layout",
@@ -642,39 +748,27 @@ var render = function() {
                             staticClass: "title text-xs-left",
                             class: {
                               "red--text":
-                                props.item.customer_id === null ||
-                                props.item.customer_id === 1001,
-                              "accent--text": props.item.customer_id > 1001
+                                props.item.shipper_id === null ||
+                                props.item.shipper_id === 1,
+                              "accent--text": props.item.shipper_id > 1
                             }
                           },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.customer_name) +
+                                _vm._s(props.item.shipper_name) +
                                 "\n          "
                             )
                           ]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "title text-xs-left",
-                            class: {
-                              "red--text":
-                                props.item.client_id === null ||
-                                props.item.client_id === 1,
-                              "accent--text": props.item.client_id > 1
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.client_name) +
-                                "\n          "
-                            )
-                          ]
-                        ),
+                        _c("td", { staticClass: "title text-xs-left" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(props.item.bin_name) +
+                              "\n          "
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "title text-xs-left" }, [
                           _vm._v(
@@ -703,18 +797,6 @@ var render = function() {
                             _vm._v(
                               "\n            " +
                                 _vm._s(props.item.description) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.damage_description) +
                                 "\n          "
                             )
                           ]
@@ -776,7 +858,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! There are No Packages At the Selected Bin!\n        "
+                        "\n          Opps! There are No Packages At the Selected Customer!\n        "
                       )
                     ]
                   )
@@ -819,21 +901,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3a4dee2c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7fefdc38", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 937:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1107)
+var __vue_script__ = __webpack_require__(1126)
 /* template */
-var __vue_template__ = __webpack_require__(1108)
+var __vue_template__ = __webpack_require__(1127)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -850,7 +932,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/Bin.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/Client.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -859,9 +941,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a4dee2c", Component.options)
+    hotAPI.createRecord("data-v-7fefdc38", Component.options)
   } else {
-    hotAPI.reload("data-v-3a4dee2c", Component.options)
+    hotAPI.reload("data-v-7fefdc38", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

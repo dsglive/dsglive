@@ -1,6 +1,6 @@
 webpackJsonp([5],{
 
-/***/ 1053:
+/***/ 1047:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -450,6 +450,111 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -466,20 +571,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Name", value: "name", align: "left", sortable: true }, { text: "Email", value: "email", align: "left", sortable: true }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      headers: [{ text: "Name", value: "name", align: "left", sortable: true }, { text: "Email", value: "email", align: "left", sortable: true }, { text: "Username", value: "username", align: "left", sortable: true }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Roles", value: "roles", align: "left", sortable: false }, { text: "Actions", value: "actions", align: "right", sortable: false }],
       items: [],
       selected: [],
       pagination: {
         sortBy: "name"
       },
-      shippersForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      usersForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
         toggle: false,
-        shipper_id: null
+        user_id: null
       }),
       search: "",
-      deleteShipperForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        shipper_id: null
+      roles: [],
+      permissions: [],
+      rolesForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        roles: []
+      }),
+      deleteUserForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        user_id: null
       }),
       domain: window.location.hostname
     };
@@ -488,25 +598,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     items: {
       handler: function handler(newValue) {},
       deep: true
-    }
+    },
+    roles: function roles(newValue) {},
+    permissions: function permissions(newValue) {}
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchShippers();
+    self.fetchRoles();
+    self.fetchUsers();
   },
 
   methods: {
-    editShipper: function editShipper(shipper) {
-      vm.$router.push({ name: "edit-shipper", params: { id: "" + shipper.id } });
+    editUser: function editUser(user) {
+      vm.$router.push({ name: "edit-user", params: { id: "" + user.id } });
     },
-    createShipper: function createShipper() {
-      vm.$router.push({ name: "create-shipper" });
+    createUser: function createUser() {
+      vm.$router.push({ name: "create-user" });
     },
-    toggleStatus: function toggleStatus(shipper) {
+    toggleStatus: function toggleStatus(user) {
       var self = this;
-      self.toggleForm.toggle = shipper.active;
-      self.toggleForm.shipper_id = shipper.id;
-      axios.post(route("api.shipper.toggleStatus"), self.toggleForm).then(function (response) {
+      self.toggleForm.toggle = user.active;
+      self.toggleForm.user_id = user.id;
+      if (user.id === 1) {
+        var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Oops! Forbidden Action!",
+          html: "<p class=\"title\">Cannot Modify Super Admin Account Type!</p>",
+          type: "warning",
+          confirmButtonText: "Back"
+        });
+        user.active = true;
+        return;
+      }
+      axios.post(route("api.user.toggleStatus"), self.toggleForm).then(function (response) {
         console.log(response.data);
       }).catch(function (errors) {
         var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
@@ -528,7 +655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return "Inactive";
       }
     },
-    fetchShippers: function () {
+    fetchRoles: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -536,51 +663,97 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             switch (_context.prev = _context.next) {
               case 0:
                 self = this;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.get(route("api.roles.index"));
 
-                self.shippersForm.busy = true;
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.post(route("api.shipper.index"), self.shippersForm);
-
-              case 5:
+              case 4:
                 payload = _context.sent;
 
-                self.items = payload.data.data;
-                self.shippersForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
-                _context.next = 17;
+                self.roles = payload.data;
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
                 errors = _context.t0.errors;
                 message = _context.t0.message;
 
                 if (errors) {
-                  self.shippersForm.errors.set(errors);
+                  console.log("fetchRoles:errors", errors);
                 }
-                if (message) {}
-                self.shippersForm.busy = false;
+                if (message) {
+                  console.log("fetchRoles:error-message", message);
+                }
 
-              case 17:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
-      function fetchShippers() {
+      function fetchRoles() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchShippers;
+      return fetchRoles;
     }(),
-    deleteShipper: function deleteShipper(shipper) {
+    fetchUsers: function () {
+      var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+        var self, payload, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+
+                self.usersForm.busy = true;
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios.post(route("api.user.index"), self.usersForm);
+
+              case 5:
+                payload = _context2.sent;
+
+                self.items = payload.data.data;
+                self.usersForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                _context2.next = 17;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](2);
+                errors = _context2.t0.errors;
+                message = _context2.t0.message;
+
+                if (errors) {
+                  self.usersForm.errors.set(errors);
+                }
+                if (message) {}
+                self.usersForm.busy = false;
+
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 10]]);
+      }));
+
+      function fetchUsers() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return fetchUsers;
+    }(),
+    deleteUser: function deleteUser(user) {
       var self = this;
-      self.deleteShipperForm.shipper_id = shipper.id;
-      var index = _.findIndex(self.items, { id: shipper.id });
-      axios.post(route("api.shipper.delete"), self.deleteShipperForm).then(function (response) {
+      self.deleteUserForm.user_id = user.id;
+      var index = _.findIndex(self.items, { id: user.id });
+      axios.post(route("api.user.delete"), self.deleteUserForm).then(function (response) {
         if (response.data.status === true) {
           self.$delete(self.items, index);
           var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
@@ -589,7 +762,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           });
           toggleModal({
             title: "Success",
-            html: "<p class=\"title\">Shipper Deleted!</p>",
+            html: "<p class=\"title\">User Deleted!</p>",
             type: "success",
             confirmButtonText: "Back"
           });
@@ -607,73 +780,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       });
     },
+    toProperCase: function toProperCase(key) {
+      var newStr = key.replace(/_/g, " ");
+      return newStr.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    },
     massDeactivate: function () {
-      var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-                  selected: selected
-                });
-                _context2.prev = 3;
-                _context2.next = 6;
-                return axios.post(route("api.shipper.massDeactivate"), toggleStatusForm);
-
-              case 6:
-                payload = _context2.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = false;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context2.next = 20;
-                break;
-
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](3);
-                errors = _context2.t0.errors;
-                message = _context2.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 14]]);
-      }));
-
-      function massDeactivate() {
-        return _ref3.apply(this, arguments);
-      }
-
-      return massDeactivate;
-    }(),
-    massActivate: function () {
       var _ref5 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
         var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
@@ -687,7 +800,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 _context3.prev = 3;
                 _context3.next = 6;
-                return axios.post(route("api.shipper.massActivate"), toggleStatusForm);
+                return axios.post(route("api.user.massDeactivate"), toggleStatusForm);
 
               case 6:
                 payload = _context3.sent;
@@ -696,7 +809,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(updated);
                 _.map(updated, function (id) {
                   var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = true;
+                  self.items[index].active = false;
                 });
                 toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
                   confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -733,12 +846,85 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, _callee3, this, [[3, 14]]);
       }));
 
-      function massActivate() {
+      function massDeactivate() {
         return _ref5.apply(this, arguments);
+      }
+
+      return massDeactivate;
+    }(),
+    massActivate: function () {
+      var _ref7 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
+        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                self = this;
+                selected = _.map(self.selected, "id");
+                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+                  selected: selected
+                });
+                _context4.prev = 3;
+                _context4.next = 6;
+                return axios.post(route("api.user.massActivate"), toggleStatusForm);
+
+              case 6:
+                payload = _context4.sent;
+                updated = payload.data.updated;
+
+                console.log(updated);
+                _.map(updated, function (id) {
+                  var index = _.findIndex(self.items, { id: id });
+                  self.items[index].active = true;
+                });
+                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
+                  buttonsStyling: false
+                });
+
+                toggleModal({
+                  title: "Success",
+                  html: "<p class=\"title\">" + payload.data.message + "</p>",
+                  type: "success",
+                  confirmButtonText: "Back"
+                });
+                _context4.next = 20;
+                break;
+
+              case 14:
+                _context4.prev = 14;
+                _context4.t0 = _context4["catch"](3);
+                errors = _context4.t0.errors;
+                message = _context4.t0.message;
+
+                if (errors) {
+                  console.log(errors);
+                }
+                if (message) {
+                  console.log(message);
+                }
+
+              case 20:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[3, 14]]);
+      }));
+
+      function massActivate() {
+        return _ref7.apply(this, arguments);
       }
 
       return massActivate;
     }(),
+    deleteSelected: function deleteSelected() {
+      var self = this;
+      var newItems = _.difference(self.items, self.selected);
+      self.items = newItems;
+      self.selected = [];
+      //! Send Api Call To Delete The Social Account
+    },
     toggleAll: function toggleAll() {
       if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
     },
@@ -755,7 +941,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1054:
+/***/ 1048:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -795,7 +981,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       "append-icon": "search",
-                                      label: "Search Shippers",
+                                      label: "Search Users",
                                       "single-line": "",
                                       "hide-details": "",
                                       light: ""
@@ -851,28 +1037,18 @@ var render = function() {
                                 dark: "",
                                 flat: ""
                               },
-                              on: { click: _vm.createShipper }
+                              on: { click: _vm.createUser }
                             },
                             [
                               _vm._v(
-                                "\n              Create New Shipper\n              "
+                                "\n              Create New Account\n              "
                               ),
                               _c(
                                 "v-icon",
                                 { attrs: { right: "", color: "accent" } },
                                 [
                                   _vm._v(
-                                    "\n                fa-ship\n              "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                fa-plus-circle\n              "
+                                    "\n                fa-user-plus\n              "
                                   )
                                 ]
                               )
@@ -1126,6 +1302,33 @@ var render = function() {
                           "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
+                            _c(
+                              "v-chip",
+                              [
+                                _c("v-avatar", [
+                                  _c("img", {
+                                    attrs: {
+                                      src: props.item.avatar,
+                                      alt: props.item.username
+                                    }
+                                  })
+                                ]),
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.item.username) +
+                                    "\n            "
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
                             _c("v-switch", {
                               attrs: {
                                 label: _vm.getStatus(props.item.active)
@@ -1145,6 +1348,58 @@ var render = function() {
                             })
                           ],
                           1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          _vm._l(props.item.roles, function(role, key) {
+                            return _c(
+                              "v-chip",
+                              { key: key, attrs: { dark: "" } },
+                              [
+                                _c(
+                                  "v-avatar",
+                                  {
+                                    class: {
+                                      "amber lighten-2":
+                                        role === "admin" &&
+                                        props.item.id < 1000,
+                                      primary:
+                                        role === "admin" && props.item.id > 999,
+                                      "white--text": true,
+                                      "deep-purple": role === "warehouse",
+                                      blue: role === "customer"
+                                    }
+                                  },
+                                  [
+                                    props.item.id < 1000
+                                      ? _c(
+                                          "span",
+                                          { staticClass: "headline" },
+                                          [_vm._v("S")]
+                                        )
+                                      : _c(
+                                          "span",
+                                          { staticClass: "headline" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                role.charAt(0).toUpperCase()
+                                              )
+                                            )
+                                          ]
+                                        )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                props.item.id < 1000
+                                  ? _c("span", [_vm._v("Super Admin")])
+                                  : _c("span", [_vm._v(_vm._s(role))])
+                              ],
+                              1
+                            )
+                          })
                         ),
                         _vm._v(" "),
                         _c(
@@ -1206,7 +1461,7 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        _vm.editShipper(props.item)
+                                        _vm.editUser(props.item)
                                       }
                                     }
                                   },
@@ -1232,7 +1487,7 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        _vm.deleteShipper(props.item)
+                                        _vm.deleteUser(props.item)
                                       }
                                     }
                                   },
@@ -1309,6 +1564,21 @@ var render = function() {
                                             },
                                             [
                                               _c(
+                                                "v-avatar",
+                                                {
+                                                  attrs: { "text-xs-left": "" }
+                                                },
+                                                [
+                                                  _c("img", {
+                                                    attrs: {
+                                                      src: props.item.avatar,
+                                                      alt: props.item.name
+                                                    }
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
                                                 "span",
                                                 { staticClass: "headline" },
                                                 [
@@ -1317,7 +1587,8 @@ var render = function() {
                                                   )
                                                 ]
                                               )
-                                            ]
+                                            ],
+                                            1
                                           )
                                         ],
                                         1
@@ -1350,6 +1621,52 @@ var render = function() {
                                         "v-layout",
                                         { attrs: { row: "", wrap: "" } },
                                         [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Username",
+                                                  "prepend-icon": "fa-at",
+                                                  light: "",
+                                                  readonly: ""
+                                                },
+                                                model: {
+                                                  value: props.item.username,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      props.item,
+                                                      "username",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "props.item.username"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value:
+                                                    props.item.company_name,
+                                                  label: "Company Name",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "domain"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
                                           _c(
                                             "v-flex",
                                             { attrs: { xs6: "", "px-1": "" } },
@@ -1398,6 +1715,40 @@ var render = function() {
                                                     )
                                                   },
                                                   expression: "props.item.phone"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.first_name,
+                                                  label: "First Name",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "person"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.last_name,
+                                                  label: "Last Name",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "people"
                                                 }
                                               })
                                             ],
@@ -1493,31 +1844,7 @@ var render = function() {
                                           _vm._v(" "),
                                           _c(
                                             "v-flex",
-                                            { attrs: { xs6: "", "px-1": "" } },
-                                            [
-                                              _c("v-text-field", {
-                                                attrs: {
-                                                  value: props.item.country,
-                                                  label: "Country",
-                                                  light: "",
-                                                  readonly: "",
-                                                  "prepend-icon": "flag"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-layout",
-                                        { attrs: { row: "", wrap: "" } },
-                                        [
-                                          _c(
-                                            "v-flex",
-                                            { attrs: { xs12: "" } },
+                                            { attrs: { xs6: "" } },
                                             [
                                               _c("v-switch", {
                                                 attrs: {
@@ -1537,6 +1864,100 @@ var render = function() {
                                                   },
                                                   expression:
                                                     "props.item.active"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { row: "", wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "" } },
+                                            [
+                                              _c("v-autocomplete", {
+                                                attrs: {
+                                                  items: _vm.roles,
+                                                  readonly: "",
+                                                  label: "Account Type",
+                                                  color: "primary",
+                                                  light: "",
+                                                  chips: "",
+                                                  "prepend-icon": "fa-tags"
+                                                },
+                                                scopedSlots: _vm._u([
+                                                  {
+                                                    key: "selection",
+                                                    fn: function(data) {
+                                                      return [
+                                                        _c(
+                                                          "v-chip",
+                                                          {
+                                                            attrs: {
+                                                              selected:
+                                                                data.selected,
+                                                              light: ""
+                                                            }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "v-avatar",
+                                                              {
+                                                                staticClass:
+                                                                  "blue-grey white--text"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "headline"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        data.item
+                                                                          .charAt(
+                                                                            0
+                                                                          )
+                                                                          .toUpperCase()
+                                                                      )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(
+                                                              "\n                          " +
+                                                                _vm._s(
+                                                                  data.item
+                                                                ) +
+                                                                "\n                        "
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    }
+                                                  }
+                                                ]),
+                                                model: {
+                                                  value: props.item.roles[0],
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      props.item.roles,
+                                                      0,
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "props.item.roles[0]"
                                                 }
                                               })
                                             ],
@@ -1631,7 +2052,7 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v("\n          Opps! No Shipper Yet!, \n          "),
+                      _vm._v("\n          Opps!!! No User Yet!\n          "),
                       _c(
                         "v-btn",
                         {
@@ -1641,12 +2062,10 @@ var render = function() {
                             flat: "",
                             dark: ""
                           },
-                          on: { click: _vm.createShipper }
+                          on: { click: _vm.createUser }
                         },
                         [
-                          _vm._v(
-                            "\n            Create New Shipper\n            "
-                          ),
+                          _vm._v("\n            Create New User\n            "),
                           _c("v-icon", { attrs: { right: "" } }, [
                             _vm._v("\n              fa-user-plus\n            ")
                           ])
@@ -1695,21 +2114,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6fc1b997", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-514dfbca", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 911:
+/***/ 908:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1053)
+var __vue_script__ = __webpack_require__(1047)
 /* template */
-var __vue_template__ = __webpack_require__(1054)
+var __vue_template__ = __webpack_require__(1048)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1726,7 +2145,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Shipper/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Users.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1735,9 +2154,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6fc1b997", Component.options)
+    hotAPI.createRecord("data-v-514dfbca", Component.options)
   } else {
-    hotAPI.reload("data-v-6fc1b997", Component.options)
+    hotAPI.reload("data-v-514dfbca", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

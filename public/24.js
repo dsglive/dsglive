@@ -4837,7 +4837,7 @@ var render = function() {
         [
           _c(
             "v-toolbar",
-            { attrs: { color: "orange lighten-2" } },
+            { attrs: { color: "error" } },
             [
               _c(
                 "v-btn",
@@ -4951,7 +4951,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-md-center white--text" },
-                [_vm._v("Package " + _vm._s(_vm.index))]
+                [_vm._v("Item " + _vm._s(_vm.index))]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -5198,28 +5198,11 @@ var render = function() {
                     { attrs: { sm12: "", md2: "" } },
                     [
                       _c("v-text-field", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        class: {
-                          "error--text": _vm.hasErrors(
-                            "packages." + _vm.iteration + ".style_no"
-                          )
-                        },
                         attrs: {
-                          "error-messages": _vm.errorMessages(
-                            "packages." + _vm.iteration + ".style_no"
-                          ),
                           readonly: _vm.readonly,
                           label: "Style No.",
                           "prepend-icon": "style",
-                          "data-vv-name": "`packages.${iteration}.style_no`",
-                          hint: "Required",
+                          hint: "Optional",
                           "persistent-hint": ""
                         },
                         model: {
@@ -5386,9 +5369,6 @@ var render = function() {
                       _c(
                         "v-subheader",
                         [
-                          _vm._v(
-                            "\n            Package Description:\n            "
-                          ),
                           _c("v-spacer"),
                           _vm._v(" "),
                           _c(
@@ -5414,7 +5394,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c("v-textarea", {
+                      _c("v-text-field", {
                         directives: [
                           {
                             name: "validate",
@@ -5433,13 +5413,10 @@ var render = function() {
                           "error-messages": _vm.errorMessages(
                             "packages." + _vm.iteration + ".description"
                           ),
-                          counter: "",
-                          maxlength: "255",
-                          "full-width": "",
-                          outline: "",
                           "data-vv-name": "`packages.${index}.description`",
                           hint: "Required",
-                          "persistent-hint": ""
+                          "persistent-hint": "",
+                          label: "Item Description"
                         },
                         model: {
                           value: _vm.item.description,
@@ -5448,22 +5425,44 @@ var render = function() {
                           },
                           expression: "item.description"
                         }
+                      }),
+                      _vm._v(" "),
+                      !_vm.readonly
+                        ? _c(
+                            "v-btn",
+                            {
+                              attrs: { block: "", flat: "", color: "blue" },
+                              on: {
+                                click: function($event) {
+                                  _vm.openPackageImagesModal()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("\n            Upload Package Images "),
+                              _c("v-icon", { attrs: { right: "" } }, [
+                                _vm._v("add_photo_alternate")
+                              ])
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("package-images-uploader", {
+                        attrs: { id: _vm.item.id, item: _vm.item }
                       })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm12: "", md6: "", "px-3": "" } },
-                    [
-                      _vm.item.damaged
-                        ? _c(
+                  _vm.item.damaged
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm12: "", md6: "", "px-3": "" } },
+                        [
+                          _c(
                             "v-subheader",
                             [
-                              _vm._v(
-                                "\n            Damage Description:\n            "
-                              ),
                               _c("v-spacer"),
                               _vm._v(" "),
                               _c(
@@ -5477,7 +5476,7 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("v-icon", { attrs: { color: "red" } }, [
+                                  _c("v-icon", { attrs: { color: "error" } }, [
                                     _vm._v(
                                       "\n                broken_image\n              "
                                     )
@@ -5487,11 +5486,9 @@ var render = function() {
                               )
                             ],
                             1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.item.damaged
-                        ? _c("v-textarea", {
+                          ),
+                          _vm._v(" "),
+                          _c("v-text-field", {
                             directives: [
                               {
                                 name: "validate",
@@ -5514,14 +5511,11 @@ var render = function() {
                                   _vm.iteration +
                                   ".damage_description"
                               ),
-                              counter: "",
-                              maxlength: "255",
-                              "full-width": "",
-                              outline: "",
                               hint: "Required If Marked As Damaged",
                               "data-vv-name":
                                 "`packages.${iteration}.damage_description`",
-                              "persistent-hint": ""
+                              "persistent-hint": "",
+                              label: "Damaged Description"
                             },
                             model: {
                               value: _vm.item.damage_description,
@@ -5530,241 +5524,16 @@ var render = function() {
                               },
                               expression: "item.damage_description"
                             }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.item.damaged
-                ? _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      !_vm.item.repaired
-                        ? _c(
-                            "v-flex",
-                            { attrs: { sm12: "", md2: "", "offset-md10": "" } },
-                            [
-                              _c("v-switch", {
-                                attrs: {
-                                  disabled: _vm.readonly,
-                                  label: _vm.getRepairedStatus(
-                                    _vm.item.repaired
-                                  )
-                                },
-                                model: {
-                                  value: _vm.item.repaired,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "repaired", $$v)
-                                  },
-                                  expression: "item.repaired"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _c(
-                            "v-flex",
-                            { attrs: { sm12: "", md2: "", "order-md2": "" } },
-                            [
-                              _c("v-switch", {
-                                attrs: {
-                                  disabled: _vm.readonly,
-                                  label: _vm.getRepairedStatus(
-                                    _vm.item.repaired
-                                  )
-                                },
-                                model: {
-                                  value: _vm.item.repaired,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "repaired", $$v)
-                                  },
-                                  expression: "item.repaired"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                      _vm._v(" "),
-                      _vm.item.repaired
-                        ? _c(
-                            "v-flex",
-                            { attrs: { sm12: "", "offset-md8": "", md2: "" } },
-                            [
-                              _c(
-                                "v-dialog",
-                                {
-                                  ref: "date_repaired_" + _vm.item.id,
-                                  attrs: {
-                                    "return-value": _vm.item.date_repaired,
-                                    persistent: "",
-                                    lazy: "",
-                                    "full-width": "",
-                                    width: "290px"
-                                  },
-                                  on: {
-                                    "update:returnValue": function($event) {
-                                      _vm.$set(
-                                        _vm.item,
-                                        "date_repaired",
-                                        $event
-                                      )
-                                    }
-                                  },
-                                  model: {
-                                    value: _vm.date_repaired_modal,
-                                    callback: function($$v) {
-                                      _vm.date_repaired_modal = $$v
-                                    },
-                                    expression: "date_repaired_modal"
-                                  }
-                                },
-                                [
-                                  _c("v-text-field", {
-                                    class: {
-                                      "error--text": _vm.hasErrors(
-                                        "packages." +
-                                          _vm.iteration +
-                                          ".date_repaired"
-                                      )
-                                    },
-                                    attrs: {
-                                      slot: "activator",
-                                      disabled: _vm.readonly,
-                                      "error-messages": _vm.errorMessages(
-                                        "packages." +
-                                          _vm.iteration +
-                                          ".date_repaired"
-                                      ),
-                                      label: "Date Repaired",
-                                      "prepend-icon": "event_note",
-                                      "data-vv-name":
-                                        "`packages.${iteration}.date_repaired`",
-                                      readonly: ""
-                                    },
-                                    slot: "activator",
-                                    model: {
-                                      value: _vm.item.date_repaired,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.item, "date_repaired", $$v)
-                                      },
-                                      expression: "item.date_repaired"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-date-picker",
-                                    {
-                                      attrs: { scrollable: "" },
-                                      model: {
-                                        value: _vm.item.date_repaired,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.item,
-                                            "date_repaired",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "item.date_repaired"
-                                      }
-                                    },
-                                    [
-                                      _c("v-spacer"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: { flat: "", color: "primary" },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.date_repaired_modal = false
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Cancel")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: { flat: "", color: "primary" },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.save(
-                                                _vm.item,
-                                                _vm.item.date_repaired
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("OK")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.readonly
-                ? _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "", "pa-0": "", "ma-0": "" } },
-                    [
-                      _c(
-                        "v-flex",
-                        { attrs: { sm12: "", md6: "" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { block: "", flat: "", color: "blue" },
-                              on: {
-                                click: function($event) {
-                                  _vm.openPackageImagesModal()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v("\n            Upload Package Images "),
-                              _c("v-icon", { attrs: { right: "" } }, [
-                                _vm._v("add_photo_alternate")
-                              ])
-                            ],
-                            1
-                          ),
+                          }),
                           _vm._v(" "),
-                          _c("package-images-uploader", {
-                            attrs: { id: _vm.item.id, item: _vm.item }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.item.damaged
-                        ? _c(
-                            "v-flex",
-                            { attrs: { sm12: "", md6: "" } },
-                            [
-                              _c(
+                          !_vm.readonly
+                            ? _c(
                                 "v-btn",
                                 {
                                   attrs: {
                                     block: "",
                                     flat: "",
-                                    color: "orange"
+                                    color: "error"
                                   },
                                   on: {
                                     click: function($event) {
@@ -5781,19 +5550,224 @@ var render = function() {
                                   ])
                                 ],
                                 1
-                              ),
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("damaged-images-uploader", {
+                            attrs: { id: _vm.item.id, item: _vm.item }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { sm12: "", md8: "" } },
+                    [
+                      _c("v-subheader", [
+                        _vm._v("\n            Notes:\n          ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-textarea", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        class: {
+                          "error--text": _vm.hasErrors(
+                            "packages." + _vm.iteration + ".notes"
+                          )
+                        },
+                        attrs: {
+                          readonly: _vm.readonly,
+                          "error-messages": _vm.errorMessages(
+                            "packages." + _vm.iteration + ".notes"
+                          ),
+                          counter: "",
+                          maxlength: "255",
+                          "full-width": "",
+                          outline: "",
+                          hint: "Optional",
+                          "data-vv-name": "`packages.${iteration}.notes`",
+                          "persistent-hint": ""
+                        },
+                        model: {
+                          value: _vm.item.notes,
+                          callback: function($$v) {
+                            _vm.$set(_vm.item, "notes", $$v)
+                          },
+                          expression: "item.notes"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.item.damaged
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm12: "", md2: "", "order-md2": "" } },
+                        [
+                          _c("v-subheader", [
+                            _vm._v(
+                              "\n            Is Item Repaired?\n          "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("v-switch", {
+                            attrs: {
+                              disabled: _vm.readonly,
+                              label: _vm.getRepairedStatus(_vm.item.repaired)
+                            },
+                            model: {
+                              value: _vm.item.repaired,
+                              callback: function($$v) {
+                                _vm.$set(_vm.item, "repaired", $$v)
+                              },
+                              expression: "item.repaired"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.item.repaired
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm12: "", md2: "" } },
+                        [
+                          _c("v-subheader", [
+                            _vm._v(
+                              "\n            When is it Repaired?\n          "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-dialog",
+                            {
+                              ref: "date_repaired_" + _vm.item.id,
+                              attrs: {
+                                "return-value": _vm.item.date_repaired,
+                                persistent: "",
+                                lazy: "",
+                                "full-width": "",
+                                width: "290px"
+                              },
+                              on: {
+                                "update:returnValue": function($event) {
+                                  _vm.$set(_vm.item, "date_repaired", $event)
+                                }
+                              },
+                              model: {
+                                value: _vm.date_repaired_modal,
+                                callback: function($$v) {
+                                  _vm.date_repaired_modal = $$v
+                                },
+                                expression: "date_repaired_modal"
+                              }
+                            },
+                            [
+                              _c("v-text-field", {
+                                class: {
+                                  "error--text": _vm.hasErrors(
+                                    "packages." +
+                                      _vm.iteration +
+                                      ".date_repaired"
+                                  )
+                                },
+                                attrs: {
+                                  slot: "activator",
+                                  disabled: _vm.readonly,
+                                  "error-messages": _vm.errorMessages(
+                                    "packages." +
+                                      _vm.iteration +
+                                      ".date_repaired"
+                                  ),
+                                  label: "Date Repaired",
+                                  "prepend-icon": "event_note",
+                                  "data-vv-name":
+                                    "`packages.${iteration}.date_repaired`",
+                                  readonly: ""
+                                },
+                                slot: "activator",
+                                model: {
+                                  value: _vm.item.date_repaired,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.item, "date_repaired", $$v)
+                                  },
+                                  expression: "item.date_repaired"
+                                }
+                              }),
                               _vm._v(" "),
-                              _c("damaged-images-uploader", {
-                                attrs: { id: _vm.item.id, item: _vm.item }
-                              })
+                              _c(
+                                "v-date-picker",
+                                {
+                                  attrs: { scrollable: "" },
+                                  model: {
+                                    value: _vm.item.date_repaired,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.item, "date_repaired", $$v)
+                                    },
+                                    expression: "item.date_repaired"
+                                  }
+                                },
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { flat: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.date_repaired_modal = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { flat: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.save(
+                                            _vm.item,
+                                            _vm.item.date_repaired
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  )
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                : _vm._e()
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
             ],
             1
           ),
@@ -6515,7 +6489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         totalCube = totalCube + Number(self.packages[i].cube);
       }
 
-      self.form.total_cube = totalCube;
+      self.form.total_cube = Math.ceil(totalCube);
     },
     getHandlingRates: function getHandlingRates() {
       var self = this;
@@ -7428,6 +7402,48 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-42aa3a2a", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 1156:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1157);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(946)("d26755d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da953062\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLayout.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1157:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -8754,6 +8770,10 @@ module.exports = function listToStyles (parentId, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1156)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
@@ -8762,7 +8782,7 @@ var __vue_template__ = __webpack_require__(951)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -9140,7 +9160,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-toolbar-title", { staticClass: "white--text" }, [
-                _vm._v("Package # " + _vm._s(_vm.id) + " Images")
+                _vm._v("Item # " + _vm._s(_vm.id) + " Images")
               ]),
               _vm._v(" "),
               _c("v-spacer")
@@ -9198,7 +9218,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n        No Uploaded Images For This Package\n      "
+                        "\n        No Uploaded Images For This Item\n      "
                       )
                     ]
                   )
@@ -9466,7 +9486,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-toolbar-title", { staticClass: "white--text" }, [
-                _vm._v("Package # " + _vm._s(_vm.id) + " Damaged Images")
+                _vm._v("Item # " + _vm._s(_vm.id) + " Damaged Images")
               ]),
               _vm._v(" "),
               _c("v-spacer")
@@ -9524,7 +9544,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n        No Uploaded Damaged Images For This Package\n      "
+                        "\n        No Uploaded Damaged Images For This Item\n      "
                       )
                     ]
                   )
@@ -9637,7 +9657,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9658,19 +9678,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__ = __webpack_require__(991);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10274,7 +10281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     updatetotalCube: function updatetotalCube() {
       var volume = this.item.length * this.item.width * this.item.height;
-      this.item.cube = (volume / 1728).toFixed(4);
+      this.item.cube = Math.ceil((volume / 1728).toFixed(4));
     },
     save: function save(item, date) {
       var ref = "date_repaired_" + item.id;

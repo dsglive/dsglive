@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>@if($active)Receiving @else Warehouse @endif - DSG# {{ $id }}</title>
+    <title>@if($active)Receiving @else Warehouse @endif - DSG# {{ $id }}</title>
     <!-- //! We Need to Inline Our CSS -->
     <style type="text/css">
         @page {
@@ -72,10 +72,8 @@
                 <td style="width: 50%; color: darkblue; text-align: center;">
                     <h3>@if($active)Receiving @else Warehouse @endif - DSG#: {{ $id }}
                     </h3>
-                    <p style="font-style: italic">Date:
-                        @if($packages[0]['date_received'])
-                            {{ \Carbon\Carbon::parse($packages[0]['date_received'])->format('D, M d Y') }}
-                        @endif
+                    <p style="font-style: italic">Date: @if($packages[0]['date_received']) {{ \Carbon\Carbon::parse($packages[0]['date_received'])->format('D,
+                        M d Y') }} @endif
                     </p>
                 </td>
 
@@ -92,14 +90,13 @@
                     Customer:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                <strong>{{ $customer['profile']['company_name'] }}</strong>
+                    <strong>{{ $customer['profile']['company_name'] }}</strong>
                 </td>
-
                 <td style="width: 15%; color: darkblue; text-align: right;">
-                    Carrier:
+                    Shipper:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                    Designer Services Group
+                    {{ $shipper_name }}
                 </td>
             </tr>
             <!-- row 1 of 6 -->
@@ -112,55 +109,36 @@
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
                     {{ $client_name }}
                 </td>
-
-                <td style="width: 15%; color: darkblue; text-align: right;">
-                    Shipper:
-                </td>
-                <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                    {{ $shipper_name }}
-                </td>
-            </tr>
-            <!-- row 2 of 6 -->
-
-            <tr>
-                <!-- row 3 of 6 -->
-                <td style="width: 15%; color: darkblue; text-align: right;">
-                    Phone:
-                </td>
-                <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                    {{ $customer['profile']['phone'] }}
-                </td>
-
                 <td style="width: 15%; color: darkblue; text-align: right; padding-left: 10px;">
                     Pieces:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
                     {{ $total_pieces }}
                 </td>
+
             </tr>
-            <!-- row 3 of 6 -->
+            <!-- row 2 of 6 -->
 
             <tr>
-                <!-- row 4 of 6 -->
+                <!-- row 3 of 6 -->
                 <td style="width: 15%; color: darkblue; text-align: right;">
                     PO#:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
                     {{ $packages[0]['po_no'] }}
                 </td>
-
                 <td style="width: 15%; color: darkblue; text-align: right;">
                     Receive:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                    {{ $receiving_amount }}
+                    ${{ $receiving_amount }}
                 </td>
             </tr>
-            <!-- row 4 of 6 -->
+            <!-- row 3 of 6 -->
         </table>
     </header>
 
-    <table id="content">
+    <table>
         <thead>
             <tr>
                 <th class="short">Style #</th>

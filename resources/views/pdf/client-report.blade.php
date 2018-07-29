@@ -154,7 +154,7 @@
             <h2 style="padding-top:-20px;">Current Inventory List</h2>
             <h3 style="padding-top:-10px; font-style: italic">
                 Customer:
-               {{ $customer['first_name'] }} {{ $customer['last_name'] }}<br>Client:
+               {{ $customer['company_name'] }}<br>Client:
                {{ $name }}<br> Total Items:
                {{ count($packages) }} <br> Total Cube:
                {{ $total_cube }} cf
@@ -187,7 +187,7 @@
         </thead>
         <tbody>
         @foreach($packages as $item)
-        <tr>
+        <tr style="page-break-inside: avoid;">
             <td class="borders">
                 {{ $item['bin_name'] }}
             </td>

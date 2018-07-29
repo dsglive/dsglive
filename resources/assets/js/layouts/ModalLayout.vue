@@ -18,3 +18,10 @@
     </v-content>
   </v-app>
 </template>
+
+<style>
+.v-messages__message {
+  color: #e57373;
+}
+</style>
+

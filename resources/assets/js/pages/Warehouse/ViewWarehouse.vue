@@ -36,6 +36,7 @@
             v-model="form.customer_id"
             :error-messages="errorMessages('customer')"
             :class="{ 'error--text': hasErrors('customer') }"
+            :hint="customerHint"
             item-text="name"
             item-value="id"
             readonly
@@ -45,6 +46,7 @@
             chips
             prepend-icon="supervised_user_circle"
             data-vv-name="customer"
+            persistent-hint
           />
         </v-flex>
         <v-flex 
@@ -59,6 +61,7 @@
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
             :error="form.client_id === null"
+            :hint="clientHint"
             item-text="name"
             item-value="name"
             chips
@@ -69,6 +72,7 @@
             label="Choose Client or Type Name"
             prepend-icon="fa-users"
             data-vv-name="client"
+            persistent-hint
           />
           
         </v-flex>
@@ -86,11 +90,13 @@
             item-value="id"
             required
             readonly
+            :hint="shipperHint"
             label="Choose Shipper"
             light
             chips
             prepend-icon="fa-ship"
             data-vv-name="shipper"
+            persistent-hint
           />
         </v-flex>
         <v-flex 
@@ -327,6 +333,29 @@ export default {
     client_id: null,
     client_name: null
   }),
+  computed: {
+    customerHint() {
+      if (this.form.customer_id === null) {
+        return "Create A New Or Search On Available Customer";
+      } else {
+        return "Customer Verified";
+      }
+    },
+    clientHint() {
+      if (this.form.client_id === null || this.form.client_id === 1) {
+        return "Create A New Or Search On Available Client";
+      } else {
+        return "Client Verified";
+      }
+    },
+    shipperHint() {
+      if (this.form.shipper_id === null) {
+        return "Create A New Or Search On Available Shipper";
+      } else {
+        return "Shipper Verified";
+      }
+    }
+  },
   watch: {
     po_no: {
       handler: function(newValue) {

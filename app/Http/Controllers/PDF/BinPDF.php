@@ -16,7 +16,7 @@ class BinPDF extends Controller
     public function viewBin(Bin $bin)
     {
         $data = $bin;
-        $data['packages'] =  Package::where('bin_name', $bin->code)->active()->get();
+        $data['packages'] =  Package::with('customer.profile')->where('bin_name', $bin->code)->active()->get();
         $total = 0;
         foreach ($data['packages'] as $package) {
             $total += $package['cube'];

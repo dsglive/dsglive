@@ -3,6 +3,7 @@
 namespace Api\Client;
 
 use Api\Controller;
+use App\Models\User;
 use App\Models\Client;
 use App\Rules\ValidateZip;
 use Illuminate\Http\Request;
@@ -11,12 +12,13 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\ClientCreationFailed;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\User\ClientResource;
+use App\Http\Resources\User\WithClientResource;
 
 class ClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:customer']);
+        $this->middleware(['role:customer|admin']);
     }
 
     /**
@@ -24,7 +26,10 @@ class ClientsController extends Controller
      */
     public function create(Request $request)
     {
+        $user;
+
         $data = request()->validate([
+            'user_id'   => 'nullable|exists:users,id',
             'name'      => 'required',
             'email'     => 'nullable|email|unique:clients',
             'phone'     => 'nullable',
@@ -41,8 +46,14 @@ class ClientsController extends Controller
         ]);
         DB::beginTransaction();
         $client = Client::create($data);
-        $user   = $request->user();
-        $user->clients()->save($client);
+
+        if (null === $data['user_id']) {
+            $user = $request->user();
+            $user->clients()->save($client);
+        } else {
+            $user = User::find($data['user_id']);
+            $user->clients()->save($client);
+        }
 
         /* Check If We Dont Have Any Errors , Rollback Account Creation if Any! */
         try {
@@ -55,7 +66,8 @@ class ClientsController extends Controller
         }
 
         DB::commit();
-        return response()->json(['message' => 'Client Has Been Created!'], 200);
+        $client = new WithClientResource($client);
+        return response()->json(['message' => 'Client Has Been Created!', 'client' => $client], 200);
     }
 
     /**

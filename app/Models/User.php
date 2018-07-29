@@ -68,7 +68,7 @@ class User extends Authenticatable implements HasMedia
         'password', 'remember_token', 'resent', 'active',
         'roles', 'permissions',
         'role_list', 'permission_list',
-        'profile', 'media', 'avatar'
+        'media', 'avatar'
     ];
 
     /**

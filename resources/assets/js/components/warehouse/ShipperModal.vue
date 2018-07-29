@@ -1,30 +1,27 @@
 <template>
-  <modal-layout class="white">
-    <v-card :flat="true">
-      <v-toolbar class="primary">
+  <v-dialog 
+    v-model="dialog" 
+    fullscreen 
+    hide-overlay 
+    transition="dialog-bottom-transition">
+    <v-card>
+      <v-toolbar 
+        dark 
+        color="primary">
         <v-btn 
-          flat 
           icon 
-          color="white"
-          @click.native="redirectBack()"
-        >
-          <v-icon>arrow_back</v-icon>
+          dark 
+          @click.native="dialog = false">
+          <v-icon>close</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Client Creation Page</v-toolbar-title>
+        <v-toolbar-title>Create New Shipper</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
-          <!-- If There is no Client Account Login Yet Redirect to Authentication Page -->
-          <v-btn
-            :loading="form.busy" 
-            :disabled="errors.any() || form.busy"
+          <v-btn 
+            dark 
             flat 
-            color="white" 
-            @click.native="submit()"
-          >
-            Save
-            <v-icon right>save</v-icon>
-          </v-btn>
+            @click="submit()">Save</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-layout 
@@ -41,12 +38,12 @@
             v-model="form.name"
             :error-messages="errorMessages('name')"
             :class="{ 'error--text': hasErrors('name') }"
-            label="Client Name"
-            prepend-icon="fa-user"
+            label="Name"
+            prepend-icon="fa-ship"
             data-vv-name="name"
           />
         </v-flex>
-        <!-- <v-flex 
+        <v-flex 
           xs12 
           md8 
           offset-md2
@@ -54,8 +51,10 @@
           <v-switch
             v-model="form.active"
             :label="getStatus(form.active)"
+            hint="Note: Active Shipper is Searchable On Warehouse/Receiving/Logistic Forms"
+            persistent-hint
           />
-        </v-flex> -->
+        </v-flex>
         <v-flex 
           xs12 
           md8 
@@ -172,35 +171,38 @@
         </v-flex>
       </v-layout>
     </v-card>
-  </modal-layout>
+  </v-dialog>
 </template>
 
 <script>
-import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
 export default {
-  components: {
-    ModalLayout
-  },
   mixins: [validationError],
-  data: () => ({
-    /* Always Declare Your Form Object */
-    form: new Form({
-      name: null,
-      active: false,
-      email: null,
-      phone: null,
-      address_1: null,
-      address_2: null,
-      city: null,
-      state: null,
-      zip: null,
-      country: null,
-      notes: null
-    }),
-  }),
+  data() {
+    return {
+      dialog: false,
+      form: new Form({
+        name: null,
+        active: false,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+      })
+    };
+  },
+  created() {
+    Bus.$on("open-shipper-modal", () => {
+      this.dialog = true;
+    });
+  },
   methods: {
     getStatus(status) {
       if (status) {
@@ -214,7 +216,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           // eslint-disable-next-line
-          self.createClient();
+          self.createShipper();
         } else {
           const validationModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -229,26 +231,26 @@ export default {
         }
       });
     },
-    createClient() {
+    createShipper() {
       let self = this;
       self.form.busy = true;
 
       self.form
-        .post(route("api.client.create"))
+        .post(route("api.shipper.create"), self.form)
         .then(response => {
-          console.log(response.data);
           self.$validator.reset();
+          Bus.$emit("shipper-created", response.data);
           const successModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Client Has Been Created!</p>`,
+            html: `<p class="title">Shipper Has Been Created!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "clients" }));
+          self.resetForm()
         })
         .catch(errors => {});
     },
@@ -268,10 +270,9 @@ export default {
         notes: null
       });
     },
-    redirectBack() {
-      let self = this;
-      self.$nextTick(() => self.$router.push({ name: "clients" }));
-    }
   }
 };
 </script>
+
+<style>
+</style>

@@ -102,7 +102,7 @@
                     Customer:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; vertical-align: top;">
-                    <strong>{{ $customer_name }}</strong>
+                    <strong>{{ $customer['profile']['company_name'] }}</strong>
                 </td>
             </tr>
             <!-- row 1 of 5 -->
@@ -186,7 +186,7 @@
         <tbody>
             <?php $item_cube = 0; ?>
             @foreach($packages as $item)
-            <tr style="border-bottom: 1px solid #ccc;">
+            <tr style="border-bottom: 1px solid #ccc;page-break-inside: avoid;">
                 <td style="border-bottom: 1px solid #ccc;">
                     {{ $item['dsg_id'] }}
                 </td>

@@ -82,7 +82,10 @@
           <v-layout 
             row 
             wrap>
-            <v-flex d-flex>
+            <v-flex 
+              xs12
+              sm6
+            >
               <v-card 
                 light 
                 flat
@@ -99,20 +102,14 @@
                 </v-card-title>
               </v-card>
             </v-flex>
-          </v-layout>
-        </v-flex>
-        <v-flex 
-          d-flex 
-          xs12 
-          sm5 
-          child-flex>
-          <v-layout 
-            row 
-            wrap>
-            <v-flex class="xs12 white">
+            <v-flex 
+              xs12
+              sm6
+              d-flex>
               <v-btn 
                 v-if="selected.length>0"
-                :disabled="!$auth.check('admin')" 
+                :disabled="!$auth.check('admin')"
+                style="margin-top:30px;" 
                 block 
                 color="blue darken-4" 
                 dark
@@ -130,6 +127,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
+        
       </v-layout>
       <!-- User Data Table -->
       <v-data-table

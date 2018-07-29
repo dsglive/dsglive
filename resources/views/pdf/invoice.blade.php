@@ -192,7 +192,7 @@
         <tbody>
             <?php $item_cube = 0; ?>
             <?php foreach($packages as $item) : ?>
-            <tr style="border-bottom: 1px solid #ccc;">
+            <tr style="border-bottom: 1px solid #ccc;page-break-inside: avoid;">
                 <td style="border-bottom: 1px solid #ccc;">
                     {{ $item['dsg_id'] }}
                 </td>
