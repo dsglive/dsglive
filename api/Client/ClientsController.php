@@ -103,7 +103,11 @@ class ClientsController extends Controller
      */
     public function index(Request $request)
     {
-        $user    = $request->user();
+        if ($user = $request->input('customer')) {
+            $user = User::find($user);
+        } else {
+            $user = $request->user();
+        }
         $clients = $user->clients;
         return ClientResource::collection($clients); // remove pagination
     }

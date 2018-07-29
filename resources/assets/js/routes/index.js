@@ -3,6 +3,7 @@ import home from "Routes/home";
 import profile from "Routes/profile";
 import clients from "Routes/clients";
 import users from "Routes/users";
+import customer from "Routes/customer";
 import shippers from "Routes/shippers";
 import rates from "Routes/rates";
 import bins from "Routes/bins";
@@ -11,8 +12,8 @@ import dsg from "Routes/dsg";
 import logistics from "Routes/logistics";
 import warehouse from "Routes/warehouse";
 import misc from "Routes/misc";
-import invoices from "Routes/invoices"
-import reports from "Routes/reports"
+import invoices from "Routes/invoices";
+import reports from "Routes/reports";
 
 let routeFiles = [];
 /* Multi Route Files */
@@ -31,7 +32,8 @@ const routes = routeFiles.concat(
   warehouse,
   misc,
   invoices,
-  reports
+  reports,
+  customer
   /* add here Other Routes File */
 );
 export default routes;

@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		45: 0
+/******/ 		48: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -94744,16 +94744,18 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Routes_profile__ = __webpack_require__(881);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Routes_clients__ = __webpack_require__(882);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Routes_users__ = __webpack_require__(883);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_Routes_shippers__ = __webpack_require__(884);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Routes_rates__ = __webpack_require__(885);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Routes_bins__ = __webpack_require__(886);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_Routes_errors__ = __webpack_require__(887);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_Routes_dsg__ = __webpack_require__(888);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_Routes_logistics__ = __webpack_require__(889);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_Routes_warehouse__ = __webpack_require__(890);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_Routes_misc__ = __webpack_require__(891);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_Routes_invoices__ = __webpack_require__(892);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_Routes_reports__ = __webpack_require__(893);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_Routes_customer__ = __webpack_require__(1162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Routes_shippers__ = __webpack_require__(884);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Routes_rates__ = __webpack_require__(885);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_Routes_bins__ = __webpack_require__(886);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_Routes_errors__ = __webpack_require__(887);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_Routes_dsg__ = __webpack_require__(888);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_Routes_logistics__ = __webpack_require__(889);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_Routes_warehouse__ = __webpack_require__(890);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_Routes_misc__ = __webpack_require__(891);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_Routes_invoices__ = __webpack_require__(892);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_Routes_reports__ = __webpack_require__(893);
+
 
 
 
@@ -94772,7 +94774,7 @@ if (inBrowser && window.Vue) {
 
 var routeFiles = [];
 /* Multi Route Files */
-var routes = routeFiles.concat(__WEBPACK_IMPORTED_MODULE_0_Routes_auth__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1_Routes_home__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_Routes_profile__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8_Routes_errors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3_Routes_clients__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4_Routes_users__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5_Routes_shippers__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6_Routes_rates__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7_Routes_bins__["a" /* default */], __WEBPACK_IMPORTED_MODULE_9_Routes_dsg__["a" /* default */], __WEBPACK_IMPORTED_MODULE_10_Routes_logistics__["a" /* default */], __WEBPACK_IMPORTED_MODULE_11_Routes_warehouse__["a" /* default */], __WEBPACK_IMPORTED_MODULE_12_Routes_misc__["a" /* default */], __WEBPACK_IMPORTED_MODULE_13_Routes_invoices__["a" /* default */], __WEBPACK_IMPORTED_MODULE_14_Routes_reports__["a" /* default */]
+var routes = routeFiles.concat(__WEBPACK_IMPORTED_MODULE_0_Routes_auth__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1_Routes_home__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2_Routes_profile__["a" /* default */], __WEBPACK_IMPORTED_MODULE_9_Routes_errors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3_Routes_clients__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4_Routes_users__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6_Routes_shippers__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7_Routes_rates__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8_Routes_bins__["a" /* default */], __WEBPACK_IMPORTED_MODULE_10_Routes_dsg__["a" /* default */], __WEBPACK_IMPORTED_MODULE_11_Routes_logistics__["a" /* default */], __WEBPACK_IMPORTED_MODULE_12_Routes_warehouse__["a" /* default */], __WEBPACK_IMPORTED_MODULE_13_Routes_misc__["a" /* default */], __WEBPACK_IMPORTED_MODULE_14_Routes_invoices__["a" /* default */], __WEBPACK_IMPORTED_MODULE_15_Routes_reports__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5_Routes_customer__["a" /* default */]
 /* add here Other Routes File */
 );
 /* harmony default export */ __webpack_exports__["a"] = (routes);
@@ -94854,13 +94856,13 @@ var Settings = function Settings() {
 
 "use strict";
 var Clients = function Clients() {
-  return __webpack_require__.e/* import() */(24).then(__webpack_require__.bind(null, 905));
+  return __webpack_require__.e/* import() */(49).then(__webpack_require__.bind(null, 905));
 };
 var CreateClient = function CreateClient() {
-  return __webpack_require__.e/* import() */(40).then(__webpack_require__.bind(null, 906));
+  return __webpack_require__.e/* import() */(51).then(__webpack_require__.bind(null, 906));
 };
 var EditClient = function EditClient() {
-  return __webpack_require__.e/* import() */(38).then(__webpack_require__.bind(null, 907));
+  return __webpack_require__.e/* import() */(50).then(__webpack_require__.bind(null, 907));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -94890,13 +94892,13 @@ var EditClient = function EditClient() {
 
 "use strict";
 var Users = function Users() {
-  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 908));
+  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 911));
 };
 var CreateUser = function CreateUser() {
-  return __webpack_require__.e/* import() */(39).then(__webpack_require__.bind(null, 909));
+  return __webpack_require__.e/* import() */(39).then(__webpack_require__.bind(null, 912));
 };
 var EditUser = function EditUser() {
-  return __webpack_require__.e/* import() */(37).then(__webpack_require__.bind(null, 910));
+  return __webpack_require__.e/* import() */(37).then(__webpack_require__.bind(null, 913));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -94926,13 +94928,13 @@ var EditUser = function EditUser() {
 
 "use strict";
 var Shippers = function Shippers() {
-  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 911));
+  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 914));
 };
 var CreateShipper = function CreateShipper() {
-  return __webpack_require__.e/* import() */(30).then(__webpack_require__.bind(null, 912));
+  return __webpack_require__.e/* import() */(30).then(__webpack_require__.bind(null, 915));
 };
 var EditShipper = function EditShipper() {
-  return __webpack_require__.e/* import() */(29).then(__webpack_require__.bind(null, 913));
+  return __webpack_require__.e/* import() */(29).then(__webpack_require__.bind(null, 916));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -94962,13 +94964,13 @@ var EditShipper = function EditShipper() {
 
 "use strict";
 var Rates = function Rates() {
-  return __webpack_require__.e/* import() */(18).then(__webpack_require__.bind(null, 914));
+  return __webpack_require__.e/* import() */(18).then(__webpack_require__.bind(null, 917));
 };
 var CreateRate = function CreateRate() {
-  return __webpack_require__.e/* import() */(32).then(__webpack_require__.bind(null, 915));
+  return __webpack_require__.e/* import() */(32).then(__webpack_require__.bind(null, 918));
 };
 var EditRate = function EditRate() {
-  return __webpack_require__.e/* import() */(31).then(__webpack_require__.bind(null, 916));
+  return __webpack_require__.e/* import() */(31).then(__webpack_require__.bind(null, 919));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -94998,13 +95000,13 @@ var EditRate = function EditRate() {
 
 "use strict";
 var Bins = function Bins() {
-  return __webpack_require__.e/* import() */(25).then(__webpack_require__.bind(null, 917));
+  return __webpack_require__.e/* import() */(25).then(__webpack_require__.bind(null, 920));
 };
 var CreateBin = function CreateBin() {
-  return __webpack_require__.e/* import() */(42).then(__webpack_require__.bind(null, 918));
+  return __webpack_require__.e/* import() */(42).then(__webpack_require__.bind(null, 921));
 };
 var EditBin = function EditBin() {
-  return __webpack_require__.e/* import() */(41).then(__webpack_require__.bind(null, 919));
+  return __webpack_require__.e/* import() */(41).then(__webpack_require__.bind(null, 922));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95034,7 +95036,7 @@ var EditBin = function EditBin() {
 
 "use strict";
 var NotFound = function NotFound() {
-  return __webpack_require__.e/* import() */(28).then(__webpack_require__.bind(null, 920));
+  return __webpack_require__.e/* import() */(28).then(__webpack_require__.bind(null, 923));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95059,13 +95061,13 @@ var NotFound = function NotFound() {
 
 "use strict";
 var Dsg = function Dsg() {
-  return __webpack_require__.e/* import() */(23).then(__webpack_require__.bind(null, 921));
+  return __webpack_require__.e/* import() */(23).then(__webpack_require__.bind(null, 924));
 };
 var CreateDsg = function CreateDsg() {
-  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 922));
+  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 925));
 };
 var EditDsg = function EditDsg() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 923));
+  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 926));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95095,13 +95097,13 @@ var EditDsg = function EditDsg() {
 
 "use strict";
 var Logistics = function Logistics() {
-  return __webpack_require__.e/* import() */(20).then(__webpack_require__.bind(null, 924));
+  return __webpack_require__.e/* import() */(20).then(__webpack_require__.bind(null, 927));
 };
 var CreateLogistics = function CreateLogistics() {
-  return __webpack_require__.e/* import() */(36).then(__webpack_require__.bind(null, 925));
+  return __webpack_require__.e/* import() */(36).then(__webpack_require__.bind(null, 928));
 };
 var EditLogistics = function EditLogistics() {
-  return __webpack_require__.e/* import() */(35).then(__webpack_require__.bind(null, 926));
+  return __webpack_require__.e/* import() */(35).then(__webpack_require__.bind(null, 929));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95131,16 +95133,16 @@ var EditLogistics = function EditLogistics() {
 
 "use strict";
 var Warehouse = function Warehouse() {
-  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 927));
+  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 930));
 };
 var CreateWarehouse = function CreateWarehouse() {
-  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 928));
+  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 931));
 };
 var EditWarehouse = function EditWarehouse() {
-  return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 929));
+  return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 932));
 };
 var ViewWarehouse = function ViewWarehouse() {
-  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 930));
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 933));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95176,13 +95178,13 @@ var ViewWarehouse = function ViewWarehouse() {
 
 "use strict";
 var Misc = function Misc() {
-  return __webpack_require__.e/* import() */(19).then(__webpack_require__.bind(null, 931));
+  return __webpack_require__.e/* import() */(19).then(__webpack_require__.bind(null, 934));
 };
 var CreateMisc = function CreateMisc() {
-  return __webpack_require__.e/* import() */(34).then(__webpack_require__.bind(null, 932));
+  return __webpack_require__.e/* import() */(34).then(__webpack_require__.bind(null, 935));
 };
 var EditMisc = function EditMisc() {
-  return __webpack_require__.e/* import() */(33).then(__webpack_require__.bind(null, 933));
+  return __webpack_require__.e/* import() */(33).then(__webpack_require__.bind(null, 936));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95212,13 +95214,13 @@ var EditMisc = function EditMisc() {
 
 "use strict";
 var Invoice = function Invoice() {
-  return __webpack_require__.e/* import() */(21).then(__webpack_require__.bind(null, 934));
+  return __webpack_require__.e/* import() */(21).then(__webpack_require__.bind(null, 937));
 };
 var GenerateInvoice = function GenerateInvoice() {
-  return __webpack_require__.e/* import() */(22).then(__webpack_require__.bind(null, 935));
+  return __webpack_require__.e/* import() */(22).then(__webpack_require__.bind(null, 938));
 };
 var ViewInvoice = function ViewInvoice() {
-  return __webpack_require__.e/* import() */(43).then(__webpack_require__.bind(null, 936));
+  return __webpack_require__.e/* import() */(43).then(__webpack_require__.bind(null, 939));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95248,31 +95250,31 @@ var ViewInvoice = function ViewInvoice() {
 
 "use strict";
 var Bin = function Bin() {
-  return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 937));
+  return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 940));
 };
 var Client = function Client() {
-  return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 938));
+  return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 941));
 };
 var Customer = function Customer() {
-  return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 939));
+  return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 942));
 };
 var Damaged = function Damaged() {
-  return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 940));
+  return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 943));
 };
 var Unknown = function Unknown() {
-  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 941));
+  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 944));
 };
 var ViewDamaged = function ViewDamaged() {
-  return __webpack_require__.e/* import() */(44).then(__webpack_require__.bind(null, 942));
+  return __webpack_require__.e/* import() */(44).then(__webpack_require__.bind(null, 945));
 };
 var EditUnknown = function EditUnknown() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 943));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 946));
 };
 var EditPackage = function EditPackage() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 944));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 947));
 };
 var ViewPackage = function ViewPackage() {
-  return __webpack_require__.e/* import() */(26).then(__webpack_require__.bind(null, 945));
+  return __webpack_require__.e/* import() */(26).then(__webpack_require__.bind(null, 948));
 };
 /* harmony default export */ __webpack_exports__["a"] = ([
 /* Start Users Routes */
@@ -96405,6 +96407,304 @@ module.exports = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 902 */,
+/* 903 */,
+/* 904 */,
+/* 905 */,
+/* 906 */,
+/* 907 */,
+/* 908 */,
+/* 909 */,
+/* 910 */,
+/* 911 */,
+/* 912 */,
+/* 913 */,
+/* 914 */,
+/* 915 */,
+/* 916 */,
+/* 917 */,
+/* 918 */,
+/* 919 */,
+/* 920 */,
+/* 921 */,
+/* 922 */,
+/* 923 */,
+/* 924 */,
+/* 925 */,
+/* 926 */,
+/* 927 */,
+/* 928 */,
+/* 929 */,
+/* 930 */,
+/* 931 */,
+/* 932 */,
+/* 933 */,
+/* 934 */,
+/* 935 */,
+/* 936 */,
+/* 937 */,
+/* 938 */,
+/* 939 */,
+/* 940 */,
+/* 941 */,
+/* 942 */,
+/* 943 */,
+/* 944 */,
+/* 945 */,
+/* 946 */,
+/* 947 */,
+/* 948 */,
+/* 949 */,
+/* 950 */,
+/* 951 */,
+/* 952 */,
+/* 953 */,
+/* 954 */,
+/* 955 */,
+/* 956 */,
+/* 957 */,
+/* 958 */,
+/* 959 */,
+/* 960 */,
+/* 961 */,
+/* 962 */,
+/* 963 */,
+/* 964 */,
+/* 965 */,
+/* 966 */,
+/* 967 */,
+/* 968 */,
+/* 969 */,
+/* 970 */,
+/* 971 */,
+/* 972 */,
+/* 973 */,
+/* 974 */,
+/* 975 */,
+/* 976 */,
+/* 977 */,
+/* 978 */,
+/* 979 */,
+/* 980 */,
+/* 981 */,
+/* 982 */,
+/* 983 */,
+/* 984 */,
+/* 985 */,
+/* 986 */,
+/* 987 */,
+/* 988 */,
+/* 989 */,
+/* 990 */,
+/* 991 */,
+/* 992 */,
+/* 993 */,
+/* 994 */,
+/* 995 */,
+/* 996 */,
+/* 997 */,
+/* 998 */,
+/* 999 */,
+/* 1000 */,
+/* 1001 */,
+/* 1002 */,
+/* 1003 */,
+/* 1004 */,
+/* 1005 */,
+/* 1006 */,
+/* 1007 */,
+/* 1008 */,
+/* 1009 */,
+/* 1010 */,
+/* 1011 */,
+/* 1012 */,
+/* 1013 */,
+/* 1014 */,
+/* 1015 */,
+/* 1016 */,
+/* 1017 */,
+/* 1018 */,
+/* 1019 */,
+/* 1020 */,
+/* 1021 */,
+/* 1022 */,
+/* 1023 */,
+/* 1024 */,
+/* 1025 */,
+/* 1026 */,
+/* 1027 */,
+/* 1028 */,
+/* 1029 */,
+/* 1030 */,
+/* 1031 */,
+/* 1032 */,
+/* 1033 */,
+/* 1034 */,
+/* 1035 */,
+/* 1036 */,
+/* 1037 */,
+/* 1038 */,
+/* 1039 */,
+/* 1040 */,
+/* 1041 */,
+/* 1042 */,
+/* 1043 */,
+/* 1044 */,
+/* 1045 */,
+/* 1046 */,
+/* 1047 */,
+/* 1048 */,
+/* 1049 */,
+/* 1050 */,
+/* 1051 */,
+/* 1052 */,
+/* 1053 */,
+/* 1054 */,
+/* 1055 */,
+/* 1056 */,
+/* 1057 */,
+/* 1058 */,
+/* 1059 */,
+/* 1060 */,
+/* 1061 */,
+/* 1062 */,
+/* 1063 */,
+/* 1064 */,
+/* 1065 */,
+/* 1066 */,
+/* 1067 */,
+/* 1068 */,
+/* 1069 */,
+/* 1070 */,
+/* 1071 */,
+/* 1072 */,
+/* 1073 */,
+/* 1074 */,
+/* 1075 */,
+/* 1076 */,
+/* 1077 */,
+/* 1078 */,
+/* 1079 */,
+/* 1080 */,
+/* 1081 */,
+/* 1082 */,
+/* 1083 */,
+/* 1084 */,
+/* 1085 */,
+/* 1086 */,
+/* 1087 */,
+/* 1088 */,
+/* 1089 */,
+/* 1090 */,
+/* 1091 */,
+/* 1092 */,
+/* 1093 */,
+/* 1094 */,
+/* 1095 */,
+/* 1096 */,
+/* 1097 */,
+/* 1098 */,
+/* 1099 */,
+/* 1100 */,
+/* 1101 */,
+/* 1102 */,
+/* 1103 */,
+/* 1104 */,
+/* 1105 */,
+/* 1106 */,
+/* 1107 */,
+/* 1108 */,
+/* 1109 */,
+/* 1110 */,
+/* 1111 */,
+/* 1112 */,
+/* 1113 */,
+/* 1114 */,
+/* 1115 */,
+/* 1116 */,
+/* 1117 */,
+/* 1118 */,
+/* 1119 */,
+/* 1120 */,
+/* 1121 */,
+/* 1122 */,
+/* 1123 */,
+/* 1124 */,
+/* 1125 */,
+/* 1126 */,
+/* 1127 */,
+/* 1128 */,
+/* 1129 */,
+/* 1130 */,
+/* 1131 */,
+/* 1132 */,
+/* 1133 */,
+/* 1134 */,
+/* 1135 */,
+/* 1136 */,
+/* 1137 */,
+/* 1138 */,
+/* 1139 */,
+/* 1140 */,
+/* 1141 */,
+/* 1142 */,
+/* 1143 */,
+/* 1144 */,
+/* 1145 */,
+/* 1146 */,
+/* 1147 */,
+/* 1148 */,
+/* 1149 */,
+/* 1150 */,
+/* 1151 */,
+/* 1152 */,
+/* 1153 */,
+/* 1154 */,
+/* 1155 */,
+/* 1156 */,
+/* 1157 */,
+/* 1158 */,
+/* 1159 */,
+/* 1160 */,
+/* 1161 */,
+/* 1162 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var CustomerClients = function CustomerClients() {
+    return __webpack_require__.e/* import() */(24).then(__webpack_require__.bind(null, 908));
+};
+var CustomerCreateClients = function CustomerCreateClients() {
+    return __webpack_require__.e/* import() */(40).then(__webpack_require__.bind(null, 909));
+};
+var CustomerEditClients = function CustomerEditClients() {
+    return __webpack_require__.e/* import() */(38).then(__webpack_require__.bind(null, 910));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ([
+/* Start Users Routes */
+{
+    path: "/customer/:customer/clients",
+    component: CustomerClients,
+    name: "customer-clients",
+    meta: { auth: ["admin"] },
+    props: true
+}, {
+    path: "/customer/:customer/clients/create",
+    component: CustomerCreateClients,
+    name: "customer-clients-create",
+    meta: { auth: ["admin"] },
+    props: true
+}, {
+    path: "/customer/:customer/clients/:client/edit",
+    component: CustomerEditClients,
+    name: "customer-clients-edit",
+    meta: { auth: ["admin"] },
+    props: true
+    /* End Users Routes */
+}]);
 
 /***/ })
 /******/ ]);
