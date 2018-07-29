@@ -226,6 +226,20 @@
                   <v-icon v-if="props.expanded">fa-compress</v-icon>
                 </v-btn>
               </v-flex>
+              <v-flex 
+                v-if="props.item.roles[0] === 'customer'"
+                class="xs12"
+              >
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="indigo lighten-2" 
+                  @click="viewClients(props.item)"
+                >
+                  <v-icon>fa-users</v-icon>
+                </v-btn>
+              </v-flex>
               <v-flex class="xs12">
                 <v-btn 
                   :disabled="!$auth.check('admin')" 
@@ -708,6 +722,12 @@ export default {
             confirmButtonText: "Back"
           });
         });
+    },
+    viewClients(item) {
+      this.$router.push({
+        name: "customer-clients",
+        params: { customer: item.id }
+      });
     },
     toProperCase(key) {
       let newStr = key.replace(/_/g, " ");

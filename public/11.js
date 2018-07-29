@@ -555,6 +555,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -778,6 +792,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "warning",
           confirmButtonText: "Back"
         });
+      });
+    },
+    viewClients: function viewClients(item) {
+      this.$router.push({
+        name: "customer-clients",
+        params: { customer: item.id }
       });
     },
     toProperCase: function toProperCase(key) {
@@ -1445,6 +1465,34 @@ var render = function() {
                               ],
                               1
                             ),
+                            _vm._v(" "),
+                            props.item.roles[0] === "customer"
+                              ? _c(
+                                  "v-flex",
+                                  { staticClass: "xs12" },
+                                  [
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          disabled: !_vm.$auth.check("admin"),
+                                          flat: "",
+                                          icon: "",
+                                          color: "indigo lighten-2"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.viewClients(props.item)
+                                          }
+                                        }
+                                      },
+                                      [_c("v-icon", [_vm._v("fa-users")])],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c(
                               "v-flex",

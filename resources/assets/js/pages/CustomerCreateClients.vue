@@ -266,7 +266,12 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "clients" }));
+      self.$nextTick(() =>
+        self.$router.push({
+          name: "customer-clients",
+          params: { customer: this.customer }
+        })
+      );
     }
   }
 };
