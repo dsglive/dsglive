@@ -6431,13 +6431,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       client_name: null,
       unknownClient: {
         active: false,
-        address_1: null,
-        address_2: null,
-        city: null,
         id: 1,
-        name: "Unknown Client",
-        state: null,
-        zip: null
+        name: "Unknown Client"
       },
       search_customer: false,
       search_client: false,
@@ -6719,8 +6714,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       self.form.client_name = data.client.name;
     });
     Bus.$on("shipper-created", function (data) {
-      console.log(data);
-      // push to array of shippers, update shipper-id, shipper-name
+      self.shippers.push(data.shipper);
+      self.form.shipper_id = data.shipper.id;
+      self.form.shipper_name = data.shipper.name;
     });
   },
 
@@ -6867,9 +6863,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "success",
           confirmButtonText: "Ok"
         });
-        self.$nextTick(function () {
-          return self.$router.push({ name: "warehouse" });
-        });
+        if (self.$auth.check(["admin"])) {
+          self.$nextTick(function () {
+            return self.$router.push({ name: "dsg" });
+          });
+        }
+        if (self.$auth.check(["warehouse"])) {
+          self.$nextTick(function () {
+            return self.$router.push({ name: "warehouse" });
+          });
+        }
       }).catch(function (errors) {
         var failedModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -8924,7 +8927,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8936,6 +8939,106 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Mixins_validation_error__ = __webpack_require__(947);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vform__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9016,13 +9119,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [__WEBPACK_IMPORTED_MODULE_0_Mixins_validation_error__["a" /* default */]],
   data: function data() {
     return {
       dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false
+      form: new __WEBPACK_IMPORTED_MODULE_1_vform__["Form"]({
+        name: null,
+        active: false,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+      })
     };
   },
   created: function created() {
@@ -9031,6 +9148,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Bus.$on("open-shipper-modal", function () {
       _this.dialog = true;
     });
+  },
+
+  methods: {
+    getStatus: function getStatus(status) {
+      if (status) {
+        return "Status: Active";
+      } else {
+        return "Status: Inactive";
+      }
+    },
+    submit: function submit() {
+      var self = this;
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          // eslint-disable-next-line
+          self.createShipper();
+        } else {
+          var validationModal = __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default.a.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          validationModal({
+            title: "Validation Error",
+            html: "<p class=\"title\">Please Fix Form Errors</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        }
+      });
+    },
+    createShipper: function createShipper() {
+      var self = this;
+      self.form.busy = true;
+
+      self.form.post(route("api.shipper.create"), self.form).then(function (response) {
+        self.$validator.reset();
+        Bus.$emit("shipper-created", response.data);
+        var successModal = __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default.a.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        successModal({
+          title: "Success!",
+          html: "<p class=\"title\">Shipper Has Been Created!</p>",
+          type: "success",
+          confirmButtonText: "Ok"
+        });
+        self.resetForm();
+      }).catch(function (errors) {});
+    },
+    resetForm: function resetForm() {
+      var self = this;
+      self.form = new __WEBPACK_IMPORTED_MODULE_1_vform__["Form"]({
+        active: false,
+        name: null,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+      });
+    }
   }
 });
 
@@ -9081,7 +9264,9 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("v-toolbar-title", [_vm._v("Settings")]),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v("Create New Shipper")]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
@@ -9092,9 +9277,9 @@ var render = function() {
                     "v-btn",
                     {
                       attrs: { dark: "", flat: "" },
-                      nativeOn: {
+                      on: {
                         click: function($event) {
-                          _vm.dialog = false
+                          _vm.submit()
                         }
                       }
                     },
@@ -9108,166 +9293,262 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-list",
-            { attrs: { "three-line": "", subheader: "" } },
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
             [
-              _c("v-subheader", [_vm._v("User Controls")]),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { required: true },
+                        expression: "{ required: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("name") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("name"),
+                      label: "Name",
+                      "prepend-icon": "fa-ship",
+                      "data-vv-name": "name"
+                    },
+                    model: {
+                      value: _vm.form.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "name", $$v)
+                      },
+                      expression: "form.name"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
-                "v-list-tile",
-                { attrs: { avatar: "" } },
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-switch", {
+                    attrs: { label: _vm.getStatus(_vm.form.active) },
+                    model: {
+                      value: _vm.form.active,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "active", $$v)
+                      },
+                      expression: "form.active"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { email: true },
+                        expression: "{ email: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("email") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("email"),
+                      label: "Email",
+                      "prepend-icon": "mail",
+                      "data-vv-name": "email"
+                    },
+                    model: {
+                      value: _vm.form.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "email", $$v)
+                      },
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Phone", "prepend-icon": "phone" },
+                    model: {
+                      value: _vm.form.phone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "phone", $$v)
+                      },
+                      expression: "form.phone"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Address 1", "prepend-icon": "looks_one" },
+                    model: {
+                      value: _vm.form.address_1,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address_1", $$v)
+                      },
+                      expression: "form.address_1"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Address 2", "prepend-icon": "looks_two" },
+                    model: {
+                      value: _vm.form.address_2,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address_2", $$v)
+                      },
+                      expression: "form.address_2"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "City", "prepend-icon": "location_city" },
+                    model: {
+                      value: _vm.form.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "city", $$v)
+                      },
+                      expression: "form.city"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "State", "prepend-icon": "map" },
+                    model: {
+                      value: _vm.form.state,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "state", $$v)
+                      },
+                      expression: "form.state"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { regex: /^\d{5}(?:[-\s]\d{4})?$/ },
+                        expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("zip") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("zip"),
+                      label: "Zip",
+                      "prepend-icon": "markunread_mailbox",
+                      "data-vv-name": "zip"
+                    },
+                    model: {
+                      value: _vm.form.zip,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "zip", $$v)
+                      },
+                      expression: "form.zip"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c(
-                    "v-list-tile-content",
+                    "v-textarea",
+                    {
+                      attrs: { color: "teal" },
+                      model: {
+                        value: _vm.form.notes,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "notes", $$v)
+                        },
+                        expression: "form.notes"
+                      }
+                    },
                     [
-                      _c("v-list-tile-title", [_vm._v("Content filtering")]),
-                      _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v(
-                          "Set the content filtering level to restrict apps that can be downloaded"
-                        )
+                      _c("div", { attrs: { slot: "label" }, slot: "label" }, [
+                        _vm._v("\n            Notes "),
+                        _c("small", [_vm._v("(optional)")])
                       ])
-                    ],
-                    1
+                    ]
                   )
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
-                "v-list-tile",
-                { attrs: { avatar: "" } },
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c(
-                    "v-list-tile-content",
-                    [
-                      _c("v-list-tile-title", [_vm._v("Password")]),
-                      _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v(
-                          "Require password for purchase or use password to restrict purchase"
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-divider"),
-          _vm._v(" "),
-          _c(
-            "v-list",
-            { attrs: { "three-line": "", subheader: "" } },
-            [
-              _c("v-subheader", [_vm._v("General")]),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                { attrs: { avatar: "" } },
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [
-                      _c("v-checkbox", {
-                        model: {
-                          value: _vm.notifications,
-                          callback: function($$v) {
-                            _vm.notifications = $$v
-                          },
-                          expression: "notifications"
+                    "v-btn",
+                    {
+                      attrs: {
+                        loading: _vm.form.busy,
+                        disabled: _vm.errors.any() || _vm.form.busy,
+                        block: "",
+                        color: "accent"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.submit()
                         }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
+                      }
+                    },
                     [
-                      _c("v-list-tile-title", [_vm._v("Notifications")]),
-                      _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v(
-                          "Notify me about updates to apps or games that I downloaded"
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                { attrs: { avatar: "" } },
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [
-                      _c("v-checkbox", {
-                        model: {
-                          value: _vm.sound,
-                          callback: function($$v) {
-                            _vm.sound = $$v
-                          },
-                          expression: "sound"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [
-                      _c("v-list-tile-title", [_vm._v("Sound")]),
-                      _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v(
-                          "Auto-update apps at any time. Data charges may apply"
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                { attrs: { avatar: "" } },
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [
-                      _c("v-checkbox", {
-                        model: {
-                          value: _vm.widgets,
-                          callback: function($$v) {
-                            _vm.widgets = $$v
-                          },
-                          expression: "widgets"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [
-                      _c("v-list-tile-title", [_vm._v("Auto-add widgets")]),
-                      _vm._v(" "),
-                      _c("v-list-tile-sub-title", [
-                        _vm._v("Automatically add home screen widgets")
-                      ])
+                      _vm._v("\n          Save "),
+                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
                     ],
                     1
                   )

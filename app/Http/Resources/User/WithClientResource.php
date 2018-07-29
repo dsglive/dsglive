@@ -15,18 +15,9 @@ class WithClientResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'     => $this->id,
             'active' => $this->active,
-            'name' => $this->name ?? 'Unknown',
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'address_1' => $this->address_1,
-            'address_2' => $this->address_2,
-            'city' => $this->city,
-            'state' => $this->state,
-            'zip' => $this->zip,
-            'country' => $this->country,
-            'notes' => $this->notes
+            'name'   => $this->name ?? 'Unknown'
         ];
     }
 }

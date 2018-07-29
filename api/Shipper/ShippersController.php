@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Exceptions\ShipperCreationfailed;
 use App\Http\Resources\User\ShipperResource;
+use App\Http\Resources\User\WithShipperResource;
 
 class ShippersController extends Controller
 {
@@ -53,7 +54,10 @@ class ShippersController extends Controller
         }
 
         DB::commit();
-        return response()->json(['message' => 'Shipper Has Been Created!'], 200);
+
+        $shipper = new WithShipperResource($shipper);
+
+        return response()->json(['message' => 'Shipper Has Been Created!', 'shipper' => $shipper], 200);
     }
 
     /**

@@ -568,13 +568,8 @@ export default {
     client_name: null,
     unknownClient: {
       active: false,
-      address_1: null,
-      address_2: null,
-      city: null,
       id: 1,
-      name: "Unknown Client",
-      state: null,
-      zip: null
+      name: "Unknown Client"
     },
     search_customer: false,
     search_client: false,
@@ -855,8 +850,9 @@ export default {
       self.form.client_name = data.client.name;
     });
     Bus.$on("shipper-created", data => {
-      console.log(data);
-      // push to array of shippers, update shipper-id, shipper-name
+      self.shippers.push(data.shipper);
+      self.form.shipper_id = data.shipper.id;
+      self.form.shipper_name = data.shipper.name;
     });
   },
   methods: {
@@ -998,7 +994,12 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+          if (self.$auth.check(["admin"])) {
+            self.$nextTick(() => self.$router.push({ name: "dsg" }));
+          }
+          if (self.$auth.check(["warehouse"])) {
+            self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+          }
         })
         .catch(errors => {
           const failedModal = swal.mixin({

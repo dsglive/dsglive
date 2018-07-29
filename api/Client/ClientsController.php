@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\ClientCreationFailed;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Http\Resources\User\ClientResource;
+use App\Http\Resources\User\WithClientResource;
 
 class ClientsController extends Controller
 {
@@ -65,7 +66,7 @@ class ClientsController extends Controller
         }
 
         DB::commit();
-        $client = new ClientResource($client);
+        $client = new WithClientResource($client);
         return response()->json(['message' => 'Client Has Been Created!', 'client' => $client], 200);
     }
 
