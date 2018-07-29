@@ -254,6 +254,7 @@ export default {
         .then(response => {
           self.$validator.reset();
           Bus.$emit("client-created", response.data);
+          self.resetForm();
           const successModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false

@@ -844,17 +844,15 @@ export default {
     this.date_processed = moment().format("YYYY-MM-DD");
     this.fetchDSG();
     Bus.$on("customer-created", data => {
-      console.log(data.user);
       self.customers.push(data.user);
       console.log(self.customers);
-      self.form.customer_id = data.user.id
-      self.form.customer_name = data.user.name
+      self.form.customer_id = data.user.id;
+      self.form.customer_name = data.user.name;
     });
     Bus.$on("client-created", data => {
-      console.log(data);
       self.clients.push(data.client);
-      self.form.client_id = data.client.id
-      self.form.client_name = data.client.name
+      self.form.client_id = data.client.id;
+      self.form.client_name = data.client.name;
     });
     Bus.$on("shipper-created", data => {
       console.log(data);
