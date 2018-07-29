@@ -234,7 +234,7 @@ export default {
       self.form.busy = true;
 
       self.form
-        .post(route("api.client.create"), self.form)
+        .post(route("api.client.create"))
         .then(response => {
           console.log(response.data);
           self.$validator.reset();

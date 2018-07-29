@@ -249,7 +249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var self = this;
       self.form.busy = true;
 
-      self.form.post(route("api.client.create"), self.form).then(function (response) {
+      self.form.post(route("api.client.create")).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({

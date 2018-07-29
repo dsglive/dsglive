@@ -493,7 +493,9 @@
         :form="form"
       />
       <customer-modal/>
-      <client-modal/>
+      <client-modal 
+        :customer-id="form.customer_id" 
+        :customer-name="form.customer_name"/>
       <shipper-modal/>
       <!-- End Package -->
     </v-card>
@@ -576,30 +578,30 @@ export default {
     },
     search_customer: false,
     search_client: false,
-    search_shipper:false,
+    search_shipper: false
   }),
-  computed:{
-      customerHint(){
-          if(this.form.customer_id === null){
-              return 'Create A New Or Search On Available Customer'
-          }else{
-              return 'Customer Verified'
-          }
-      },
-      clientHint(){
-          if(this.form.client_id === null || this.form.client_id === 1){
-              return 'Create A New Or Search On Available Client'
-          }else{
-              return 'Client Verified'
-          }
-      },
-      shipperHint(){
-          if(this.form.shipper_id === null){
-              return 'Create A New Or Search On Available Shipper'
-          }else{
-              return 'Shipper Verified'
-          }
+  computed: {
+    customerHint() {
+      if (this.form.customer_id === null) {
+        return "Create A New Or Search On Available Customer";
+      } else {
+        return "Customer Verified";
       }
+    },
+    clientHint() {
+      if (this.form.client_id === null || this.form.client_id === 1) {
+        return "Create A New Or Search On Available Client";
+      } else {
+        return "Client Verified";
+      }
+    },
+    shipperHint() {
+      if (this.form.shipper_id === null) {
+        return "Create A New Or Search On Available Shipper";
+      } else {
+        return "Shipper Verified";
+      }
+    }
   },
   watch: {
     po_no: {
@@ -831,6 +833,7 @@ export default {
     }
   },
   created() {
+    let self = this;
     this.getCustomers();
     this.getShippers();
     this.getEmployees();
@@ -840,16 +843,21 @@ export default {
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
     this.fetchDSG();
-    Bus.$on("customer-created", (data) => {
-      console.log(data.user)
-      // update update customers,customer id , customer_name , clients
+    Bus.$on("customer-created", data => {
+      console.log(data.user);
+      self.customers.push(data.user);
+      console.log(self.customers);
+      self.form.customer_id = data.user.id
+      self.form.customer_name = data.user.name
     });
-    Bus.$on("client-created", (data) => {
-      console.log(data)
-      // push to array of customer clients, update client-id and client name
+    Bus.$on("client-created", data => {
+      console.log(data);
+      self.clients.push(data.client);
+      self.form.client_id = data.client.id
+      self.form.client_name = data.client.name
     });
-    Bus.$on("shipper-created", (data) => {
-      console.log(data)
+    Bus.$on("shipper-created", data => {
+      console.log(data);
       // push to array of shippers, update shipper-id, shipper-name
     });
   },
@@ -857,11 +865,11 @@ export default {
     toggleCustomerModal() {
       Bus.$emit("open-customer-modal");
     },
-    toggleClientModal(){
-        Bus.$emit("open-client-modal");
+    toggleClientModal() {
+      Bus.$emit("open-client-modal");
     },
-    toggleShipperModal(){
-        Bus.$emit("open-shipper-modal");
+    toggleShipperModal() {
+      Bus.$emit("open-shipper-modal");
     },
     updateReceivingAmount() {
       let self = this;

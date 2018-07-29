@@ -373,7 +373,6 @@ export default {
       self.form
         .post(route("api.user.create"), self.form)
         .then(response => {
-          console.log(response.data);
           self.resetForm();
           self.$validator.reset();
           Bus.$emit('customer-created', response.data)
