@@ -498,7 +498,7 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "append-icon": "search",
-                              label: "Search Receiving",
+                              label: "Search All Unknown Report",
                               "single-line": "",
                               "hide-details": "",
                               light: ""

@@ -33,7 +33,7 @@
               <v-text-field
                 v-model="search"
                 append-icon="search"
-                label="Search Receiving"
+                label="Search Unknown Customer"
                 single-line
                 hide-details
                 light
@@ -94,18 +94,6 @@
             >
               {{ props.item.customer_name }}
             </td>
-            <td 
-              :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
-              class="title text-xs-left"
-            >
-              {{ props.item.client_name }}
-            </td>
-            <td 
-              :class="{'red--text': props.item.shipper_id === null || props.item.shipper_id === 1, 'accent--text': props.item.shipper_id > 1}"
-              class="title text-xs-left"
-            >
-              {{ props.item.shipper_name }}
-            </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.total_pieces }}
             </td>
@@ -123,28 +111,24 @@
               />
             </td>
             <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editDsg(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteDsg(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                @click="editDsg(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                @click="deleteDsg(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>
@@ -200,8 +184,6 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Client", value: "client_name", align: "left", sortable: true },
-      { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
       { text: "Cu.ft", value: "total_cube", align: "left", sortable: true },
       {
