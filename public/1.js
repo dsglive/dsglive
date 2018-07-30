@@ -7317,25 +7317,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -7568,28 +7549,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       },
       deep: false
     },
-    // "form.shipper_id": {
-    //   handler: function(newValue) {
-    //     let self = this;
-    //     let total = this.packages.length;
-    //     let shipper_id = null;
-    //     let shipper_name = null;
-
-    //     if (newValue != undefined) {
-    //       let shipper = _.find(self.shippers, function(c) {
-    //         return c.id === newValue;
-    //       });
-    //       self.form.shipper_name = shipper.name;
-    //       shipper_id = shipper.id;
-    //       shipper_name = shipper.name;
-    //     }
-    //     for (let i = 0; i < total; i++) {
-    //       self.packages[i].shipper_id = shipper_id;
-    //       self.packages[i].shipper_name = shipper_name;
-    //     }
-    //   },
-    //   deep: false
-    // },
     "form.client_name": {
       handler: function handler(newName) {
         var self = this;
