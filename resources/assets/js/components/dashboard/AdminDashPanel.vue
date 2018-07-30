@@ -182,7 +182,7 @@
           >
             fa-truck
           </v-icon> 
-          <v-subheader class="white--text">Undelivered Packages</v-subheader>
+          <v-subheader class="white--text">Undelivered Items</v-subheader>
           {{ stats.undelivered }}
         </v-card-text>
       </v-card>
@@ -206,7 +206,7 @@
           >
             broken_image
           </v-icon> 
-          <v-subheader class="white--text">Damaged Packages</v-subheader>
+          <v-subheader class="white--text">Damaged Items</v-subheader>
           {{ stats.damaged_packages }}
         </v-card-text>
       </v-card>
@@ -230,7 +230,7 @@
           >
             build
           </v-icon> 
-          <v-subheader class="white--text">Repaired Packages</v-subheader>
+          <v-subheader class="white--text">Repaired Items</v-subheader>
           {{ stats.repaired_packages }}
         </v-card-text>
       </v-card>

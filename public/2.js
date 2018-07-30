@@ -781,7 +781,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("v-subheader", { staticClass: "white--text" }, [
-                    _vm._v("Undelivered Packages")
+                    _vm._v("Undelivered Items")
                   ]),
                   _vm._v(
                     "\n        " + _vm._s(_vm.stats.undelivered) + "\n      "
@@ -831,7 +831,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("v-subheader", { staticClass: "white--text" }, [
-                    _vm._v("Damaged Packages")
+                    _vm._v("Damaged Items")
                   ]),
                   _vm._v(
                     "\n        " +
@@ -883,7 +883,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("v-subheader", { staticClass: "white--text" }, [
-                    _vm._v("Repaired Packages")
+                    _vm._v("Repaired Items")
                   ]),
                   _vm._v(
                     "\n        " +
@@ -1496,9 +1496,7 @@ var render = function() {
                     [_vm._v("broken_image")]
                   ),
                   _vm._v(
-                    " Damaged Items: " +
-                      _vm._s(_vm.stats.damaged) +
-                      "\n        "
+                    " Damaged: " + _vm._s(_vm.stats.damaged) + "\n        "
                   ),
                   _c("br"),
                   _vm._v(" "),
@@ -1544,9 +1542,7 @@ var render = function() {
                     [_vm._v("build")]
                   ),
                   _vm._v(
-                    " Repaired Items: " +
-                      _vm._s(_vm.stats.repaired) +
-                      "\n        "
+                    " Repaired: " + _vm._s(_vm.stats.repaired) + "\n        "
                   ),
                   _c("br"),
                   _vm._v(" "),

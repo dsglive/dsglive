@@ -142,7 +142,7 @@
         >
           <v-icon 
             large 
-            color="red accent-1">broken_image</v-icon> Damaged Items: {{ stats.damaged }}
+            color="red accent-1">broken_image</v-icon> Damaged: {{ stats.damaged }}
           <br>
           <span class="caption">(Needs Repair)</span>
         </v-card-text>
@@ -163,7 +163,7 @@
         >
           <v-icon 
             large 
-            color="red accent-1">build</v-icon> Repaired Items: {{ stats.repaired }}
+            color="red accent-1">build</v-icon> Repaired: {{ stats.repaired }}
           <br>
           <span class="caption">(Done Repair)</span>
         </v-card-text>
