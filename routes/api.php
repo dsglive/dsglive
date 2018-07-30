@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Dsg Management
     //! Add here route for toggling date_out!
     Route::post('/dsg', 'Dsg\DsgController@index')->name('api.dsg.index');
+    Route::post('/warehouse', 'Dsg\DsgController@warehouse')->name('api.warehouse.index');
     Route::get('/dsg/getCustomers', 'Dsg\DsgController@getCustomers')->name('api.dsg.getCustomers');
     Route::get('/dsg/getShippers', 'Dsg\DsgController@getShippers')->name('api.dsg.getShippers');
     Route::get('/dsg/getEmployees', 'Dsg\DsgController@getEmployees')->name('api.dsg.getEmployees');

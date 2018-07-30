@@ -109,6 +109,45 @@
           slot-scope="props"
         >
           <tr>
+            <td 
+              class="title text-xs-center" 
+              style="width:25%;">
+              <v-btn 
+                v-if="!props.item.active"
+                flat 
+                icon 
+                color="blue" 
+                @click="editWarehouse(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                flat 
+                icon 
+                color="purple" 
+                @click="viewPdf(props.item)"
+              >
+                <v-icon>picture_as_pdf</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="!props.item.active"
+                flat 
+                icon 
+                color="error" 
+                @click="deleteDsg(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="green" 
+                @click="moveToReceiving(props.item)"
+              >
+                <v-icon>forward</v-icon>
+              </v-btn>
+            </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>
@@ -134,68 +173,6 @@
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.total_cube }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.receiving_amount }}
-            </td>
-            <td class="title text-xs-left accent--text">
-              <v-switch
-                :readonly="!$auth.check('admin')" 
-                v-model="props.item.active"
-                :label="getStatus(props.item.active)"
-                @change="toggleStatus(props.item)"
-              />
-            </td>
-            <td class="title text-xs-center">
-              <v-flex 
-                v-if="!props.item.active"
-                class="xs12"
-              >
-                <v-btn 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editWarehouse(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  flat 
-                  icon 
-                  color="purple" 
-                  @click="viewPdf(props.item)"
-                >
-                  <v-icon>picture_as_pdf</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex 
-                v-if="!props.item.active"
-                class="xs12"
-              >
-                <v-btn 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteDsg(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex 
-                v-if="props.item.active"
-                class="xs12"
-              >
-                <v-btn 
-                  flat 
-                  icon 
-                  color="indigo" 
-                  @click="viewWarehouse(props.item)"
-                >
-                  <v-icon>search</v-icon>
-                </v-btn>
-              </v-flex>
             </td>
           </tr>
         </template>
@@ -256,6 +233,7 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "DSG#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
@@ -267,14 +245,6 @@ export default {
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
       { text: "Cu.ft", value: "total_cube", align: "left", sortable: true },
-      {
-        text: "Amount($)",
-        value: "receiving_amount",
-        align: "left",
-        sortable: true
-      },
-      { text: "Status", value: "active", align: "left", sortable: true },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     selected: [],
@@ -321,14 +291,16 @@ export default {
     createWarehouse() {
       vm.$router.push({ name: "create-warehouse" });
     },
-    toggleStatus(dsg) {
+    moveToReceiving(dsg) {
       let self = this;
-      self.toggleForm.toggle = dsg.active;
+      self.toggleForm.toggle = true;
       self.toggleForm.dsg_id = dsg.id;
+      let index = _.findIndex(self.items, { id: dsg.id });
       axios
         .post(route("api.dsg.toggleStatus"), self.toggleForm)
         .then(response => {
           console.log(response.data);
+          self.$delete(self.items, index);
         })
         .catch(errors => {
           let toggleModal = swal.mixin({
@@ -343,18 +315,11 @@ export default {
           });
         });
     },
-    getStatus(status) {
-      if (status) {
-        return "Active";
-      } else {
-        return "Inactive";
-      }
-    },
     async fetchDsg() {
       let self = this;
       self.dsgForm.busy = true;
       try {
-        const payload = await axios.post(route("api.dsg.index"), self.dsgForm);
+        const payload = await axios.post(route("api.warehouse.index"), self.dsgForm);
         self.items = payload.data.data;
         self.dsgForm = new Form({});
       } catch ({ errors, message }) {

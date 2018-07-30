@@ -223,7 +223,7 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg2>
+          lg3>
           <v-text-field
             v-model="form.total_pieces"
             readonly
@@ -234,25 +234,13 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg2>
+          lg3>
           <v-text-field
             v-model="form.total_cube"
             readonly
             label="Total Cube"
             prepend-icon="fa-cubes"
             suffix="ft³"
-          />
-        </v-flex>
-        <v-flex 
-          v-if="packages.length>0"
-          xs12 
-          lg2>
-          <v-text-field
-            v-model="form.receiving_amount"
-            readonly
-            prepend-icon="attach_money"
-            label="Receiving Amount"
-            suffix="USD"
           />
         </v-flex>
       </v-layout>

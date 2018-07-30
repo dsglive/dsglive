@@ -2834,6 +2834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -3853,7 +3854,20 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.$auth.check("admin")
+          _vm.$auth.check(["warehouse", "admin"])
+            ? _c("v-link", {
+                attrs: {
+                  title: "Warehouse",
+                  href: "/warehouse",
+                  icon: "location_city",
+                  "link-color": "white",
+                  "active-color": "#4db6ac",
+                  "icon-color": "#fafafa"
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$auth.check(["admin", "warehouse"])
             ? _c("v-link", {
                 attrs: {
                   title: "Receiving",
@@ -3895,19 +3909,6 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("invoice-links"),
-          _vm._v(" "),
-          _vm.$auth.check(["warehouse"])
-            ? _c("v-link", {
-                attrs: {
-                  title: "Warehouse",
-                  href: "/warehouse",
-                  icon: "location_city",
-                  "link-color": "white",
-                  "active-color": "#4db6ac",
-                  "icon-color": "#fafafa"
-                }
-              })
-            : _vm._e(),
           _vm._v(" "),
           _vm.$auth.check(["customer"])
             ? _c("v-link", {

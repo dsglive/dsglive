@@ -166,47 +166,54 @@
                 @click="props.selected = !props.selected"
               />
             </td>
-            <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editDsg(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="purple" 
-                  @click="viewPdf(props.item)"
-                >
-                  <v-icon>picture_as_pdf</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteDsg(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
-            </td>
-            <td class="title text-xs-left accent--text">
-              <v-switch
-                v-model="props.item.active"
-                :label="getStatus(props.item.active)"
-                @change="toggleStatus(props.item)"
-              />
+            <td 
+              class="title text-xs-center" 
+            >
+              <v-btn 
+                v-if="$auth.check('warehouse')"
+                flat 
+                icon 
+                color="indigo" 
+                @click="viewWarehouse(props.item)"
+              >
+                <v-icon>search</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="blue" 
+                @click="editDsg(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="purple" 
+                @click="viewPdf(props.item)"
+              >
+                <v-icon>picture_as_pdf</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="error" 
+                @click="deleteDsg(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="orange" 
+                @click="moveToWarehouse(props.item)"
+              >
+                <v-icon>location_city</v-icon>
+              </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
@@ -235,7 +242,10 @@
             <td class="title text-xs-center accent--text">
               {{ props.item.total_cube }}
             </td>
-            <td class="title text-xs-center accent--text">
+            <td 
+              v-if="$auth.check('admin')"
+              class="title text-xs-center accent--text"
+            >
               {{ props.item.receiving_amount }}
             </td>
           </tr>
@@ -298,8 +308,8 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "Actions", value: "actions", align: "right", sortable: false },
-      { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "Actions", value: "actions", align: "center", sortable: false },
+      //   { text: "Status", value: "active", align: "left", sortable: true },
       { text: "DSG#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
@@ -316,7 +326,7 @@ export default {
         value: "receiving_amount",
         align: "left",
         sortable: true
-      },
+      }
     ],
     items: [],
     selected: [],
@@ -343,8 +353,39 @@ export default {
   mounted() {
     let self = this;
     self.fetchDsg();
+    if(self.$auth.check('warehouse')){
+        self.$delete(self.headers,7)
+    }
   },
   methods: {
+    moveToWarehouse(dsg) {
+      let self = this;
+      self.toggleForm.toggle = false;
+      self.toggleForm.dsg_id = dsg.id;
+      let index = _.findIndex(self.items, { id: dsg.id });
+      axios
+        .post(route("api.dsg.toggleStatus"), self.toggleForm)
+        .then(response => {
+          if(response.data.status === false){
+            self.$delete(self.items, index);
+          }
+        })
+        .catch(errors => {
+          let toggleModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        });
+    },
+    viewWarehouse(dsg) {
+      vm.$router.push({ name: "view-warehouse", params: { id: `${dsg.id}` } });
+    },
     viewPdf(dsg) {
       let type = "warehouse";
       if (dsg.active) {
@@ -368,35 +409,6 @@ export default {
     },
     createDsg() {
       vm.$router.push({ name: "create-dsg" });
-    },
-    toggleStatus(dsg) {
-      let self = this;
-      self.toggleForm.toggle = dsg.active;
-      self.toggleForm.dsg_id = dsg.id;
-      axios
-        .post(route("api.dsg.toggleStatus"), self.toggleForm)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(errors => {
-          let toggleModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Oops! Forbidden Action!",
-            html: '<p class="title">' + errors.response.data.message + "</p>",
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        });
-    },
-    getStatus(status) {
-      if (status) {
-        return "received";
-      } else {
-        return "warehouse";
-      }
     },
     async fetchDsg() {
       let self = this;

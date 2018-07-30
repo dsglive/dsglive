@@ -67,8 +67,18 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <!-- Warehouse Type Account -->
       <v-link 
-        v-if="$auth.check('admin')"
+        v-if="$auth.check(['warehouse','admin'])"
+        title="Warehouse"
+        href="/warehouse"
+        icon="location_city"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
+      <v-link 
+        v-if="$auth.check(['admin','warehouse'])"
         title="Receiving" 
         href="/receiving" 
         icon="receipt"
@@ -97,16 +107,7 @@
         icon-color="#fafafa"
       />
       <invoice-links/>
-      <!-- Warehouse Type Account -->
-      <v-link 
-        v-if="$auth.check(['warehouse'])"
-        title="Warehouse"
-        href="/warehouse"
-        icon="location_city"
-        link-color="white"
-        active-color="#4db6ac"
-        icon-color="#fafafa"
-      />
+      
       <!-- Customer Account Type -->
       <v-link 
         v-if="$auth.check(['customer'])"

@@ -237,29 +237,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -276,17 +253,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "Actions", value: "actions", align: "center", sortable: false }, { text: "DSG#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
-        text: "Amount($)",
-        value: "receiving_amount",
-        align: "left",
-        sortable: true
-      }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }],
       items: [],
       selected: [],
       pagination: {
@@ -334,12 +306,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     createWarehouse: function createWarehouse() {
       vm.$router.push({ name: "create-warehouse" });
     },
-    toggleStatus: function toggleStatus(dsg) {
+    moveToReceiving: function moveToReceiving(dsg) {
       var self = this;
-      self.toggleForm.toggle = dsg.active;
+      self.toggleForm.toggle = true;
       self.toggleForm.dsg_id = dsg.id;
+      var index = _.findIndex(self.items, { id: dsg.id });
       axios.post(route("api.dsg.toggleStatus"), self.toggleForm).then(function (response) {
         console.log(response.data);
+        self.$delete(self.items, index);
       }).catch(function (errors) {
         var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -353,13 +327,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       });
     },
-    getStatus: function getStatus(status) {
-      if (status) {
-        return "Active";
-      } else {
-        return "Inactive";
-      }
-    },
     fetchDsg: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
@@ -372,7 +339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.dsgForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.dsg.index"), self.dsgForm);
+                return axios.post(route("api.warehouse.index"), self.dsgForm);
 
               case 5:
                 payload = _context.sent;
@@ -663,6 +630,90 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
+                          {
+                            staticClass: "title text-xs-center",
+                            staticStyle: { width: "25%" }
+                          },
+                          [
+                            !props.item.active
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "blue"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.editWarehouse(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-pencil")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { flat: "", icon: "", color: "purple" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewPdf(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("picture_as_pdf")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            !props.item.active
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.deleteDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "green"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.moveToReceiving(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("forward")])],
+                                  1
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
                             _vm._v(
@@ -755,157 +806,6 @@ var render = function() {
                                 "\n          "
                             )
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.receiving_amount) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            _c("v-switch", {
-                              attrs: {
-                                readonly: !_vm.$auth.check("admin"),
-                                label: _vm.getStatus(props.item.active)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.toggleStatus(props.item)
-                                }
-                              },
-                              model: {
-                                value: props.item.active,
-                                callback: function($$v) {
-                                  _vm.$set(props.item, "active", $$v)
-                                },
-                                expression: "props.item.active"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center" },
-                          [
-                            !props.item.active
-                              ? _c(
-                                  "v-flex",
-                                  { staticClass: "xs12" },
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          flat: "",
-                                          icon: "",
-                                          color: "blue"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.editWarehouse(props.item)
-                                          }
-                                        }
-                                      },
-                                      [_c("v-icon", [_vm._v("fa-pencil")])],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "purple"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewPdf(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            !props.item.active
-                              ? _c(
-                                  "v-flex",
-                                  { staticClass: "xs12" },
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          flat: "",
-                                          icon: "",
-                                          color: "error"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.deleteDsg(props.item)
-                                          }
-                                        }
-                                      },
-                                      [_c("v-icon", [_vm._v("fa-trash")])],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            props.item.active
-                              ? _c(
-                                  "v-flex",
-                                  { staticClass: "xs12" },
-                                  [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        attrs: {
-                                          flat: "",
-                                          icon: "",
-                                          color: "indigo"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.viewWarehouse(props.item)
-                                          }
-                                        }
-                                      },
-                                      [_c("v-icon", [_vm._v("search")])],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
-                          ],
-                          1
                         )
                       ])
                     ]
@@ -3025,6 +2925,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -4044,7 +3945,20 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.$auth.check("admin")
+          _vm.$auth.check(["warehouse", "admin"])
+            ? _c("v-link", {
+                attrs: {
+                  title: "Warehouse",
+                  href: "/warehouse",
+                  icon: "location_city",
+                  "link-color": "white",
+                  "active-color": "#4db6ac",
+                  "icon-color": "#fafafa"
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$auth.check(["admin", "warehouse"])
             ? _c("v-link", {
                 attrs: {
                   title: "Receiving",
@@ -4086,19 +4000,6 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("invoice-links"),
-          _vm._v(" "),
-          _vm.$auth.check(["warehouse"])
-            ? _c("v-link", {
-                attrs: {
-                  title: "Warehouse",
-                  href: "/warehouse",
-                  icon: "location_city",
-                  "link-color": "white",
-                  "active-color": "#4db6ac",
-                  "icon-color": "#fafafa"
-                }
-              })
-            : _vm._e(),
           _vm._v(" "),
           _vm.$auth.check(["customer"])
             ? _c("v-link", {

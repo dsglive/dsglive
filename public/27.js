@@ -302,6 +302,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -318,7 +328,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Actions", value: "actions", align: "right", sortable: false }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "Actions", value: "actions", align: "center", sortable: false },
+      //   { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "DSG#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
@@ -355,9 +367,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var self = this;
     self.fetchDsg();
+    if (self.$auth.check('warehouse')) {
+      self.$delete(self.headers, 7);
+    }
   },
 
   methods: {
+    moveToWarehouse: function moveToWarehouse(dsg) {
+      var self = this;
+      self.toggleForm.toggle = false;
+      self.toggleForm.dsg_id = dsg.id;
+      var index = _.findIndex(self.items, { id: dsg.id });
+      axios.post(route("api.dsg.toggleStatus"), self.toggleForm).then(function (response) {
+        if (response.data.status === false) {
+          self.$delete(self.items, index);
+        }
+      }).catch(function (errors) {
+        var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Oops! Forbidden Action!",
+          html: '<p class="title">' + errors.response.data.message + "</p>",
+          type: "warning",
+          confirmButtonText: "Back"
+        });
+      });
+    },
+    viewWarehouse: function viewWarehouse(dsg) {
+      vm.$router.push({ name: "view-warehouse", params: { id: "" + dsg.id } });
+    },
     viewPdf: function viewPdf(dsg) {
       var type = "warehouse";
       if (dsg.active) {
@@ -379,32 +419,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     createDsg: function createDsg() {
       vm.$router.push({ name: "create-dsg" });
-    },
-    toggleStatus: function toggleStatus(dsg) {
-      var self = this;
-      self.toggleForm.toggle = dsg.active;
-      self.toggleForm.dsg_id = dsg.id;
-      axios.post(route("api.dsg.toggleStatus"), self.toggleForm).then(function (response) {
-        console.log(response.data);
-      }).catch(function (errors) {
-        var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        toggleModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-      });
-    },
-    getStatus: function getStatus(status) {
-      if (status) {
-        return "received";
-      } else {
-        return "warehouse";
-      }
     },
     fetchDsg: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
@@ -980,15 +994,31 @@ var render = function() {
                           "td",
                           { staticClass: "title text-xs-center" },
                           [
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
+                            _vm.$auth.check("warehouse")
+                              ? _c(
                                   "v-btn",
                                   {
                                     attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "indigo"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.viewWarehouse(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("search")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
                                       flat: "",
                                       icon: "",
                                       color: "blue"
@@ -1002,19 +1032,13 @@ var render = function() {
                                   [_c("v-icon", [_vm._v("fa-pencil")])],
                                   1
                                 )
-                              ],
-                              1
-                            ),
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
+                            _vm.$auth.check("admin")
+                              ? _c(
                                   "v-btn",
                                   {
                                     attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
                                       flat: "",
                                       icon: "",
                                       color: "purple"
@@ -1028,19 +1052,13 @@ var render = function() {
                                   [_c("v-icon", [_vm._v("picture_as_pdf")])],
                                   1
                                 )
-                              ],
-                              1
-                            ),
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
+                            _vm.$auth.check("admin")
+                              ? _c(
                                   "v-btn",
                                   {
                                     attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
                                       flat: "",
                                       icon: "",
                                       color: "error"
@@ -1054,34 +1072,27 @@ var render = function() {
                                   [_c("v-icon", [_vm._v("fa-trash")])],
                                   1
                                 )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            _c("v-switch", {
-                              attrs: {
-                                label: _vm.getStatus(props.item.active)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.toggleStatus(props.item)
-                                }
-                              },
-                              model: {
-                                value: props.item.active,
-                                callback: function($$v) {
-                                  _vm.$set(props.item, "active", $$v)
-                                },
-                                expression: "props.item.active"
-                              }
-                            })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "orange"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.moveToWarehouse(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("location_city")])],
+                                  1
+                                )
+                              : _vm._e()
                           ],
                           1
                         ),
@@ -1182,17 +1193,21 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.receiving_amount) +
-                                "\n          "
+                        _vm.$auth.check("admin")
+                          ? _c(
+                              "td",
+                              {
+                                staticClass: "title text-xs-center accent--text"
+                              },
+                              [
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(props.item.receiving_amount) +
+                                    "\n          "
+                                )
+                              ]
                             )
-                          ]
-                        )
+                          : _vm._e()
                       ])
                     ]
                   }
@@ -3316,6 +3331,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -4335,7 +4351,20 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.$auth.check("admin")
+          _vm.$auth.check(["warehouse", "admin"])
+            ? _c("v-link", {
+                attrs: {
+                  title: "Warehouse",
+                  href: "/warehouse",
+                  icon: "location_city",
+                  "link-color": "white",
+                  "active-color": "#4db6ac",
+                  "icon-color": "#fafafa"
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$auth.check(["admin", "warehouse"])
             ? _c("v-link", {
                 attrs: {
                   title: "Receiving",
@@ -4377,19 +4406,6 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("invoice-links"),
-          _vm._v(" "),
-          _vm.$auth.check(["warehouse"])
-            ? _c("v-link", {
-                attrs: {
-                  title: "Warehouse",
-                  href: "/warehouse",
-                  icon: "location_city",
-                  "link-color": "white",
-                  "active-color": "#4db6ac",
-                  "icon-color": "#fafafa"
-                }
-              })
-            : _vm._e(),
           _vm._v(" "),
           _vm.$auth.check(["customer"])
             ? _c("v-link", {

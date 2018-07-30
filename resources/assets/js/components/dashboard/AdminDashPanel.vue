@@ -102,7 +102,7 @@
         <v-card-text 
           class="title" 
           style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
-          @click="$router.push({name:'dsg'})"
+          @click="$router.push({name:'warehouse'})"
         >
           <v-icon 
             x-large

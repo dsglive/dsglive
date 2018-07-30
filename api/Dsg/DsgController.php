@@ -138,7 +138,13 @@ class DsgController extends Controller
      */
     public function index(Request $request)
     {
-        $dsg = Dsg::all();
+        $dsg = Dsg::active()->get();
+        return DsgResource::collection($dsg); // remove pagination
+    }
+
+    public function warehouse(Request $request)
+    {
+        $dsg = Dsg::warehouse()->get();
         return DsgResource::collection($dsg); // remove pagination
     }
 

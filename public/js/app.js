@@ -95114,7 +95114,7 @@ var EditDsg = function EditDsg() {
   path: "/receiving",
   component: Dsg,
   name: "dsg",
-  meta: { auth: ["admin"] }
+  meta: { auth: ["admin", "warehouse"] }
 }, {
   path: "/receiving/create",
   component: CreateDsg,
@@ -95189,7 +95189,7 @@ var ViewWarehouse = function ViewWarehouse() {
   path: "/warehouse",
   component: Warehouse,
   name: "warehouse",
-  meta: { auth: ["warehouse"] }
+  meta: { auth: ["warehouse", "admin"] }
 }, {
   path: "/warehouse/dsg/create",
   component: CreateWarehouse,
@@ -95199,7 +95199,7 @@ var ViewWarehouse = function ViewWarehouse() {
   path: "/warehouse/dsg/:id/view",
   component: ViewWarehouse,
   name: "view-warehouse",
-  meta: { auth: ["warehouse"] },
+  meta: { auth: ["warehouse", "admin"] },
   props: true
 }, {
   path: "/warehouse/dsg/:id/edit",

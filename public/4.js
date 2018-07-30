@@ -7288,18 +7288,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -8271,7 +8259,7 @@ var render = function() {
               _vm.packages.length > 0
                 ? _c(
                     "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
+                    { attrs: { xs12: "", lg3: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
@@ -8295,7 +8283,7 @@ var render = function() {
               _vm.packages.length > 0
                 ? _c(
                     "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
+                    { attrs: { xs12: "", lg3: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
@@ -8310,31 +8298,6 @@ var render = function() {
                             _vm.$set(_vm.form, "total_cube", $$v)
                           },
                           expression: "form.total_cube"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.packages.length > 0
-                ? _c(
-                    "v-flex",
-                    { attrs: { xs12: "", lg2: "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          readonly: "",
-                          "prepend-icon": "attach_money",
-                          label: "Receiving Amount",
-                          suffix: "USD"
-                        },
-                        model: {
-                          value: _vm.form.receiving_amount,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "receiving_amount", $$v)
-                          },
-                          expression: "form.receiving_amount"
                         }
                       })
                     ],

@@ -9,7 +9,7 @@ export default [
     path: "/warehouse",
     component: Warehouse,
     name: "warehouse",
-    meta: { auth: ["warehouse"] }
+    meta: { auth: ["warehouse","admin"] }
   },
   {
     path: "/warehouse/dsg/create",
@@ -21,7 +21,7 @@ export default [
     path: "/warehouse/dsg/:id/view",
     component: ViewWarehouse,
     name: "view-warehouse",
-    meta: { auth: ["warehouse"] },
+    meta: { auth: ["warehouse","admin"] },
     props: true
   },
   {

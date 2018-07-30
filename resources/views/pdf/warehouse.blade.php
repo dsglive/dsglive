@@ -128,10 +128,11 @@
                     {{ $packages[0]['po_no'] }}
                 </td>
                 <td style="width: 15%; color: darkblue; text-align: right;">
-                    Receive:
+                    
+                    @if($active)Receive:@else Total Cube: @endif
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px;">
-                    ${{ $receiving_amount }}
+                    @if($active) ${{ $receiving_amount }}@else {{ $total_cube }} cu.ft @endif
                 </td>
             </tr>
             <!-- row 3 of 6 -->
@@ -144,7 +145,7 @@
                 <th class="short">Style #</th>
                 <th class="normal">Description</th>
                 <th class="normal">Location</th>
-                <th class="normal">$/Day</th>
+                <th class="normal">@if($active) $/Day @else Cu.ft @endif</th>
                 <th class="normal">Damage</th>
             </tr>
         </thead>
@@ -161,7 +162,7 @@
                     {{ $item['bin_name'] }}
                 </td>
                 <td class="borders">
-                    {{ $item['storage_fee'] }}
+                    @if($active) ${{ $item['storage_fee'] }} @else {{ $item['cube'] }} @endif
                 </td>
                 <td class="borders">
                     {{ $item['damage_description'] }}

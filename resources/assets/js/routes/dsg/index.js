@@ -8,7 +8,7 @@ export default [
     path: "/receiving",
     component: Dsg,
     name: "dsg",
-    meta: { auth: ["admin"] }
+    meta: { auth: ["admin","warehouse"] }
   },
   {
     path: "/receiving/create",
