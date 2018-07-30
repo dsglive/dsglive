@@ -1,4 +1,4 @@
-webpackJsonp([30],{
+webpackJsonp([64],{
 
 /***/ 1000:
 /***/ (function(module, exports, __webpack_require__) {
@@ -452,23 +452,75 @@ if (false) {
 
 /***/ }),
 
-/***/ 1170:
+/***/ 1175:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1176)
+}
+var normalizeComponent = __webpack_require__(371)
+/* script */
+var __vue_script__ = __webpack_require__(1178)
+/* template */
+var __vue_template__ = __webpack_require__(1179)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/pages/Reports/ViewPackage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4b9ad1c4", Component.options)
+  } else {
+    hotAPI.reload("data-v-4b9ad1c4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 1176:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1171);
+var content = __webpack_require__(1177);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(954)("571a4476", content, false, {});
+var update = __webpack_require__(954)("49a9db62", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-618fab38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ViewRepairedPackage.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-618fab38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ViewRepairedPackage.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4b9ad1c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ViewPackage.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4b9ad1c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ViewPackage.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -479,7 +531,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1171:
+/***/ 1177:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -494,7 +546,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 1172:
+/***/ 1178:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -838,14 +890,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      package: {},
+      item: {},
       bins: [],
       handling_rates: [],
       storage_rates: []
     };
   },
   watch: {
-    package: {
+    item: {
       handler: function handler(newValue) {},
       deep: false
     }
@@ -863,14 +915,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     redirectBack: function redirectBack() {
       var self = this;
-      self.$nextTick(function () {
-        return self.$router.push({ name: "damaged-reports" });
+      return self.$nextTick(function () {
+        return self.$router.go(-1);
       });
     },
     fetchPackage: function fetchPackage() {
       var self = this;
       axios.post(route("api.report.viewPackage", { package: this.id })).then(function (response) {
-        self.package = response.data.data;
+        self.item = response.data.data;
       });
     },
     getDamageStatus: function getDamageStatus(status) {
@@ -892,7 +944,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1173:
+/***/ 1179:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -950,11 +1002,11 @@ var render = function() {
                       "prepend-icon": "supervised_user_circle"
                     },
                     model: {
-                      value: _vm.package.customer_name,
+                      value: _vm.item.customer_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "customer_name", $$v)
+                        _vm.$set(_vm.item, "customer_name", $$v)
                       },
-                      expression: "package.customer_name"
+                      expression: "item.customer_name"
                     }
                   })
                 ],
@@ -972,11 +1024,11 @@ var render = function() {
                       "prepend-icon": "fa-users"
                     },
                     model: {
-                      value: _vm.package.client_name,
+                      value: _vm.item.client_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "client_name", $$v)
+                        _vm.$set(_vm.item, "client_name", $$v)
                       },
-                      expression: "package.client_name"
+                      expression: "item.client_name"
                     }
                   })
                 ],
@@ -994,11 +1046,11 @@ var render = function() {
                       "prepend-icon": "local_offer"
                     },
                     model: {
-                      value: _vm.package.dsg_id,
+                      value: _vm.item.dsg_id,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "dsg_id", $$v)
+                        _vm.$set(_vm.item, "dsg_id", $$v)
                       },
-                      expression: "package.dsg_id"
+                      expression: "item.dsg_id"
                     }
                   })
                 ],
@@ -1016,11 +1068,11 @@ var render = function() {
                       "prepend-icon": "bookmark"
                     },
                     model: {
-                      value: _vm.package.po_no,
+                      value: _vm.item.po_no,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "po_no", $$v)
+                        _vm.$set(_vm.item, "po_no", $$v)
                       },
-                      expression: "package.po_no"
+                      expression: "item.po_no"
                     }
                   })
                 ],
@@ -1038,11 +1090,11 @@ var render = function() {
                       "prepend-icon": "event_available"
                     },
                     model: {
-                      value: _vm.package.date_received,
+                      value: _vm.item.date_received,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "date_received", $$v)
+                        _vm.$set(_vm.item, "date_received", $$v)
                       },
-                      expression: "package.date_received"
+                      expression: "item.date_received"
                     }
                   })
                 ],
@@ -1060,11 +1112,11 @@ var render = function() {
                       "prepend-icon": "event_note"
                     },
                     model: {
-                      value: _vm.package.date_processed,
+                      value: _vm.item.date_processed,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "date_processed", $$v)
+                        _vm.$set(_vm.item, "date_processed", $$v)
                       },
-                      expression: "package.date_processed"
+                      expression: "item.date_processed"
                     }
                   })
                 ],
@@ -1083,11 +1135,11 @@ var render = function() {
                       "prepend-icon": "view_comfy"
                     },
                     model: {
-                      value: _vm.package.bin_name,
+                      value: _vm.item.bin_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "bin_name", $$v)
+                        _vm.$set(_vm.item, "bin_name", $$v)
                       },
-                      expression: "package.bin_name"
+                      expression: "item.bin_name"
                     }
                   })
                 ],
@@ -1106,11 +1158,11 @@ var render = function() {
                       "prepend-icon": "receipt"
                     },
                     model: {
-                      value: _vm.package.handling_type,
+                      value: _vm.item.handling_type,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "handling_type", $$v)
+                        _vm.$set(_vm.item, "handling_type", $$v)
                       },
-                      expression: "package.handling_type"
+                      expression: "item.handling_type"
                     }
                   })
                 ],
@@ -1129,11 +1181,11 @@ var render = function() {
                       "prepend-icon": "dns"
                     },
                     model: {
-                      value: _vm.package.store_at,
+                      value: _vm.item.store_at,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "store_at", $$v)
+                        _vm.$set(_vm.item, "store_at", $$v)
                       },
-                      expression: "package.store_at"
+                      expression: "item.store_at"
                     }
                   })
                 ],
@@ -1151,11 +1203,11 @@ var render = function() {
                       "prepend-icon": "style"
                     },
                     model: {
-                      value: _vm.package.style_no,
+                      value: _vm.item.style_no,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "style_no", $$v)
+                        _vm.$set(_vm.item, "style_no", $$v)
                       },
-                      expression: "package.style_no"
+                      expression: "item.style_no"
                     }
                   })
                 ],
@@ -1174,11 +1226,11 @@ var render = function() {
                       "prepend-icon": "keyboard_tab"
                     },
                     model: {
-                      value: _vm.package.length,
+                      value: _vm.item.length,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "length", $$v)
+                        _vm.$set(_vm.item, "length", $$v)
                       },
-                      expression: "package.length"
+                      expression: "item.length"
                     }
                   })
                 ],
@@ -1197,11 +1249,11 @@ var render = function() {
                       "prepend-icon": "swap_horiz"
                     },
                     model: {
-                      value: _vm.package.width,
+                      value: _vm.item.width,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "width", $$v)
+                        _vm.$set(_vm.item, "width", $$v)
                       },
-                      expression: "package.width"
+                      expression: "item.width"
                     }
                   })
                 ],
@@ -1220,11 +1272,11 @@ var render = function() {
                       "prepend-icon": "swap_vert"
                     },
                     model: {
-                      value: _vm.package.height,
+                      value: _vm.item.height,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "height", $$v)
+                        _vm.$set(_vm.item, "height", $$v)
                       },
-                      expression: "package.height"
+                      expression: "item.height"
                     }
                   })
                 ],
@@ -1243,11 +1295,11 @@ var render = function() {
                       "prepend-icon": "fa-cube"
                     },
                     model: {
-                      value: _vm.package.cube,
+                      value: _vm.item.cube,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "cube", $$v)
+                        _vm.$set(_vm.item, "cube", $$v)
                       },
-                      expression: "package.cube"
+                      expression: "item.cube"
                     }
                   })
                 ],
@@ -1260,15 +1312,15 @@ var render = function() {
                 [
                   _c("v-switch", {
                     attrs: {
-                      label: _vm.getDamageStatus(_vm.package.damaged),
-                      disabled: ""
+                      label: _vm.getDamageStatus(_vm.item.damaged),
+                      readonly: ""
                     },
                     model: {
-                      value: _vm.package.damaged,
+                      value: _vm.item.damaged,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "damaged", $$v)
+                        _vm.$set(_vm.item, "damaged", $$v)
                       },
-                      expression: "package.damaged"
+                      expression: "item.damaged"
                     }
                   })
                 ],
@@ -1316,11 +1368,11 @@ var render = function() {
                   _c("v-text-field", {
                     attrs: { readonly: "" },
                     model: {
-                      value: _vm.package.description,
+                      value: _vm.item.description,
                       callback: function($$v) {
-                        _vm.$set(_vm.package, "description", $$v)
+                        _vm.$set(_vm.item, "description", $$v)
                       },
-                      expression: "package.description"
+                      expression: "item.description"
                     }
                   })
                 ],
@@ -1331,7 +1383,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { sm12: "", md6: "", "px-3": "" } },
                 [
-                  _vm.package.damaged
+                  _vm.item.damaged
                     ? _c(
                         "v-subheader",
                         [
@@ -1362,15 +1414,15 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.package.damaged
+                  _vm.item.damaged
                     ? _c("v-text-field", {
                         attrs: { readonly: "" },
                         model: {
-                          value: _vm.package.damage_description,
+                          value: _vm.item.damage_description,
                           callback: function($$v) {
-                            _vm.$set(_vm.package, "damage_description", $$v)
+                            _vm.$set(_vm.item, "damage_description", $$v)
                           },
-                          expression: "package.damage_description"
+                          expression: "item.damage_description"
                         }
                       })
                     : _vm._e()
@@ -1381,29 +1433,27 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm.package.damaged
+          _vm.item.damaged
             ? _c(
                 "v-layout",
                 { attrs: { row: "", wrap: "" } },
                 [
-                  !_vm.package.repaired
+                  !_vm.item.repaired
                     ? _c(
                         "v-flex",
                         { attrs: { sm12: "", md2: "", "offset-md10": "" } },
                         [
                           _c("v-switch", {
                             attrs: {
-                              label: _vm.getRepairedStatus(
-                                _vm.package.repaired
-                              ),
-                              disabled: ""
+                              label: _vm.getRepairedStatus(_vm.item.repaired),
+                              readonly: ""
                             },
                             model: {
-                              value: _vm.package.repaired,
+                              value: _vm.item.repaired,
                               callback: function($$v) {
-                                _vm.$set(_vm.package, "repaired", $$v)
+                                _vm.$set(_vm.item, "repaired", $$v)
                               },
-                              expression: "package.repaired"
+                              expression: "item.repaired"
                             }
                           })
                         ],
@@ -1415,24 +1465,22 @@ var render = function() {
                         [
                           _c("v-switch", {
                             attrs: {
-                              label: _vm.getRepairedStatus(
-                                _vm.package.repaired
-                              ),
-                              disabled: ""
+                              label: _vm.getRepairedStatus(_vm.item.repaired),
+                              readonly: ""
                             },
                             model: {
-                              value: _vm.package.repaired,
+                              value: _vm.item.repaired,
                               callback: function($$v) {
-                                _vm.$set(_vm.package, "repaired", $$v)
+                                _vm.$set(_vm.item, "repaired", $$v)
                               },
-                              expression: "package.repaired"
+                              expression: "item.repaired"
                             }
                           })
                         ],
                         1
                       ),
                   _vm._v(" "),
-                  _vm.package.repaired
+                  _vm.item.repaired
                     ? _c(
                         "v-flex",
                         { attrs: { sm12: "", "offset-md8": "", md2: "" } },
@@ -1444,11 +1492,11 @@ var render = function() {
                               readonly: ""
                             },
                             model: {
-                              value: _vm.package.date_repaired,
+                              value: _vm.item.date_repaired,
                               callback: function($$v) {
-                                _vm.$set(_vm.package, "date_repaired", $$v)
+                                _vm.$set(_vm.item, "date_repaired", $$v)
                               },
-                              expression: "package.date_repaired"
+                              expression: "item.date_repaired"
                             }
                           })
                         ],
@@ -1463,12 +1511,10 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("images", {
-        attrs: { id: _vm.id, images: _vm.package.package_images }
-      }),
+      _c("images", { attrs: { id: _vm.id, images: _vm.item.package_images } }),
       _vm._v(" "),
       _c("damage-images", {
-        attrs: { id: _vm.id, images: _vm.package.damaged_images }
+        attrs: { id: _vm.id, images: _vm.item.damaged_images }
       })
     ],
     1
@@ -1480,61 +1526,9 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-618fab38", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4b9ad1c4", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 953:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(1170)
-}
-var normalizeComponent = __webpack_require__(371)
-/* script */
-var __vue_script__ = __webpack_require__(1172)
-/* template */
-var __vue_template__ = __webpack_require__(1173)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/pages/Reports/ViewRepairedPackage.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-618fab38", Component.options)
-  } else {
-    hotAPI.reload("data-v-618fab38", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 

@@ -10,7 +10,7 @@
             xs12
             text-xs-center
           >
-            <h2 class="display-1">Damaged Report</h2>
+            <h2 class="display-1">Undelivered Items Report</h2>
             <v-divider/>
           </v-flex>
         </v-layout>
@@ -109,7 +109,7 @@
               {{ props.item.style_no }}
             </td>
             <td class="title text-xs-center accent--text">
-              {{ props.item.damage_description }}
+              {{ props.item.description }}
             </td>
             <td class="title text-xs-center">
               <v-flex class="xs12">
@@ -123,17 +123,6 @@
                   <v-icon>fa-eye</v-icon>
                 </v-btn>
               </v-flex>
-              <!-- <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editPackage(props.item.dsg_id)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex> -->
             </td>
           </tr>
         </template>
@@ -194,8 +183,8 @@ export default {
       { text: "PO#", value: "po_no", align: "left", sortable: true },
       { text: "Style#", value: "style_no", align: "left", sortable: true },
       {
-        text: "Damaged Description",
-        value: "damage_description",
+        text: "Decription",
+        value: "description",
         align: "left",
         sortable: true
       },
@@ -222,16 +211,13 @@ export default {
   },
   methods: {
     viewItem(id) {
-      this.$router.push({ name: "view-damaged-package", params: { id: `${id}` } });
-    },
-    editPackage(id) {
-      this.$router.push({ name: "edit-damaged-package", params: { id: `${id}` } });
+      this.$router.push({ name: "view-package", params: { id: `${id}` } });
     },
     async fetchDsg() {
       let self = this;
       self.form.busy = true;
       try {
-        const payload = await axios.post(route("api.report.reportAllDamaged"), self.form);
+        const payload = await axios.post(route("api.report.undelivered"), self.form);
         self.items = payload.data.data;
         self.form = new Form({});
       } catch ({ errors, message }) {

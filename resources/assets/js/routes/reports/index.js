@@ -1,14 +1,14 @@
 const Bin = () => import("Pages/Reports/Bin.vue");
 const Client = () => import("Pages/Reports/Client.vue");
 const Customer = () => import("Pages/Reports/Customer.vue");
-const Damaged = () => import("Pages/Reports/Damaged.vue");
 const AllUnknownReport = () => import("Pages/Reports/AllUnknownReport.vue");
 const UnknownCustomer = () => import("Pages/Reports/UnknownCustomer.vue");
 const UnknownClient = () => import("Pages/Reports/UnknownClient.vue");
 const UnknownShipper = () => import("Pages/Reports/UnknownShipper.vue");
-const ViewDamaged = () => import("Pages/Reports/ViewDamaged.vue");
+const DamagedPackages = () => import("Pages/Reports/DamagedPackages.vue");
+const RepairedPackages = () => import("Pages/Reports/RepairedPackages.vue");
+const UndeliveredPackages = () => import("Pages/Reports/UndeliveredPackages.vue");
 const EditUnknown = () => import("Pages/Reports/EditUnknown.vue");
-const EditPackage = () => import("Pages/Reports/EditPackage.vue");
 const ViewPackage = () => import("Pages/Reports/ViewPackage.vue");
 export default [
   /* Start Users Routes */
@@ -48,12 +48,12 @@ export default [
     name: "unknown-client",
     meta: { auth: ["admin", "customer", "warehouse"] }
   },
-    {
-        path: "/reports/unknown-shipper",
-        component: UnknownShipper,
-        name: "unknown-shipper",
-        meta: { auth: ["admin", "customer", "warehouse"] }
-    },
+  {
+    path: "/reports/unknown-shipper",
+    component: UnknownShipper,
+    name: "unknown-shipper",
+    meta: { auth: ["admin", "customer", "warehouse"] }
+  },
   {
     path: "/reports/unknown/dsg/:id",
     component: EditUnknown,
@@ -64,23 +64,29 @@ export default [
   // damage reports
   {
     path: "/reports/damaged",
-    component: Damaged,
+    component: DamagedPackages,
     name: "damaged-reports",
-    meta: { auth: ["admin"] }
+    meta: { auth: ["admin", "warehouse", "customer"] }
   },
   {
-    path: "/reports/damaged/dsg/:id/edit",
-    component: EditPackage,
-    name: "edit-damaged-package",
-    meta: { auth: ["admin"] },
-    props: true
+    path: "/reports/repaired",
+    component: RepairedPackages,
+    name: "repaired-reports",
+    meta: { auth: ["admin", "warehouse", "customer"] }
   },
   {
-    path: "/reports/damaged/package/:id/view",
+    path: "/reports/undelivered",
+    component: UndeliveredPackages,
+    name: "undelivered-reports",
+    meta: { auth: ["admin", "warehouse", "customer"] }
+  },
+  {
+    path: "/reports/package/:id/view",
     component: ViewPackage,
-    name: "view-damaged-package",
-    meta: { auth: ["admin"] },
+    name: "view-package",
+    meta: { auth: ["admin", "warehouse", "customer"] },
     props: true
   }
+
   /* End Users Routes */
 ];

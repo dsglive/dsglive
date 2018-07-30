@@ -22,11 +22,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.report.reportByClient');
     Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')
         ->name('api.report.reportAllDamaged');
-        Route::post('/reports/reportAllRepaired', 'Report\ReportController@reportAllRepaired')
-    ->name('api.report.reportAllRepaired');
+    Route::post('/reports/reportAllRepaired', 'Report\ReportController@reportAllRepaired')
+        ->name('api.report.repaired');
 
     Route::post('/reports/viewPackage/{package}', 'Report\ReportController@viewPackage')
         ->name('api.report.viewPackage');
+    Route::post('/reports/reportAllUndelivered', 'Report\ReportController@reportAllUndelivered')
+    ->name('api.report.undelivered');
+
 
     //? Invoice Api
     Route::post('/generate/invoices', 'Invoice\InvoiceController@generateInvoice')->name('api.invoice.generate');

@@ -1,6 +1,6 @@
-webpackJsonp([56],{
+webpackJsonp([63],{
 
-/***/ 1154:
+/***/ 1150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -185,6 +185,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -201,7 +213,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+        text: "Customer",
+        value: "customer_name",
+        align: "left",
+        sortable: true
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
         text: "Amount($)",
         value: "receiving_amount",
         align: "left",
@@ -233,9 +250,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var self = this;
     self.fetchDsg();
-    if (!this.$auth.check(["admin"])) {
-      self.$delete(self.headers, 6);
-    }
   },
 
   methods: {
@@ -287,7 +301,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.dsgForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportUnknownClient"), self.dsgForm);
+                return axios.post(route("api.report.reportAllUnknown"), self.dsgForm);
 
               case 5:
                 payload = _context.sent;
@@ -371,7 +385,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1155:
+/***/ 1151:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -397,7 +411,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Unknown Client Report")
+                        _vm._v("All Unknown Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -436,7 +450,7 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "append-icon": "search",
-                              label: "Search Unknown Client",
+                              label: "Search All Unknown Report",
                               "single-line": "",
                               "hide-details": "",
                               light: ""
@@ -557,6 +571,26 @@ var render = function() {
                             staticClass: "title text-xs-left",
                             class: {
                               "red--text":
+                                props.item.customer_id === null ||
+                                props.item.customer_id === 1001,
+                              "accent--text": props.item.customer_id > 1001
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.customer_name) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass: "title text-xs-left",
+                            class: {
+                              "red--text":
                                 props.item.client_id === null ||
                                 props.item.client_id === 1,
                               "accent--text": props.item.client_id > 1
@@ -566,6 +600,26 @@ var render = function() {
                             _vm._v(
                               "\n            " +
                                 _vm._s(props.item.client_name) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass: "title text-xs-left",
+                            class: {
+                              "red--text":
+                                props.item.shipper_id === null ||
+                                props.item.shipper_id === 1,
+                              "accent--text": props.item.shipper_id > 1
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.shipper_name) +
                                 "\n          "
                             )
                           ]
@@ -613,7 +667,6 @@ var render = function() {
                           [
                             _c("v-switch", {
                               attrs: {
-                                readonly: !_vm.$auth.check("admin"),
                                 label: _vm.getStatus(props.item.active)
                               },
                               on: {
@@ -633,10 +686,13 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _vm.$auth.check("admin")
-                          ? _c(
-                              "td",
-                              { staticClass: "title text-xs-center" },
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center" },
+                          [
+                            _c(
+                              "v-flex",
+                              { staticClass: "xs12" },
                               [
                                 _c(
                                   "v-btn",
@@ -655,8 +711,15 @@ var render = function() {
                                   },
                                   [_c("v-icon", [_vm._v("fa-pencil")])],
                                   1
-                                ),
-                                _vm._v(" "),
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { staticClass: "xs12" },
+                              [
                                 _c(
                                   "v-btn",
                                   {
@@ -678,7 +741,9 @@ var render = function() {
                               ],
                               1
                             )
-                          : _vm._e()
+                          ],
+                          1
+                        )
                       ])
                     ]
                   }
@@ -767,21 +832,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-72de6fd8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-2f1b4b2a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 946:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1154)
+var __vue_script__ = __webpack_require__(1150)
 /* template */
-var __vue_template__ = __webpack_require__(1155)
+var __vue_template__ = __webpack_require__(1151)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -798,7 +863,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/UnknownClient.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/AllUnknownReport.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -807,9 +872,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-72de6fd8", Component.options)
+    hotAPI.createRecord("data-v-2f1b4b2a", Component.options)
   } else {
-    hotAPI.reload("data-v-72de6fd8", Component.options)
+    hotAPI.reload("data-v-2f1b4b2a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

@@ -25,7 +25,23 @@
         
       </v-alert>
     </v-flex>
-    
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="110px">
+        <v-card-text class="title pa-5">
+          <v-icon 
+            large 
+            color="teal lighten-4">receipt</v-icon> Unpaid: ${{ stats.balance }}
+          <br>
+          <span class="caption">(Unsettled Invoice)</span>
+        </v-card-text>
+      </v-card>
+    </v-flex>
     <v-flex 
       xs12 
       md4 
@@ -40,7 +56,6 @@
           @click="$router.push({name:'clients'})">
           <v-icon 
             large 
-            style="cursor:pointer;"
             color="amber lighten-4"
           >
             fa-users
@@ -48,57 +63,6 @@
           Clients: {{ stats.clients }}
           <br>
           <span class="caption">(Total Clients)</span>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex 
-      xs12 
-      md4 
-      text-xs-center>
-      <v-card 
-        color="blue-grey white--text" 
-        class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
-          <v-icon 
-            large 
-            color="brown lighten-3">location_city</v-icon> Receiving  : {{ stats.receiving }}
-          <br>
-          <span class="caption">(Actived DSG)</span>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex 
-      xs12 
-      md4 
-      text-xs-center>
-      <v-card 
-        color="blue-grey white--text" 
-        class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
-          <v-icon 
-            large 
-            color="teal lighten-4">receipt</v-icon> Unpaid: ${{ stats.balance }}
-          <br>
-          <span class="caption">(Total Balance)</span>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex 
-      xs12 
-      md4 
-      text-xs-center>
-      <v-card 
-        color="blue-grey white--text" 
-        class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
-          <v-icon 
-            large 
-            color="red accent-1">broken_image</v-icon> Damaged Items: {{ stats.damaged }}
-          <br>
-          <span class="caption">(Needs Repair)</span>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -123,6 +87,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <!-- COMMENTED 
     <v-flex 
       xs12 
       md4 
@@ -134,12 +99,77 @@
         <v-card-text class="title pa-5">
           <v-icon 
             large 
+            color="brown lighten-3">location_city</v-icon> Receiving  : {{ stats.receiving }}
+          <br>
+          <span class="caption">(Actived DSG)</span>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    -->
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="110px">
+        <v-card-text 
+          class="title pa-5"
+          style="cursor:pointer;"
+          @click="$router.push({name:'undelivered-reports'})"
+        >
+          <v-icon 
+            large 
             color="indigo lighten-4">fa-truck</v-icon> Undelivered: {{ stats.undelivered }}
           <br>
           <span class="caption">(Available For Delivery)</span>
         </v-card-text>
       </v-card>
     </v-flex>
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="110px">
+        <v-card-text 
+          class="title pa-5"
+          style="cursor:pointer;"
+          @click="$router.push({name:'damaged-reports'})"
+        >
+          <v-icon 
+            large 
+            color="red accent-1">broken_image</v-icon> Damaged Items: {{ stats.damaged }}
+          <br>
+          <span class="caption">(Needs Repair)</span>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <v-flex 
+      xs12 
+      md4 
+      text-xs-center>
+      <v-card 
+        color="blue-grey white--text" 
+        class="ma-1" 
+        height="110px">
+        <v-card-text 
+          class="title pa-5"
+          style="cursor:pointer;"
+          @click="$router.push({name:'repaired-reports'})"
+        >
+          <v-icon 
+            large 
+            color="red accent-1">build</v-icon> Repaired Items: {{ stats.repaired }}
+          <br>
+          <span class="caption">(Done Repair)</span>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    
   </v-layout>
 </template>
 
@@ -155,7 +185,8 @@ export default {
       damaged: null,
       unknown: null,
       undelivered: null,
-      balance: null
+      balance: null,
+      repaired: null
     }
   }),
   computed: {

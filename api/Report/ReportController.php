@@ -14,19 +14,57 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware(['role:admin'], ['except' =>
-            ['reportUnknownClient', 'reportUnknownCustomer', 'reportUnknownShipper']
+            ['reportUnknownClient', 'reportUnknownCustomer', 'reportUnknownShipper',
+                'reportAllRepaired', 'reportAllUndelivered', 'reportAllDamaged'
+            ]
         ]);
     }
 
-    public function reportAllDamaged()
+    /**
+     * @param Request $request
+     */
+    public function reportAllDamaged(Request $request)
     {
-        $packages = Package::with('media')->damaged()->active()->get();
+        $user = $request->user();
+
+        if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
+            $packages = Package::with('media')->damaged()->active()->get();
+        } else {
+            $packages = Package::with('media')->where('customer_id', $user->id)->damaged()->active()->get();
+        }
+
         return PackageResource::collection($packages);
     }
 
-    public function reportAllRepaired()
+    /**
+     * @param Request $request
+     */
+    public function reportAllRepaired(Request $request)
     {
-        $packages = Package::with('media')->repaired()->active()->get();
+        $user = $request->user();
+
+        if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
+            $packages = Package::with('media')->repaired()->active()->get();
+        } else {
+            $packages = Package::with('media')->where('customer_id', $user->id)->repaired()->active()->get();
+        }
+
+        return PackageResource::collection($packages);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function reportAllUndelivered(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
+            $packages = Package::with('media')->undelivered()->active()->get();
+        } else {
+            $packages = Package::with('media')->where('customer_id', $user->id)->undelivered()->active()->get();
+        }
+
         return PackageResource::collection($packages);
     }
 

@@ -149,7 +149,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'dsg'})"
         >
           <v-icon 
             x-large
@@ -172,7 +173,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'undelivered-reports'})"
         >
           <v-icon 
             x-large
@@ -219,7 +221,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'repaired-reports'})"
         >
           <v-icon 
             x-large

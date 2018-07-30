@@ -31,7 +31,7 @@
           md4
         >
           <v-text-field
-            v-model="package.customer_name"
+            v-model="item.customer_name"
             readonly
             label="Customer"
             prepend-icon="supervised_user_circle"
@@ -42,7 +42,7 @@
           md4
         >
           <v-text-field
-            v-model="package.client_name"
+            v-model="item.client_name"
             readonly
             label="Client"
             prepend-icon="fa-users"
@@ -53,7 +53,7 @@
           md4
         >
           <v-text-field
-            v-model="package.dsg_id"
+            v-model="item.dsg_id"
             readonly
             label="DSG No."
             prepend-icon="local_offer"
@@ -66,7 +66,7 @@
           md2
         >
           <v-text-field
-            v-model="package.po_no"
+            v-model="item.po_no"
             readonly
             label="PO No."
             prepend-icon="bookmark"
@@ -77,7 +77,7 @@
           md2
         >
           <v-text-field
-            v-model="package.date_received"
+            v-model="item.date_received"
             readonly
             label="Date Received"
             prepend-icon="event_available"
@@ -88,7 +88,7 @@
           md2
         >
           <v-text-field
-            v-model="package.date_processed"
+            v-model="item.date_processed"
             readonly
             label="Date Processed"
             prepend-icon="event_note"
@@ -99,7 +99,7 @@
           md2
         >
           <v-text-field
-            v-model="package.bin_name"
+            v-model="item.bin_name"
             readonly
             label="Bin"
             light
@@ -111,7 +111,7 @@
           md2
         >
           <v-text-field
-            v-model="package.handling_type"
+            v-model="item.handling_type"
             readonly
             label="Handling Note"
             light
@@ -123,7 +123,7 @@
           md2
         >
           <v-text-field
-            v-model="package.store_at"
+            v-model="item.store_at"
             readonly
             label="Store At"
             light
@@ -135,7 +135,7 @@
           md2
         >
           <v-text-field
-            v-model="package.style_no"
+            v-model="item.style_no"
             readonly
             label="Style No."
             prepend-icon="style"
@@ -146,7 +146,7 @@
           md2
         >
           <v-text-field
-            v-model="package.length"
+            v-model="item.length"
             readonly
             label="Length"
             suffix="ft"
@@ -158,7 +158,7 @@
           md2
         >
           <v-text-field
-            v-model="package.width"
+            v-model="item.width"
             readonly
             label="Width"
             suffix="ft"
@@ -170,7 +170,7 @@
           md2
         >
           <v-text-field
-            v-model="package.height"
+            v-model="item.height"
             readonly
             label="Height"
             suffix="ft"
@@ -182,7 +182,7 @@
           md2
         >
           <v-text-field
-            v-model="package.cube"
+            v-model="item.cube"
             readonly
             label="Cube"
             suffix="ft³"
@@ -194,9 +194,9 @@
           md2
         >
           <v-switch
-            v-model="package.damaged"
-            :label="getDamageStatus(package.damaged)"
-            disabled
+            v-model="item.damaged"
+            :label="getDamageStatus(item.damaged)"
+            readonly
           />
         </v-flex>
       </v-layout>
@@ -227,7 +227,7 @@
             </v-btn>
           </v-subheader>
           <v-text-field
-            v-model="package.description"
+            v-model="item.description"
             readonly
           />
         </v-flex>
@@ -236,7 +236,7 @@
           md6 
           px-3
         >
-          <v-subheader v-if="package.damaged">
+          <v-subheader v-if="item.damaged">
             Damage Description:
             <v-spacer/>
             <v-btn
@@ -252,27 +252,27 @@
             </v-btn>
           </v-subheader>
           <v-text-field
-            v-if="package.damaged"
-            v-model="package.damage_description"
+            v-if="item.damaged"
+            v-model="item.damage_description"
             readonly
           />
         </v-flex>
       </v-layout>
       <v-layout
-        v-if="package.damaged"
+        v-if="item.damaged"
         row 
         wrap
       >
         <v-flex 
-          v-if="!package.repaired"
+          v-if="!item.repaired"
           sm12
           md2
           offset-md10
         >
           <v-switch
-            v-model="package.repaired"
-            :label="getRepairedStatus(package.repaired)"
-            disabled
+            v-model="item.repaired"
+            :label="getRepairedStatus(item.repaired)"
+            readonly
           />
         </v-flex>
         <v-flex 
@@ -282,19 +282,19 @@
           order-md2
         >
           <v-switch
-            v-model="package.repaired"
-            :label="getRepairedStatus(package.repaired)"
-            disabled
+            v-model="item.repaired"
+            :label="getRepairedStatus(item.repaired)"
+            readonly
           />
         </v-flex>
         <v-flex 
-          v-if="package.repaired"
+          v-if="item.repaired"
           sm12
           offset-md8
           md2
         >
           <v-text-field
-            v-model="package.date_repaired"
+            v-model="item.date_repaired"
             label="Date Repaired"
             prepend-icon="event_note"
             readonly
@@ -304,11 +304,11 @@
     </v-container> 
     <images 
       :id="id" 
-      :images="package.package_images"
+      :images="item.package_images"
     />
     <damage-images 
       :id="id" 
-      :images="package.damaged_images"
+      :images="item.damaged_images"
     />
   </modal-layout>
 </template>
@@ -330,13 +330,13 @@ export default {
     }
   },
   data: () => ({
-    package: {},
+    item: {},
     bins: [],
     handling_rates: [],
     storage_rates: []
   }),
   watch: {
-    package: {
+    item: {
       handler: function(newValue) {},
       deep: false
     }
@@ -353,14 +353,14 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "damaged-reports" }));
+      return self.$nextTick(() => self.$router.go(-1));
     },
     fetchPackage() {
       let self = this;
       axios
         .post(route("api.report.viewPackage", { package: this.id }))
         .then(response => {
-          self.package = response.data.data;
+          self.item = response.data.data;
         });
     },
     getDamageStatus(status) {

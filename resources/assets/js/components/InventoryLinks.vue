@@ -52,8 +52,10 @@ export default {
             { title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle", auth: ['admin'] },
             { title: "Unknown Customer", href: "/reports/unknown-customer", action: "supervised_user_circle", auth: ['admin','warehouse'] },
             { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-users", auth:['admin','warehouse','customer'] },
-            { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-ship", auth:['admin','warehouse','customer'] },
+            { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-ship", auth:['admin','warehouse'] },
             { title: "Damaged Report", href: "/reports/damaged", action: "broken_image",auth:['admin','warehouse','customer'] },
+            { title: "Repaired Report", href: "/reports/repaired", action: "build",auth:['admin','warehouse','customer'] },
+            { title: "Undelivered Report", href: "/reports/undelivered", action: "fa-truck",auth:['admin','warehouse','customer'] },
             { title: "Bin Report", href: "/reports/bin", action: "apps", auth: ['admin'] },
             { title: "Customer Report", href: "/reports/customer", action: "local_library",auth: ['admin'] },
             { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar",auth: ['admin'] }

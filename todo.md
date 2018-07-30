@@ -50,3 +50,10 @@
 - Force Customer to Enter an Email in their Profile
 - Add Receiving, Logistics, Warehouse
 - Add Dsg Archive View with Crud
+
+- add cron jobs to delete orphaned items/packages during weekend
+- Archieved query === $d = Dsg::withTrashed()->where('deleted_at', '!=', null)->get()->first()
+- and querying nested relationship with softdeletes === $d->packages()->withTrashed()->get() ||
+- $d->with('packages.media')->withTrashed()->get()
+
+- Add Modal Confirmation for delete
