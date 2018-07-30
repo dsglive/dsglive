@@ -13,7 +13,9 @@ class ReportController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['role:admin'], ['except' => 'reportByClient']);
+        $this->middleware(['role:admin'], ['except' =>
+            ['reportUnknownClient', 'reportUnknownCustomer', 'reportUnknownShipper']
+        ]);
     }
 
     public function reportAllDamaged()
@@ -72,7 +74,7 @@ class ReportController extends Controller
     {
         $user = $request->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
             $dsg = Dsg::unknownClient()->get();
         } else {
             $dsg = Dsg::where('customer_id', $user->id)->unknownClient()->get();
@@ -98,7 +100,7 @@ class ReportController extends Controller
     {
         $user = $request->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
             $dsg = Dsg::unknownShipper()->get();
         } else {
             $dsg = Dsg::where('customer_id', $user->id)->unknownShipper()->get();

@@ -105,12 +105,16 @@
             </td>
             <td class="title text-xs-left accent--text">
               <v-switch
+                :readonly="!$auth.check('admin')" 
                 v-model="props.item.active"
                 :label="getStatus(props.item.active)"
                 @change="toggleStatus(props.item)"
               />
             </td>
-            <td class="title text-xs-center">
+            <td 
+              v-if="$auth.check('admin')" 
+              class="title text-xs-center"
+            >
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 flat 
@@ -220,6 +224,9 @@ export default {
   mounted() {
     let self = this;
     self.fetchDsg();
+    if (!this.$auth.check(["admin"])) {
+      self.$delete(self.headers, 6);
+    }
   },
   methods: {
     editDsg(dsg) {

@@ -229,6 +229,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -282,6 +286,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var self = this;
     self.fetchDsg();
+    if (!this.$auth.check(["admin"])) {
+      self.$delete(self.headers, 6);
+    }
   },
 
   methods: {
@@ -659,6 +666,7 @@ var render = function() {
                           [
                             _c("v-switch", {
                               attrs: {
+                                readonly: !_vm.$auth.check("admin"),
                                 label: _vm.getStatus(props.item.active)
                               },
                               on: {
@@ -678,50 +686,52 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center" },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  flat: "",
-                                  icon: "",
-                                  color: "blue"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.editDsg(props.item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("fa-pencil")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  flat: "",
-                                  icon: "",
-                                  color: "error"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.deleteDsg(props.item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("fa-trash")])],
+                        _vm.$auth.check("admin")
+                          ? _c(
+                              "td",
+                              { staticClass: "title text-xs-center" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "blue"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.editDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-pencil")])],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.deleteDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
+                                )
+                              ],
                               1
                             )
-                          ],
-                          1
-                        )
+                          : _vm._e()
                       ])
                     ]
                   }
