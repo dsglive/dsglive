@@ -40,5 +40,16 @@ class Invoice extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    /**
+     * @var string
+     */
     protected $table = 'invoices';
+
+    /**
+     * @return mixed
+     */
+    public function customer()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

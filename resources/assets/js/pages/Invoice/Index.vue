@@ -334,7 +334,7 @@ export default {
     fetchInvoices() {
       let self = this;
       axios.post(route("api.invoice.index")).then(response => {
-        self.items = response.data;
+        self.items = response.data.data;
       });
     },
     toggleAll() {

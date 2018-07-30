@@ -341,7 +341,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchInvoices: function fetchInvoices() {
       var self = this;
       axios.post(route("api.invoice.index")).then(function (response) {
-        self.items = response.data;
+        self.items = response.data.data;
       });
     },
     toggleAll: function toggleAll() {
