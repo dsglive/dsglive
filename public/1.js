@@ -7285,23 +7285,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     customerHint: function customerHint() {
       if (this.form.customer_id === null) {
-        return "Create A New Or Search On Available Customer";
+        return "Please Create Or Search Customer";
+      } else if (this.form.customer_id === 1001) {
+        return "Mark as Unknown Until Further Notice";
       } else {
-        return "Customer Verified";
+        return "Customer Acccount Verified";
       }
     },
     clientHint: function clientHint() {
-      if (this.form.client_id === null || this.form.client_id === 1) {
-        return "Create A New Or Search On Available Client";
+      if (this.form.client_id === null) {
+        return "Please Create Or Search Client";
+      } else if (this.form.client_id === 1) {
+        return "Mark as Unknown Until Further Notice";
       } else {
-        return "Client Verified";
+        return "Client Acccount Verified";
       }
     },
     shipperHint: function shipperHint() {
       if (this.form.shipper_id === null) {
-        return "Create A New Or Search On Available Shipper";
+        return "Please Create Or Search  Shipper";
+      } else if (this.form.shipper_id === 1) {
+        return "Mark as Unknown Until Further Notice";
       } else {
-        return "Shipper Verified";
+        return "Shipper Acccount Verified";
       }
     }
   },

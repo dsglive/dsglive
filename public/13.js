@@ -254,7 +254,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     editDsg: function editDsg(dsg) {
-      vm.$router.push({ name: "edit-unknown-reports", params: { id: "" + dsg.id } });
+      if (dsg.active === true) {
+        vm.$router.push({ name: "edit-dsg", params: { id: "" + dsg.id } });
+      } else {
+        vm.$router.push({
+          name: "edit-warehouse",
+          params: { id: "" + dsg.id }
+        });
+      }
     },
     toggleStatus: function toggleStatus(dsg) {
       var self = this;

@@ -312,29 +312,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -366,7 +343,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         value: "total_charges",
         align: "left",
         sortable: true
-      }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      }, { text: "Actions", value: "actions", align: "center", sortable: false }],
       items: [],
       selected: [],
       pagination: {
@@ -406,17 +383,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       // Convert camelCase capitals to kebab-case.
       result = result.replace(/([a-z][A-Z])/g, function (match) {
-        return match.substr(0, 1) + '-' + match.substr(1, 1).toLowerCase();
+        return match.substr(0, 1) + "-" + match.substr(1, 1).toLowerCase();
       });
 
       // Convert non-camelCase capitals to lowercase.
       result = result.toLowerCase();
 
       // Convert non-alphanumeric characters to hyphens
-      result = result.replace(/[^-a-z0-9]+/g, '-');
+      result = result.replace(/[^-a-z0-9]+/g, "-");
 
       // Remove hyphens from both ends
-      result = result.replace(/^-+/, '').replace(/-$/, '');
+      result = result.replace(/^-+/, "").replace(/-$/, "");
 
       return result;
     },
@@ -689,70 +666,46 @@ var render = function() {
                     return [
                       _c(
                         "tr",
-                        [
-                          _c(
+                        _vm._l(props.headers, function(header) {
+                          return _c(
                             "th",
-                            [
-                              _c("v-checkbox", {
-                                attrs: {
-                                  "input-value": props.all,
-                                  indeterminate: props.indeterminate,
-                                  primary: "",
-                                  "hide-details": ""
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
                                 },
-                                nativeOn: {
-                                  click: function($event) {
-                                    return _vm.toggleAll($event)
-                                  }
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(props.headers, function(header) {
-                            return _c(
-                              "th",
-                              {
-                                key: header.text,
-                                class: [
-                                  "column sortable",
-                                  _vm.pagination.descending ? "desc" : "asc",
-                                  header.value === _vm.pagination.sortBy
-                                    ? "name"
-                                    : "",
-                                  {
-                                    "text-xs-left": header.align === "left",
-                                    "text-xs-right": header.align === "right",
-                                    "text-xs-center": header.align === "center"
-                                  },
-                                  _vm.$vuetify.breakpoint.width >= 600 &&
-                                    "title"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
                                 ],
-                                on: {
-                                  click: function($event) {
-                                    _vm.changeSort(header.value)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  [
-                                    _c("v-icon", [_vm._v("arrow_upward")]),
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(header.text) +
-                                        "\n            "
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                1
+                              )
+                            ]
+                          )
+                        })
                       )
                     ]
                   }
@@ -762,25 +715,6 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _c("tr", [
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left" },
-                          [
-                            _c("v-checkbox", {
-                              attrs: {
-                                active: props.selected,
-                                "input-value": props.selected
-                              },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
                         _c(
                           "td",
                           { staticClass: "title text-xs-left accent--text" },
@@ -871,128 +805,101 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-center" },
+                          {
+                            staticClass: "title text-xs-center",
+                            staticStyle: { width: "25%" }
+                          },
                           [
                             props.item.type === "delivery_ticket" &&
                             props.item.items.length > 0
                               ? _c(
-                                  "v-flex",
-                                  { staticClass: "xs12" },
+                                  "v-btn",
+                                  {
+                                    class: {
+                                      "amber--text": props.expanded,
+                                      amber: props.expanded,
+                                      teal: !props.expanded,
+                                      "teal--text": !props.expanded
+                                    },
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      light: "",
+                                      flat: "",
+                                      icon: ""
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
                                   [
-                                    _c(
-                                      "v-btn",
-                                      {
-                                        class: {
-                                          "amber--text": props.expanded,
-                                          amber: props.expanded,
-                                          teal: !props.expanded,
-                                          "teal--text": !props.expanded
-                                        },
-                                        attrs: {
-                                          disabled: !_vm.$auth.check("admin"),
-                                          light: "",
-                                          flat: "",
-                                          icon: ""
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            props.expanded = !props.expanded
-                                          }
-                                        }
-                                      },
-                                      [
-                                        !props.expanded
-                                          ? _c("v-icon", [_vm._v("fa-expand")])
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.expanded
-                                          ? _c("v-icon", [
-                                              _vm._v("fa-compress")
-                                            ])
-                                          : _vm._e()
-                                      ],
-                                      1
-                                    )
+                                    !props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-expand")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-compress")])
+                                      : _vm._e()
                                   ],
                                   1
                                 )
                               : _vm._e(),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editTicket(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "blue"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editTicket(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-pencil")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "purple"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewPdf(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "purple"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewPdf(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("picture_as_pdf")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteTicket(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "error"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteTicket(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
                           ],
@@ -1031,7 +938,7 @@ var render = function() {
                                     {
                                       staticClass: "text-xs-center white--text"
                                     },
-                                    [_vm._v("Delivered Packages")]
+                                    [_vm._v("Delivered Items")]
                                   ),
                                   _vm._v(" "),
                                   _c("v-spacer"),
@@ -1084,7 +991,7 @@ var render = function() {
                                                   _c("v-card-title", [
                                                     _c("h4", [
                                                       _vm._v(
-                                                        "Package ID: " +
+                                                        "Item ID#: " +
                                                           _vm._s(props.item.id)
                                                       )
                                                     ])

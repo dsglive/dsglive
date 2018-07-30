@@ -169,10 +169,6 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.name }}
             </td>
-
-            <td class="title text-xs-left accent--text">
-              {{ props.item.email }}
-            </td>
             <td class="title text-xs-left accent--text">
               <v-switch
                 v-model="props.item.active"
@@ -181,41 +177,35 @@
               />
             </td>
             <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                  light 
-                  flat 
-                  icon 
-                  @click="props.expanded = !props.expanded"
-                >
-                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                  <v-icon v-if="props.expanded">fa-compress</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editShipper(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteShipper(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                light 
+                flat 
+                icon 
+                @click="props.expanded = !props.expanded"
+              >
+                <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                <v-icon v-if="props.expanded">fa-compress</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                @click="editShipper(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                @click="deleteShipper(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>
@@ -447,7 +437,6 @@ export default {
     /* table */
     headers: [
       { text: "Name", value: "name", align: "left", sortable: true },
-      { text: "Email", value: "email", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Actions", value: "actions", align: "right", sortable: false }
     ],

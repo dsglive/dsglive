@@ -440,16 +440,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -466,7 +456,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Name", value: "name", align: "left", sortable: true }, { text: "Email", value: "email", align: "left", sortable: true }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      headers: [{ text: "Name", value: "name", align: "left", sortable: true }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
       items: [],
       selected: [],
       pagination: {
@@ -1114,18 +1104,6 @@ var render = function() {
                           "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.email) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
                             _c("v-switch", {
                               attrs: {
                                 label: _vm.getStatus(props.item.active)
@@ -1152,94 +1130,73 @@ var render = function() {
                           { staticClass: "title text-xs-center" },
                           [
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
+                              "v-btn",
+                              {
+                                class: {
+                                  "amber--text": props.expanded,
+                                  amber: props.expanded,
+                                  teal: !props.expanded,
+                                  "teal--text": !props.expanded
+                                },
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  light: "",
+                                  flat: "",
+                                  icon: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    props.expanded = !props.expanded
+                                  }
+                                }
+                              },
                               [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    class: {
-                                      "amber--text": props.expanded,
-                                      amber: props.expanded,
-                                      teal: !props.expanded,
-                                      "teal--text": !props.expanded
-                                    },
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      light: "",
-                                      flat: "",
-                                      icon: ""
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        props.expanded = !props.expanded
-                                      }
-                                    }
-                                  },
-                                  [
-                                    !props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-expand")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-compress")])
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
+                                !props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-expand")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-compress")])
+                                  : _vm._e()
                               ],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editShipper(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "blue"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editShipper(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-pencil")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteShipper(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "error"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteShipper(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
                           ],

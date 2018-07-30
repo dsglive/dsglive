@@ -318,7 +318,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "Actions", value: "actions", align: "right", sortable: false }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "DSG#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
@@ -328,7 +328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         value: "receiving_amount",
         align: "left",
         sortable: true
-      }, { text: "Status", value: "active", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "right", sortable: false }],
+      }],
       items: [],
       selected: [],
       pagination: {
@@ -978,6 +978,116 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
+                          { staticClass: "title text-xs-center" },
+                          [
+                            _c(
+                              "v-flex",
+                              { staticClass: "xs12" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "blue"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.editDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-pencil")])],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { staticClass: "xs12" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "purple"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.viewPdf(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { staticClass: "xs12" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.deleteDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            _c("v-switch", {
+                              attrs: {
+                                label: _vm.getStatus(props.item.active)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.toggleStatus(props.item)
+                                }
+                              },
+                              model: {
+                                value: props.item.active,
+                                callback: function($$v) {
+                                  _vm.$set(props.item, "active", $$v)
+                                },
+                                expression: "props.item.active"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
                             _vm._v(
@@ -1082,116 +1192,6 @@ var render = function() {
                                 "\n          "
                             )
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            _c("v-switch", {
-                              attrs: {
-                                label: _vm.getStatus(props.item.active)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.toggleStatus(props.item)
-                                }
-                              },
-                              model: {
-                                value: props.item.active,
-                                callback: function($$v) {
-                                  _vm.$set(props.item, "active", $$v)
-                                },
-                                expression: "props.item.active"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center" },
-                          [
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "purple"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewPdf(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
                         )
                       ])
                     ]

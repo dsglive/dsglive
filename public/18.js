@@ -267,10 +267,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -985,54 +981,40 @@ var render = function() {
                           { staticClass: "title text-xs-center" },
                           [
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editRate(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "blue"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editRate(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-pencil")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteRate(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "error"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteRate(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
                           ],

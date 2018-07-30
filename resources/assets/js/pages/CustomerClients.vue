@@ -184,46 +184,36 @@
               <td class="title text-xs-left accent--text">
                 {{ props.item.name }}
               </td>
-
-              <td class="title text-xs-left accent--text">
-                {{ props.item.email }}
-              </td>
               <td class="title text-xs-center">
-                <v-flex class="xs12">
-                  <v-btn 
-                    :disabled="!$auth.check('admin')" 
-                    :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                    light 
-                    flat 
-                    icon 
-                    @click="props.expanded = !props.expanded"
-                  >
-                    <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                    <v-icon v-if="props.expanded">fa-compress</v-icon>
-                  </v-btn>
-                </v-flex>
-                <v-flex class="xs12">
-                  <v-btn 
-                    :disabled="!$auth.check('admin')" 
-                    flat 
-                    icon 
-                    color="blue" 
-                    @click="editClient(props.item)"
-                  >
-                    <v-icon>fa-pencil</v-icon>
-                  </v-btn>
-                </v-flex>
-                <v-flex class="xs12">
-                  <v-btn 
-                    :disabled="!$auth.check('admin')" 
-                    flat 
-                    icon 
-                    color="error" 
-                    @click="deleteClient(props.item)"
-                  >
-                    <v-icon>fa-trash</v-icon>
-                  </v-btn>
-                </v-flex>
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                  light 
+                  flat 
+                  icon 
+                  @click="props.expanded = !props.expanded"
+                >
+                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                  <v-icon v-if="props.expanded">fa-compress</v-icon>
+                </v-btn>
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="blue" 
+                  @click="editClient(props.item)"
+                >
+                  <v-icon>fa-pencil</v-icon>
+                </v-btn>
+                <v-btn 
+                  :disabled="!$auth.check('admin')" 
+                  flat 
+                  icon 
+                  color="error" 
+                  @click="deleteClient(props.item)"
+                >
+                  <v-icon>fa-trash</v-icon>
+                </v-btn>
               </td>
             </tr>
           </template>
@@ -403,14 +393,14 @@
               Opps! No Client Yet!, 
               <v-btn 
                 :disabled="!$auth.check('admin')" 
-                color="primary" 
+                color="white" 
                 flat
                 dark
                 @click="createClient">
                 Create New Client
                 <v-icon
                   right
-                  color="primary" 
+                  color="white" 
                 >
                   fa-user-plus
                 </v-icon>
@@ -455,7 +445,6 @@ export default {
     headers: [
       //   { text: "ID", value: "id", align: "left", sortable: true },
       { text: "Name", value: "name", align: "left", sortable: true },
-      { text: "Email", value: "email", align: "left", sortable: true },
       { text: "Actions", value: "actions", align: "center", sortable: false }
     ],
     items: [],

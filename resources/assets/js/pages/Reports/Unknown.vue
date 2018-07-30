@@ -241,7 +241,14 @@ export default {
   },
   methods: {
     editDsg(dsg) {
-      vm.$router.push({ name: "edit-unknown-reports", params: { id: `${dsg.id}` } });
+      if (dsg.active === true) {
+        vm.$router.push({ name: "edit-dsg", params: { id: `${dsg.id}` } });
+      } else {
+        vm.$router.push({
+          name: "edit-warehouse",
+          params: { id: `${dsg.id}` }
+        });
+      }
     },
     toggleStatus(dsg) {
       let self = this;

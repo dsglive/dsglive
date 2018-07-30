@@ -184,28 +184,24 @@
               />
             </td>
             <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editRate(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteRate(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                @click="editRate(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                @click="deleteRate(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>

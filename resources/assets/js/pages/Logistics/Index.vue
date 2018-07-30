@@ -86,15 +86,6 @@
           slot-scope="props"
         >
           <tr>
-            <th>
-              <v-checkbox
-                :input-value="props.all"
-                :indeterminate="props.indeterminate"
-                primary
-                hide-details
-                @click.native="toggleAll"
-              />
-            </th>
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -119,13 +110,6 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
-              <v-checkbox
-                :active="props.selected"
-                :input-value="props.selected"
-                @click="props.selected = !props.selected"
-              />
-            </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>
@@ -150,55 +134,48 @@
             <td class="title text-xs-center accent--text">
               {{ props.item.total_charges }}
             </td>
-            <td class="title text-xs-center">
-              <v-flex 
+            <td 
+              class="title text-xs-center" 
+              style="width:25%;">
+              <v-btn 
                 v-if="props.item.type === 'delivery_ticket' && props.item.items.length > 0" 
-                class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                  light 
-                  flat 
-                  icon 
-                  @click="props.expanded = !props.expanded"
-                >
-                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                  <v-icon v-if="props.expanded">fa-compress</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="blue" 
-                  @click="editTicket(props.item)"
-                >
-                  <v-icon>fa-pencil</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="purple" 
-                  @click="viewPdf(props.item)"
-                >
-                  <v-icon>picture_as_pdf</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="error" 
-                  @click="deleteTicket(props.item)"
-                >
-                  <v-icon>fa-trash</v-icon>
-                </v-btn>
-              </v-flex>
+                :disabled="!$auth.check('admin')" 
+                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                light 
+                flat 
+                icon 
+                @click="props.expanded = !props.expanded"
+              >
+                <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                <v-icon v-if="props.expanded">fa-compress</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                @click="editTicket(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="purple" 
+                @click="viewPdf(props.item)"
+              >
+                <v-icon>picture_as_pdf</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                @click="deleteTicket(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>
@@ -215,7 +192,7 @@
             >
               <v-toolbar class="secondary">
                 <v-spacer/>
-                <v-toolbar-title class="text-xs-center white--text">Delivered Packages</v-toolbar-title>
+                <v-toolbar-title class="text-xs-center white--text">Delivered Items</v-toolbar-title>
                 <v-spacer/>
                 <span class="title white--text"> Count: {{ props.item.items.length }} </span>
               </v-toolbar>
@@ -234,7 +211,7 @@
                     xs6
                   >
                     <v-card>
-                      <v-card-title><h4>Package ID: {{ props.item.id }}</h4></v-card-title>
+                      <v-card-title><h4>Item ID#: {{ props.item.id }}</h4></v-card-title>
                       <v-divider/>
                       <v-list dense>
                         <v-list-tile>
@@ -327,7 +304,7 @@ export default {
   },
   mixins: [validationError],
   data: () => ({
-    rowsPerPageItems: [1,2],
+    rowsPerPageItems: [1, 2],
     dialog: false,
     /* table */
     headers: [
@@ -352,15 +329,15 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
+      { text: "Actions", value: "actions", align: "center", sortable: false }
     ],
     items: [],
     selected: [],
     pagination: {
-      sortBy: "name",
+      sortBy: "name"
     },
-    iteratorPagination:{
-        rowsPerPage:2
+    iteratorPagination: {
+      rowsPerPage: 2
     },
     ticketForm: new Form({}),
     search: "",
@@ -386,30 +363,32 @@ export default {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     },
-    kebabCase(string){
-        var result = string;
+    kebabCase(string) {
+      var result = string;
 
-        // Convert camelCase capitals to kebab-case.
-        result = result.replace(/([a-z][A-Z])/g, function(match) {
-            return match.substr(0, 1) + '-' + match.substr(1, 1).toLowerCase();
-        });
+      // Convert camelCase capitals to kebab-case.
+      result = result.replace(/([a-z][A-Z])/g, function(match) {
+        return match.substr(0, 1) + "-" + match.substr(1, 1).toLowerCase();
+      });
 
-        // Convert non-camelCase capitals to lowercase.
-        result = result.toLowerCase();
+      // Convert non-camelCase capitals to lowercase.
+      result = result.toLowerCase();
 
-        // Convert non-alphanumeric characters to hyphens
-        result = result.replace(/[^-a-z0-9]+/g, '-');
+      // Convert non-alphanumeric characters to hyphens
+      result = result.replace(/[^-a-z0-9]+/g, "-");
 
-        // Remove hyphens from both ends
-        result = result.replace(/^-+/, '').replace(/-$/, '');
+      // Remove hyphens from both ends
+      result = result.replace(/^-+/, "").replace(/-$/, "");
 
-        return result;
+      return result;
     },
     viewPdf(ticket) {
-    let type = this.kebabCase(ticket.type)
-    let id = ticket.id
-    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
-    window.open(url)
+      let type = this.kebabCase(ticket.type);
+      let id = ticket.id;
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/${type}/${id}`;
+      window.open(url);
     },
     editTicket(logistics) {
       vm.$router.push({
@@ -444,19 +423,22 @@ export default {
       self.deleteTicketForm.logistics_id = logistics.id;
       let index = _.findIndex(self.items, { id: logistics.id });
       axios
-        .post(route("api.logistics.delete",{ logistic:logistics.id }), self.deleteTicketForm)
+        .post(
+          route("api.logistics.delete", { logistic: logistics.id }),
+          self.deleteTicketForm
+        )
         .then(response => {
-            self.$delete(self.items, index);
-            let deleteModal = swal.mixin({
-              confirmButtonClass: "v-btn blue-grey  subheading white--text",
-              buttonsStyling: false
-            });
-            deleteModal({
-              title: "Success",
-              html: `<p class="title">Ticket Deleted!</p>`,
-              type: "success",
-              confirmButtonText: "Back"
-            });
+          self.$delete(self.items, index);
+          let deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Success",
+            html: `<p class="title">Ticket Deleted!</p>`,
+            type: "success",
+            confirmButtonText: "Back"
+          });
         })
         .catch(errors => {
           const deleteModal = swal.mixin({
