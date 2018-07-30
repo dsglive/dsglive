@@ -94813,7 +94813,9 @@ var Logout = function Logout() {
 var Home = function Home() {
   return __webpack_require__.e/* import() */(0/* duplicate */).then(__webpack_require__.bind(null, 378));
 };
-
+var Tutorials = function Tutorials() {
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 1185));
+};
 /* harmony default export */ __webpack_exports__["a"] = ([
 /* Front End Routes */
 {
@@ -94821,6 +94823,11 @@ var Home = function Home() {
   name: "home",
   component: Home,
   meta: { auth: false }
+}, {
+  path: "/tutorials",
+  component: Tutorials,
+  name: "tutorials",
+  meta: { auth: ["admin"] }
 }]);
 
 /***/ }),

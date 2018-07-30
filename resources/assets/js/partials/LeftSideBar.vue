@@ -29,6 +29,15 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <v-link 
+        v-if="$auth.check(['admin'])"
+        title="Tutorials"
+        href="/tutorials"
+        icon="movie"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <!-- Admin Only Accessible -->
       <v-link 
         v-if="$auth.check('admin')"

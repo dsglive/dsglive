@@ -244,12 +244,12 @@ export default {
     stats: {
       dsg_warehouse: null,
       dsg_receiving: null,
-      dsg_archived:null,
+      dsg_archived: null,
       repaired_packages: null,
       damaged_packages: null,
       unknown_customer: null,
       unknown_client: null,
-      undelivered: null,
+      undelivered: null
     }
   }),
   mounted() {
