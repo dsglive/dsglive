@@ -3282,7 +3282,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [{
         action: "collections_bookmark",
         title: "Inventories",
-        items: [{ title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle" }, { title: "Unknown Customer", href: "/reports/unknown-customer", action: "fa-question-circle" }, { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-question-circle" }, { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
+        items: [{ title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle", auth: ['admin'] }, { title: "Unknown Customer", href: "/reports/unknown-customer", action: "supervised_user_circle", auth: ['admin', 'warehouse'] }, { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-users", auth: ['admin', 'warehouse', 'customer'] }, { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-ship", auth: ['admin', 'warehouse', 'customer'] }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image", auth: ['admin', 'warehouse', 'customer'] }, { title: "Bin Report", href: "/reports/bin", action: "apps", auth: ['admin'] }, { title: "Customer Report", href: "/reports/customer", action: "local_library", auth: ['admin'] }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar", auth: ['admin'] }]
       }]
     };
   },
@@ -3306,50 +3306,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$auth.check("admin")
-    ? _c(
-        "v-list",
-        { staticClass: "blue-grey", attrs: { dark: "" } },
-        _vm._l(_vm.items, function(item) {
-          return _c(
-            "v-list-group",
-            {
-              key: item.title,
-              attrs: { "no-action": "", "active-class": "accent--text" },
-              model: {
-                value: item.active,
-                callback: function($$v) {
-                  _vm.$set(item, "active", $$v)
-                },
-                expression: "item.active"
-              }
+  return _c(
+    "v-list",
+    { staticClass: "blue-grey", attrs: { dark: "" } },
+    _vm._l(_vm.items, function(item) {
+      return _c(
+        "v-list-group",
+        {
+          key: item.title,
+          attrs: { "no-action": "", "active-class": "accent--text" },
+          model: {
+            value: item.active,
+            callback: function($$v) {
+              _vm.$set(item, "active", $$v)
             },
+            expression: "item.active"
+          }
+        },
+        [
+          _c(
+            "v-list-tile",
+            { attrs: { slot: "activator" }, slot: "activator" },
             [
               _c(
-                "v-list-tile",
-                { attrs: { slot: "activator" }, slot: "activator" },
+                "v-list-tile-action",
                 [
-                  _c(
-                    "v-list-tile-action",
-                    [
-                      _c("v-icon", { attrs: { color: "white" } }, [
-                        _vm._v(_vm._s(item.action))
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v(_vm._s(item.title))])],
-                    1
-                  )
+                  _c("v-icon", { attrs: { color: "white" } }, [
+                    _vm._v(_vm._s(item.action))
+                  ])
                 ],
                 1
               ),
               _vm._v(" "),
-              _vm._l(item.items, function(subItem) {
-                return _c(
+              _c(
+                "v-list-tile-content",
+                [_c("v-list-tile-title", [_vm._v(_vm._s(item.title))])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._l(item.items, function(subItem) {
+            return _vm.$auth.check(subItem.auth)
+              ? _c(
                   "v-list-tile",
                   {
                     key: subItem.title,
@@ -3391,13 +3391,13 @@ var render = function() {
                   ],
                   1
                 )
-              })
-            ],
-            2
-          )
-        })
+              : _vm._e()
+          })
+        ],
+        2
       )
-    : _vm._e()
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

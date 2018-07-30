@@ -1,6 +1,5 @@
 <template>
   <v-list 
-    v-if="$auth.check('admin')" 
     class="blue-grey"
     dark
   >
@@ -21,7 +20,8 @@
       </v-list-tile>
 
       <v-list-tile
-        v-for="subItem in item.items"
+        v-for="subItem in item.items" 
+        v-if="$auth.check(subItem.auth)"
         :key="subItem.title"
         :style="{color: isActive(subItem) ? activeColor : linkColor}"
         @click="loadview(subItem)"
@@ -49,14 +49,14 @@ export default {
           action: "collections_bookmark",
           title: "Inventories",
           items: [
-            { title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle" },
-            { title: "Unknown Customer", href: "/reports/unknown-customer", action: "fa-question-circle" },
-            { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-question-circle" },
-            { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-question-circle" },
-            { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" },
-            { title: "Bin Report", href: "/reports/bin", action: "apps" },
-            { title: "Customer Report", href: "/reports/customer", action: "local_library" },
-            { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }
+            { title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle", auth: ['admin'] },
+            { title: "Unknown Customer", href: "/reports/unknown-customer", action: "supervised_user_circle", auth: ['admin','warehouse'] },
+            { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-users", auth:['admin','warehouse','customer'] },
+            { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-ship", auth:['admin','warehouse','customer'] },
+            { title: "Damaged Report", href: "/reports/damaged", action: "broken_image",auth:['admin','warehouse','customer'] },
+            { title: "Bin Report", href: "/reports/bin", action: "apps", auth: ['admin'] },
+            { title: "Customer Report", href: "/reports/customer", action: "local_library",auth: ['admin'] },
+            { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar",auth: ['admin'] }
           ]
         }
       ]
