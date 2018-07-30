@@ -6,7 +6,7 @@
         row 
         wrap>
         <v-flex 
-          xs6
+          xs4
         >
           <v-dialog
             ref="date_started"
@@ -41,7 +41,7 @@
           </v-dialog>
         </v-flex>
         <v-flex 
-          xs6
+          xs4
         >
           <v-dialog
             ref="date_ended"
@@ -76,6 +76,26 @@
           </v-dialog>
         </v-flex>
         <v-flex 
+          v-if="items.length < 1" 
+          xs4
+        >
+          <v-btn 
+            :disabled="form.date_started === null && form.date_ended === null"
+            style="margin-top:25px;" 
+            block 
+            color="blue darken-4" 
+            dark
+            flat
+            @click="generateInvoice">
+            Fetch Billables
+            <v-icon
+              color="blue darken-4"
+            >
+              attach_money
+            </v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex 
           d-flex 
           xs12
         >
@@ -83,8 +103,33 @@
             row 
             wrap>
             <v-flex 
+              v-if="form.date_started && form.date_ended"
               xs12
-              sm6
+            >
+              <v-alert 
+                v-if="selected.length < 1"
+                :value="items.length > 0" 
+                color="secondary" 
+                icon="warning">
+                Note: Check An Item/s On The Table To Generate An Invoice
+              </v-alert>
+              <v-btn
+                v-else
+                :loading="mass_create_invoices.busy"
+                :disabled="mass_create_invoices.busy"
+                color="teal lighten-2"
+                block
+                class="white--text"
+                @click.native="massCreateInvoice"
+              >
+                Generate Invoices
+                <v-icon 
+                  right 
+                  dark>schedule</v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex 
+              xs12
             >
               <v-card 
                 light 
@@ -102,29 +147,7 @@
                 </v-card-title>
               </v-card>
             </v-flex>
-            <v-flex 
-              xs12
-              sm6
-              d-flex>
-              <v-btn 
-                v-if="selected.length>0"
-                :disabled="!$auth.check('admin')"
-                style="margin-top:30px;" 
-                block 
-                color="blue darken-4" 
-                dark
-                flat
-                @click="massCreateInvoice">
-                Generate Invoice
-                <v-icon
-                  large
-                  right
-                  color="blue darken-4" 
-                >
-                  all_inbox
-                </v-icon>
-              </v-btn>
-            </v-flex>
+            
           </v-layout>
         </v-flex>
         
@@ -306,16 +329,20 @@ export default {
     items: {
       handler: function(newValue) {},
       deep: true
+    },
+    selected: {
+      handler: function(newValue) {},
+      deep: true
     }
   },
   methods: {
     massCreateInvoice() {
-    let self = this;
-    let customers = [];
-    for (let index = 0; index < self.selected.length; index++) {
-          customers.push(self.selected[index]['customer_id'])
-        }
-        self.mass_create_invoices = self.selected
+      let self = this;
+      let customers = [];
+      for (let index = 0; index < self.selected.length; index++) {
+        customers.push(self.selected[index]["customer_id"]);
+      }
+      self.mass_create_invoices = self.selected;
       axios
         .post(route("api.invoice.massCreateInvoice"), self.mass_create_invoices)
         .then(response => {
@@ -340,39 +367,43 @@ export default {
           route("api.invoice.generate"),
           self.form
         );
-        self.items = payload.data.data;
-        for (let index = 0; index < self.items.length; index++) {
-          self.items[index]["total"] =
-            self.items[index]["receiving_fee"] +
-            self.items[index]["delivery_fee"] +
-            self.items[index]["misc_fee"] +
-            self.items[index]["storage_fee"];
+        let items = payload.data.data;
+        for (let index = 0; index < items.length; index++) {
+          items[index]["total"] =
+            items[index]["receiving_fee"] +
+            items[index]["delivery_fee"] +
+            items[index]["misc_fee"] +
+            items[index]["storage_fee"];
+          if (items[index]["total"] > 0) {
+            self.items.push(items[index]);
+          }
         }
-        let message = 'You Successfully Fetch Billable Customers.';
-        if(self.items.length < 1){
-            message = 'No Billable Customer Yet.'
+        let message = "You Successfully Fetch Billable Customers.";
+        if (self.items.length < 1) {
+          message = "No Billable Customer Yet.";
         }
         let toggleModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success!",
-            html: `<p class="title">${message}</p>`,
-            type: "warning",
-            confirmButtonText: "Back"
-          });
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Success!",
+          html: `<p class="title">${message}</p>`,
+          type: "warning",
+          confirmButtonText: "Back"
+        });
       } catch (errors) {
         let toggleModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Validation Error!",
-            html: '<p class="title">Please Pick a Date Started and Date Ended!</p>',
-            type: "warning",
-            confirmButtonText: "Back"
-          });
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Validation Error!",
+          html:
+            '<p class="title">Please Pick a Date Started and Date Ended!</p>',
+          type: "warning",
+          confirmButtonText: "Back"
+        });
       }
     },
     toggleAll() {

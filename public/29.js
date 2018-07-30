@@ -1,48 +1,59 @@
 webpackJsonp([29],{
 
-/***/ 1074:
+/***/ 1063:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1064);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(950)("087079bd", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9171a57e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomerCreateClients.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9171a57e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomerCreateClients.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1064:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1065:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(373);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(951);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(952);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 //
 //
 //
@@ -217,11 +228,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ModalLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default.a
+    ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
   props: {
-    id: {
+    customer: {
       type: String,
       required: true
     }
@@ -229,9 +240,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       /* Always Declare Your Form Object */
-      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        active: false,
+      form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
+        user_id: null,
         name: null,
+        active: false,
         email: null,
         phone: null,
         address_1: null,
@@ -244,27 +256,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       })
     };
   },
-  mounted: function mounted() {
-    var self = this;
-    self.fetchShipper();
-  },
-
   methods: {
-    getStatus: function getStatus(status) {
-      if (status) {
-        return "Status: Active";
-      } else {
-        return "Status: Inactive";
-      }
-    },
     submit: function submit() {
       var self = this;
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.updateShipper();
+          self.createClient();
         } else {
-          var validationModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
@@ -277,91 +277,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    updateShipper: function updateShipper() {
+    createClient: function createClient() {
+      var _this = this;
+
       var self = this;
-      var id = self.id;
       self.form.busy = true;
 
-      self.form.post(route("api.shipper.update", { id: id }), self.form).then(function (response) {
+      self.form.post(route("api.client.create")).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
-        var successModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+        self.resetForm();
+        var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Shipper Updated!</p>",
+          html: "<p class=\"title\">Client Has Been Created!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
         self.$nextTick(function () {
-          return self.$router.push({ name: "shippers" });
+          return self.$router.push({
+            name: "customer-clients",
+            params: { customer: _this.customer }
+          });
         });
       }).catch(function (errors) {});
     },
-    fetchShipper: function () {
-      var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-        var id, self, payload, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                id = this.id;
-                self = this;
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.get(route("api.shipper.edit", { id: id }));
-
-              case 5:
-                payload = _context.sent;
-
-                self.form.name = payload.data.data.name;
-                self.form.active = payload.data.data.active;
-                self.form.email = payload.data.data.email;
-                self.form.phone = payload.data.data.phone;
-                self.form.address_1 = payload.data.data.address_1;
-                self.form.address_2 = payload.data.data.address_2;
-                self.form.city = payload.data.data.city;
-                self.form.state = payload.data.data.state;
-                self.form.zip = payload.data.data.zip;
-                self.form.country = payload.data.data.country;
-                self.form.notes = payload.data.data.notes;
-                self.form.password = '', self.form.password_confirmation = '';
-                _context.next = 26;
-                break;
-
-              case 20:
-                _context.prev = 20;
-                _context.t0 = _context["catch"](2);
-                errors = _context.t0.errors;
-                message = _context.t0.message;
-
-                if (errors) {
-                  console.log("fetchShipper:errors", errors);
-                }
-                if (message) {
-                  console.log("fetchShipper:error-message", message);
-                }
-
-              case 26:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[2, 20]]);
-      }));
-
-      function fetchShipper() {
-        return _ref.apply(this, arguments);
-      }
-
-      return fetchShipper;
-    }(),
+    resetForm: function resetForm() {
+      var self = this;
+      self.form = new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
+        active: false,
+        name: null,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+      });
+    },
     redirectBack: function redirectBack() {
+      var _this2 = this;
+
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "shippers" });
+        return self.$router.push({
+          name: "customer-clients",
+          params: { customer: _this2.customer }
+        });
       });
     }
   }
@@ -369,7 +337,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1075:
+/***/ 1066:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -407,7 +375,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Edit Shipper")]
+                [_vm._v("Client Creation Page")]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -424,7 +392,7 @@ var render = function() {
                         flat: "",
                         color: "white"
                       },
-                      nativeOn: {
+                      on: {
                         click: function($event) {
                           _vm.submit()
                         }
@@ -463,8 +431,8 @@ var render = function() {
                     class: { "error--text": _vm.hasErrors("name") },
                     attrs: {
                       "error-messages": _vm.errorMessages("name"),
-                      label: "Name",
-                      "prepend-icon": "fa-ship",
+                      label: "Client Name",
+                      "prepend-icon": "fa-user",
                       "data-vv-name": "name"
                     },
                     model: {
@@ -481,24 +449,6 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-flex",
-                { staticClass: "md8 \n        offset-md2" },
-                [
-                  _c("v-switch", {
-                    attrs: { label: _vm.getStatus(_vm.form.active) },
-                    model: {
-                      value: _vm.form.active,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "active", $$v)
-                      },
-                      expression: "form.active"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
                 { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
@@ -506,8 +456,8 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: { required: true, email: true },
-                        expression: "{ required: true, email: true }"
+                        value: { email: true },
+                        expression: "{ email: true }"
                       }
                     ],
                     class: { "error--text": _vm.hasErrors("email") },
@@ -534,21 +484,7 @@ var render = function() {
                 { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("phone") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("phone"),
-                      label: "Phone",
-                      "prepend-icon": "phone",
-                      "data-vv-name": "phone"
-                    },
+                    attrs: { label: "Phone", "prepend-icon": "phone" },
                     model: {
                       value: _vm.form.phone,
                       callback: function($$v) {
@@ -566,21 +502,7 @@ var render = function() {
                 { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("address_1") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("address_1"),
-                      label: "Address 1",
-                      "prepend-icon": "looks_one",
-                      "data-vv-name": "address_1"
-                    },
+                    attrs: { label: "Address 1", "prepend-icon": "looks_one" },
                     model: {
                       value: _vm.form.address_1,
                       callback: function($$v) {
@@ -616,21 +538,7 @@ var render = function() {
                 { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("city") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("city"),
-                      label: "City",
-                      "prepend-icon": "location_city",
-                      "data-vv-name": "city"
-                    },
+                    attrs: { label: "City", "prepend-icon": "location_city" },
                     model: {
                       value: _vm.form.city,
                       callback: function($$v) {
@@ -648,21 +556,7 @@ var render = function() {
                 { attrs: { xs12: "", md8: "", "offset-md2": "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("state") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("state"),
-                      label: "State",
-                      "prepend-icon": "map",
-                      "data-vv-name": "state"
-                    },
+                    attrs: { label: "State", "prepend-icon": "map" },
                     model: {
                       value: _vm.form.state,
                       callback: function($$v) {
@@ -684,8 +578,8 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
+                        value: { regex: /^\d{5}(?:[-\s]\d{4})?$/ },
+                        expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
                       }
                     ],
                     class: { "error--text": _vm.hasErrors("zip") },
@@ -778,25 +672,29 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-e25caf08", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-9171a57e", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 916:
+/***/ 913:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1063)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1074)
+var __vue_script__ = __webpack_require__(1065)
 /* template */
-var __vue_template__ = __webpack_require__(1075)
+var __vue_template__ = __webpack_require__(1066)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -809,7 +707,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Shipper/EditShipper.vue"
+Component.options.__file = "resources/assets/js/pages/CustomerCreateClients.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -818,9 +716,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-e25caf08", Component.options)
+    hotAPI.createRecord("data-v-9171a57e", Component.options)
   } else {
-    hotAPI.reload("data-v-e25caf08", Component.options)
+    hotAPI.reload("data-v-9171a57e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -832,7 +730,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 949:
+/***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -851,7 +749,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(950)
+var listToStyles = __webpack_require__(951)
 
 /*
 type StyleObject = {
@@ -1061,7 +959,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 950:
+/***/ 951:
 /***/ (function(module, exports) {
 
 /**
@@ -1095,7 +993,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 951:
+/***/ 952:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1119,7 +1017,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 952:
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -2103,19 +2001,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 953:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(954)
+  __webpack_require__(955)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(956)
+var __vue_template__ = __webpack_require__(957)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2155,17 +2053,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 954:
+/***/ 955:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(955);
+var content = __webpack_require__(956);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(949)("d26755d4", content, false, {});
+var update = __webpack_require__(950)("d26755d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -2182,7 +2080,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 955:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -2197,7 +2095,7 @@ exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""])
 
 /***/ }),
 
-/***/ 956:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
