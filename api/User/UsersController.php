@@ -241,7 +241,7 @@ class UsersController extends Controller
             ],
             'first_name'            => 'required',
             'last_name'             => 'required',
-            'phone'                 => 'required',
+            'phone'                 => 'nullable',
             'address_1'             => 'nullable',
             'address_2'             => 'nullable',
             'city'                  => 'nullable',

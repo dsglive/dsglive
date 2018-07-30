@@ -35,6 +35,11 @@ class ValidateZip implements Rule
      */
     public function passes($attribute, $value)
     {
+        // if empty
+        if (!trim($value)) {
+            return true;
+        }
+
         return preg_match('/^[0-9]{5}(\-[0-9]{4})?$/', $value);
     }
 }

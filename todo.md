@@ -31,3 +31,16 @@
   can use search, visible
   can use add , visible
   can use back, visible
+
+- [ x ] Fix Invoicing Ui
+- [ x ] Fix Invoice so it Wont Show Customers That Dont Have Total
+- [ x ] Fix Customer Name to Intelligently fill it up If No company name is Filled by user
+- Add Notes To Invoice
+- Expand Show Notes
+- Automatically Add Due Date (1 Weeks After generating Invoice)
+- Show Red Status For Overdue Invoice Using Invoice Due Date
+- Change Overdue to Paid
+- Add Payment ID
+- Add Payment type
+- Add Invoice PDF for each customer with each clients
+- Add Invoice Weekly Report in Inventory Links , pick date , then click generate report to show pdf
