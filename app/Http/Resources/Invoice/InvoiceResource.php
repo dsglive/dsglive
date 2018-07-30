@@ -45,8 +45,13 @@ class InvoiceResource extends Resource
             'misc'          => $this->misc,
             'storage_fee'   => $this->storage_fee,
             'storage'       => $this->storage,
+            'total'         => $this->total,
+            'balance'       => $this->balance,
             'date_started'  => $this->date_started,
-            'date_ended'    => $this->date_ended
+            'date_ended'    => $this->date_ended,
+            'due_date'      => $this->due_date,
+            'overdue'       => $this->overdue,
+            'notes'         => $this->notes
         ];
     }
 }
