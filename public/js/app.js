@@ -95288,31 +95288,40 @@ var ViewInvoice = function ViewInvoice() {
 
 "use strict";
 var Bin = function Bin() {
-  return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 941));
+  return __webpack_require__.e/* import() */(57).then(__webpack_require__.bind(null, 941));
 };
 var Client = function Client() {
-  return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 942));
+  return __webpack_require__.e/* import() */(56).then(__webpack_require__.bind(null, 942));
 };
 var Customer = function Customer() {
-  return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 943));
+  return __webpack_require__.e/* import() */(55).then(__webpack_require__.bind(null, 943));
 };
 var Damaged = function Damaged() {
-  return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 944));
+  return __webpack_require__.e/* import() */(54).then(__webpack_require__.bind(null, 944));
 };
-var Unknown = function Unknown() {
-  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 945));
+var AllUnknownReport = function AllUnknownReport() {
+  return __webpack_require__.e/* import() */(58).then(__webpack_require__.bind(null, 1163));
+};
+var UnknownCustomer = function UnknownCustomer() {
+  return __webpack_require__.e/* import() */(52).then(__webpack_require__.bind(null, 1164));
+};
+var UnknownClient = function UnknownClient() {
+  return __webpack_require__.e/* import() */(53).then(__webpack_require__.bind(null, 1165));
+};
+var UnknownShipper = function UnknownShipper() {
+  return __webpack_require__.e/* import() */(51).then(__webpack_require__.bind(null, 1166));
 };
 var ViewDamaged = function ViewDamaged() {
-  return __webpack_require__.e/* import() */(47).then(__webpack_require__.bind(null, 946));
+  return __webpack_require__.e/* import() */(60).then(__webpack_require__.bind(null, 946));
 };
 var EditUnknown = function EditUnknown() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 947));
+  return __webpack_require__.e/* import() */(49).then(__webpack_require__.bind(null, 947));
 };
 var EditPackage = function EditPackage() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 948));
+  return __webpack_require__.e/* import() */(50).then(__webpack_require__.bind(null, 948));
 };
 var ViewPackage = function ViewPackage() {
-  return __webpack_require__.e/* import() */(26).then(__webpack_require__.bind(null, 949));
+  return __webpack_require__.e/* import() */(59).then(__webpack_require__.bind(null, 949));
 };
 /* harmony default export */ __webpack_exports__["a"] = ([
 /* Start Users Routes */
@@ -95332,10 +95341,25 @@ var ViewPackage = function ViewPackage() {
   name: "customer-reports",
   meta: { auth: ["admin"] }
 }, {
-  path: "/reports/unknown",
-  component: Unknown,
+  path: "/reports/all-unknown-report",
+  component: AllUnknownReport,
   name: "unknown-reports",
   meta: { auth: ["admin"] }
+}, {
+  path: "/reports/unknown-customer",
+  component: UnknownCustomer,
+  name: "unknown-customer",
+  meta: { auth: ["admin", "customer", "warehouse"] }
+}, {
+  path: "/reports/unknown-client",
+  component: UnknownClient,
+  name: "unknown-client",
+  meta: { auth: ["admin", "customer", "warehouse"] }
+}, {
+  path: "/reports/unknown-shipper",
+  component: UnknownShipper,
+  name: "unknown-shipper",
+  meta: { auth: ["admin", "customer", "warehouse"] }
 }, {
   path: "/reports/unknown/dsg/:id",
   component: EditUnknown,

@@ -155,7 +155,12 @@ class Dsg extends Model
      */
     public function scopeUnknownClient($query)
     {
-        return $query->where('client_id', 1);
+        return $query->where('client_id', 1)->orWhere('client_id', null);
+    }
+
+    public function scopeOrUnknownClient($query)
+    {
+        return $query->orWhere('client_id', 1)->orWhere('client_id', null);
     }
 
     /**
@@ -164,7 +169,12 @@ class Dsg extends Model
      */
     public function scopeUnknownCustomer($query)
     {
-        return $query->where('customer_id', 1001);
+        return $query->where('customer_id', 1001)->orWhere('customer_id', null);
+    }
+
+    public function scopeOrUnknownCustomer($query)
+    {
+        return $query->orWhere('customer_id', 1001)->orWhere('customer_id', null);
     }
 
     /**
@@ -173,7 +183,12 @@ class Dsg extends Model
      */
     public function scopeUnknownShipper($query)
     {
-        return $query->where('shipper_id', 1);
+        return $query->where('shipper_id', 1)->orWhere('shipper_id', null);
+    }
+
+    public function scopeOrUnknownShipper($query)
+    {
+        return $query->orWhere('shipper_id', 1)->orWhere('shipper_id', null);
     }
 
     /**

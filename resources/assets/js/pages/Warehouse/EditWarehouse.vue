@@ -85,7 +85,7 @@
             v-model="form.customer_name"
             :error-messages="errorMessages('customer')"
             :class="{ 'error--text': hasErrors('customer') }"
-            :error="form.customer_id === null"
+            :error="form.customer_id === null || form.customer_id === 1001"
             :hint="customerHint"
             required
             label="Customer Name"
@@ -93,22 +93,23 @@
             data-vv-name="customer"
             persistent-hint
           />
-              
-          <v-autocomplete
+          <v-combobox
             v-validate="'required'"
             v-else
+            v-model="form.customer_name"
             :items="customers"
-            v-model="form.customer_id"
             :error-messages="errorMessages('customer')"
             :class="{ 'error--text': hasErrors('customer') }"
+            :error="form.customer_id === null || form.customer_id === 1001"
             item-text="name"
-            item-value="id"
-            required
-            label="Choose Customer"
-            light
-            chips
-            prepend-icon="supervised_user_circle"
+            item-value="name"
             style="margin-top:5px;"
+            chips
+            light
+            dense
+            required
+            label="Choose Customer or Type Name"
+            prepend-icon="supervised_user_circle"
             data-vv-name="customer"
           />
         </v-flex>
@@ -159,7 +160,7 @@
             v-model="form.client_name"
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
-            :error="form.client_id === null"
+            :error="form.client_id === null || form.client_id === 1"
             :hint="clientHint"
             required
             label="Client Name"
@@ -174,7 +175,7 @@
             :items="clients"
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
-            :error="form.client_id === null"
+            :error="form.client_id === null || form.client_id === 1"
             item-text="name"
             item-value="name"
             style="margin-top:5px;"
@@ -235,7 +236,7 @@
             v-model="form.shipper_name"
             :error-messages="errorMessages('shipper')"
             :class="{ 'error--text': hasErrors('shipper') }"
-            :error="form.shipper_id === null"
+            :error="form.shipper_id === null || form.shipper_id === 1"
             :hint="shipperHint"
             required
             label="Type Shipper Name"
@@ -243,6 +244,7 @@
             data-vv-name="shipper"
             persistent-hint
           />
+          <!--
           <v-autocomplete
             v-validate="'required'"
             v-else
@@ -257,6 +259,26 @@
             label="Choose Shipper"
             light
             chips
+            prepend-icon="fa-ship"
+            data-vv-name="shipper"
+          />
+          -->
+          <v-combobox
+            v-validate="'required'"
+            v-else
+            v-model="form.shipper_name"
+            :items="shippers"
+            :error-messages="errorMessages('shipper')"
+            :class="{ 'error--text': hasErrors('shipper') }"
+            :error="form.shipper_id === null || form.shipper_id === 1"
+            item-text="name"
+            item-value="name"
+            style="margin-top:5px;"
+            chips
+            light
+            dense
+            required
+            label="Choose Shipper or Type Name"
             prepend-icon="fa-ship"
             data-vv-name="shipper"
           />
@@ -660,27 +682,36 @@ export default {
       },
       deep: true
     },
-    "form.customer_id": {
+    "form.customer_name": {
       handler: function(newValue) {
         let self = this;
         let total = this.packages.length;
         let customer_id = null;
         let customer_name = null;
 
-        if (newValue != undefined) {
+        if (newValue) {
           let customer = _.find(self.customers, function(c) {
-            return c.id === newValue;
+            return c.name === newValue;
           });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
+          if (customer != undefined) {
+            self.clients = customer.clients;
+            _.remove(self.clients, {
+              id: 1
+            });
+            self.clients.unshift(self.unknownClient);
+            self.form.customer_id = customer.id;
+            self.form.client_name = null;
+            self.form.client_id = null;
+            customer_id = customer.id;
+            customer_name = customer.name;
+          } else {
+            self.clients.push(self.unknownClient);
+            self.form.customer_id = null;
+            self.form.client_name = null;
+            self.form.client_id = null;
+            customer_id = self.form.customer_id;
+            customer_name = newValue;
+          }
         } else {
           self.clients = [];
           self.clients.push(self.unknownClient);
@@ -696,7 +727,7 @@ export default {
       },
       deep: false
     },
-    "form.shipper_id": {
+    "form.shipper_name": {
       handler: function(newValue) {
         let self = this;
         let total = this.packages.length;
@@ -705,11 +736,17 @@ export default {
 
         if (newValue != undefined) {
           let shipper = _.find(self.shippers, function(c) {
-            return c.id === newValue;
+            return c.name === newValue;
           });
-          self.form.shipper_name = shipper.name;
-          shipper_id = shipper.id;
-          shipper_name = shipper.name;
+          if (shipper != undefined) {
+            self.form.shipper_id = shipper.id;
+            shipper_id = shipper.id;
+            shipper_name = shipper.name;
+          } else {
+            self.form.shipper_id = null;
+            shipper_id = null;
+            shipper_name = newValue;
+          }
         }
         for (let i = 0; i < total; i++) {
           self.packages[i].shipper_id = shipper_id;
@@ -718,6 +755,28 @@ export default {
       },
       deep: false
     },
+    // "form.shipper_id": {
+    //   handler: function(newValue) {
+    //     let self = this;
+    //     let total = this.packages.length;
+    //     let shipper_id = null;
+    //     let shipper_name = null;
+
+    //     if (newValue != undefined) {
+    //       let shipper = _.find(self.shippers, function(c) {
+    //         return c.id === newValue;
+    //       });
+    //       self.form.shipper_name = shipper.name;
+    //       shipper_id = shipper.id;
+    //       shipper_name = shipper.name;
+    //     }
+    //     for (let i = 0; i < total; i++) {
+    //       self.packages[i].shipper_id = shipper_id;
+    //       self.packages[i].shipper_name = shipper_name;
+    //     }
+    //   },
+    //   deep: false
+    // },
     "form.client_name": {
       handler: function(newName) {
         let self = this;
@@ -735,6 +794,11 @@ export default {
               self.form.client_id = client.id;
               client_id = client.id;
               client_name = client.name;
+            } else {
+              self.form.client_name = newName;
+              self.form.client_id = null;
+              client_id = null;
+              client_name = newName;
             }
           }
         } else {

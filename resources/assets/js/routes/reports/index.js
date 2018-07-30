@@ -2,7 +2,10 @@ const Bin = () => import("Pages/Reports/Bin.vue");
 const Client = () => import("Pages/Reports/Client.vue");
 const Customer = () => import("Pages/Reports/Customer.vue");
 const Damaged = () => import("Pages/Reports/Damaged.vue");
-const Unknown = () => import("Pages/Reports/Unknown.vue");
+const AllUnknownReport = () => import("Pages/Reports/AllUnknownReport.vue");
+const UnknownCustomer = () => import("Pages/Reports/UnknownCustomer.vue");
+const UnknownClient = () => import("Pages/Reports/UnknownClient.vue");
+const UnknownShipper = () => import("Pages/Reports/UnknownShipper.vue");
 const ViewDamaged = () => import("Pages/Reports/ViewDamaged.vue");
 const EditUnknown = () => import("Pages/Reports/EditUnknown.vue");
 const EditPackage = () => import("Pages/Reports/EditPackage.vue");
@@ -28,11 +31,29 @@ export default [
     meta: { auth: ["admin"] }
   },
   {
-    path: "/reports/unknown",
-    component: Unknown,
+    path: "/reports/all-unknown-report",
+    component: AllUnknownReport,
     name: "unknown-reports",
     meta: { auth: ["admin"] }
   },
+  {
+    path: "/reports/unknown-customer",
+    component: UnknownCustomer,
+    name: "unknown-customer",
+    meta: { auth: ["admin", "customer", "warehouse"] }
+  },
+  {
+    path: "/reports/unknown-client",
+    component: UnknownClient,
+    name: "unknown-client",
+    meta: { auth: ["admin", "customer", "warehouse"] }
+  },
+    {
+        path: "/reports/unknown-shipper",
+        component: UnknownShipper,
+        name: "unknown-shipper",
+        meta: { auth: ["admin", "customer", "warehouse"] }
+    },
   {
     path: "/reports/unknown/dsg/:id",
     component: EditUnknown,

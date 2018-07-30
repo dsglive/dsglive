@@ -13,7 +13,7 @@ class ReportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin']);
+        // $this->middleware(['role:admin'], ['except' => 'reportByClient']);
     }
 
     public function reportAllDamaged()
@@ -22,14 +22,18 @@ class ReportController extends Controller
         return PackageResource::collection($packages);
     }
 
+    public function reportAllRepaired()
+    {
+        $packages = Package::with('media')->repaired()->active()->get();
+        return PackageResource::collection($packages);
+    }
+
     /**
      * @param Request $request
      */
     public function reportAllUnknown(Request $request)
     {
-        $dsg = Package::where('customer_id', 1001)->OrWhere('client_id', 1)->active()
-                                               ->distinct()->pluck('dsg_id')->toArray();
-        $dsg = Dsg::whereIn('id', $dsg)->get();
+        $dsg = Dsg::orUnknownCustomer()->orUnknownClient()->orUnknownShipper()->get();
         return DsgResource::collection($dsg);
     }
 
@@ -59,6 +63,48 @@ class ReportController extends Controller
     {
         $packages = Package::where('customer_id', request()->input('customer_id'))->active()->get();
         return PackageResource::collection($packages);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function reportUnknownClient(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasRole('admin')) {
+            $dsg = Dsg::unknownClient()->get();
+        } else {
+            $dsg = Dsg::where('customer_id', $user->id)->unknownClient()->get();
+        }
+
+        return DsgResource::collection($dsg);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function reportUnknownCustomer(Request $request)
+    {
+        $dsg = Dsg::unknownCustomer()->get();
+
+        return DsgResource::collection($dsg);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function reportUnknownShipper(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasRole('admin')) {
+            $dsg = Dsg::unknownShipper()->get();
+        } else {
+            $dsg = Dsg::where('customer_id', $user->id)->unknownShipper()->get();
+        }
+
+        return DsgResource::collection($dsg);
     }
 
     /**

@@ -6,6 +6,27 @@
     ma-5
   >
     <v-flex 
+      v-if="!getMe.email"
+      xs12
+    >
+      <v-alert 
+        :value="true" 
+        color="warning" 
+        outline
+        icon="warning">
+        Please Update Your Account Email To Received Reports, Billings , and Updates. Go To
+        <v-btn 
+          color="blue"
+          dark
+          @click="$router.push({name:'settings'})">
+          Profile
+        </v-btn>
+        <br>
+        
+      </v-alert>
+    </v-flex>
+    
+    <v-flex 
       xs12 
       md4 
       text-xs-center>
@@ -13,12 +34,20 @@
         color="blue-grey white--text" 
         class="ma-1" 
         height="110px">
-        <v-card-text class="title pa-5">
+        <v-card-text 
+          class="title pa-5" 
+          style="cursor:pointer;"
+          @click="$router.push({name:'clients'})">
           <v-icon 
             large 
-            color="amber lighten-4">fa-users</v-icon> Clients: {{ stats.clients }}
+            style="cursor:pointer;"
+            color="amber lighten-4"
+          >
+            fa-users
+          </v-icon> 
+          Clients: {{ stats.clients }}
           <br>
-          <span class="caption">(Active Clients)</span>
+          <span class="caption">(Total Clients)</span>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -50,9 +79,9 @@
         <v-card-text class="title pa-5">
           <v-icon 
             large 
-            color="teal lighten-4">receipt</v-icon> Unpaid: {{ stats.balance }}
+            color="teal lighten-4">receipt</v-icon> Unpaid: ${{ stats.balance }}
           <br>
-          <span class="caption">(Balance)</span>
+          <span class="caption">(Total Balance)</span>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -81,12 +110,16 @@
         color="blue-grey white--text" 
         class="ma-1" 
         height="110px">
-        <v-card-text class="title pa-5">
+        <v-card-text 
+          class="title pa-5"
+          style="cursor:pointer;"
+          @click="$router.push({name:'unknown-client'})"
+        >
           <v-icon 
             large 
             color="blue lighten-5">fa-question-circle</v-icon> Unknown Clients: {{ stats.unknown }}
           <br>
-          <span class="caption">(Needs Identification)</span>
+          <span class="caption">(Needs Verification)</span>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -111,6 +144,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("auth");
+
 export default {
   data: () => ({
     stats: {
@@ -122,6 +158,11 @@ export default {
       balance: null
     }
   }),
+  computed: {
+    ...mapGetters({
+      getMe: "getMe"
+    })
+  },
   mounted() {
     this.getStats();
   },
@@ -130,6 +171,7 @@ export default {
       let self = this;
       axios.post(route("api.dashboard.customer.getStats")).then(response => {
         self.stats = response.data.data;
+        self.stats.balance = Math.ceil(self.stats.balance);
       });
     }
   }

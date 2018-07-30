@@ -3851,7 +3851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [{
         action: "collections_bookmark",
         title: "Inventories",
-        items: [{ title: "Unknown Report", href: "/reports/unknown", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
+        items: [{ title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle" }, { title: "Unknown Customer", href: "/reports/unknown-customer", action: "fa-question-circle" }, { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-question-circle" }, { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
       }]
     };
   },

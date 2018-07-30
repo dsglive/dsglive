@@ -442,12 +442,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1074,94 +1068,73 @@ var render = function() {
                           { staticClass: "title text-xs-center" },
                           [
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
+                              "v-btn",
+                              {
+                                class: {
+                                  "amber--text": props.expanded,
+                                  amber: props.expanded,
+                                  teal: !props.expanded,
+                                  "teal--text": !props.expanded
+                                },
+                                attrs: {
+                                  disabled: !_vm.$auth.check("customer"),
+                                  light: "",
+                                  flat: "",
+                                  icon: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    props.expanded = !props.expanded
+                                  }
+                                }
+                              },
                               [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    class: {
-                                      "amber--text": props.expanded,
-                                      amber: props.expanded,
-                                      teal: !props.expanded,
-                                      "teal--text": !props.expanded
-                                    },
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("customer"),
-                                      light: "",
-                                      flat: "",
-                                      icon: ""
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        props.expanded = !props.expanded
-                                      }
-                                    }
-                                  },
-                                  [
-                                    !props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-expand")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-compress")])
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
+                                !props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-expand")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-compress")])
+                                  : _vm._e()
                               ],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("customer"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "blue"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.editClient(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-pencil")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("customer"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "blue"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editClient(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-pencil")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("customer"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteClient(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("customer"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "error"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteClient(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
                           ],
@@ -4132,7 +4105,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [{
         action: "collections_bookmark",
         title: "Inventories",
-        items: [{ title: "Unknown Report", href: "/reports/unknown", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
+        items: [{ title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle" }, { title: "Unknown Customer", href: "/reports/unknown-customer", action: "fa-question-circle" }, { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-question-circle" }, { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
       }]
     };
   },

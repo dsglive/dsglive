@@ -28,7 +28,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'unknown-customer'})"
         >
           <v-icon 
             x-large
@@ -51,7 +52,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'unknown-client'})"
         >
           <v-icon 
             x-large
@@ -74,7 +76,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'unknown-shipper'})"
         >
           <v-icon 
             x-large
@@ -98,7 +101,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'dsg'})"
         >
           <v-icon 
             x-large
@@ -121,7 +125,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'dsg'})"
         >
           <v-icon 
             x-large
@@ -190,7 +195,8 @@
         height="150px">
         <v-card-text 
           class="title" 
-          style="margin-left:auto;margin-right:auto;width:150px;"
+          style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
+          @click="$router.push({name:'damaged-reports'})"
         >
           <v-icon 
             x-large

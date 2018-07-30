@@ -119,7 +119,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -131,6 +131,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -450,7 +456,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "unknown-customer" })
+                    }
                   }
                 },
                 [
@@ -496,7 +508,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "unknown-client" })
+                    }
                   }
                 },
                 [
@@ -540,7 +558,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "unknown-shipper" })
+                    }
                   }
                 },
                 [
@@ -587,7 +611,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "dsg" })
+                    }
                   }
                 },
                 [
@@ -631,7 +661,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "dsg" })
+                    }
                   }
                 },
                 [
@@ -763,7 +799,13 @@ var render = function() {
                   staticStyle: {
                     "margin-left": "auto",
                     "margin-right": "auto",
-                    width: "150px"
+                    width: "150px",
+                    cursor: "pointer"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "damaged-reports" })
+                    }
                   }
                 },
                 [
@@ -939,7 +981,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -951,6 +993,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(154);
+
 //
 //
 //
@@ -1063,6 +1109,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* createNamespacedHelpers */])("auth"),
+    mapGetters = _createNamespacedHelp.mapGetters;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1077,6 +1161,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     };
   },
+  computed: __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default()({}, mapGetters({
+    getMe: "getMe"
+  })),
   mounted: function mounted() {
     this.getStats();
   },
@@ -1086,6 +1173,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var self = this;
       axios.post(route("api.dashboard.customer.getStats")).then(function (response) {
         self.stats = response.data.data;
+        self.stats.balance = Math.ceil(self.stats.balance);
       });
     }
   }
@@ -1104,6 +1192,47 @@ var render = function() {
     "v-layout",
     { attrs: { row: "", wrap: "", "pa-5": "", "ma-5": "" } },
     [
+      !_vm.getMe.email
+        ? _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-alert",
+                {
+                  attrs: {
+                    value: true,
+                    color: "warning",
+                    outline: "",
+                    icon: "warning"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n      Please Update Your Account Email To Received Reports, Billings , and Updates. Go To\n      "
+                  ),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue", dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.$router.push({ name: "settings" })
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Profile\n      ")]
+                  ),
+                  _vm._v(" "),
+                  _c("br")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "v-flex",
         { attrs: { xs12: "", md4: "", "text-xs-center": "" } },
@@ -1117,20 +1246,33 @@ var render = function() {
             [
               _c(
                 "v-card-text",
-                { staticClass: "title pa-5" },
+                {
+                  staticClass: "title pa-5",
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "clients" })
+                    }
+                  }
+                },
                 [
                   _c(
                     "v-icon",
-                    { attrs: { large: "", color: "amber lighten-4" } },
-                    [_vm._v("fa-users")]
+                    {
+                      staticStyle: { cursor: "pointer" },
+                      attrs: { large: "", color: "amber lighten-4" }
+                    },
+                    [_vm._v("\n          fa-users\n        ")]
                   ),
                   _vm._v(
-                    " Clients: " + _vm._s(_vm.stats.clients) + "\n        "
+                    " \n        Clients: " +
+                      _vm._s(_vm.stats.clients) +
+                      "\n        "
                   ),
                   _c("br"),
                   _vm._v(" "),
                   _c("span", { staticClass: "caption" }, [
-                    _vm._v("(Active Clients)")
+                    _vm._v("(Total Clients)")
                   ])
                 ],
                 1
@@ -1203,11 +1345,13 @@ var render = function() {
                     [_vm._v("receipt")]
                   ),
                   _vm._v(
-                    " Unpaid: " + _vm._s(_vm.stats.balance) + "\n        "
+                    " Unpaid: $" + _vm._s(_vm.stats.balance) + "\n        "
                   ),
                   _c("br"),
                   _vm._v(" "),
-                  _c("span", { staticClass: "caption" }, [_vm._v("(Balance)")])
+                  _c("span", { staticClass: "caption" }, [
+                    _vm._v("(Total Balance)")
+                  ])
                 ],
                 1
               )
@@ -1271,7 +1415,15 @@ var render = function() {
             [
               _c(
                 "v-card-text",
-                { staticClass: "title pa-5" },
+                {
+                  staticClass: "title pa-5",
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push({ name: "unknown-client" })
+                    }
+                  }
+                },
                 [
                   _c(
                     "v-icon",
@@ -1286,7 +1438,7 @@ var render = function() {
                   _c("br"),
                   _vm._v(" "),
                   _c("span", { staticClass: "caption" }, [
-                    _vm._v("(Needs Identification)")
+                    _vm._v("(Needs Verification)")
                   ])
                 ],
                 1
@@ -2885,7 +3037,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [{
         action: "collections_bookmark",
         title: "Inventories",
-        items: [{ title: "Unknown Report", href: "/reports/unknown", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
+        items: [{ title: "All Unknown Report", href: "/reports/all-unknown-report", action: "fa-question-circle" }, { title: "Unknown Customer", href: "/reports/unknown-customer", action: "fa-question-circle" }, { title: "Unknown Client", href: "/reports/unknown-client", action: "fa-question-circle" }, { title: "Unknown Shipper", href: "/reports/unknown-shipper", action: "fa-question-circle" }, { title: "Damaged Report", href: "/reports/damaged", action: "broken_image" }, { title: "Bin Report", href: "/reports/bin", action: "apps" }, { title: "Customer Report", href: "/reports/customer", action: "local_library" }, { title: "Client Report", href: "/reports/clients", action: "perm_contact_calendar" }]
       }]
     };
   },

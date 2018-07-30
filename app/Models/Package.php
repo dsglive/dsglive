@@ -172,6 +172,11 @@ class Package extends Model implements HasMedia
         return $query->where('client_id', '!=', 1);
     }
 
+    public function scopeUnknownClient($query)
+    {
+        return $query->where('client_id', '!=', 1)->orWhere('client_id', null);
+    }
+
     /**
      * @param  $query
      * @return mixed
@@ -218,14 +223,6 @@ class Package extends Model implements HasMedia
         return $query->where('delivered', 0);
     }
 
-    /**
-     * @param  $query
-     * @return mixed
-     */
-    public function scopeUnknownClient($query)
-    {
-        return $query->where('client_id', 1);
-    }
 
     /**
      * @param  $query
@@ -233,7 +230,7 @@ class Package extends Model implements HasMedia
      */
     public function scopeUnknownCustomer($query)
     {
-        return $query->where('customer_id', 1001);
+        return $query->where('customer_id', 1001)->orWhere('customer_id', null);
     }
 
     /**
@@ -242,7 +239,7 @@ class Package extends Model implements HasMedia
      */
     public function scopeUnknownShipper($query)
     {
-        return $query->where('shipper_id', 1);
+        return $query->where('shipper_id', 1)->orWhere('shipper_id', null);
     }
 
     /**

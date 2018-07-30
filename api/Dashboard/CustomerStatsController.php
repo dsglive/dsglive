@@ -5,6 +5,7 @@ namespace Api\Dashboard;
 use Api\Controller;
 use App\Models\Dsg;
 use App\Models\User;
+use App\Models\Invoice;
 use App\Models\Package;
 use Illuminate\Http\Request;
 
@@ -21,13 +22,14 @@ class CustomerStatsController extends Controller
     public function getStats(Request $request)
     {
         $user                = $request->user();
-        $data['clients']     = $user->clients()->active()->count();
+        $data['clients']     = $user->clients()->count();
         $data['receiving']   = Dsg::where('customer_id', $user->id)->active()->count();
         $data['damaged']     = Package::where('customer_id', $user->id)->damaged()->count();
-        $data['unknown']     = Package::where('customer_id', $user->id)->unknown()->count();
+        $data['unknown']     = Dsg::where('customer_id', $user->id)->unknownClient()->count();
         $data['undelivered'] = Package::where('customer_id', $user->id)->undelivered()->active()->count();
-        $data['balance']     = 0;
-        
+
+        $data['balance'] = Invoice::where('customer_id', $user->id)->where('overdue', false)->sum('total');
+
         return response()->json(['data' => $data]);
     }
 }

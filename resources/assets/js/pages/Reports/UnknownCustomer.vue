@@ -10,7 +10,7 @@
             xs12
             text-xs-center
           >
-            <h2 class="display-1">Unknown Report</h2>
+            <h2 class="display-1">Unknown Customer Report</h2>
             <v-divider/>
           </v-flex>
         </v-layout>
@@ -283,8 +283,9 @@ export default {
       let self = this;
       self.dsgForm.busy = true;
       try {
-        const payload = await axios.post(route("api.report.reportAllUnknown"), self.dsgForm);
+        const payload = await axios.post(route("api.report.reportUnknownCustomer"), self.dsgForm);
         self.items = payload.data.data;
+        console.log(self.items)
         self.dsgForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {

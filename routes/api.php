@@ -5,6 +5,15 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Reports
     Route::post('/reports/reportAllUnknown', 'Report\ReportController@reportAllUnknown')
         ->name('api.report.reportAllUnknown');
+    Route::post('/reports/UnknownCustomerReport', 'Report\ReportController@reportUnknownCustomer')
+        ->name('api.report.reportUnknownCustomer');
+
+    Route::post('/reports/UnknownClientReport', 'Report\ReportController@reportUnknownClient')
+        ->name('api.report.reportUnknownClient');
+
+    Route::post('/reports/UnknownShipperReport', 'Report\ReportController@reportUnknownShipper')
+        ->name('api.report.reportUnknownShipper');
+
     Route::post('/reports/reportByBin', 'Report\ReportController@reportByBin')
         ->name('api.report.reportByBin');
     Route::post('/reports/reportByCustomer', 'Report\ReportController@reportByCustomer')
@@ -13,6 +22,9 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.report.reportByClient');
     Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')
         ->name('api.report.reportAllDamaged');
+        Route::post('/reports/reportAllRepaired', 'Report\ReportController@reportAllRepaired')
+    ->name('api.report.reportAllRepaired');
+
     Route::post('/reports/viewPackage/{package}', 'Report\ReportController@viewPackage')
         ->name('api.report.viewPackage');
 
