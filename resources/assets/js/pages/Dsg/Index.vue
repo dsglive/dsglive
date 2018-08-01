@@ -68,7 +68,9 @@
             <v-flex 
               xs12 
               d-flex>
-              <v-flex class="xs6 white">
+              <!-- xs6 -->
+              <v-flex 
+                class="xs12 white">
                 <v-btn 
                   v-if="selected.length > 0"
                   :disabled="!$auth.check('admin')" 
@@ -86,6 +88,7 @@
                   Move Back To Warehouse
                 </v-btn>
               </v-flex>
+              <!--
               <v-flex class="xs6 white">
                 <v-btn 
                   v-if="selected.length > 0"
@@ -105,6 +108,7 @@
                   </v-icon>
                 </v-btn>
               </v-flex>
+              -->
             </v-flex>
           </v-layout>
         </v-flex>

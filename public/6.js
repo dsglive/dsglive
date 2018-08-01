@@ -692,6 +692,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1193,7 +1197,7 @@ var render = function() {
                         [
                           _c(
                             "v-flex",
-                            { staticClass: "xs6 white" },
+                            { staticClass: "xs12 white" },
                             [
                               _vm.selected.length > 0
                                 ? _c(
@@ -1222,50 +1226,6 @@ var render = function() {
                                       ),
                                       _vm._v(
                                         "\n                Move Back To Warehouse\n              "
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { staticClass: "xs6 white" },
-                            [
-                              _vm.selected.length > 0
-                                ? _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
-                                        block: "",
-                                        flat: "",
-                                        color: "secondary",
-                                        dark: ""
-                                      },
-                                      on: { click: _vm.massArchived }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                Send To Archives\n                "
-                                      ),
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            right: "",
-                                            large: "",
-                                            color: "secondary"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  archive\n                "
-                                          )
-                                        ]
                                       )
                                     ],
                                     1
