@@ -655,43 +655,60 @@ export default {
       handler: function(newValue) {
         let self = this;
         let total = this.packages.length;
-        let customer_id = null;
-        let customer_name = null;
 
         if (newValue) {
           let customer = _.find(self.customers, function(c) {
             return c.name === newValue;
           });
-          if (customer != undefined) {
+          if (customer != undefined || customer != null) {
             self.clients = customer.clients;
             _.remove(self.clients, {
               id: 1
             });
             self.clients.unshift(self.unknownClient);
             self.form.customer_id = customer.id;
-            self.form.client_name = null;
-            self.form.client_id = null;
-            customer_id = customer.id;
-            customer_name = customer.name;
           } else {
             self.clients.push(self.unknownClient);
             self.form.customer_id = null;
-            self.form.client_name = null;
-            self.form.client_id = null;
-            customer_id = self.form.customer_id;
-            customer_name = newValue;
           }
         } else {
           self.clients = [];
           self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
         }
         for (let i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
+          self.packages[i].customer_id = self.form.customer_id;
+          self.packages[i].customer_name = self.form.customer_name;
+        }
+      },
+      deep: false
+    },
+    "form.client_name": {
+      handler: function(newName) {
+        let self = this;
+        let total = this.packages.length;
+
+        if (newName != null || newName != undefined) {
+          if (self.clients.length > 0) {
+            let client = _.find(self.clients, function(c) {
+              return c.name == newName;
+            });
+            if (client != undefined) {
+              self.form.client_name = client.name;
+              self.form.client_id = client.id;
+            } else {
+              self.form.client_name = newName;
+              self.form.client_id = null;
+            }
+          }
+        } else {
+          self.form.client_id = null;
+          self.form.client_name = null;
+        }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].client_id = self.form.client_id;
+          self.packages[i].client_name = self.form.client_name;
         }
       },
       deep: false
@@ -720,41 +737,6 @@ export default {
         for (let i = 0; i < total; i++) {
           self.packages[i].shipper_id = shipper_id;
           self.packages[i].shipper_name = shipper_name;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function(newName) {
-        let self = this;
-        let total = this.packages.length;
-        let client_id = null;
-        let client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            let client = _.find(self.clients, function(c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-            } else {
-              self.form.client_name = newName;
-              self.form.client_id = null;
-              client_id = null;
-              client_name = newName;
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
         }
       },
       deep: false
@@ -857,7 +839,6 @@ export default {
     this.fetchDSG();
     Bus.$on("customer-created", data => {
       self.customers.push(data.user);
-      console.log(self.customers);
       self.form.customer_id = data.user.id;
       self.form.customer_name = data.user.name;
     });
@@ -1072,8 +1053,6 @@ export default {
         let dsg = response.data.data;
         self.form.dsg_id = dsg.id;
         self.form.active = dsg.active;
-        self.form.client_id = dsg.client_id;
-        self.form.client_name = dsg.client_name;
         self.form.customer_id = dsg.customer_id;
         self.form.customer_name = dsg.customer_name;
         self.form.shipper_id = dsg.shipper_id;
@@ -1089,19 +1068,13 @@ export default {
         self.form.total_pieces = dsg.total_pieces;
         self.form.total_cube = dsg.total_cube;
         self.form.receiving_amount = dsg.receiving_amount;
-        self.client_id = dsg.client_id;
-        self.client_name = dsg.client_name;
+        self.form.client_id = dsg.client_id;
+        self.form.client_name = dsg.client_name;
         self.po_no = dsg.packages[0]["po_no"];
         self.date_received = dsg.packages[0]["date_received"];
         self.date_processed = dsg.packages[0]["date_processed"];
         self.packages = dsg.packages;
-        self.client_name = dsg.client_name;
-        self.client_id = dsg.client_id;
       });
-      setTimeout(() => {
-        self.form.client_name = self.client_name;
-        self.form.client_id = self.client_id;
-      }, 1000);
     }
   }
 };
