@@ -64,6 +64,26 @@
                 </v-icon>
               </v-btn>
             </v-flex>
+            <v-flex 
+              xs12 
+            >
+              <v-btn 
+                v-if="selected.length > 0"
+                :disabled="!$auth.check('admin')" 
+                block 
+                color="blue darken-4" 
+                dark
+                flat
+                @click="massActivate">
+                <v-icon
+                  large
+                  color="blue darken-4" 
+                >
+                  forward
+                </v-icon>
+                Move To Receiving
+              </v-btn>
+            </v-flex>
           </v-layout>
           
         </v-flex>
@@ -85,6 +105,15 @@
           slot-scope="props"
         >
           <tr>
+            <th>
+              <v-checkbox
+                :input-value="props.all"
+                :indeterminate="props.indeterminate"
+                primary
+                hide-details
+                @click.native="toggleAll"
+              />
+            </th>
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -109,9 +138,16 @@
           slot-scope="props"
         >
           <tr>
+            <td class="title text-xs-left">
+              <v-checkbox
+                :active="props.selected"
+                :input-value="props.selected"
+                @click="props.selected = !props.selected"
+              />
+            </td>
             <td 
               class="title text-xs-center" 
-              style="width:25%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;">
+              style="width:15%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;">
               <v-btn
                 flat 
                 icon 
@@ -245,7 +281,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -319,7 +355,6 @@ export default {
       axios
         .post(route("api.dsg.toggleStatus"), self.toggleForm)
         .then(response => {
-          console.log(response.data);
           self.$delete(self.items, index);
         })
         .catch(errors => {
@@ -388,6 +423,46 @@ export default {
           });
         });
     },
+    async massActivate() {
+      let self = this;
+      let selected = _.map(self.selected, "id");
+      let toggleStatusForm = new Form({
+        selected
+      });
+
+      try {
+        const payload = await axios.post(
+          route("api.dsg.massActivate"),
+          toggleStatusForm
+        );
+        let updated = payload.data.updated;
+        _.map(updated, id => {
+          let index = _.findIndex(self.items, { id });
+          self.$delete(self.items, index);
+        });
+        let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        toggleModal({
+          title: "Success",
+          html: `<p class="title">${payload.data.message}</p>`,
+          type: "success",
+          confirmButtonText: "Back"
+        });
+      } catch ({ errors, message }) {
+        if (errors) {
+          console.log(errors);
+        }
+        if (message) {
+          console.log(message);
+        }
+      }
+    },
+    toggleAll() {
+      if (this.selected.length) this.selected = [];
+      else this.selected = this.items.slice();
+    },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
@@ -401,9 +476,9 @@ export default {
 </script>
 
 <style scoped>
-.compress--icon{
-    margin-left: -5px;
-    margin-right: -5px;
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
 }
 </style>
 

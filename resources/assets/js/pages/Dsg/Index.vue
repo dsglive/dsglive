@@ -73,17 +73,17 @@
                   v-if="selected.length > 0"
                   :disabled="!$auth.check('admin')" 
                   block 
-                  color="blue darken-4" 
-                  dark
                   flat
-                  @click="massActivate">
+                  color="warning" 
+                  dark
+                  @click="massDeactivate">
                   <v-icon
                     large
-                    color="blue darken-4" 
+                    color="warning" 
                   >
-                    link
+                    reply
                   </v-icon>
-                  Mark As Received
+                  Move Back To Warehouse
                 </v-btn>
               </v-flex>
               <v-flex class="xs6 white">
@@ -92,21 +92,21 @@
                   :disabled="!$auth.check('admin')" 
                   block 
                   flat
-                  color="error" 
+                  color="secondary" 
                   dark
-                  @click="massDeactivate">
+                  @click="massArchived">
+                  Send To Archives
                   <v-icon
+                    right
                     large
-                    color="error" 
+                    color="secondary" 
                   >
-                    link_off
+                    archive
                   </v-icon>
-                  Mark As Warehouse
                 </v-btn>
               </v-flex>
             </v-flex>
           </v-layout>
-          
         </v-flex>
       </v-layout>
       <!-- Dsg Data Table -->
@@ -168,8 +168,7 @@
             </td>
             <td 
               class="title text-xs-center" 
-              style="width:25%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
-            >
+              style="width:15%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;">
               <v-btn 
                 v-if="$auth.check('admin')"
                 flat 
@@ -516,40 +515,6 @@ export default {
         self.dsgForm.busy = false;
       }
     },
-    deleteDsg(dsg) {
-      let self = this;
-      self.deleteDsgForm.dsg_id = dsg.id;
-      let index = _.findIndex(self.items, { id: dsg.id });
-      axios
-        .post(route("api.dsg.delete"), self.deleteDsgForm)
-        .then(response => {
-          if (response.data.status === true) {
-            self.$delete(self.items, index);
-            let toggleModal = swal.mixin({
-              confirmButtonClass: "v-btn blue-grey  subheading white--text",
-              buttonsStyling: false
-            });
-            toggleModal({
-              title: "Success",
-              html: `<p class="title">Dsg Deleted!</p>`,
-              type: "success",
-              confirmButtonText: "Back"
-            });
-          }
-        })
-        .catch(errors => {
-          const deleteModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          deleteModal({
-            title: "Oops! Forbidden Action!",
-            html: '<p class="title">' + errors.response.data.message + "</p>",
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        });
-    },
     async massDeactivate() {
       let self = this;
       let selected = _.map(self.selected, "id");
@@ -563,10 +528,9 @@ export default {
           toggleStatusForm
         );
         let updated = payload.data.updated;
-        console.log(updated);
         _.map(updated, id => {
           let index = _.findIndex(self.items, { id });
-          self.items[index].active = false;
+          self.$delete(self.items,index)
         });
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -587,7 +551,7 @@ export default {
         }
       }
     },
-    async massActivate() {
+    async massArchived() {
       let self = this;
       let selected = _.map(self.selected, "id");
       let toggleStatusForm = new Form({
@@ -596,14 +560,13 @@ export default {
 
       try {
         const payload = await axios.post(
-          route("api.dsg.massActivate"),
+          route("api.dsg.massArchived"),
           toggleStatusForm
         );
         let updated = payload.data.updated;
-        console.log(updated);
         _.map(updated, id => {
           let index = _.findIndex(self.items, { id });
-          self.items[index].active = true;
+          self.$delete(self.items,index)
         });
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -624,6 +587,7 @@ export default {
         }
       }
     },
+    
     toggleAll() {
       if (this.selected.length) this.selected = [];
       else this.selected = this.items.slice();

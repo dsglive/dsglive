@@ -630,27 +630,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -872,37 +851,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       return fetchDsg;
     }(),
-    deleteDsg: function deleteDsg(dsg) {
-      var self = this;
-      self.deleteDsgForm.dsg_id = dsg.id;
-      var index = _.findIndex(self.items, { id: dsg.id });
-      axios.post(route("api.dsg.delete"), self.deleteDsgForm).then(function (response) {
-        if (response.data.status === true) {
-          self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success",
-            html: "<p class=\"title\">Dsg Deleted!</p>",
-            type: "success",
-            confirmButtonText: "Back"
-          });
-        }
-      }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-      });
-    },
     massDeactivate: function () {
       var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
         var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
@@ -923,10 +871,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 payload = _context2.sent;
                 updated = payload.data.updated;
 
-                console.log(updated);
                 _.map(updated, function (id) {
                   var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = false;
+                  self.$delete(self.items, index);
                 });
                 toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
                   confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -939,11 +886,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                   type: "success",
                   confirmButtonText: "Back"
                 });
-                _context2.next = 20;
+                _context2.next = 19;
                 break;
 
-              case 14:
-                _context2.prev = 14;
+              case 13:
+                _context2.prev = 13;
                 _context2.t0 = _context2["catch"](3);
                 errors = _context2.t0.errors;
                 message = _context2.t0.message;
@@ -955,12 +902,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                   console.log(message);
                 }
 
-              case 20:
+              case 19:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[3, 14]]);
+        }, _callee2, this, [[3, 13]]);
       }));
 
       function massDeactivate() {
@@ -968,72 +915,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       return massDeactivate;
-    }(),
-    massActivate: function () {
-      var _ref5 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-                  selected: selected
-                });
-                _context3.prev = 3;
-                _context3.next = 6;
-                return axios.post(route("api.dsg.massActivate"), toggleStatusForm);
-
-              case 6:
-                payload = _context3.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = true;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context3.next = 20;
-                break;
-
-              case 14:
-                _context3.prev = 14;
-                _context3.t0 = _context3["catch"](3);
-                errors = _context3.t0.errors;
-                message = _context3.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[3, 14]]);
-      }));
-
-      function massActivate() {
-        return _ref5.apply(this, arguments);
-      }
-
-      return massActivate;
     }(),
     toggleAll: function toggleAll() {
       if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
@@ -1223,90 +1104,38 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-flex",
-                        { attrs: { xs12: "", "d-flex": "" } },
+                        { attrs: { xs12: "" } },
                         [
-                          _c(
-                            "v-flex",
-                            { staticClass: "xs6 white" },
-                            [
-                              _vm.selected.length > 0
-                                ? _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
-                                        block: "",
-                                        color: "blue darken-4",
-                                        dark: "",
-                                        flat: ""
-                                      },
-                                      on: { click: _vm.massActivate }
-                                    },
+                          _vm.selected.length > 0
+                            ? _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    disabled: !_vm.$auth.check("admin"),
+                                    block: "",
+                                    flat: "",
+                                    color: "warning",
+                                    dark: ""
+                                  },
+                                  on: { click: _vm.massDeactivate }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { large: "", color: "warning" } },
                                     [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            large: "",
-                                            color: "blue darken-4"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  link\n                "
-                                          )
-                                        ]
-                                      ),
                                       _vm._v(
-                                        "\n                Mark As Received\n              "
+                                        "\n                reply\n              "
                                       )
-                                    ],
-                                    1
+                                    ]
+                                  ),
+                                  _vm._v(
+                                    "\n              Move Back To Warehouse\n            "
                                   )
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { staticClass: "xs6 white" },
-                            [
-                              _vm.selected.length > 0
-                                ? _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
-                                        block: "",
-                                        flat: "",
-                                        color: "error",
-                                        dark: ""
-                                      },
-                                      on: { click: _vm.massDeactivate }
-                                    },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: { large: "", color: "error" }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  link_off\n                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                Mark As Warehouse\n              "
-                                      )
-                                    ],
-                                    1
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          )
+                                ],
+                                1
+                              )
+                            : _vm._e()
                         ],
                         1
                       )

@@ -507,8 +507,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -527,12 +525,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "Actions", value: "actions", align: "center", sortable: false },
+      //   { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "DSG#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "center", sortable: false }],
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
+        text: "Amount($)",
+        value: "receiving_amount",
+        align: "left",
+        sortable: true
+      }],
       items: [],
       selected: [],
       pagination: {
@@ -830,7 +835,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1116:
+/***/ 1196:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1197);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(956)("94268f94", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4966295c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ArchivedDsg.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4966295c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ArchivedDsg.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1197:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.compress--icon[data-v-4966295c]{\n    margin-left: -5px;\n    margin-right: -5px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1198:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -896,9 +943,7 @@ var render = function() {
                 items: _vm.items,
                 search: _vm.search,
                 pagination: _vm.pagination,
-                "select-all": "",
-                "item-key": "id",
-                expand: ""
+                "item-key": "id"
               },
               on: {
                 "update:pagination": function($event) {
@@ -912,70 +957,46 @@ var render = function() {
                     return [
                       _c(
                         "tr",
-                        [
-                          _c(
+                        _vm._l(props.headers, function(header) {
+                          return _c(
                             "th",
-                            [
-                              _c("v-checkbox", {
-                                attrs: {
-                                  "input-value": props.all,
-                                  indeterminate: props.indeterminate,
-                                  primary: "",
-                                  "hide-details": ""
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
                                 },
-                                nativeOn: {
-                                  click: function($event) {
-                                    return _vm.toggleAll($event)
-                                  }
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(props.headers, function(header) {
-                            return _c(
-                              "th",
-                              {
-                                key: header.text,
-                                class: [
-                                  "column sortable",
-                                  _vm.pagination.descending ? "desc" : "asc",
-                                  header.value === _vm.pagination.sortBy
-                                    ? "name"
-                                    : "",
-                                  {
-                                    "text-xs-left": header.align === "left",
-                                    "text-xs-right": header.align === "right",
-                                    "text-xs-center": header.align === "center"
-                                  },
-                                  _vm.$vuetify.breakpoint.width >= 600 &&
-                                    "title"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
                                 ],
-                                on: {
-                                  click: function($event) {
-                                    _vm.changeSort(header.value)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  [
-                                    _c("v-icon", [_vm._v("arrow_upward")]),
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(header.text) +
-                                        "\n            "
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                1
+                              )
+                            ]
+                          )
+                        })
                       )
                     ]
                   }
@@ -987,19 +1008,79 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left" },
+                          {
+                            staticClass: "title text-xs-center",
+                            staticStyle: {
+                              width: "10%",
+                              "margin-left": "0px",
+                              "margin-right": "0px",
+                              "padding-left": "0px",
+                              "padding-right": "0px"
+                            }
+                          },
                           [
-                            _c("v-checkbox", {
-                              attrs: {
-                                active: props.selected,
-                                "input-value": props.selected
-                              },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
-                                }
-                              }
-                            })
+                            _vm.$auth.check(["warehouse", "admin"])
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "indigo"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.viewArchived(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("search")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "orange"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.restoreDsg(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("restore")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.openDialog(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
+                                )
+                              : _vm._e()
                           ],
                           1
                         ),
@@ -1078,70 +1159,43 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-center" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
-                            _vm.$auth.check(["warehouse", "admin"])
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "indigo"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewArchived(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("search")])],
-                                  1
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total_pieces) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total_cube) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.$auth.check("admin")
+                          ? _c(
+                              "td",
+                              {
+                                staticClass: "title text-xs-center accent--text"
+                              },
+                              [
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(props.item.receiving_amount) +
+                                    "\n          "
                                 )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.$auth.check("admin")
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "orange"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.restoreDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("restore")])],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.$auth.check("admin")
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.openDialog(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              : _vm._e()
-                          ],
-                          1
-                        )
+                              ]
+                            )
+                          : _vm._e()
                       ])
                     ]
                   }
@@ -1242,17 +1296,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1196)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = __webpack_require__(1115)
 /* template */
-var __vue_template__ = __webpack_require__(1116)
+var __vue_template__ = __webpack_require__(1198)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-4966295c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(

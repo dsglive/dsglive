@@ -1,14 +1,14 @@
 webpackJsonp([44],{
 
-/***/ 1150:
+/***/ 1161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(960);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(961);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(958);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(960);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
@@ -197,6 +197,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
       /* Always Declare Your Form Object */
@@ -287,13 +293,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    this.getInitialData();
-    this.form.invoice_date = moment().format("YYYY-MM-DD");
-    this.clients.push(this.unknownClient);
+    this.fetchCustomersClient();
+    this.fetchMisc();
   },
 
   methods: {
-    getInitialData: function getInitialData() {
+    fetchCustomersClient: function fetchCustomersClient() {
       var _this = this;
 
       axios.get(route("api.misc.getCustomers")).then(function (response) {
@@ -301,12 +306,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.customers = response.data.data;
       });
     },
+    fetchMisc: function fetchMisc() {
+      var _this2 = this;
+
+      var self = this;
+      axios.get(route("api.misc.edit", { misc: self.id })).then(function (response) {
+        console.log(response.data);
+        _this2.form.client_id = response.data.data.client_id;
+        _this2.form.customer_id = response.data.data.customer_id;
+        _this2.form.customer_name = response.data.data.customer_name;
+        _this2.form.invoice_date = response.data.data.invoice_date;
+        _this2.form.amount = response.data.data.amount;
+        _this2.form.notes = response.data.data.notes;
+        setTimeout(function () {
+          _this2.form.client_name = response.data.data.client_name;
+        }, 1000);
+      });
+    },
     submit: function submit() {
       var self = this;
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.createMisc();
+          self.updateMisc();
         } else {
           var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -321,10 +343,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    createMisc: function createMisc() {
+    updateMisc: function updateMisc() {
       var self = this;
       self.form.busy = true;
-      self.form.post(route("api.misc.create"), self.form).then(function (response) {
+      self.form.post(route("api.misc.update", { misc: self.id }), self.form).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
@@ -333,7 +355,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Miscellaneous Has Been Created!</p>",
+          html: "<p class=\"title\">Miscellaneous Has Been updated!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
@@ -366,7 +388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1151:
+/***/ 1162:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -404,7 +426,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Create New Miscellaneous")]
+                [_vm._v("Edit Miscellaneous ID# " + _vm._s(_vm.id))]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -724,21 +746,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4886b404", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6dfa76e8", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 939:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1150)
+var __vue_script__ = __webpack_require__(1161)
 /* template */
-var __vue_template__ = __webpack_require__(1151)
+var __vue_template__ = __webpack_require__(1162)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -755,7 +777,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Misc/CreateMisc.vue"
+Component.options.__file = "resources/assets/js/pages/Misc/EditMisc.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -764,9 +786,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4886b404", Component.options)
+    hotAPI.createRecord("data-v-6dfa76e8", Component.options)
   } else {
-    hotAPI.reload("data-v-4886b404", Component.options)
+    hotAPI.reload("data-v-6dfa76e8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -778,7 +800,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 956:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -797,7 +819,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(957)
+var listToStyles = __webpack_require__(958)
 
 /*
 type StyleObject = {
@@ -1007,7 +1029,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 958:
 /***/ (function(module, exports) {
 
 /**
@@ -1041,7 +1063,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 958:
+/***/ 959:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1065,7 +1087,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 959:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -2049,19 +2071,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 960:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(961)
+  __webpack_require__(962)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(963)
+var __vue_template__ = __webpack_require__(964)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2101,17 +2123,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 961:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(962);
+var content = __webpack_require__(963);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("d26755d4", content, false, {});
+var update = __webpack_require__(957)("d26755d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -2128,7 +2150,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 962:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -2143,7 +2165,7 @@ exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""])
 
 /***/ }),
 
-/***/ 963:
+/***/ 964:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

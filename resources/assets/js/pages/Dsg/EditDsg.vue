@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Update DSG# {{ id }}</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Update Received DSG# {{ id }}</v-toolbar-title>
         <v-spacer/>
         <v-toolbar-items>
           <v-btn
@@ -42,18 +42,73 @@
           xs12
           lg4
         >
-          <v-autocomplete
+          <v-subheader
+            v-if="$auth.check(['admin'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleCustomerModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_customer"
+              flat 
+              icon 
+              color="blue"
+              @click="search_customer = !search_customer"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_customer = !search_customer"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
             v-validate="'required'"
-            :items="customers"
-            v-model="form.customer_id"
+            v-if="!search_customer"
+            v-model="form.customer_name"
             :error-messages="errorMessages('customer')"
             :class="{ 'error--text': hasErrors('customer') }"
-            item-text="name"
-            item-value="id"
+            :error="form.customer_id === null || form.customer_id === 1001"
+            :hint="customerHint"
             required
-            label="Choose Customer"
-            light
+            label="Customer Name"
+            prepend-icon="supervised_user_circle"
+            data-vv-name="customer"
+            persistent-hint
+          />
+          <v-combobox
+            v-validate="'required'"
+            v-else
+            v-model="form.customer_name"
+            :items="customers"
+            :error-messages="errorMessages('customer')"
+            :class="{ 'error--text': hasErrors('customer') }"
+            :error="form.customer_id === null || form.customer_id === 1001"
+            item-text="name"
+            item-value="name"
+            style="margin-top:5px;"
             chips
+            light
+            dense
+            required
+            label="Choose Customer or Type Name"
             prepend-icon="supervised_user_circle"
             data-vv-name="customer"
           />
@@ -62,15 +117,68 @@
           xs12
           lg4
         >
-
-          <v-autocomplete
+          <v-subheader
+            v-if="$auth.check(['admin'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleClientModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_client"
+              flat 
+              icon 
+              color="blue"
+              @click="search_client = !search_client"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_client = !search_client"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
             v-validate="'required'"
+            v-if="!search_client"
+            v-model="form.client_name"
+            :error-messages="errorMessages('client')"
+            :class="{ 'error--text': hasErrors('client') }"
+            :error="form.client_id === null || form.client_id === 1"
+            :hint="clientHint"
+            required
+            label="Client Name"
+            prepend-icon="fa-users"
+            data-vv-name="client"
+            persistent-hint
+          />
+          <v-combobox
+            v-validate="'required'"
+            v-else
             v-model="form.client_name"
             :items="clients"
             :error-messages="errorMessages('client')"
             :class="{ 'error--text': hasErrors('client') }"
+            :error="form.client_id === null || form.client_id === 1"
             item-text="name"
             item-value="name"
+            style="margin-top:5px;"
             chips
             light
             dense
@@ -85,18 +193,73 @@
           xs12
           lg4
         >
-          <v-autocomplete
+          <v-subheader
+            v-if="$auth.check(['admin'])"
+          >
+            <v-spacer/>
+            <v-btn 
+              flat 
+              icon 
+              color="blue"
+              @click="toggleShipperModal"
+            >
+              <v-icon>
+                fa-plus-square
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-if="!search_shipper"
+              flat 
+              icon 
+              color="blue"
+              @click="search_shipper = !search_shipper"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+            <v-btn 
+              v-else
+              flat 
+              icon
+              color="error"
+              @click="search_shipper = !search_shipper"
+            >
+              <v-icon>
+                keyboard_backspace
+              </v-icon>
+            </v-btn>
+          </v-subheader>
+          <v-text-field
             v-validate="'required'"
-            :items="shippers"
-            v-model="form.shipper_id"
+            v-if="!search_shipper"
+            v-model="form.shipper_name"
             :error-messages="errorMessages('shipper')"
             :class="{ 'error--text': hasErrors('shipper') }"
-            item-text="name"
-            item-value="id"
+            :error="form.shipper_id === null || form.shipper_id === 1"
+            :hint="shipperHint"
             required
-            label="Choose Shipper"
-            light
+            label="Type Shipper Name"
+            prepend-icon="fa-ship"
+            data-vv-name="shipper"
+            persistent-hint
+          />
+          <v-combobox
+            v-validate="'required'"
+            v-else
+            v-model="form.shipper_name"
+            :items="shippers"
+            :error-messages="errorMessages('shipper')"
+            :class="{ 'error--text': hasErrors('shipper') }"
+            :error="form.shipper_id === null || form.shipper_id === 1"
+            item-text="name"
+            item-value="name"
+            style="margin-top:5px;"
             chips
+            light
+            dense
+            required
+            label="Choose Shipper or Type Name"
             prepend-icon="fa-ship"
             data-vv-name="shipper"
           />
@@ -325,15 +488,18 @@
       <packages 
         v-for="(item,key) in packages" 
         :key="key"
-        :index="key+1"
         :item="item"
-        :iteration="key"
         :packages="packages"
         :bins="bins"
         :handling-rates="handling_rates"
         :storage-rates="storage_rates"
         :form="form"
       />
+      <customer-modal/>
+      <client-modal 
+        :customer-id="form.customer_id" 
+        :customer-name="form.customer_name"/>
+      <shipper-modal/>
       <!-- End Package -->
     </v-card>
 
@@ -346,10 +512,16 @@ import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
 import Packages from "Components/dsg/Packages";
+import CustomerModal from "Components/warehouse/CustomerModal";
+import ClientModal from "Components/warehouse/ClientModal";
+import ShipperModal from "Components/warehouse/ShipperModal";
 export default {
   components: {
     ModalLayout,
-    Packages
+    Packages,
+    CustomerModal,
+    ClientModal,
+    ShipperModal
   },
   mixins: [validationError],
   props: {
@@ -380,7 +552,6 @@ export default {
       total_pieces: 0,
       total_cube: 0,
       receiving_amount: 0,
-      date_processed: null,
       packages: []
     }),
     po_no: null,
@@ -400,15 +571,42 @@ export default {
     client_name: null,
     unknownClient: {
       active: false,
-      address_1: null,
-      address_2: null,
-      city: null,
       id: 1,
-      name: "Unknown Client",
-      state: null,
-      zip: null
-    }
+      name: "Unknown Client"
+    },
+    search_customer: false,
+    search_client: false,
+    search_shipper: false
   }),
+  computed: {
+    customerHint() {
+      if (this.form.customer_id === null) {
+        return "Please Create Or Search Customer";
+      } else if (this.form.customer_id === 1001) {
+        return "Mark as Unknown Until Further Notice";
+      } else {
+        return "Customer Acccount Verified";
+      }
+    },
+    clientHint() {
+      if (this.form.client_id === null) {
+        return "Please Create Or Search Client";
+      } else if (this.form.client_id === 1) {
+        return "Mark as Unknown Until Further Notice";
+      } else {
+        return "Client Acccount Verified";
+      }
+    },
+    shipperHint() {
+      if (this.form.shipper_id === null) {
+        return "Please Create Or Search  Shipper";
+      } else if (this.form.shipper_id === 1) {
+        return "Mark as Unknown Until Further Notice";
+      } else {
+        return "Shipper Acccount Verified";
+      }
+    }
+  },
   watch: {
     po_no: {
       handler: function(newValue) {
@@ -437,7 +635,6 @@ export default {
         for (let i = 0; i < total; i++) {
           self.packages[i].date_processed = newValue;
         }
-        self.form.date_processed = newValue;
       },
       deep: true
     },
@@ -466,64 +663,35 @@ export default {
       },
       deep: true
     },
-    "form.packages": {
-      handler: function(newValue) {},
-      deep: true
-    },
-    "form.customer_id": {
+    "form.customer_name": {
       handler: function(newValue) {
         let self = this;
         let total = this.packages.length;
-        let customer_id = null;
-        let customer_name = null;
 
-        if (newValue != undefined) {
+        if (newValue) {
           let customer = _.find(self.customers, function(c) {
-            return c.id === newValue;
+            return c.name === newValue;
           });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
+          if (customer != undefined || customer != null) {
+            self.clients = customer.clients;
+            _.remove(self.clients, {
+              id: 1
+            });
+            self.clients.unshift(self.unknownClient);
+            self.form.customer_id = customer.id;
+          } else {
+            self.clients.push(self.unknownClient);
+            self.form.customer_id = null;
+          }
         } else {
           self.clients = [];
           self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
         }
         for (let i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
-        }
-      },
-      deep: false
-    },
-    "form.shipper_id": {
-      handler: function(newValue) {
-        let self = this;
-        let total = this.packages.length;
-        let shipper_id = null;
-        let shipper_name = null;
-
-        if (newValue != undefined) {
-          let shipper = _.find(self.shippers, function(c) {
-            return c.id === newValue;
-          });
-          self.form.shipper_name = shipper.name;
-          shipper_id = shipper.id;
-          shipper_name = shipper.name;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].shipper_id = shipper_id;
-          self.packages[i].shipper_name = shipper_name;
+          self.packages[i].customer_id = self.form.customer_id;
+          self.packages[i].customer_name = self.form.customer_name;
         }
       },
       deep: false
@@ -532,8 +700,6 @@ export default {
       handler: function(newName) {
         let self = this;
         let total = this.packages.length;
-        let client_id = null;
-        let client_name = newName;
 
         if (newName != null || newName != undefined) {
           if (self.clients.length > 0) {
@@ -543,8 +709,9 @@ export default {
             if (client != undefined) {
               self.form.client_name = client.name;
               self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
+            } else {
+              self.form.client_name = newName;
+              self.form.client_id = null;
             }
           }
         } else {
@@ -552,8 +719,36 @@ export default {
           self.form.client_name = null;
         }
         for (let i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
+          self.packages[i].client_id = self.form.client_id;
+          self.packages[i].client_name = self.form.client_name;
+        }
+      },
+      deep: false
+    },
+    "form.shipper_name": {
+      handler: function(newValue) {
+        let self = this;
+        let total = this.packages.length;
+        let shipper_id = null;
+        let shipper_name = null;
+
+        if (newValue != undefined) {
+          let shipper = _.find(self.shippers, function(c) {
+            return c.name === newValue;
+          });
+          if (shipper != undefined) {
+            self.form.shipper_id = shipper.id;
+            shipper_id = shipper.id;
+            shipper_name = shipper.name;
+          } else {
+            self.form.shipper_id = null;
+            shipper_id = null;
+            shipper_name = newValue;
+          }
+        }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].shipper_id = shipper_id;
+          self.packages[i].shipper_name = shipper_name;
         }
       },
       deep: false
@@ -644,6 +839,7 @@ export default {
     }
   },
   created() {
+    let self = this;
     this.getCustomers();
     this.getShippers();
     this.getEmployees();
@@ -653,8 +849,32 @@ export default {
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
     this.fetchDSG();
+    Bus.$on("customer-created", data => {
+      self.customers.push(data.user);
+      self.form.customer_id = data.user.id;
+      self.form.customer_name = data.user.name;
+    });
+    Bus.$on("client-created", data => {
+      self.clients.push(data.client);
+      self.form.client_id = data.client.id;
+      self.form.client_name = data.client.name;
+    });
+    Bus.$on("shipper-created", data => {
+      self.shippers.push(data.shipper);
+      self.form.shipper_id = data.shipper.id;
+      self.form.shipper_name = data.shipper.name;
+    });
   },
   methods: {
+    toggleCustomerModal() {
+      Bus.$emit("open-customer-modal");
+    },
+    toggleClientModal() {
+      Bus.$emit("open-client-modal");
+    },
+    toggleShipperModal() {
+      Bus.$emit("open-shipper-modal");
+    },
     updateReceivingAmount() {
       let self = this;
       let total = self.packages.length;
@@ -708,7 +928,6 @@ export default {
             item.shipper_id = self.form.shipper_id;
             item.shipper_name = self.form.shipper_name;
             self.packages.push(item);
-            self.form.packages.push(item);
           });
         } else {
           const validationModal = swal.mixin({
@@ -770,8 +989,9 @@ export default {
       let self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
+      self.form.date_processed = self.date_processed;
       self.form
-        .post(route("api.dsg.update", { dsg: self.id }))
+        .post(route("api.dsg.update", { dsg: self.form.dsg_id }))
         .then(response => {
           self.$validator.reset();
           const successModal = swal.mixin({
@@ -780,7 +1000,7 @@ export default {
           });
           successModal({
             title: "Success!",
-            html: `<p class="title">Receiving Has Been Updated!</p>`,
+            html: `<p class="title">Received DSG Has Been Updated!</p>`,
             type: "success",
             confirmButtonText: "Ok"
           });
@@ -800,9 +1020,33 @@ export default {
           self.form.busy = false;
         });
     },
+    resetForm() {
+      let self = this;
+      self.form = new Form({
+        active: false,
+        client_id: null,
+        client_name: null,
+        customer_id: null,
+        customer_name: null,
+        shipper_id: null,
+        shipper_name: null,
+        received_by: null,
+        received_by_name: null,
+        written_by: null,
+        written_by_name: null,
+        inspected_by: null,
+        inspected_by_name: null,
+        located_by: null,
+        located_by_name: null,
+        total_pieces: null,
+        total_cube: null,
+        receiving_amount: null,
+        packages: []
+      });
+    },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "dsg" }));
+      self.$nextTick(() => self.$router.push({ name: "warehouse" }));
     },
     fetchDSG() {
       let id = this.id;
@@ -811,8 +1055,6 @@ export default {
         let dsg = response.data.data;
         self.form.dsg_id = dsg.id;
         self.form.active = dsg.active;
-        self.form.client_id = dsg.client_id;
-        self.form.client_name = dsg.client_name;
         self.form.customer_id = dsg.customer_id;
         self.form.customer_name = dsg.customer_name;
         self.form.shipper_id = dsg.shipper_id;
@@ -828,26 +1070,16 @@ export default {
         self.form.total_pieces = dsg.total_pieces;
         self.form.total_cube = dsg.total_cube;
         self.form.receiving_amount = dsg.receiving_amount;
-        self.client_id = dsg.client_id;
-        self.client_name = dsg.client_name;
-        if (dsg.packages.length > 0) {
-          self.po_no = dsg.packages[0]["po_no"];
-          self.date_received = dsg.packages[0]["date_received"];
-          self.date_processed = dsg.packages[0]["date_processed"];
-        } else {
-          self.po_no = null;
-          self.date_received = moment().format("YYYY-MM-DD");
-          self.date_processed = moment().format("YYYY-MM-DD");
-        }
+        self.form.client_id = dsg.client_id;
+        self.form.client_name = dsg.client_name;
+        self.po_no = dsg.packages[0]["po_no"];
+        self.date_received = dsg.packages[0]["date_received"];
+        self.date_processed = dsg.packages[0]["date_processed"];
         self.packages = dsg.packages;
-        self.client_name = dsg.client_name;
-        self.client_id = dsg.client_id;
       });
-      setTimeout(() => {
-        self.form.client_name = self.client_name;
-        self.form.client_id = self.client_id;
-      }, 1000);
     }
   }
 };
 </script>
+
+

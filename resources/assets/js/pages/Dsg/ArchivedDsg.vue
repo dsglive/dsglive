@@ -33,9 +33,7 @@
         :items="items"
         :search="search"
         :pagination.sync="pagination"
-        select-all
         item-key="id"
-        expand
       >
         <!-- Header Section -->
         <template
@@ -43,15 +41,6 @@
           slot-scope="props"
         >
           <tr>
-            <th>
-              <v-checkbox
-                :input-value="props.all"
-                :indeterminate="props.indeterminate"
-                primary
-                hide-details
-                @click.native="toggleAll"
-              />
-            </th>
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -76,12 +65,40 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
-              <v-checkbox
-                :active="props.selected"
-                :input-value="props.selected"
-                @click="props.selected = !props.selected"
-              />
+            <td 
+              class="title text-xs-center" 
+              style="width:10%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
+            >
+              <v-btn 
+                v-if="$auth.check(['warehouse','admin'])"
+                flat 
+                icon 
+                color="indigo" 
+                class="compress--icon"
+                @click="viewArchived(props.item)"
+              >
+                <v-icon>search</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="orange" 
+                class="compress--icon"
+                @click="restoreDsg(props.item)"
+              >
+                <v-icon>restore</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="error" 
+                class="compress--icon"
+                @click="openDialog(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
@@ -104,36 +121,17 @@
             >
               {{ props.item.shipper_name }}
             </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.total_pieces }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.total_cube }}
+            </td>
             <td 
-              class="title text-xs-center" 
+              v-if="$auth.check('admin')"
+              class="title text-xs-center accent--text"
             >
-              <v-btn 
-                v-if="$auth.check(['warehouse','admin'])"
-                flat 
-                icon 
-                color="indigo" 
-                @click="viewArchived(props.item)"
-              >
-                <v-icon>search</v-icon>
-              </v-btn>
-              <v-btn 
-                v-if="$auth.check('admin')"
-                flat 
-                icon 
-                color="orange" 
-                @click="restoreDsg(props.item)"
-              >
-                <v-icon>restore</v-icon>
-              </v-btn>
-              <v-btn 
-                v-if="$auth.check('admin')"
-                flat 
-                icon 
-                color="error" 
-                @click="openDialog(props.item)"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
+              {{ props.item.receiving_amount }}
             </td>
           </tr>
         </template>
@@ -187,6 +185,8 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
+      //   { text: "Status", value: "active", align: "left", sortable: true },
       { text: "DSG#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
@@ -196,7 +196,14 @@ export default {
       },
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
-      { text: "Actions", value: "actions", align: "center", sortable: false }
+      { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
+      { text: "Cu.ft", value: "total_cube", align: "left", sortable: true },
+      {
+        text: "Amount($)",
+        value: "receiving_amount",
+        align: "left",
+        sortable: true
+      }
     ],
     items: [],
     selected: [],
@@ -335,10 +342,9 @@ export default {
           toggleStatusForm
         );
         let updated = payload.data.updated;
-        console.log(updated);
         _.map(updated, id => {
           let index = _.findIndex(self.items, { id });
-          self.items[index].active = false;
+          self.$delete(self.items, index);
         });
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -412,3 +418,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon{
+    margin-left: -5px;
+    margin-right: -5px;
+}
+</style>

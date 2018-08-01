@@ -188,7 +188,7 @@ class DsgController extends Controller
             throw new UpdatingRecordFailed;
         }
 
-        return response()->json(['message' => 'Selected Dsg Activated!', 'updated' => $ids]);
+        return response()->json(['message' => 'Selected Dsg Move To Receiving!', 'updated' => $ids]);
     }
 
     /**
@@ -203,7 +203,7 @@ class DsgController extends Controller
             throw new UpdatingRecordFailed;
         }
 
-        return response()->json(['message' => 'Selected Dsg Deactivated!', 'updated' => $ids]);
+        return response()->json(['message' => 'Selected Dsg Move Back To Warehouse!', 'updated' => $ids]);
     }
 
     /**

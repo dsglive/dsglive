@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Viewing DSG# {{ id }}</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Viewing Archived DSG# {{ id }}</v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <v-layout 
@@ -30,22 +30,13 @@
           xs12
           lg4
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="customers"
-            v-model="form.customer_id"
-            :error-messages="errorMessages('customer')"
-            :class="{ 'error--text': hasErrors('customer') }"
+          <v-text-field
+            v-model="form.customer_name"
+            :error="form.customer_id === null || form.customer_id === 1001"
             :hint="customerHint"
-            item-text="name"
-            item-value="id"
             readonly
-            required
-            label="Choose Customer"
-            light
-            chips
+            label="Customer Name"
             prepend-icon="supervised_user_circle"
-            data-vv-name="customer"
             persistent-hint
           />
         </v-flex>
@@ -53,49 +44,27 @@
           xs12
           lg4
         >
-
-          <v-combobox
-            v-validate="'required'"
+          <v-text-field
             v-model="form.client_name"
-            :items="clients"
-            :error-messages="errorMessages('client')"
-            :class="{ 'error--text': hasErrors('client') }"
-            :error="form.client_id === null"
+            :error="form.client_id === null || form.client_id === 1"
             :hint="clientHint"
-            item-text="name"
-            item-value="name"
-            chips
-            light
-            dense
-            required
             readonly
-            label="Choose Client or Type Name"
+            label="Client Name"
             prepend-icon="fa-users"
-            data-vv-name="client"
             persistent-hint
           />
-          
         </v-flex>
         <v-flex 
           xs12
           lg4
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="shippers"
-            v-model="form.shipper_id"
-            :error-messages="errorMessages('shipper')"
-            :class="{ 'error--text': hasErrors('shipper') }"
+          <v-text-field
+            v-model="form.shipper_name"
+            :error="form.shipper_id === null || form.shipper_id === 1"
             :hint="shipperHint"
-            item-text="name"
-            item-value="id"
-            required
             readonly
-            label="Choose Shipper"
-            light
-            chips
+            label="Type Shipper Name"
             prepend-icon="fa-ship"
-            data-vv-name="shipper"
             persistent-hint
           />
         </v-flex>
@@ -103,84 +72,48 @@
           xs12
           lg3
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="employees"
-            v-model="form.received_by"
-            :error-messages="errorMessages('received_by')"
-            :class="{ 'error--text': hasErrors('received_by') }"
-            item-text="name"
-            item-value="id"
-            required
+          <v-text-field
+            v-model="form.received_by_name"
+            :error="form.received_by === null"
             readonly
             label="Received By"
-            light
-            chips
             prepend-icon="how_to_reg"
-            data-vv-name="received_by"
           />
         </v-flex>
         <v-flex 
           xs12
           lg3
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="employees"
-            v-model="form.written_by"
-            :error-messages="errorMessages('written_by')"
-            :class="{ 'error--text': hasErrors('written_by') }"
-            item-text="name"
-            item-value="id"
-            required
+          <v-text-field
+            v-model="form.written_by_name"
+            :error="form.written_by_name === null"
             readonly
             label="Written By"
-            light
-            chips
             prepend-icon="local_library"
-            data-vv-name="written_by"
           />
         </v-flex>
         <v-flex 
           xs12
           lg3
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="employees"
-            v-model="form.inspected_by"
-            :error-messages="errorMessages('inspected_by')"
-            :class="{ 'error--text': hasErrors('inspected_by') }"
-            item-text="name"
-            item-value="id"
-            required
+          <v-text-field
+            v-model="form.inspected_by_name"
+            :error="form.inspected_by_name === null"
             readonly
             label="Inspected By"
-            light
-            chips
             prepend-icon="search"
-            data-vv-name="inspected_by"
           />
         </v-flex>
         <v-flex 
           xs12
           lg3
         >
-          <v-autocomplete
-            v-validate="'required'"
-            :items="employees"
-            v-model="form.located_by"
-            :error-messages="errorMessages('located_by')"
-            :class="{ 'error--text': hasErrors('located_by') }"
-            item-text="name"
-            item-value="id"
-            required
+          <v-text-field
+            v-model="form.located_by_name"
+            :error="form.located_by_name === null"
             readonly
             label="Located By"
-            light
-            chips
             prepend-icon="person_pin"
-            data-vv-name="located_by"
           />
         </v-flex>
         <v-flex 
@@ -188,10 +121,8 @@
           lg2
         >
           <v-text-field
-            v-validate="{ required: true }"
             v-model="po_no"
-            :error-messages="errorMessages('po_no')"
-            :class="{ 'error--text': hasErrors('po_no') }"
+            :error="po_no === null"
             light
             readonly
             label="PO No."
@@ -213,7 +144,6 @@
           xs12 
           lg2>
           <v-text-field
-            slot="activator"
             v-model="date_processed"
             label="Date Processed"
             prepend-icon="event_note"
@@ -223,7 +153,7 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg3>
+          lg2>
           <v-text-field
             v-model="form.total_pieces"
             readonly
@@ -234,13 +164,25 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg3>
+          lg2>
           <v-text-field
             v-model="form.total_cube"
             readonly
             label="Total Cube"
             prepend-icon="fa-cubes"
             suffix="ft³"
+          />
+        </v-flex>
+        <v-flex 
+          v-if="packages.length>0"
+          xs12 
+          lg2>
+          <v-text-field
+            v-model="form.receiving_amount"
+            readonly
+            prepend-icon="attach_money"
+            label="Receiving Amount"
+            suffix="USD"
           />
         </v-flex>
       </v-layout>
@@ -265,16 +207,13 @@
 
 <script>
 import ModalLayout from "Layouts/ModalLayout.vue";
-import validationError from "Mixins/validation-error";
 import { Form } from "vform";
-import swal from "sweetalert2";
 import Packages from "Components/dsg/Packages";
 export default {
   components: {
     ModalLayout,
     Packages
   },
-  mixins: [validationError],
   props: {
     id: {
       type: String,
@@ -319,7 +258,12 @@ export default {
     handling_rates: [],
     storage_rates: [],
     client_id: null,
-    client_name: null
+    client_name: null,
+    unknownClient: {
+      active: false,
+      id: 1,
+      name: "Unknown Client"
+    },
   }),
   computed: {
     customerHint() {
@@ -406,33 +350,64 @@ export default {
       },
       deep: true
     },
-    "form.customer_id": {
+    "form.customer_name": {
       handler: function(newValue) {
         let self = this;
         let total = this.packages.length;
-        let customer_id = null;
-        let customer_name = null;
 
-        if (newValue != undefined) {
+        if (newValue) {
           let customer = _.find(self.customers, function(c) {
-            return c.id === newValue;
+            return c.name === newValue;
           });
-          self.clients = customer.clients;
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
+          if (customer != undefined || customer != null) {
+            self.clients = customer.clients;
+            _.remove(self.clients, {
+              id: 1
+            });
+            self.clients.unshift(self.unknownClient);
+            self.form.customer_id = customer.id;
+          } else {
+            self.clients.push(self.unknownClient);
+            self.form.customer_id = null;
+          }
         } else {
           self.clients = [];
+          self.clients.push(self.unknownClient);
           self.form.customer_id = null;
           self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
         }
         for (let i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
+          self.packages[i].customer_id = self.form.customer_id;
+          self.packages[i].customer_name = self.form.customer_name;
+        }
+      },
+      deep: false
+    },
+    "form.client_name": {
+      handler: function(newName) {
+        let self = this;
+        let total = this.packages.length;
+
+        if (newName != null || newName != undefined) {
+          if (self.clients.length > 0) {
+            let client = _.find(self.clients, function(c) {
+              return c.name == newName;
+            });
+            if (client != undefined) {
+              self.form.client_name = client.name;
+              self.form.client_id = client.id;
+            } else {
+              self.form.client_name = newName;
+              self.form.client_id = null;
+            }
+          }
+        } else {
+          self.form.client_id = null;
+          self.form.client_name = null;
+        }
+        for (let i = 0; i < total; i++) {
+          self.packages[i].client_id = self.form.client_id;
+          self.packages[i].client_name = self.form.client_name;
         }
       },
       deep: false
@@ -459,120 +434,6 @@ export default {
       },
       deep: false
     },
-    "form.client_name": {
-      handler: function(newName) {
-        let self = this;
-        let total = this.packages.length;
-        let client_id = null;
-        let client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            let client = _.find(self.clients, function(c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-        for (let i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
-        }
-      },
-      deep: false
-    },
-    "form.received_by": {
-      handler: function(newID) {
-        let self = this;
-
-        if (newID != null || newID != undefined) {
-          if (self.employees.length > 0) {
-            let employee = _.find(self.employees, function(e) {
-              return e.id == newID;
-            });
-            if (employee != undefined) {
-              self.form.received_by = employee.id;
-              self.form.received_by_name = employee.name;
-            }
-          }
-        } else {
-          self.form.received_by = null;
-          self.form.received_by_name = null;
-        }
-      },
-      deep: false
-    },
-    "form.written_by": {
-      handler: function(newID) {
-        let self = this;
-
-        if (newID != null || newID != undefined) {
-          if (self.employees.length > 0) {
-            let employee = _.find(self.employees, function(e) {
-              return e.id == newID;
-            });
-            if (employee != undefined) {
-              self.form.written_by = employee.id;
-              self.form.written_by_name = employee.name;
-            }
-          }
-        } else {
-          self.form.written_by = null;
-          self.form.written_by_name = null;
-        }
-      },
-      deep: false
-    },
-    "form.inspected_by": {
-      handler: function(newID) {
-        let self = this;
-
-        if (newID != null || newID != undefined) {
-          if (self.employees.length > 0) {
-            let employee = _.find(self.employees, function(e) {
-              return e.id == newID;
-            });
-            if (employee != undefined) {
-              self.form.inspected_by = employee.id;
-              self.form.inspected_by_name = employee.name;
-            }
-          }
-        } else {
-          self.form.inspected_by = null;
-          self.form.inspected_by_name = null;
-        }
-      },
-      deep: false
-    },
-    "form.located_by": {
-      handler: function(newID) {
-        let self = this;
-
-        if (newID != null || newID != undefined) {
-          if (self.employees.length > 0) {
-            let employee = _.find(self.employees, function(e) {
-              return e.id == newID;
-            });
-            if (employee != undefined) {
-              self.form.located_by = employee.id;
-              self.form.located_by_name = employee.name;
-            }
-          }
-        } else {
-          self.form.located_by = null;
-          self.form.located_by_name = null;
-        }
-      },
-      deep: false
-    }
   },
   created() {
     this.getCustomers();
@@ -623,37 +484,6 @@ export default {
         self.bins = response.data.data;
       });
     },
-    addNewPackage() {
-      let self = this;
-      self.$validator.validateAll().then(result => {
-        if (result) {
-          axios.post(route("api.package.add")).then(response => {
-            let item = response.data.data;
-            item.date_received = self.date_received;
-            item.date_processed = self.date_processed;
-            item.po_no = self.po_no;
-            item.customer_id = self.form.customer_id;
-            item.customer_name = self.form.customer_name;
-            item.client_id = self.form.client_id;
-            item.client_name = self.form.client_name;
-            item.shipper_id = self.form.shipper_id;
-            item.shipper_name = self.form.shipper_name;
-            self.packages.push(item);
-          });
-        } else {
-          const validationModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          validationModal({
-            title: `Validation Error`,
-            html: `<p class="title">Please Fix Form Errors</p>`,
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        }
-      });
-    },
     getEmployees() {
       axios.get(route("api.dsg.getEmployees")).then(response => {
         this.employees = response.data.data;
@@ -669,91 +499,6 @@ export default {
         this.customers = response.data.data;
       });
     },
-    getStatus(status) {
-      if (status) {
-        return "Status: Active";
-      } else {
-        return "Status: Inactive";
-      }
-    },
-    submit() {
-      let self = this;
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          // eslint-disable-next-line
-          self.updateDsg();
-        } else {
-          const validationModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          validationModal({
-            title: `Validation Error`,
-            html: `<p class="title">Please Fix Form Errors</p>`,
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        }
-      });
-    },
-    updateDsg() {
-      let self = this;
-      self.form.busy = true;
-      self.form.packages = self.packages;
-      self.form
-        .post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form)
-        .then(response => {
-          self.$validator.reset();
-          const successModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          successModal({
-            title: "Success!",
-            html: `<p class="title">Receiving Has Been Updated!</p>`,
-            type: "success",
-            confirmButtonText: "Ok"
-          });
-          self.$nextTick(() => self.$router.push({ name: "warehouse" }));
-        })
-        .catch(errors => {
-          const failedModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          failedModal({
-            title: "Validation Error!",
-            html: `<p class="title">Please Complete Form To Submit!</p>`,
-            type: "error",
-            confirmButtonText: "Ok"
-          });
-          self.form.busy = false;
-        });
-    },
-    resetForm() {
-      let self = this;
-      self.form = new Form({
-        active: false,
-        client_id: null,
-        client_name: null,
-        customer_id: null,
-        customer_name: null,
-        shipper_id: null,
-        shipper_name: null,
-        received_by: null,
-        received_by_name: null,
-        written_by: null,
-        written_by_name: null,
-        inspected_by: null,
-        inspected_by_name: null,
-        located_by: null,
-        located_by_name: null,
-        total_pieces: null,
-        total_cube: null,
-        receiving_amount: null,
-        packages: []
-      });
-    },
     redirectBack() {
       let self = this;
       self.$nextTick(() => self.$router.push({ name: "archived-dsg" }));
@@ -765,8 +510,6 @@ export default {
         let dsg = response.data.data;
         self.form.dsg_id = dsg.id;
         self.form.active = dsg.active;
-        self.form.client_id = dsg.client_id;
-        self.form.client_name = dsg.client_name;
         self.form.customer_id = dsg.customer_id;
         self.form.customer_name = dsg.customer_name;
         self.form.shipper_id = dsg.shipper_id;
@@ -782,19 +525,13 @@ export default {
         self.form.total_pieces = dsg.total_pieces;
         self.form.total_cube = dsg.total_cube;
         self.form.receiving_amount = dsg.receiving_amount;
-        self.client_id = dsg.client_id;
-        self.client_name = dsg.client_name;
+        self.form.client_id = dsg.client_id;
+        self.form.client_name = dsg.client_name;
         self.po_no = dsg.packages[0]["po_no"];
         self.date_received = dsg.packages[0]["date_received"];
         self.date_processed = dsg.packages[0]["date_processed"];
         self.packages = dsg.packages;
-        self.client_name = dsg.client_name;
-        self.client_id = dsg.client_id;
       });
-      setTimeout(() => {
-        self.form.client_name = self.client_name;
-        self.form.client_id = self.client_id;
-      }, 1000);
     }
   }
 };

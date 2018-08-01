@@ -1,6 +1,6 @@
 webpackJsonp([28],{
 
-/***/ 1119:
+/***/ 1157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,76 +9,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(971);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(972);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(958);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(960);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -325,37 +264,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
   data: function data() {
     return {
-      rowsPerPageItems: [1, 2],
+      contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Ticket#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "ID#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Type", value: "type", align: "left", sortable: true }, {
-        text: "Delivery Date",
-        value: "date_delivered",
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Amount($)", value: "amount", align: "left", sortable: true }, {
+        text: "Invoice Date",
+        value: "invoice_date",
         align: "left",
         sortable: true
-      }, {
-        text: "Delivery Fee",
-        value: "total_charges",
-        align: "left",
-        sortable: true
-      }, { text: "Actions", value: "actions", align: "center", sortable: false }],
+      }, { text: "Actions", value: "actions", align: "right", sortable: false }],
       items: [],
-      selected: [],
       pagination: {
         sortBy: "name"
       },
-      iteratorPagination: {
-        rowsPerPage: 2
-      },
-      ticketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      miscForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       search: "",
-      deleteTicketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        logistics_id: null
+      deleteMiscForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        misc_id: null
       }),
       domain: window.location.hostname
     };
@@ -368,51 +298,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchTickets();
+    self.fetchMisc();
   },
 
   methods: {
-    titleCase: function titleCase(key) {
-      var newStr = key.replace(/_/g, " ");
-      return newStr.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+    viewPdf: function viewPdf() {
+      console.log("viewing PDF");
     },
-    kebabCase: function kebabCase(string) {
-      var result = string;
-
-      // Convert camelCase capitals to kebab-case.
-      result = result.replace(/([a-z][A-Z])/g, function (match) {
-        return match.substr(0, 1) + "-" + match.substr(1, 1).toLowerCase();
-      });
-
-      // Convert non-camelCase capitals to lowercase.
-      result = result.toLowerCase();
-
-      // Convert non-alphanumeric characters to hyphens
-      result = result.replace(/[^-a-z0-9]+/g, "-");
-
-      // Remove hyphens from both ends
-      result = result.replace(/^-+/, "").replace(/-$/, "");
-
-      return result;
+    editMisc: function editMisc(misc) {
+      vm.$router.push({ name: "edit-misc", params: { id: "" + misc.id } });
     },
-    viewPdf: function viewPdf(ticket) {
-      var type = this.kebabCase(ticket.type);
-      var id = ticket.id;
-      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
-      window.open(url);
+    createMisc: function createMisc() {
+      vm.$router.push({ name: "create-misc" });
     },
-    editTicket: function editTicket(logistics) {
-      vm.$router.push({
-        name: "edit-logistics",
-        params: { id: "" + logistics.id }
-      });
-    },
-    createTicket: function createTicket() {
-      vm.$router.push({ name: "create-logistics" });
-    },
-    fetchTickets: function () {
+    fetchMisc: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -421,16 +320,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               case 0:
                 self = this;
 
-                self.ticketForm.busy = true;
+                self.miscForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.logistics.index"), self.ticketForm);
+                return axios.post(route("api.misc.index"), self.miscForm);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.ticketForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                self.miscForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
                 _context.next = 17;
                 break;
 
@@ -441,10 +340,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 message = _context.t0.message;
 
                 if (errors) {
-                  self.ticketForm.errors.set(errors);
+                  self.miscForm.errors.set(errors);
                 }
                 if (message) {}
-                self.ticketForm.busy = false;
+                self.miscForm.busy = false;
 
               case 17:
               case "end":
@@ -454,28 +353,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, _callee, this, [[2, 10]]);
       }));
 
-      function fetchTickets() {
+      function fetchMisc() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchTickets;
+      return fetchMisc;
     }(),
-    deleteTicket: function deleteTicket(logistics) {
+    deleteMisc: function deleteMisc(misc) {
       var self = this;
-      self.deleteTicketForm.logistics_id = logistics.id;
-      var index = _.findIndex(self.items, { id: logistics.id });
-      axios.post(route("api.logistics.delete", { logistic: logistics.id }), self.deleteTicketForm).then(function (response) {
-        self.$delete(self.items, index);
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Success",
-          html: "<p class=\"title\">Ticket Deleted!</p>",
-          type: "success",
-          confirmButtonText: "Back"
-        });
+      self.deleteMiscForm.misc_id = misc.id;
+      var index = _.findIndex(self.items, { id: misc.id });
+      axios.post(route("api.misc.delete"), self.deleteMiscForm).then(function (response) {
+        if (response.data.status === true) {
+          self.$delete(self.items, index);
+          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Success",
+            html: "<p class=\"title\">Misc Deleted!</p>",
+            type: "success",
+            confirmButtonText: "Back"
+          });
+        }
       }).catch(function (errors) {
         var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -488,9 +389,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           confirmButtonText: "Back"
         });
       });
-    },
-    toggleAll: function toggleAll() {
-      if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
     },
     changeSort: function changeSort(column) {
       if (this.pagination.sortBy === column) {
@@ -505,7 +403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1120:
+/***/ 1158:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -545,7 +443,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       "append-icon": "search",
-                                      label: "Search Ticket",
+                                      label: "Search Miscellaneous",
                                       "single-line": "",
                                       "hide-details": "",
                                       light: ""
@@ -601,28 +499,18 @@ var render = function() {
                                 dark: "",
                                 flat: ""
                               },
-                              on: { click: _vm.createTicket }
+                              on: { click: _vm.createMisc }
                             },
                             [
                               _vm._v(
-                                "\n              Create New Ticket\n              "
+                                "\n              Create New Miscellaneous\n              "
                               ),
                               _c(
                                 "v-icon",
                                 { attrs: { right: "", color: "accent" } },
                                 [
                                   _vm._v(
-                                    "\n                confirmation_number\n              "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                fa-plus-circle\n              "
+                                    "\n                note_add\n              "
                                   )
                                 ]
                               )
@@ -650,7 +538,6 @@ var render = function() {
                 items: _vm.items,
                 search: _vm.search,
                 pagination: _vm.pagination,
-                "select-all": "",
                 "item-key": "id",
                 expand: ""
               },
@@ -769,11 +656,11 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(_vm.titleCase(props.item.type)) +
+                                _vm._s(props.item.amount) +
                                 "\n          "
                             )
                           ]
@@ -785,7 +672,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.date_delivered) +
+                                _vm._s(props.item.invoice_date) +
                                 "\n          "
                             )
                           ]
@@ -793,58 +680,40 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-center accent--text" },
+                          { staticClass: "title text-xs-center" },
                           [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.total_charges) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "title text-xs-center",
-                            staticStyle: { width: "25%" }
-                          },
-                          [
-                            props.item.type === "delivery_ticket" &&
-                            props.item.items.length > 0
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    class: {
-                                      "amber--text": props.expanded,
-                                      amber: props.expanded,
-                                      teal: !props.expanded,
-                                      "teal--text": !props.expanded
-                                    },
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      light: "",
-                                      flat: "",
-                                      icon: ""
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        props.expanded = !props.expanded
-                                      }
-                                    }
-                                  },
-                                  [
-                                    !props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-expand")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    props.expanded
-                                      ? _c("v-icon", [_vm._v("fa-compress")])
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
+                            _c(
+                              "v-btn",
+                              {
+                                class: {
+                                  "amber--text": props.expanded,
+                                  amber: props.expanded,
+                                  teal: !props.expanded,
+                                  "teal--text": !props.expanded
+                                },
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  light: "",
+                                  flat: "",
+                                  icon: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    props.expanded = !props.expanded
+                                  }
+                                }
+                              },
+                              [
+                                !props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-expand")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-compress")])
+                                  : _vm._e()
+                              ],
+                              1
+                            ),
                             _vm._v(" "),
                             _c(
                               "v-btn",
@@ -857,7 +726,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.editTicket(props.item)
+                                    _vm.editMisc(props.item)
                                   }
                                 }
                               },
@@ -872,30 +741,11 @@ var render = function() {
                                   disabled: !_vm.$auth.check("admin"),
                                   flat: "",
                                   icon: "",
-                                  color: "purple"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.viewPdf(props.item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("picture_as_pdf")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  flat: "",
-                                  icon: "",
                                   color: "error"
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.deleteTicket(props.item)
+                                    _vm.deleteMisc(props.item)
                                   }
                                 }
                               },
@@ -906,325 +756,6 @@ var render = function() {
                           1
                         )
                       ])
-                    ]
-                  }
-                },
-                {
-                  key: "expand",
-                  fn: function(props) {
-                    return [
-                      _c(
-                        "v-container",
-                        { attrs: { fluid: "" } },
-                        [
-                          _c(
-                            "v-card",
-                            {
-                              attrs: {
-                                light: "",
-                                flat: "",
-                                "text-xs-center": ""
-                              }
-                            },
-                            [
-                              _c(
-                                "v-toolbar",
-                                { staticClass: "secondary" },
-                                [
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-toolbar-title",
-                                    {
-                                      staticClass: "text-xs-center white--text"
-                                    },
-                                    [_vm._v("Delivered Items")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    { staticClass: "title white--text" },
-                                    [
-                                      _vm._v(
-                                        " Count: " +
-                                          _vm._s(props.item.items.length) +
-                                          " "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-container",
-                                { attrs: { fluid: "" } },
-                                [
-                                  _c("v-data-iterator", {
-                                    attrs: {
-                                      items: props.item.items,
-                                      "rows-per-page-items":
-                                        _vm.rowsPerPageItems,
-                                      pagination: _vm.iteratorPagination,
-                                      "content-tag": "v-layout",
-                                      row: "",
-                                      wrap: ""
-                                    },
-                                    on: {
-                                      "update:pagination": function($event) {
-                                        _vm.iteratorPagination = $event
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "item",
-                                        fn: function(props) {
-                                          return _c(
-                                            "v-flex",
-                                            { attrs: { xs6: "" } },
-                                            [
-                                              _c(
-                                                "v-card",
-                                                [
-                                                  _c("v-card-title", [
-                                                    _c("h4", [
-                                                      _vm._v(
-                                                        "Item ID#: " +
-                                                          _vm._s(props.item.id)
-                                                      )
-                                                    ])
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("v-divider"),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-list",
-                                                    { attrs: { dense: "" } },
-                                                    [
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("DSG #:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .dsg_id
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Style #:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .style_no
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Description:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .description
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Bin:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .bin_name
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [_vm._v("Cube:")]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .cube
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Date Processed:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .date_processed
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "v-list-tile",
-                                                        [
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            [
-                                                              _vm._v(
-                                                                "Date Received:"
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "v-list-tile-content",
-                                                            {
-                                                              staticClass:
-                                                                "align-end"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .date_received
-                                                                )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        }
-                                      }
-                                    ])
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
                     ]
                   }
                 },
@@ -1243,15 +774,48 @@ var render = function() {
                       )
                     ]
                   }
-                }
-              ]),
-              model: {
-                value: _vm.selected,
-                callback: function($$v) {
-                  _vm.selected = $$v
                 },
-                expression: "selected"
-              }
+                {
+                  key: "expand",
+                  fn: function(props) {
+                    return [
+                      props.item.notes
+                        ? _c(
+                            "v-alert",
+                            {
+                              attrs: {
+                                value: true,
+                                color: "blue lighten-4",
+                                icon: "info"
+                              }
+                            },
+                            [
+                              _c("v-subheader", [
+                                _vm._v("Notes: " + _vm._s(props.item.notes))
+                              ])
+                            ],
+                            1
+                          )
+                        : _c(
+                            "v-alert",
+                            {
+                              attrs: {
+                                value: true,
+                                color: "red lighten-4",
+                                icon: "warning"
+                              }
+                            },
+                            [
+                              _c("v-subheader", [
+                                _vm._v("No Miscellaneous Notes.")
+                              ])
+                            ],
+                            1
+                          )
+                    ]
+                  }
+                }
+              ])
             },
             [
               _c(
@@ -1269,7 +833,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! No Ticket Created Yet!, \n          "
+                        "\n          Opps! No Miscellaneous Yet!, \n          "
                       ),
                       _c(
                         "v-btn",
@@ -1280,16 +844,14 @@ var render = function() {
                             flat: "",
                             dark: ""
                           },
-                          on: { click: _vm.createTicket }
+                          on: { click: _vm.createMisc }
                         },
                         [
                           _vm._v(
-                            "\n            Create New Ticket\n            "
+                            "\n            Create New Miscellaneous\n            "
                           ),
                           _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v(
-                              "\n              confirmation_number\n            "
-                            )
+                            _vm._v("\n              note_add\n            ")
                           ])
                         ],
                         1
@@ -1336,21 +898,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-ff6f65ee", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7339b768", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 931:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1119)
+var __vue_script__ = __webpack_require__(1157)
 /* template */
-var __vue_template__ = __webpack_require__(1120)
+var __vue_template__ = __webpack_require__(1158)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1367,7 +929,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Logistics/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Misc/Index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1376,9 +938,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ff6f65ee", Component.options)
+    hotAPI.createRecord("data-v-7339b768", Component.options)
   } else {
-    hotAPI.reload("data-v-ff6f65ee", Component.options)
+    hotAPI.reload("data-v-7339b768", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1390,7 +952,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 956:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1409,7 +971,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(957)
+var listToStyles = __webpack_require__(958)
 
 /*
 type StyleObject = {
@@ -1619,7 +1181,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 958:
 /***/ (function(module, exports) {
 
 /**
@@ -1653,7 +1215,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 958:
+/***/ 959:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1677,7 +1239,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 959:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -2661,7 +2223,7 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 964:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2669,7 +2231,7 @@ var AlertSuccess_Component = normalizeComponent(
 
 exports.__esModule = true;
 
-var _assign = __webpack_require__(965);
+var _assign = __webpack_require__(966);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -2691,29 +2253,18 @@ exports.default = _assign2.default || function (target) {
 
 /***/ }),
 
-/***/ 965:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(966), __esModule: true };
-
-/***/ }),
-
 /***/ 966:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(967);
-module.exports = __webpack_require__(45).Object.assign;
-
+module.exports = { "default": __webpack_require__(967), __esModule: true };
 
 /***/ }),
 
 /***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(76);
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(968) });
+__webpack_require__(968);
+module.exports = __webpack_require__(45).Object.assign;
 
 
 /***/ }),
@@ -2721,12 +2272,23 @@ $export($export.S + $export.F, 'Object', { assign: __webpack_require__(968) });
 /***/ 968:
 /***/ (function(module, exports, __webpack_require__) {
 
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(76);
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(969) });
+
+
+/***/ }),
+
+/***/ 969:
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = __webpack_require__(375);
-var gOPS = __webpack_require__(969);
-var pIE = __webpack_require__(970);
+var gOPS = __webpack_require__(970);
+var pIE = __webpack_require__(971);
 var toObject = __webpack_require__(377);
 var IObject = __webpack_require__(376);
 var $assign = Object.assign;
@@ -2760,7 +2322,7 @@ module.exports = !$assign || __webpack_require__(155)(function () {
 
 /***/ }),
 
-/***/ 969:
+/***/ 970:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -2768,7 +2330,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 970:
+/***/ 971:
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
@@ -2776,15 +2338,15 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 971:
+/***/ 972:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(972)
+var __vue_script__ = __webpack_require__(973)
 /* template */
-var __vue_template__ = __webpack_require__(996)
+var __vue_template__ = __webpack_require__(997)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2824,14 +2386,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 972:
+/***/ 973:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__ = __webpack_require__(973);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__ = __webpack_require__(974);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_AppNavBar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__ = __webpack_require__(978);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__ = __webpack_require__(979);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_LeftSideBar_vue__);
 //
 //
@@ -2865,19 +2427,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 973:
+/***/ 974:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(974)
+  __webpack_require__(975)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(976)
+var __vue_script__ = __webpack_require__(977)
 /* template */
-var __vue_template__ = __webpack_require__(977)
+var __vue_template__ = __webpack_require__(978)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2917,17 +2479,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 974:
+/***/ 975:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(975);
+var content = __webpack_require__(976);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("0b84e344", content, false, {});
+var update = __webpack_require__(957)("0b84e344", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -2944,7 +2506,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 975:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -2959,7 +2521,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 976:
+/***/ 977:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3050,7 +2612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 977:
+/***/ 978:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3145,15 +2707,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 978:
+/***/ 979:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(979)
+var __vue_script__ = __webpack_require__(980)
 /* template */
-var __vue_template__ = __webpack_require__(995)
+var __vue_template__ = __webpack_require__(996)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3193,19 +2755,19 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 979:
+/***/ 980:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(964);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(965);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__ = __webpack_require__(980);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__ = __webpack_require__(981);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_VLink_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_VLink_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__ = __webpack_require__(985);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__ = __webpack_require__(986);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_InventoryLinks__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__ = __webpack_require__(990);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__ = __webpack_require__(991);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_InvoiceLinks__);
 
 //
@@ -3418,19 +2980,19 @@ var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* cre
 
 /***/ }),
 
-/***/ 980:
+/***/ 981:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(981)
+  __webpack_require__(982)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(983)
+var __vue_script__ = __webpack_require__(984)
 /* template */
-var __vue_template__ = __webpack_require__(984)
+var __vue_template__ = __webpack_require__(985)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3470,17 +3032,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 981:
+/***/ 982:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(982);
+var content = __webpack_require__(983);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("3050f430", content, false, {});
+var update = __webpack_require__(957)("3050f430", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -3497,7 +3059,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 982:
+/***/ 983:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -3512,7 +3074,7 @@ exports.push([module.i, "\n.styleAvatar[data-v-2c0f8c2e] {\n  position: relative
 
 /***/ }),
 
-/***/ 983:
+/***/ 984:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3626,7 +3188,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 984:
+/***/ 985:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3722,19 +3284,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 985:
+/***/ 986:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(986)
+  __webpack_require__(987)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(988)
+var __vue_script__ = __webpack_require__(989)
 /* template */
-var __vue_template__ = __webpack_require__(989)
+var __vue_template__ = __webpack_require__(990)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3774,17 +3336,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 986:
+/***/ 987:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(987);
+var content = __webpack_require__(988);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("79e0daee", content, false, {});
+var update = __webpack_require__(957)("79e0daee", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -3801,7 +3363,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 987:
+/***/ 988:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -3816,7 +3378,7 @@ exports.push([module.i, "\n.v-list__group__header__append-icon{\n    color: #fff
 
 /***/ }),
 
-/***/ 988:
+/***/ 989:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3887,7 +3449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 989:
+/***/ 990:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3999,19 +3561,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 990:
+/***/ 991:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(991)
+  __webpack_require__(992)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(993)
+var __vue_script__ = __webpack_require__(994)
 /* template */
-var __vue_template__ = __webpack_require__(994)
+var __vue_template__ = __webpack_require__(995)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4051,17 +3613,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 991:
+/***/ 992:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(992);
+var content = __webpack_require__(993);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("30d9e88d", content, false, {});
+var update = __webpack_require__(957)("30d9e88d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -4078,7 +3640,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 992:
+/***/ 993:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4093,7 +3655,7 @@ exports.push([module.i, "\n.v-list__group__header__append-icon{\n    color: #fff
 
 /***/ }),
 
-/***/ 993:
+/***/ 994:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4164,7 +3726,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 994:
+/***/ 995:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4276,7 +3838,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 995:
+/***/ 996:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4528,7 +4090,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 996:
+/***/ 997:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
