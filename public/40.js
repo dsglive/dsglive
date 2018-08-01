@@ -5,13 +5,78 @@ webpackJsonp([40],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(960);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(956);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(957);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(959);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -139,11 +204,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       /* Always Declare Your Form Object */
       form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
         name: null,
-        amount: null,
-        type: null,
-        active: false
-      }),
-      types: ['handling', 'storage']
+        active: false,
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
+      })
     };
   },
   methods: {
@@ -159,7 +230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.createRate();
+          self.createShipper();
         } else {
           var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -174,11 +245,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    createRate: function createRate() {
+    createShipper: function createShipper() {
       var self = this;
       self.form.busy = true;
 
-      self.form.post(route("api.rate.create"), self.form).then(function (response) {
+      self.form.post(route("api.shipper.create"), self.form).then(function (response) {
         console.log(response.data);
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
@@ -187,28 +258,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Rate Has Been Created!</p>",
+          html: "<p class=\"title\">Shipper Has Been Created!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
         self.$nextTick(function () {
-          return self.$router.push({ name: "rates" });
+          return self.$router.push({ name: "shippers" });
         });
       }).catch(function (errors) {});
     },
     resetForm: function resetForm() {
       var self = this;
       self.form = new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
+        active: false,
         name: null,
-        amount: null,
-        type: null,
-        active: false
+        email: null,
+        phone: null,
+        address_1: null,
+        address_2: null,
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
+        notes: null
       });
     },
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "rates" });
+        return self.$router.push({ name: "shippers" });
       });
     }
   }
@@ -254,7 +332,7 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Rate Creation Page")]
+                [_vm._v("Shipper Creation Page")]
               ),
               _vm._v(" "),
               _c("v-spacer"),
@@ -311,7 +389,7 @@ var render = function() {
                     attrs: {
                       "error-messages": _vm.errorMessages("name"),
                       label: "Name",
-                      "prepend-icon": "fa-percent",
+                      "prepend-icon": "fa-ship",
                       "data-vv-name": "name"
                     },
                     model: {
@@ -320,67 +398,6 @@ var render = function() {
                         _vm.$set(_vm.form, "name", $$v)
                       },
                       expression: "form.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("amount") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("amount"),
-                      label: "Amount",
-                      "prepend-icon": "attach_money",
-                      "data-vv-name": "amount"
-                    },
-                    model: {
-                      value: _vm.form.amount,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "amount", $$v)
-                      },
-                      expression: "form.amount"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-autocomplete", {
-                    class: { "error--text": _vm.hasErrors("type") },
-                    attrs: {
-                      items: _vm.types,
-                      "error-messages": _vm.errorMessages("type"),
-                      color: "blue-grey",
-                      light: "",
-                      clearable: "",
-                      label: "Select Rate Type",
-                      required: "",
-                      "prepend-icon": "fa-tags",
-                      "data-vv-name": "roles"
-                    },
-                    model: {
-                      value: _vm.form.type,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "type", $$v)
-                      },
-                      expression: "form.type"
                     }
                   })
                 ],
@@ -401,6 +418,187 @@ var render = function() {
                       expression: "form.active"
                     }
                   })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { email: true },
+                        expression: "{ email: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("email") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("email"),
+                      label: "Email",
+                      "prepend-icon": "mail",
+                      "data-vv-name": "email"
+                    },
+                    model: {
+                      value: _vm.form.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "email", $$v)
+                      },
+                      expression: "form.email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Phone", "prepend-icon": "phone" },
+                    model: {
+                      value: _vm.form.phone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "phone", $$v)
+                      },
+                      expression: "form.phone"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Address 1", "prepend-icon": "looks_one" },
+                    model: {
+                      value: _vm.form.address_1,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address_1", $$v)
+                      },
+                      expression: "form.address_1"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Address 2", "prepend-icon": "looks_two" },
+                    model: {
+                      value: _vm.form.address_2,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address_2", $$v)
+                      },
+                      expression: "form.address_2"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "City", "prepend-icon": "location_city" },
+                    model: {
+                      value: _vm.form.city,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "city", $$v)
+                      },
+                      expression: "form.city"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "State", "prepend-icon": "map" },
+                    model: {
+                      value: _vm.form.state,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "state", $$v)
+                      },
+                      expression: "form.state"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { regex: /^\d{5}(?:[-\s]\d{4})?$/ },
+                        expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("zip") },
+                    attrs: {
+                      "error-messages": _vm.errorMessages("zip"),
+                      label: "Zip",
+                      "prepend-icon": "markunread_mailbox",
+                      "data-vv-name": "zip"
+                    },
+                    model: {
+                      value: _vm.form.zip,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "zip", $$v)
+                      },
+                      expression: "form.zip"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                [
+                  _c(
+                    "v-textarea",
+                    {
+                      attrs: { color: "teal" },
+                      model: {
+                        value: _vm.form.notes,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "notes", $$v)
+                        },
+                        expression: "form.notes"
+                      }
+                    },
+                    [
+                      _c("div", { attrs: { slot: "label" }, slot: "label" }, [
+                        _vm._v("\n            Notes "),
+                        _c("small", [_vm._v("(optional)")])
+                      ])
+                    ]
+                  )
                 ],
                 1
               ),
@@ -449,13 +647,13 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3154257e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-412be30a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 919:
+/***/ 917:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -480,7 +678,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Rate/CreateRate.vue"
+Component.options.__file = "resources/assets/js/pages/Shipper/CreateShipper.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -489,9 +687,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3154257e", Component.options)
+    hotAPI.createRecord("data-v-412be30a", Component.options)
   } else {
-    hotAPI.reload("data-v-3154257e", Component.options)
+    hotAPI.reload("data-v-412be30a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -503,7 +701,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 954:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -522,7 +720,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(955)
+var listToStyles = __webpack_require__(957)
 
 /*
 type StyleObject = {
@@ -732,7 +930,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 955:
+/***/ 957:
 /***/ (function(module, exports) {
 
 /**
@@ -766,7 +964,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 956:
+/***/ 958:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -790,7 +988,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -1774,19 +1972,19 @@ var AlertSuccess_Component = normalizeComponent(
 
 /***/ }),
 
-/***/ 958:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(959)
+  __webpack_require__(961)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(961)
+var __vue_template__ = __webpack_require__(963)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1826,17 +2024,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 959:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(960);
+var content = __webpack_require__(962);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(954)("d26755d4", content, false, {});
+var update = __webpack_require__(956)("d26755d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -1853,7 +2051,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 960:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1868,7 +2066,7 @@ exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""])
 
 /***/ }),
 
-/***/ 961:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

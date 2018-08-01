@@ -95,6 +95,15 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <v-link 
+        v-if="$auth.check(['admin','warehouse'])"
+        title="Archived" 
+        href="/archived/dsg" 
+        icon="archive"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <!-- Collapsible Menu -->
       <inventory-links/>
       <v-link 

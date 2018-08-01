@@ -14,13 +14,6 @@ Horizon::auth(function ($request) {
     return true;
 });
 
-Route::get('/pdf', function () {
-    $data = Logistic::with('packages')->first()->toArray();
-    $pdf  = PDF::loadView('pdf.invoice', $data)->setOption('footer-right', 'Page [page] of [toPage]')
-                                               ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
-                                               ->setOption('footer-font-size', 8);
-    return $pdf->inline();
-});
 
 //? PDF Report
 Route::get('/pdf/delivery-ticket/{logistic}', 'PDF\LogiscticPDF@viewLogistic')

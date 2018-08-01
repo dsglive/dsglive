@@ -90,7 +90,12 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.dsg.massDeactivate');
     Route::post('/dsg/create', 'Dsg\DsgController@create')->name('api.dsg.create');
     Route::post('/dsg/toggleStatus', 'Dsg\DsgController@toggleStatus')->name('api.dsg.toggleStatus');
-    Route::post('/dsg/delete', 'Dsg\DsgController@delete')->name('api.dsg.delete');
+    Route::post('/dsg/transfer/archived', 'Dsg\DsgController@archived')->name('api.dsg.archived');
+    Route::post('/dsg/archived', 'Dsg\DsgController@indexArchived')->name('api.dsg.indexArchived');
+    Route::post('/dsg/archived/view', 'Dsg\DsgController@viewArchived')->name('api.dsg.viewArchived');
+    Route::post('/dsg/archived/restore', 'Dsg\DsgController@restoreArchived')->name('api.dsg.restoreArchived');
+    Route::post('/dsg/archived/delete', 'Dsg\DsgController@forceDelete')->name('api.dsg.forceDelete');
+
     Route::get('/dsg/{dsg}/edit', 'Dsg\DsgController@edit')->name('api.dsg.edit');
     Route::post('/dsg/{dsg}/update', 'Dsg\DsgController@update')->name('api.dsg.update');
 

@@ -134,10 +134,21 @@
                 flat 
                 icon 
                 color="error" 
-                @click="deleteDsg(props.item)"
+                @click="openDialog(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
               </v-btn>
+              <!--
+              <v-btn git
+                v-if="!props.item.active"
+                flat 
+                icon 
+                color="secondary" 
+                @click="archivedDsg(props.item)"
+              >
+                <v-icon>archive</v-icon>
+              </v-btn>
+              -->
               <v-btn 
                 v-if="$auth.check('admin')"
                 flat 
@@ -213,6 +224,9 @@
           Your search for "{{ search }}" found no results.
         </v-alert>
       </v-data-table>
+      <confirm 
+        :callback="confirmed(forceDelete)" 
+      />
     </v-container>
   </main-layout>
 </template>
@@ -222,12 +236,14 @@ import MainLayout from "Layouts/Main.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
-
+import Confirm from "Components/dsg/Confirm.vue";
+import confirmation from "Mixins/confirmation";
 export default {
   components: {
-    MainLayout
+    MainLayout,
+    Confirm
   },
-  mixins: [validationError],
+  mixins: [validationError,confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -244,7 +260,7 @@ export default {
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Pieces", value: "total_pieces", align: "left", sortable: true },
-      { text: "Cu.ft", value: "total_cube", align: "left", sortable: true },
+      { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
@@ -274,16 +290,18 @@ export default {
   },
   methods: {
     viewPdf(dsg) {
-    let type = 'warehouse';
-    if(dsg.active){
-        type = 'receiving'
-    }
-    let id = dsg.id
-    let url = `${window.location.protocol}//${ window.location.hostname }/pdf/${type}/${id}`
-    window.open(url)
+      let type = "warehouse";
+      if (dsg.active) {
+        type = "receiving";
+      }
+      let id = dsg.id;
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/${type}/${id}`;
+      window.open(url);
     },
-    viewWarehouse(dsg){
-        vm.$router.push({ name: "view-warehouse", params: { id: `${dsg.id}` } });
+    viewWarehouse(dsg) {
+      vm.$router.push({ name: "view-warehouse", params: { id: `${dsg.id}` } });
     },
     editWarehouse(dsg) {
       vm.$router.push({ name: "edit-warehouse", params: { id: `${dsg.id}` } });
@@ -319,7 +337,10 @@ export default {
       let self = this;
       self.dsgForm.busy = true;
       try {
-        const payload = await axios.post(route("api.warehouse.index"), self.dsgForm);
+        const payload = await axios.post(
+          route("api.warehouse.index"),
+          self.dsgForm
+        );
         self.items = payload.data.data;
         self.dsgForm = new Form({});
       } catch ({ errors, message }) {
@@ -331,12 +352,46 @@ export default {
         self.dsgForm.busy = false;
       }
     },
-    deleteDsg(dsg) {
+    archivedDsg(dsg) {
       let self = this;
       self.deleteDsgForm.dsg_id = dsg.id;
       let index = _.findIndex(self.items, { id: dsg.id });
       axios
-        .post(route("api.dsg.delete"), self.deleteDsgForm)
+        .post(route("api.dsg.archived"), self.deleteDsgForm)
+        .then(response => {
+          if (response.data.status === true) {
+            self.$delete(self.items, index);
+            let toggleModal = swal.mixin({
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">Dsg Archived!</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
+          }
+        })
+        .catch(errors => {
+          const deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        });
+    },
+    forceDelete(dsg) {
+      let self = this;
+      self.deleteDsgForm.dsg_id = dsg.id;
+      let index = _.findIndex(self.items, { id: dsg.id });
+      axios
+        .post(route("api.dsg.forceDelete"), self.deleteDsgForm)
         .then(response => {
           if (response.data.status === true) {
             self.$delete(self.items, index);

@@ -15,7 +15,7 @@ export default [
     path: "/warehouse/dsg/create",
     component: CreateWarehouse,
     name: "create-warehouse",
-    meta: { auth: ["warehouse"] }
+    meta: { auth: ["warehouse","admin"] }
   },
   {
     path: "/warehouse/dsg/:id/view",

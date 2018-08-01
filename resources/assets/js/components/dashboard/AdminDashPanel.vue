@@ -67,7 +67,7 @@
       </v-card>
     </v-flex>
     <v-flex 
-      xs12 
+      xs12  
       md4 
       text-xs-center>
       <v-card 
@@ -150,7 +150,7 @@
         <v-card-text 
           class="title" 
           style="margin-left:auto;margin-right:auto;width:150px;cursor:pointer;"
-          @click="$router.push({name:'dsg'})"
+          @click="$router.push({name:'archived-dsg'})"
         >
           <v-icon 
             x-large

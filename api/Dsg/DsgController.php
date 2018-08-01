@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Package;
 use App\Models\Shipper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Rules\RateMustBeAFloat;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -65,10 +66,12 @@ class DsgController extends Controller
     /**
      * @param Request $request
      */
-    public function delete(Request $request)
+    public function archived(Request $request)
     {
-        $dsg             = Dsg::find($request->dsg_id);
-        $ids             = $dsg->packages->pluck('id')->toArray();
+        $dsg = Dsg::find($request->dsg_id);
+        $ids = $dsg->packages->pluck('id')->toArray();
+        //! this permanently delete our packages , we need only to soft delete this also!
+        // $remove_packages = Package::whereIn('id', $ids)->update(['deleted_at' => Carbon::now()]);
         $remove_packages = Package::whereIn('id', $ids)->delete();
 
         if (count($ids) !== $remove_packages) {
@@ -99,6 +102,28 @@ class DsgController extends Controller
         return new DsgResource($dsg);
     }
 
+    /**
+     * @param Request $request
+     */
+    public function forceDelete(Request $request)
+    {
+        // add route model binding to search with trashed
+        $dsg = Dsg::withTrashed()->find($request->dsg_id);
+        $ids = $dsg->packages()->withTrashed()->pluck('id')->toArray();
+
+        $packages = Package::with(['media' => function ($query) {
+            return $query->delete();
+        }])->withTrashed()->whereIn('id', $ids)->get();
+
+        $deleted = $dsg->forceDelete();
+
+        if (!$deleted) {
+            throw new UpdatingRecordFailed;
+        }
+
+        return response()->json(['status' => $deleted], 200);
+    }
+
     public function getCustomers()
     {
         $users     = User::with(['profile', 'clients'])->role('customer')->exceptUnknownCustomer()->active()->get();
@@ -109,7 +134,7 @@ class DsgController extends Controller
 
     public function getEmployees()
     {
-        $users = User::with('profile')->where('id', '!=', 1)->role(['admin','warehouse'])->active()->get();
+        $users = User::with('profile')->where('id', '!=', 1)->role(['admin', 'warehouse'])->active()->get();
         return EmployeeResource::collection($users);
     }
 
@@ -121,8 +146,8 @@ class DsgController extends Controller
 
     public function getShippers()
     {
-        $active = Shipper::exceptUnknownShipper()->active()->get();
-        $unknown = Shipper::unknownShipper()->get();
+        $active   = Shipper::exceptUnknownShipper()->active()->get();
+        $unknown  = Shipper::unknownShipper()->get();
         $shippers = $unknown->concat($active);
         return WithShipperResource::collection($shippers);
     }
@@ -142,9 +167,12 @@ class DsgController extends Controller
         return DsgResource::collection($dsg); // remove pagination
     }
 
-    public function warehouse(Request $request)
+    /**
+     * @param Request $request
+     */
+    public function indexArchived(Request $request)
     {
-        $dsg = Dsg::warehouse()->get();
+        $dsg = Dsg::onlyTrashed()->active()->get();
         return DsgResource::collection($dsg); // remove pagination
     }
 
@@ -176,6 +204,30 @@ class DsgController extends Controller
         }
 
         return response()->json(['message' => 'Selected Dsg Deactivated!', 'updated' => $ids]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Dsg     $dsg
+     */
+    public function restoreArchived(Request $request, Dsg $dsg)
+    {
+        $dsg = Dsg::onlyTrashed()->find($request->dsg_id);
+        $ids = $dsg->packages()->withTrashed()->pluck('id')->toArray();
+        //! this permanently delete our packages , we need only to soft delete this also!
+        $remove_packages = Package::whereIn('id', $ids)->restore();
+
+        if (count($ids) !== $remove_packages) {
+            throw new UpdatingRecordFailed;
+        }
+
+        $restored = $dsg->restore();
+
+        if (!$restored) {
+            throw new UpdatingRecordFailed;
+        }
+
+        return response()->json(['status' => $restored], 200);
     }
 
     /**
@@ -232,6 +284,31 @@ class DsgController extends Controller
         DB::commit();
 
         return response()->json(['message' => 'Dsg Account Updated!']);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function viewArchived(Request $request)
+    {
+        $dsg = Dsg::with(['packages' => function ($query) {
+            $query->withTrashed();
+        }, 'packages.media'])->withTrashed()->find($request->dsg_id);
+
+        if (!$dsg) {
+            return response()->json(['message' => 'Cant Find Dsg With ID of '.$request->dsg_id]);
+        }
+
+        return new DsgResource($dsg);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function warehouse(Request $request)
+    {
+        $dsg = Dsg::warehouse()->get();
+        return DsgResource::collection($dsg); // remove pagination
     }
 
     private function sanitizeDsg()

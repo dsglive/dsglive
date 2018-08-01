@@ -1,17 +1,54 @@
 webpackJsonp([38],{
 
-/***/ 1077:
+/***/ 1099:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1100);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(956)("206b24cd", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f07f1fa8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NotFound.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f07f1fa8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NotFound.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1100:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.cls-1[data-v-f07f1fa8] {\n  fill: #ffc541;\n}\n.cls-2[data-v-f07f1fa8] {\n  fill: #4e4066;\n}\n.cls-3[data-v-f07f1fa8] {\n  fill: #6f5b92;\n}\n.cls-4[data-v-f07f1fa8] {\n  fill: #f78d5e;\n}\n.cls-5[data-v-f07f1fa8] {\n  fill: #fa976c;\n}\n.cls-6[data-v-f07f1fa8],\n.cls-7[data-v-f07f1fa8],\n.cls-8[data-v-f07f1fa8] {\n  fill: #b65c32;\n}\n.cls-10[data-v-f07f1fa8],\n.cls-6[data-v-f07f1fa8] {\n  opacity: 0.6;\n}\n.cls-7[data-v-f07f1fa8] {\n  opacity: 0.4;\n}\n.cls-9[data-v-f07f1fa8] {\n  fill: #f4b73b;\n}\n.cls-11[data-v-f07f1fa8] {\n  fill: #f9c358;\n}\n.cls-12[data-v-f07f1fa8] {\n  fill: #9b462c;\n}\n.cls-13[data-v-f07f1fa8] {\n  fill: #aa512e;\n}\n.cls-14[data-v-f07f1fa8] {\n  fill: #7d6aa5;\n}\n\n/* animations */\n.wheel[data-v-f07f1fa8] {\n  -webkit-animation: wheel-rotate-data-v-f07f1fa8 6s ease infinite;\n          animation: wheel-rotate-data-v-f07f1fa8 6s ease infinite;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n}\n@-webkit-keyframes wheel-rotate-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n    -webkit-animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);\n            animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);\n}\n100% {\n    -webkit-transform: rotate(960deg);\n            transform: rotate(960deg);\n}\n}\n@keyframes wheel-rotate-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n    -webkit-animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);\n            animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);\n}\n100% {\n    -webkit-transform: rotate(960deg);\n            transform: rotate(960deg);\n}\n}\n.clock-hand-1[data-v-f07f1fa8] {\n  -webkit-animation: clock-rotate-data-v-f07f1fa8 3s linear infinite;\n          animation: clock-rotate-data-v-f07f1fa8 3s linear infinite;\n  -webkit-transform-origin: bottom;\n          transform-origin: bottom;\n  transform-box: fill-box;\n}\n.clock-hand-2[data-v-f07f1fa8] {\n  -webkit-animation: clock-rotate-data-v-f07f1fa8 6s linear infinite;\n          animation: clock-rotate-data-v-f07f1fa8 6s linear infinite;\n  -webkit-transform-origin: bottom;\n          transform-origin: bottom;\n  transform-box: fill-box;\n}\n@-webkit-keyframes clock-rotate-data-v-f07f1fa8 {\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes clock-rotate-data-v-f07f1fa8 {\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n#box-top[data-v-f07f1fa8] {\n  -webkit-animation: box-top-anim-data-v-f07f1fa8 2s linear infinite;\n          animation: box-top-anim-data-v-f07f1fa8 2s linear infinite;\n  -webkit-transform-origin: right top;\n          transform-origin: right top;\n  transform-box: fill-box;\n}\n@-webkit-keyframes box-top-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n@keyframes box-top-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n#umbrella[data-v-f07f1fa8] {\n  -webkit-animation: umbrella-anim-data-v-f07f1fa8 6s linear infinite;\n          animation: umbrella-anim-data-v-f07f1fa8 6s linear infinite;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n}\n@-webkit-keyframes umbrella-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: translateY(10px) rotate(5deg);\n            transform: translateY(10px) rotate(5deg);\n}\n75% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n@keyframes umbrella-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: translateY(10px) rotate(5deg);\n            transform: translateY(10px) rotate(5deg);\n}\n75% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n#cup[data-v-f07f1fa8] {\n  -webkit-animation: cup-rotate-data-v-f07f1fa8 3s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;\n          animation: cup-rotate-data-v-f07f1fa8 3s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;\n  -webkit-transform-origin: top left;\n          transform-origin: top left;\n  transform-box: fill-box;\n}\n@-webkit-keyframes cup-rotate-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n@keyframes cup-rotate-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(-5deg);\n            transform: rotate(-5deg);\n}\n}\n#pillow[data-v-f07f1fa8] {\n  -webkit-animation: pillow-anim-data-v-f07f1fa8 3s linear infinite;\n          animation: pillow-anim-data-v-f07f1fa8 3s linear infinite;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n}\n@-webkit-keyframes pillow-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: rotate(10deg) translateY(5px);\n            transform: rotate(10deg) translateY(5px);\n}\n75% {\n    -webkit-transform: rotate(-10deg);\n            transform: rotate(-10deg);\n}\n}\n@keyframes pillow-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: rotate(10deg) translateY(5px);\n            transform: rotate(10deg) translateY(5px);\n}\n75% {\n    -webkit-transform: rotate(-10deg);\n            transform: rotate(-10deg);\n}\n}\n#stripe[data-v-f07f1fa8] {\n  -webkit-animation: stripe-anim-data-v-f07f1fa8 3s linear infinite;\n          animation: stripe-anim-data-v-f07f1fa8 3s linear infinite;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n}\n@-webkit-keyframes stripe-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: translate(10px, 0) rotate(-10deg);\n            transform: translate(10px, 0) rotate(-10deg);\n}\n75% {\n    -webkit-transform: translateX(10px);\n            transform: translateX(10px);\n}\n}\n@keyframes stripe-anim-data-v-f07f1fa8 {\n25% {\n    -webkit-transform: translate(10px, 0) rotate(-10deg);\n            transform: translate(10px, 0) rotate(-10deg);\n}\n75% {\n    -webkit-transform: translateX(10px);\n            transform: translateX(10px);\n}\n}\n#bike[data-v-f07f1fa8] {\n  -webkit-animation: bike-anim-data-v-f07f1fa8 6s ease infinite;\n          animation: bike-anim-data-v-f07f1fa8 6s ease infinite;\n}\n@-webkit-keyframes bike-anim-data-v-f07f1fa8 {\n0% {\n    -webkit-transform: translateX(-1300px);\n            transform: translateX(-1300px);\n}\n50% {\n    -webkit-transform: translateX(0);\n            transform: translateX(0);\n    -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);\n            animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);\n}\n100% {\n    -webkit-transform: translateX(1300px);\n            transform: translateX(1300px);\n}\n}\n@keyframes bike-anim-data-v-f07f1fa8 {\n0% {\n    -webkit-transform: translateX(-1300px);\n            transform: translateX(-1300px);\n}\n50% {\n    -webkit-transform: translateX(0);\n            transform: translateX(0);\n    -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);\n            animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);\n}\n100% {\n    -webkit-transform: translateX(1300px);\n            transform: translateX(1300px);\n}\n}\n#rucksack[data-v-f07f1fa8] {\n  -webkit-animation: ruck-anim-data-v-f07f1fa8 3s linear infinite;\n          animation: ruck-anim-data-v-f07f1fa8 3s linear infinite;\n  -webkit-transform-origin: top;\n          transform-origin: top;\n  transform-box: fill-box;\n}\n@-webkit-keyframes ruck-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(5deg);\n            transform: rotate(5deg);\n}\n}\n@keyframes ruck-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: rotate(5deg);\n            transform: rotate(5deg);\n}\n}\n.circle[data-v-f07f1fa8] {\n  -webkit-animation: circle-anim-data-v-f07f1fa8 ease infinite;\n          animation: circle-anim-data-v-f07f1fa8 ease infinite;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n  -webkit-perspective: 0px;\n          perspective: 0px;\n}\n.circle.c1[data-v-f07f1fa8] {\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n}\n.circle.c2[data-v-f07f1fa8] {\n  -webkit-animation-duration: 3s;\n          animation-duration: 3s;\n}\n.circle.c3[data-v-f07f1fa8] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n}\n.circle.c4[data-v-f07f1fa8] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n}\n.circle.c5[data-v-f07f1fa8] {\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n}\n.circle.c6[data-v-f07f1fa8] {\n  -webkit-animation-duration: 3s;\n          animation-duration: 3s;\n}\n@-webkit-keyframes circle-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: scale(0.2) rotateX(360deg) rotateY(360deg);\n            transform: scale(0.2) rotateX(360deg) rotateY(360deg);\n}\n}\n@keyframes circle-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: scale(0.2) rotateX(360deg) rotateY(360deg);\n            transform: scale(0.2) rotateX(360deg) rotateY(360deg);\n}\n}\n.four[data-v-f07f1fa8],\n#ou[data-v-f07f1fa8] {\n  -webkit-animation: four-anim-data-v-f07f1fa8 cubic-bezier(0.39, 0.575, 0.565, 1) infinite;\n          animation: four-anim-data-v-f07f1fa8 cubic-bezier(0.39, 0.575, 0.565, 1) infinite;\n}\n.four.a[data-v-f07f1fa8] {\n  -webkit-transform-origin: bottom left;\n          transform-origin: bottom left;\n  -webkit-animation-duration: 3s;\n          animation-duration: 3s;\n  transform-box: fill-box;\n}\n.four.b[data-v-f07f1fa8] {\n  -webkit-transform-origin: bottom right;\n          transform-origin: bottom right;\n  -webkit-animation-duration: 3s;\n          animation-duration: 3s;\n  transform-box: fill-box;\n}\n#ou[data-v-f07f1fa8] {\n  -webkit-animation-duration: 6s;\n          animation-duration: 6s;\n  -webkit-transform-origin: center;\n          transform-origin: center;\n  transform-box: fill-box;\n}\n@-webkit-keyframes four-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: scale(0.98);\n            transform: scale(0.98);\n}\n}\n@keyframes four-anim-data-v-f07f1fa8 {\n50% {\n    -webkit-transform: scale(0.98);\n            transform: scale(0.98);\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1101:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__ = __webpack_require__(960);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(956);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(957);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 //
 //
 //
@@ -189,8 +226,377 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -198,103 +604,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     ModalLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_ModalLayout_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
-  data: function data() {
-    return {
-      /* Always Declare Your Form Object */
-      form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
-        name: null,
-        active: false,
-        email: null,
-        phone: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        notes: null
-      })
-    };
+  mounted: function mounted() {
+    // let self = this
   },
-  methods: {
-    getStatus: function getStatus(status) {
-      if (status) {
-        return "Status: Active";
-      } else {
-        return "Status: Inactive";
-      }
-    },
-    submit: function submit() {
-      var self = this;
-      this.$validator.validateAll().then(function (result) {
-        if (result) {
-          // eslint-disable-next-line
-          self.createShipper();
-        } else {
-          var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          validationModal({
-            title: "Validation Error",
-            html: "<p class=\"title\">Please Fix Form Errors</p>",
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        }
-      });
-    },
-    createShipper: function createShipper() {
-      var self = this;
-      self.form.busy = true;
 
-      self.form.post(route("api.shipper.create"), self.form).then(function (response) {
-        console.log(response.data);
-        self.$validator.reset();
-        var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        successModal({
-          title: "Success!",
-          html: "<p class=\"title\">Shipper Has Been Created!</p>",
-          type: "success",
-          confirmButtonText: "Ok"
-        });
-        self.$nextTick(function () {
-          return self.$router.push({ name: "shippers" });
-        });
-      }).catch(function (errors) {});
-    },
-    resetForm: function resetForm() {
-      var self = this;
-      self.form = new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
-        active: false,
-        name: null,
-        email: null,
-        phone: null,
-        address_1: null,
-        address_2: null,
-        city: null,
-        state: null,
-        zip: null,
-        country: null,
-        notes: null
-      });
-    },
+  methods: {
     redirectBack: function redirectBack() {
       var self = this;
-      self.$nextTick(function () {
-        return self.$router.push({ name: "shippers" });
-      });
+      self.$router.go(-2);
+    },
+    goDashboard: function goDashboard() {
+      var self = this;
+      self.$router.push({ name: "dashboard" });
     }
   }
 });
 
 /***/ }),
 
-/***/ 1078:
+/***/ 1102:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -303,299 +631,870 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "modal-layout",
-    { staticClass: "white" },
     [
       _c(
-        "v-card",
-        { attrs: { flat: true } },
+        "v-toolbar",
+        { staticClass: "primary", attrs: { slot: "toolbar" }, slot: "toolbar" },
         [
           _c(
-            "v-toolbar",
-            { staticClass: "primary" },
+            "v-btn",
+            {
+              attrs: { flat: "", icon: "", color: "white" },
+              nativeOn: {
+                click: function($event) {
+                  _vm.redirectBack()
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("arrow_back")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-toolbar-title", { staticClass: "text-xs-center white--text" }, [
+            _vm._v("PAGE NOT FOUND")
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-toolbar-items",
             [
               _c(
                 "v-btn",
                 {
-                  attrs: { flat: "", icon: "", color: "white" },
+                  staticClass: "white--text",
+                  attrs: { flat: "" },
                   nativeOn: {
                     click: function($event) {
-                      _vm.redirectBack()
+                      _vm.goDashboard()
                     }
                   }
                 },
-                [_c("v-icon", [_vm._v("arrow_back")])],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-title",
-                { staticClass: "text-xs-center white--text" },
-                [_vm._v("Shipper Creation Page")]
-              ),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-items",
                 [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: {
-                        loading: _vm.form.busy,
-                        disabled: _vm.errors.any() || _vm.form.busy,
-                        flat: "",
-                        color: "white"
-                      },
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.submit()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v("\n          Save\n          "),
-                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
-                    ],
-                    1
-                  )
+                  _c("v-icon", { attrs: { right: "", color: "white" } }, [
+                    _vm._v("\n          dashboard\n        ")
+                  ])
                 ],
                 1
               )
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-text",
+        { staticStyle: { "padding-top": "100px" } },
+        [
           _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
+            "v-container",
+            { attrs: { fluid: "" } },
             [
               _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("name") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("name"),
-                      label: "Name",
-                      "prepend-icon": "fa-ship",
-                      "data-vv-name": "name"
-                    },
-                    model: {
-                      value: _vm.form.name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "name", $$v)
-                      },
-                      expression: "form.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-switch", {
-                    attrs: { label: _vm.getStatus(_vm.form.active) },
-                    model: {
-                      value: _vm.form.active,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "active", $$v)
-                      },
-                      expression: "form.active"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { email: true },
-                        expression: "{ email: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("email") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("email"),
-                      label: "Email",
-                      "prepend-icon": "mail",
-                      "data-vv-name": "email"
-                    },
-                    model: {
-                      value: _vm.form.email,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "email", $$v)
-                      },
-                      expression: "form.email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { label: "Phone", "prepend-icon": "phone" },
-                    model: {
-                      value: _vm.form.phone,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "phone", $$v)
-                      },
-                      expression: "form.phone"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { label: "Address 1", "prepend-icon": "looks_one" },
-                    model: {
-                      value: _vm.form.address_1,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "address_1", $$v)
-                      },
-                      expression: "form.address_1"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { label: "Address 2", "prepend-icon": "looks_two" },
-                    model: {
-                      value: _vm.form.address_2,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "address_2", $$v)
-                      },
-                      expression: "form.address_2"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { label: "City", "prepend-icon": "location_city" },
-                    model: {
-                      value: _vm.form.city,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "city", $$v)
-                      },
-                      expression: "form.city"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    attrs: { label: "State", "prepend-icon": "map" },
-                    model: {
-                      value: _vm.form.state,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "state", $$v)
-                      },
-                      expression: "form.state"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { regex: /^\d{5}(?:[-\s]\d{4})?$/ },
-                        expression: "{ regex: /^\\d{5}(?:[-\\s]\\d{4})?$/ }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("zip") },
-                    attrs: {
-                      "error-messages": _vm.errorMessages("zip"),
-                      label: "Zip",
-                      "prepend-icon": "markunread_mailbox",
-                      "data-vv-name": "zip"
-                    },
-                    model: {
-                      value: _vm.form.zip,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "zip", $$v)
-                      },
-                      expression: "form.zip"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                "v-layout",
+                { attrs: { row: "" } },
                 [
                   _c(
-                    "v-textarea",
+                    "v-flex",
                     {
-                      attrs: { color: "teal" },
-                      model: {
-                        value: _vm.form.notes,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "notes", $$v)
-                        },
-                        expression: "form.notes"
+                      attrs: {
+                        x12: "",
+                        sm12: "",
+                        md4: "",
+                        "offset-md4": "",
+                        lg4: "",
+                        "offset-lg4": "",
+                        xl4: "",
+                        "offset-xl4": ""
                       }
                     },
                     [
-                      _c("div", { attrs: { slot: "label" }, slot: "label" }, [
-                        _vm._v("\n            Notes "),
-                        _c("small", [_vm._v("(optional)")])
+                      _c("div", { staticClass: "wrapper" }, [
+                        _c(
+                          "svg",
+                          {
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 1920 1080"
+                            }
+                          },
+                          [
+                            _c("title", [_vm._v("404")]),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: {
+                                  id: "Layer_12 yellow-back-fig",
+                                  "data-name": "Layer 12"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M600.87,872H156a4,4,0,0,0-3.78,4.19h0a4,4,0,0,0,3.78,4.19H600.87a4,4,0,0,0,3.78-4.19h0A4,4,0,0,0,600.87,872Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    x: "680.91",
+                                    y: "871.98",
+                                    width: "513.38",
+                                    height: "8.39",
+                                    rx: "4.19",
+                                    ry: "4.19"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M1480,876.17h0c0,2.32,2.37,4.19,5.3,4.19h350.61c2.93,0,5.3-1.88,5.3-4.19h0c0-2.32-2.37-4.19-5.3-4.19H1485.26C1482.33,872,1480,873.86,1480,876.17Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    x: "492.21",
+                                    y: "920.64",
+                                    width: "249.8",
+                                    height: "8.39",
+                                    rx: "4.19",
+                                    ry: "4.19"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M1549.14,924.84h0a4.19,4.19,0,0,0-4.19-4.19H1067.46a14.66,14.66,0,0,1,.35,3.21v1A4.19,4.19,0,0,0,1072,929h472.94A4.19,4.19,0,0,0,1549.14,924.84Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M865.5,924.84h0a4.19,4.19,0,0,0,4.19,4.19h82.37a12.28,12.28,0,0,1-.19-2v-2.17a4.19,4.19,0,0,0-4.19-4.19h-78A4.19,4.19,0,0,0,865.5,924.84Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    x: "915.6",
+                                    y: "981.47",
+                                    width: "54.72",
+                                    height: "8.39",
+                                    rx: "4.19",
+                                    ry: "4.19"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M730.33,985.67h0c0,2.32,4.23,4.19,9.44,4.19h104.3c5.22,0,9.44-1.88,9.44-4.19h0c0-2.32-4.23-4.19-9.44-4.19H739.78C734.56,981.47,730.33,983.35,730.33,985.67Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    x: "997.06",
+                                    y: "981.47",
+                                    width: "78.11",
+                                    height: "8.39",
+                                    rx: "4.19",
+                                    ry: "4.19"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("g", { attrs: { id: "round-conf" } }, [
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c1",
+                                    attrs: {
+                                      d:
+                                        "M536.41,155.14a17.77,17.77,0,1,0,17.77,17.77A17.77,17.77,0,0,0,536.41,155.14Zm0,28.68a10.9,10.9,0,1,1,10.9-10.9A10.9,10.9,0,0,1,536.41,183.81Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c2",
+                                    attrs: {
+                                      d:
+                                        "M1345.09,82.44a17.77,17.77,0,1,0,17.77,17.77A17.77,17.77,0,0,0,1345.09,82.44Zm0,28.68a10.9,10.9,0,1,1,10.9-10.9A10.9,10.9,0,0,1,1345.09,111.12Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c3",
+                                    attrs: {
+                                      d:
+                                        "M70.12,363A17.77,17.77,0,1,0,87.89,380.8,17.77,17.77,0,0,0,70.12,363Zm0,28.68A10.9,10.9,0,1,1,81,380.8,10.9,10.9,0,0,1,70.12,391.7Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c4",
+                                    attrs: {
+                                      d:
+                                        "M170.47,751.82a17.77,17.77,0,1,0,17.77,17.77A17.77,17.77,0,0,0,170.47,751.82Zm0,28.68a10.9,10.9,0,1,1,10.9-10.9A10.9,10.9,0,0,1,170.47,780.5Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c5",
+                                    attrs: {
+                                      d:
+                                        "M1457.34,762.73a17.77,17.77,0,1,0,17.77,17.77A17.77,17.77,0,0,0,1457.34,762.73Zm0,28.68a10.9,10.9,0,1,1,10.9-10.9A10.9,10.9,0,0,1,1457.34,791.4Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1 circle c6",
+                                    attrs: {
+                                      d:
+                                        "M1829.15,407.49a17.77,17.77,0,1,0,17.77,17.77A17.77,17.77,0,0,0,1829.15,407.49Zm0,28.68a10.9,10.9,0,1,1,10.9-10.9A10.9,10.9,0,0,1,1829.15,436.17Z"
+                                    }
+                                  })
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: {
+                                  id: "fortyfour",
+                                  "data-name": "Layer 2"
+                                }
+                              },
+                              [
+                                _c("g", { staticClass: "four a" }, [
+                                  _c("rect", {
+                                    staticClass: "cls-2",
+                                    attrs: {
+                                      x: "233.74",
+                                      y: "391.14",
+                                      width: "120.71",
+                                      height: "466.29",
+                                      rx: "57.1",
+                                      ry: "57.1",
+                                      transform:
+                                        "translate(918.39 330.19) rotate(90)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("rect", {
+                                    staticClass: "cls-3",
+                                    attrs: {
+                                      x: "333.83",
+                                      y: "475.1",
+                                      width: "120.71",
+                                      height: "396.88",
+                                      rx: "60.36",
+                                      ry: "60.36"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("rect", {
+                                    staticClass: "cls-3",
+                                    attrs: {
+                                      x: "197.13",
+                                      y: "122.89",
+                                      width: "120.71",
+                                      height: "604.75",
+                                      rx: "60.36",
+                                      ry: "60.36",
+                                      transform:
+                                        "translate(290.49 -70.78) rotate(35)"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("g", { staticClass: "four b" }, [
+                                  _c("rect", {
+                                    staticClass: "cls-2",
+                                    attrs: {
+                                      x: "1558.84",
+                                      y: "391.91",
+                                      width: "120.71",
+                                      height: "466.29",
+                                      rx: "57.1",
+                                      ry: "57.1",
+                                      transform:
+                                        "translate(2244.26 -994.14) rotate(90)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("rect", {
+                                    staticClass: "cls-3",
+                                    attrs: {
+                                      x: "1658.92",
+                                      y: "475.87",
+                                      width: "120.71",
+                                      height: "396.88",
+                                      rx: "60.36",
+                                      ry: "60.36"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("rect", {
+                                    staticClass: "cls-3",
+                                    attrs: {
+                                      x: "1522.22",
+                                      y: "123.66",
+                                      width: "120.71",
+                                      height: "604.75",
+                                      rx: "60.36",
+                                      ry: "60.36",
+                                      transform:
+                                        "translate(530.57 -830.68) rotate(35)"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-3",
+                                  attrs: {
+                                    id: "ou",
+                                    d:
+                                      "M956.54,168.2c-194.34,0-351.89,157.55-351.89,351.89S762.19,872,956.54,872s351.89-157.55,351.89-351.89S1150.88,168.2,956.54,168.2Zm0,584.49c-128.46,0-232.6-104.14-232.6-232.6s104.14-232.6,232.6-232.6,232.6,104.14,232.6,232.6S1085,752.69,956.54,752.69Z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: {
+                                  id: "umbrella",
+                                  "data-name": "Layer 3"
+                                }
+                              },
+                              [
+                                _c("g", [
+                                  _c("circle", {
+                                    staticClass: "cls-4",
+                                    attrs: {
+                                      cx: "1187.53",
+                                      cy: "240.3",
+                                      r: "7.66",
+                                      transform:
+                                        "translate(236.36 990.8) rotate(-49.71)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("g", [
+                                    _c("path", {
+                                      staticClass: "cls-5",
+                                      attrs: {
+                                        d:
+                                          "M1219.56,359.67l55,100.52c32.7-48.48-6.87-142.43-91.75-214.38-84.41-71.55-183-95.33-225.81-56l114.21,44.14Z"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("path", {
+                                      staticClass: "cls-6",
+                                      attrs: {
+                                        d:
+                                          "M1182.79,245.81c-84.41-71.55-183-95.33-225.81-56l114.21,44.14Z"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("polygon", {
+                                      staticClass: "cls-7",
+                                      attrs: {
+                                        points:
+                                          "1182.79 245.81 1071.19 233.91 1219.56 359.67 1182.79 245.81"
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("polygon", {
+                                    staticClass: "cls-8",
+                                    attrs: {
+                                      points:
+                                        "1180.91 409.02 1274.54 460.19 1219.56 359.67 1071.19 233.91 956.98 189.76 1021.95 274.29 1180.91 409.02"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("g", [
+                                    _c("rect", {
+                                      staticClass: "cls-4",
+                                      attrs: {
+                                        x: "997.45",
+                                        y: "358.35",
+                                        width: "175.58",
+                                        height: "5.1",
+                                        transform:
+                                          "translate(108.21 955.38) rotate(-49.71)"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("rect", {
+                                      staticClass: "cls-4",
+                                      attrs: {
+                                        x: "1028.09",
+                                        y: "399.36",
+                                        width: "21.46",
+                                        height: "32.27",
+                                        rx: "10.73",
+                                        ry: "10.73",
+                                        transform:
+                                          "translate(515.04 -573.16) rotate(40.29)"
+                                      }
+                                    })
+                                  ])
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: { id: "pillow", "data-name": "Layer 4" }
+                              },
+                              [
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M754,627.07c7,.54,12.92-2.82,13.35-7.59s-4.95-9.24-12-9.87a18.55,18.55,0,0,0-2.17,0l-74.9-81.64c0-.1,0-.19,0-.29,0-7.09-4-12.83-8.8-12.81s-8.75,5.77-8.73,12.87c0,0,0,.09,0,.13l-50.21,46.07h-.09c-7.06-.63-13.14,2.77-13.57,7.59s4.87,9.16,11.85,9.84l76.08,82.92s0,0,0,.06c0,7.09,4,12.83,8.8,12.81s8.65-5.66,8.71-12.65Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-9",
+                                  attrs: {
+                                    d:
+                                      "M669.46,514.82c-4.77-.83-8.75,5.77-8.73,12.87,0,0,0,.09,0,.13l-50.21,46.07h-.09c-7.06-.63-13.14,2.77-13.57,7.59s4.87,9.16,11.85,9.84l76.08,82.92s0,0,0,.06c0,7.09,4,12.83,8.8,12.81s8.65-5.66,8.71-12.65C570.55,573,702.07,520.47,669.46,514.82Z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              { attrs: { id: "cup", "data-name": "Layer 7" } },
+                              [
+                                _c("polygon", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    points:
+                                      "1173.69 748.21 1140.52 715.42 1195.79 647.35 1241.13 692.16 1173.69 748.21"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("polygon", {
+                                  staticClass: "cls-8",
+                                  attrs: {
+                                    points:
+                                      "1173.69 748.21 1140.52 715.42 1143.93 711.27 1177.81 744.75 1173.69 748.21"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("polygon", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    points:
+                                      "1194.68 731.46 1157.04 694.24 1183.8 661.7 1226.91 704.32 1194.68 731.46"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("g", { staticClass: "cls-10" }, [
+                                  _c("path", {
+                                    staticClass: "cls-8",
+                                    attrs: {
+                                      d:
+                                        "M1176.32,667.78h0a4.19,4.19,0,0,1,4.19,4.19v33.54a0,0,0,0,1,0,0h-8.38a0,0,0,0,1,0,0V672a4.19,4.19,0,0,1,4.19-4.19Z",
+                                      transform:
+                                        "translate(822.53 -628.67) rotate(44.67)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-8",
+                                    attrs: {
+                                      d:
+                                        "M1172.73,709.7l23.58-23.85a4.19,4.19,0,0,1,5.92,0h0a4.19,4.19,0,0,1,0,5.92l-23.58,23.85Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-8",
+                                    attrs: {
+                                      d:
+                                        "M1185.11,722.09l23.58-23.85a4.19,4.19,0,0,1,5.92,0h0a4.19,4.19,0,0,1,0,5.92L1191.06,728Z"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    d:
+                                      "M1197.85,660.5h45.69a5.7,5.7,0,0,1,5.7,5.7v8.32a0,0,0,0,1,0,0h-57.09a0,0,0,0,1,0,0v-8.32A5.7,5.7,0,0,1,1197.85,660.5Z",
+                                    transform:
+                                      "translate(829.53 -667.66) rotate(45)"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-8",
+                                  attrs: {
+                                    d:
+                                      "M1191.49,664.74h53.94a5.25,5.25,0,0,1,5.25,5.25v4.79a0,0,0,0,1,0,0h-64.44a0,0,0,0,1,0,0V670a5.25,5.25,0,0,1,5.25-5.25Z",
+                                    transform:
+                                      "translate(822.83 -663.17) rotate(44.67)"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: { id: "clock", "data-name": "Layer 8" }
+                              },
+                              [
+                                _c("circle", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    cx: "847.7",
+                                    cy: "247.59",
+                                    r: "74.66",
+                                    transform:
+                                      "translate(-32.91 314.05) rotate(-20.6)"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("circle", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    cx: "847.7",
+                                    cy: "247.59",
+                                    r: "63.44",
+                                    transform:
+                                      "translate(-32.91 314.05) rotate(-20.6)"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-3 clock-hand-1",
+                                  attrs: {
+                                    x: "845",
+                                    y: "189.5",
+                                    width: "6.04",
+                                    height: "58",
+                                    rx: "3.02",
+                                    ry: "3.02"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-3 clock-hand-2",
+                                  attrs: {
+                                    x: "845",
+                                    y: "209.5",
+                                    width: "6.04",
+                                    height: "38",
+                                    rx: "3.02",
+                                    ry: "3.02",
+                                    transform:
+                                      "translate(1611.22 -230.4) rotate(130.4)"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("circle", {
+                                  staticClass: "cls-3",
+                                  attrs: {
+                                    cx: "847.7",
+                                    cy: "247.59",
+                                    transform:
+                                      "translate(-32.91 314.05) rotate(-20.6)",
+                                    r: "3"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              { attrs: { id: "box", "data-name": "Layer 9" } },
+                              [
+                                _c("g", { attrs: { id: "box-top" } }, [
+                                  _c("polygon", {
+                                    staticClass: "cls-8",
+                                    attrs: {
+                                      points:
+                                        "569.71 382.28 653.74 329.39 747.13 320.1 679.2 369.85 569.71 382.28"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polygon", {
+                                    staticClass: "cls-5",
+                                    attrs: {
+                                      points:
+                                        "691.95 367.2 570.87 392.34 565.32 383.35 687.8 357.45 691.95 367.2"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polygon", {
+                                    staticClass: "cls-5",
+                                    attrs: {
+                                      points:
+                                        "661.54 337.48 570.87 392.34 562.42 378.92 652.25 322.38 658.12 321.34 661.54 337.48"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polygon", {
+                                    staticClass: "cls-7",
+                                    attrs: {
+                                      points:
+                                        "661.54 337.48 570.87 392.34 562.42 378.92 652.25 322.38 658.12 321.34 661.54 337.48"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("polygon", {
+                                    staticClass: "cls-5",
+                                    attrs: {
+                                      points:
+                                        "747.13 320.1 661.54 337.48 652.25 322.38 738.4 307.1 747.13 320.1"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    d:
+                                      "M588.28,420.26s3.44,5.2,5.19,8l43.1,68.48,158.81-100-43.1-68.48q-2.63-4.17-5.47-8Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-7",
+                                  attrs: {
+                                    d:
+                                      "M588.28,420.26s3.44,5.2,5.19,8l43.1,68.48,158.81-100-43.1-68.48q-2.63-4.17-5.47-8Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("rect", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    x: "693.73",
+                                    y: "335.51",
+                                    width: "83.99",
+                                    height: "90.58",
+                                    transform:
+                                      "translate(-89.78 450.43) rotate(-32.19)"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              {
+                                attrs: {
+                                  id: "rucksack",
+                                  "data-name": "Layer 6"
+                                }
+                              },
+                              [
+                                _c("g", { attrs: { id: "stripe" } }, [
+                                  _c("path", {
+                                    staticClass: "cls-12",
+                                    attrs: {
+                                      d:
+                                        "M1200.32,473.91h0a13.74,13.74,0,0,0-18.41,7.44l-55,129.86a14.82,14.82,0,0,0,7.13,19.21h0a13.74,13.74,0,0,0,18.41-7.44l55-129.86A14.82,14.82,0,0,0,1200.32,473.91Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-13",
+                                    attrs: {
+                                      d:
+                                        "M1202.18,606.34h0a14,14,0,0,0-16.18-11.8l-48.83,9c-7.59,1.4-12.66,9-11.31,16.89h0a14,14,0,0,0,16.18,11.8l48.83-9C1198.46,621.82,1203.53,614.26,1202.18,606.34Z"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-8",
+                                  attrs: {
+                                    d:
+                                      "M1300.86,603l-122.93,22.74-15.44-90.91c-5.75-33.86,15.89-66.17,48.34-72.18l11.58-2.08c32.45-6,57.26,17.66,63,51.51Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-1",
+                                  attrs: {
+                                    d:
+                                      "M1307,601.91l-112.32,20.78-15.9-93.61c-5.5-32.36,15.19-63.25,46.2-69h0c31-5.74,60.62,15.85,66.12,48.21Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-8",
+                                  attrs: {
+                                    d:
+                                      "M1296.76,603.8,1215,618.92l-4.89-28.77c-2.11-12.42,5.83-24.27,17.73-26.47l38.67-7.15c11.9-2.2,23.26,6.08,25.37,18.5Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    d:
+                                      "M1296.76,603.8l-73.41,13.58-4.92-29c-2-11.62,5.45-22.72,16.6-24.78l33.07-6.12c11.14-2.06,21.77,5.69,23.75,17.32Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-4",
+                                  attrs: {
+                                    d:
+                                      "M1231.77,469.69l-13.42,2.48a10.25,10.25,0,0,0-8,11.92l2.38,14a9.9,9.9,0,0,0,11.42,8.33l13.42-2.48a10.25,10.25,0,0,0,8-11.92l-2.38-14A9.9,9.9,0,0,0,1231.77,469.69Zm7.17,20.84a6.39,6.39,0,0,1-5,7.43l-8.36,1.55a6.17,6.17,0,0,1-7.12-5.19l-1.48-8.73a6.39,6.39,0,0,1,5-7.43l8.36-1.55a6.17,6.17,0,0,1,7.12,5.19Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-14",
+                                  attrs: {
+                                    d:
+                                      "M1233.74,471.13l-13.42,2.48a10.25,10.25,0,0,0-8,11.92l2.38,14a9.9,9.9,0,0,0,11.42,8.33l13.42-2.48a10.25,10.25,0,0,0,8-11.92l-2.38-14A9.9,9.9,0,0,0,1233.74,471.13Zm7.17,20.84a6.39,6.39,0,0,1-5,7.43l-8.36,1.55a6.17,6.17,0,0,1-7.12-5.19L1219,487a6.39,6.39,0,0,1,5-7.43l8.36-1.55a6.17,6.17,0,0,1,7.12,5.19Z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "g",
+                              { attrs: { id: "bike", "data-name": "Layer 5" } },
+                              [
+                                _c("path", {
+                                  staticClass: "cls-8 wheel",
+                                  attrs: {
+                                    d:
+                                      "M1139.82,780.44a76.59,76.59,0,1,0-57.9,91.53A76.59,76.59,0,0,0,1139.82,780.44Zm-28.12,6.33a47.59,47.59,0,0,1,.83,15.8c-30.14-6.28-47.68-21.65-54.39-52.52A47.73,47.73,0,0,1,1111.69,786.77Zm-70.46-30.9c10.35,26.88,10.14,50.4-13.73,70.77a47.67,47.67,0,0,1,13.73-70.77Zm34.35,88a47.55,47.55,0,0,1-34.94-5.62c16.8-20.36,41.71-25.94,67.09-19.46A47.66,47.66,0,0,1,1075.58,843.85Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-8 wheel",
+                                  attrs: {
+                                    d:
+                                      "M864.89,789.69a76.59,76.59,0,1,0-66.13,85.78A76.59,76.59,0,0,0,864.89,789.69Zm-28.59,3.7a47.59,47.59,0,0,1-.64,15.81c-29.43-9-45.47-26-49.3-57.33A47.73,47.73,0,0,1,836.3,793.39ZM769,756.1c7.82,27.72,5.43,51.12-20.22,69.2A47.67,47.67,0,0,1,769,756.1Zm26.06,90.78a47.55,47.55,0,0,1-34.27-8.83c18.61-18.72,43.93-22,68.6-13.16A47.66,47.66,0,0,1,795.06,846.88Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("g", [
+                                  _c("rect", {
+                                    staticClass: "cls-1",
+                                    attrs: {
+                                      x: "871.39",
+                                      y: "693.37",
+                                      width: "12.87",
+                                      height: "53.21",
+                                      transform:
+                                        "translate(-165.97 273.38) rotate(-16.19)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-5",
+                                    attrs: {
+                                      d:
+                                        "M813.93,679.35c-3.72-5.2,2.24-18.5,9.16-16.13,33.43,11.46,73.85,10.45,73.85,10.45,8.84.15,14.44,10.34,7.27,15.48-14.36,8.79-33.13,17-56.35,9.76C830.17,693.41,819.83,687.6,813.93,679.35Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-7",
+                                    attrs: {
+                                      d:
+                                        "M813.93,679.35c-3.72-5.2,2.24-18.5,9.16-16.13,33.43,11.46,73.85,10.45,73.85,10.45,8.84.15,14.44,10.34,7.27,15.48-14.36,8.79-33.13,17-56.35,9.76C830.17,693.41,819.83,687.6,813.93,679.35Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-5",
+                                    attrs: {
+                                      d:
+                                        "M817.15,680.06c-3.59-5,1.69-16.51,8.37-14.22,32.3,11.09,71.41,7.83,71.41,7.83,8.54.14,17.45,9.94,7.43,15.88-13.87,8.51-32,16.44-54.44,9.44C832.84,693.67,822.85,688,817.15,680.06Z"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("g", [
+                                  _c("circle", {
+                                    staticClass: "cls-9",
+                                    attrs: {
+                                      cx: "1022.66",
+                                      cy: "599.55",
+                                      r: "11.57",
+                                      transform:
+                                        "translate(-4.86 8.38) rotate(-0.47)"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    staticClass: "cls-1",
+                                    attrs: {
+                                      d:
+                                        "M1069.76,792.37l-34.89-96.74,1.93-.8-1.71-4.15-1.74.72-13.26-36.76,1.27-.42-2.25-6.76,5.94-2-2.57-7.72-9.7,3.22c-11.55-22.55,2-36.33,15-41.86l-5.57-8.81c-23,10.29-29.61,28.75-19.53,54l-9.38,3.12,2.56,7.72,5.47-1.82,2.25,6.76,2.36-.78,13.62,37.76-2.35,1,1.71,4.15,2.16-.89,34.65,96.09a7.47,7.47,0,0,0,9.56,4.49h0A7.47,7.47,0,0,0,1069.76,792.37Z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("circle", {
+                                    staticClass: "cls-11",
+                                    attrs: {
+                                      cx: "1027.9",
+                                      cy: "587.94",
+                                      r: "12.99",
+                                      transform:
+                                        "translate(-4.77 8.42) rotate(-0.47)"
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-5",
+                                  attrs: {
+                                    d:
+                                      "M1021.29,654l-17.73,6.15,1.72,5.59-31.41,82.36c-19.35,32.53-66.3,36.72-75.56,16.68l-7.09-21.5L879,747.1l3.28,10.09-94.65,33.95c-11.49,2.29-11.85,15.79-2.61,17.84,0,0,39.11,3.66,103,9.5a92.75,92.75,0,0,0,40.89-5.29c44.32-16.56,57.73-50.67,57.73-50.67l26.82-67.26a1.37,1.37,0,0,1,2.53,0l1.42,3.33,17.75-7.62Z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  staticClass: "cls-7",
+                                  attrs: {
+                                    d:
+                                      "M1021.29,654l-17.73,6.15,1.72,5.59-31.41,82.36c-19.35,32.53-66.3,36.72-75.56,16.68l-7.09-21.5L879,747.1l3.28,10.09-94.65,33.95c-11.49,2.29-11.85,15.79-2.61,17.84,0,0,39.11,3.66,103,9.5a92.75,92.75,0,0,0,40.89-5.29c44.32-16.56,57.73-50.67,57.73-50.67l26.82-67.26a1.37,1.37,0,0,1,2.53,0l1.42,3.33,17.75-7.62Z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
                       ])
                     ]
                   )
@@ -604,27 +1503,42 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "v-flex",
-                { attrs: { xs12: "", md8: "", "offset-md2": "" } },
+                "v-layout",
+                { attrs: { row: "" } },
                 [
                   _c(
-                    "v-btn",
+                    "v-flex",
                     {
                       attrs: {
-                        loading: _vm.form.busy,
-                        disabled: _vm.errors.any() || _vm.form.busy,
-                        block: "",
-                        color: "accent"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.submit()
-                        }
+                        xs12: "",
+                        sm12: "",
+                        md4: "",
+                        "offset-md4": "",
+                        lg4: "",
+                        "offset-lg4": "",
+                        xl4: "",
+                        "offset-xl4": ""
                       }
                     },
                     [
-                      _vm._v("\n          Save "),
-                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { block: "", flat: "", color: "info" },
+                              nativeOn: {
+                                click: function($event) {
+                                  _vm.goDashboard()
+                                }
+                              }
+                            },
+                            [_vm._v("Back To Dashboard")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -647,27 +1561,31 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-412be30a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f07f1fa8", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 916:
+/***/ 925:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1099)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1077)
+var __vue_script__ = __webpack_require__(1101)
 /* template */
-var __vue_template__ = __webpack_require__(1078)
+var __vue_template__ = __webpack_require__(1102)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-f07f1fa8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -678,7 +1596,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Shipper/CreateShipper.vue"
+Component.options.__file = "resources/assets/js/pages/NotFound.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -687,9 +1605,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-412be30a", Component.options)
+    hotAPI.createRecord("data-v-f07f1fa8", Component.options)
   } else {
-    hotAPI.reload("data-v-412be30a", Component.options)
+    hotAPI.reload("data-v-f07f1fa8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -701,7 +1619,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 954:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -720,7 +1638,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(955)
+var listToStyles = __webpack_require__(957)
 
 /*
 type StyleObject = {
@@ -930,7 +1848,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 955:
+/***/ 957:
 /***/ (function(module, exports) {
 
 /**
@@ -964,1027 +1882,19 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 956:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-  /* this mixins is responsible for concatinating error messages from vform and vee-validate  */
-  methods: {
-    /* errorBag is relataed to veeValidate config name*/
-    /* form is related to vform */
-    errorMessages: function errorMessages(field) {
-      return this.errors.collect(field).concat(this.form.errors.only(field));
-    },
-    hasErrors: function hasErrors(field) {
-      var errors = this.errors.collect(field).concat(this.form.errors.only(field));
-      if (errors.length > 0) {
-        return true;
-      }
-      return false;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 957:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("lVK7");
-
-
-/***/ }),
-
-/***/ "OMN4":
-/***/ (function(module, exports) {
-
-module.exports = __webpack_require__(372);
-
-/***/ }),
-
-/***/ "lVK7":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-
-// EXTERNAL MODULE: external "axios"
-var external__axios_ = __webpack_require__("OMN4");
-var external__axios__default = /*#__PURE__*/__webpack_require__.n(external__axios_);
-
-// CONCATENATED MODULE: ./src/util.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-/**
- * Deep copy the given object.
- *
- * @param  {Object} obj
- * @return {Object}
- */
-function deepCopy(obj) {
-  if (obj === null || _typeof(obj) !== 'object') {
-    return obj;
-  }
-
-  var copy = Array.isArray(obj) ? [] : {};
-  Object.keys(obj).forEach(function (key) {
-    copy[key] = deepCopy(obj[key]);
-  });
-  return copy;
-}
-/**
- * If the given value is not an array, wrap it in one.
- *
- * @param  {Any} value
- * @return {Array}
- */
-
-function arrayWrap(value) {
-  return Array.isArray(value) ? value : [value];
-}
-// CONCATENATED MODULE: ./src/Errors.js
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function Errors__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Errors__typeof = function _typeof(obj) { return typeof obj; }; } else { Errors__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Errors__typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-var Errors_Errors =
-/*#__PURE__*/
-function () {
-  /**
-   * Create a new error bag instance.
-   */
-  function Errors() {
-    _classCallCheck(this, Errors);
-
-    this.errors = {};
-  }
-  /**
-   * Set the errors object or field error messages.
-   *
-   * @param {Object|String} field
-   * @param {Array|String|undefined} messages
-   */
-
-
-  _createClass(Errors, [{
-    key: "set",
-    value: function set(field, messages) {
-      if (Errors__typeof(field) === 'object') {
-        this.errors = field;
-      } else {
-        this.set(_extends({}, this.errors, _defineProperty({}, field, arrayWrap(messages))));
-      }
-    }
-    /**
-     * Get all the errors.
-     *
-     * @return {Object}
-     */
-
-  }, {
-    key: "all",
-    value: function all() {
-      return this.errors;
-    }
-    /**
-     * Determine if there is an error for the given field.
-     *
-     * @param  {String} field
-     * @return {Boolean}
-     */
-
-  }, {
-    key: "has",
-    value: function has(field) {
-      return this.errors.hasOwnProperty(field);
-    }
-    /**
-     * Determine if there are any errors for the given fields.
-     *
-     * @param  {...String} fields
-     * @return {Boolean}
-     */
-
-  }, {
-    key: "hasAny",
-    value: function hasAny() {
-      var _this = this;
-
-      for (var _len = arguments.length, fields = new Array(_len), _key = 0; _key < _len; _key++) {
-        fields[_key] = arguments[_key];
-      }
-
-      return fields.some(function (field) {
-        return _this.has(field);
-      });
-    }
-    /**
-     * Determine if there are any errors.
-     *
-     * @return {Boolean}
-     */
-
-  }, {
-    key: "any",
-    value: function any() {
-      return Object.keys(this.errors).length > 0;
-    }
-    /**
-     * Get the first error message for the given field.
-     *
-     * @param  String} field
-     * @return {String|undefined}
-     */
-
-  }, {
-    key: "get",
-    value: function get(field) {
-      if (this.has(field)) {
-        return this.getAll(field)[0];
-      }
-    }
-    /**
-     * Get all the error messages for the given field.
-     *
-     * @param  {String} field
-     * @return {Array}
-     */
-
-  }, {
-    key: "getAll",
-    value: function getAll(field) {
-      return arrayWrap(this.errors[field] || []);
-    }
-    /**
-     * Get the error message for the given fields.
-     *
-     * @param  {...String} fields
-     * @return {Array}
-     */
-
-  }, {
-    key: "only",
-    value: function only() {
-      var _this2 = this;
-
-      var messages = [];
-
-      for (var _len2 = arguments.length, fields = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        fields[_key2] = arguments[_key2];
-      }
-
-      fields.forEach(function (field) {
-        var message = _this2.get(field);
-
-        if (message) {
-          messages.push(message);
-        }
-      });
-      return messages;
-    }
-    /**
-     * Get all the errors in a flat array.
-     *
-     * @return {Array}
-     */
-
-  }, {
-    key: "flatten",
-    value: function flatten() {
-      return Object.values(this.errors).reduce(function (a, b) {
-        return a.concat(b);
-      }, []);
-    }
-    /**
-     * Clear one or all error fields.
-     *
-     * @param {String|undefined} field
-     */
-
-  }, {
-    key: "clear",
-    value: function clear(field) {
-      var _this3 = this;
-
-      var errors = {};
-
-      if (field) {
-        Object.keys(this.errors).forEach(function (key) {
-          if (key !== field) {
-            errors[key] = _this3.errors[key];
-          }
-        });
-      }
-
-      this.set(errors);
-    }
-  }]);
-
-  return Errors;
-}();
-
-
-// CONCATENATED MODULE: ./src/Form.js
-function Form__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Form__typeof = function _typeof(obj) { return typeof obj; }; } else { Form__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Form__typeof(obj); }
-
-function Form__defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function Form__extends() { Form__extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return Form__extends.apply(this, arguments); }
-
-function Form__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function Form__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function Form__createClass(Constructor, protoProps, staticProps) { if (protoProps) Form__defineProperties(Constructor.prototype, protoProps); if (staticProps) Form__defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-
-
-var Form_Form =
-/*#__PURE__*/
-function () {
-  /**
-   * Create a new form instance.
-   *
-   * @param {Object} data
-   */
-  function Form() {
-    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    Form__classCallCheck(this, Form);
-
-    this.busy = false;
-    this.successful = false;
-    this.errors = new Errors_Errors();
-    this.originalData = deepCopy(data);
-    Object.assign(this, data);
-  }
-  /**
-   * Fill form data.
-   *
-   * @param {Object} data
-   */
-
-
-  Form__createClass(Form, [{
-    key: "fill",
-    value: function fill(data) {
-      var _this = this;
-
-      this.keys().forEach(function (key) {
-        _this[key] = data[key];
-      });
-    }
-    /**
-     * Get the form data.
-     *
-     * @return {Object}
-     */
-
-  }, {
-    key: "data",
-    value: function data() {
-      var _this2 = this;
-
-      return this.keys().reduce(function (data, key) {
-        return Form__extends({}, data, Form__defineProperty({}, key, _this2[key]));
-      }, {});
-    }
-    /**
-     * Get the form data keys.
-     *
-     * @return {Array}
-     */
-
-  }, {
-    key: "keys",
-    value: function keys() {
-      return Object.keys(this).filter(function (key) {
-        return !Form.ignore.includes(key);
-      });
-    }
-    /**
-     * Start processing the form.
-     */
-
-  }, {
-    key: "startProcessing",
-    value: function startProcessing() {
-      this.errors.clear();
-      this.busy = true;
-      this.successful = false;
-    }
-    /**
-     * Finish processing the form.
-     */
-
-  }, {
-    key: "finishProcessing",
-    value: function finishProcessing() {
-      this.busy = false;
-      this.successful = true;
-    }
-    /**
-     * Clear the form errors.
-     */
-
-  }, {
-    key: "clear",
-    value: function clear() {
-      this.errors.clear();
-      this.successful = false;
-    }
-    /**
-     * Reset the form fields.
-     */
-
-  }, {
-    key: "reset",
-    value: function reset() {
-      var _this3 = this;
-
-      Object.keys(this).filter(function (key) {
-        return !Form.ignore.includes(key);
-      }).forEach(function (key) {
-        _this3[key] = deepCopy(_this3.originalData[key]);
-      });
-    }
-    /**
-     * Submit the from via a GET request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-
-  }, {
-    key: "get",
-    value: function get(url) {
-      return this.submit('get', url);
-    }
-    /**
-     * Submit the from via a POST request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-
-  }, {
-    key: "post",
-    value: function post(url) {
-      return this.submit('post', url);
-    }
-    /**
-     * Submit the from via a PATCH request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-
-  }, {
-    key: "patch",
-    value: function patch(url) {
-      return this.submit('patch', url);
-    }
-    /**
-     * Submit the from via a PUT request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-
-  }, {
-    key: "put",
-    value: function put(url) {
-      return this.submit('put', url);
-    }
-    /**
-     * Submit the from via a DELETE request.
-     *
-     * @param  {String} url
-     * @return {Promise}
-     */
-
-  }, {
-    key: "delete",
-    value: function _delete(url) {
-      return this.submit('delete', url);
-    }
-    /**
-     * Submit the form data via an HTTP request.
-     *
-     * @param  {String} method (get, post, patch, put)
-     * @param  {String} url
-     * @param  {Object} config (axios config)
-     * @return {Promise}
-     */
-
-  }, {
-    key: "submit",
-    value: function submit(method, url) {
-      var _this4 = this;
-
-      var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      this.startProcessing();
-      var data = method === 'get' ? {
-        params: this.data()
-      } : this.data();
-      return new Promise(function (resolve, reject) {
-        external__axios__default.a.request(Form__extends({
-          url: _this4.route(url),
-          method: method,
-          data: data
-        }, config)).then(function (response) {
-          _this4.finishProcessing();
-
-          resolve(response);
-        }).catch(function (error) {
-          _this4.busy = false;
-
-          if (error.response) {
-            _this4.errors.set(_this4.extractErrors(error.response));
-          }
-
-          reject(error);
-        });
-      });
-    }
-    /**
-     * Extract the errors from the response object.
-     *
-     * @param  {Object} response
-     * @return {Object}
-     */
-
-  }, {
-    key: "extractErrors",
-    value: function extractErrors(response) {
-      if (!response.data || Form__typeof(response.data) !== 'object') {
-        return {
-          error: Form.errorMessage
-        };
-      }
-
-      if (response.data.errors) {
-        return Form__extends({}, response.data.errors);
-      }
-
-      if (response.data.message) {
-        return {
-          error: response.data.message
-        };
-      }
-
-      return Form__extends({}, response.data);
-    }
-    /**
-     * Get a named route.
-     *
-     * @param  {String} name
-     * @return {Object} parameters
-     * @return {String}
-     */
-
-  }, {
-    key: "route",
-    value: function route(name) {
-      var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var url = name;
-
-      if (Form.routes.hasOwnProperty(name)) {
-        url = decodeURI(Form.routes[name]);
-      }
-
-      if (Form__typeof(parameters) !== 'object') {
-        parameters = {
-          id: parameters
-        };
-      }
-
-      Object.keys(parameters).forEach(function (key) {
-        url = url.replace("{".concat(key, "}"), parameters[key]);
-      });
-      return url;
-    }
-    /**
-     * Clear errors on keydown.
-     *
-     * @param {KeyboardEvent} event
-     */
-
-  }, {
-    key: "onKeydown",
-    value: function onKeydown(event) {
-      if (event.target.name) {
-        this.errors.clear(event.target.name);
-      }
-    }
-  }]);
-
-  return Form;
-}();
-
-Form_Form.routes = {};
-Form_Form.errorMessage = 'Something went wrong. Please try again.';
-Form_Form.ignore = ['busy', 'successful', 'errors', 'originalData'];
-/* harmony default export */ var src_Form = (Form_Form);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Users//Otinsoft//Code//github//vform//node_modules//.cache//cache-loader"}!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/HasError.vue
-//
-//
-//
-//
-/* harmony default export */ var HasError = ({
-  name: 'has-error',
-  props: {
-    form: {
-      type: Object,
-      required: true
-    },
-    field: {
-      type: String,
-      required: true
-    }
-  }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4389a6dd","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/HasError.vue
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.form.errors.has(_vm.field))?_c('div',{staticClass:"help-block invalid-feedback",domProps:{"innerHTML":_vm._s(_vm.form.errors.get(_vm.field))}}):_vm._e()}
-var staticRenderFns = []
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/component-normalizer.js
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  scriptExports = scriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof scriptExports.default
-  if (type === 'object' || type === 'function') {
-    scriptExports = scriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-// CONCATENATED MODULE: ./src/components/HasError.vue
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-
-var Component = normalizeComponent(
-  HasError,
-  render,
-  staticRenderFns,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-
-/* harmony default export */ var components_HasError = (Component.exports);
-
-// CONCATENATED MODULE: ./src/components/Alert.js
-/* harmony default export */ var Alert = ({
-  props: {
-    form: {
-      type: Object,
-      required: true
-    },
-    dismissible: {
-      type: Boolean,
-      default: true
-    }
-  },
-  methods: {
-    dismiss: function dismiss() {
-      if (this.dismissible) {
-        this.form.clear();
-      }
-    }
-  }
-});
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Users//Otinsoft//Code//github//vform//node_modules//.cache//cache-loader"}!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/AlertError.vue
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var AlertError = ({
-  name: 'alert-error',
-  extends: Alert,
-  props: {
-    message: {
-      type: String,
-      default: 'There were some problems with your input.'
-    }
-  }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-e73aa7c8","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/AlertError.vue
-var AlertError_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.form.errors.any())?_c('div',{staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),_vm._t("default",[(_vm.form.errors.has('error'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('error'))}}):_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})])],2):_vm._e()}
-var AlertError_staticRenderFns = []
-
-// CONCATENATED MODULE: ./src/components/AlertError.vue
-/* script */
-
-
-/* template */
-
-/* template functional */
-var AlertError___vue_template_functional__ = false
-/* styles */
-var AlertError___vue_styles__ = null
-/* scopeId */
-var AlertError___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var AlertError___vue_module_identifier__ = null
-
-var AlertError_Component = normalizeComponent(
-  AlertError,
-  AlertError_render,
-  AlertError_staticRenderFns,
-  AlertError___vue_template_functional__,
-  AlertError___vue_styles__,
-  AlertError___vue_scopeId__,
-  AlertError___vue_module_identifier__
-)
-
-/* harmony default export */ var components_AlertError = (AlertError_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Users//Otinsoft//Code//github//vform//node_modules//.cache//cache-loader"}!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/AlertErrors.vue
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var AlertErrors = ({
-  name: 'alert-errors',
-  extends: Alert,
-  props: {
-    message: {
-      type: String,
-      default: 'There were some problems with your input.'
-    }
-  }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-422a6591","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/AlertErrors.vue
-var AlertErrors_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.form.errors.any())?_c('div',{staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),(_vm.message)?_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}}):_vm._e(),_vm._v(" "),_c('ul',_vm._l((_vm.form.errors.flatten()),function(error){return _c('li',{domProps:{"innerHTML":_vm._s(error)}})}))]):_vm._e()}
-var AlertErrors_staticRenderFns = []
-
-// CONCATENATED MODULE: ./src/components/AlertErrors.vue
-/* script */
-
-
-/* template */
-
-/* template functional */
-var AlertErrors___vue_template_functional__ = false
-/* styles */
-var AlertErrors___vue_styles__ = null
-/* scopeId */
-var AlertErrors___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var AlertErrors___vue_module_identifier__ = null
-
-var AlertErrors_Component = normalizeComponent(
-  AlertErrors,
-  AlertErrors_render,
-  AlertErrors_staticRenderFns,
-  AlertErrors___vue_template_functional__,
-  AlertErrors___vue_styles__,
-  AlertErrors___vue_scopeId__,
-  AlertErrors___vue_module_identifier__
-)
-
-/* harmony default export */ var components_AlertErrors = (AlertErrors_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Users//Otinsoft//Code//github//vform//node_modules//.cache//cache-loader"}!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/AlertSuccess.vue
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var AlertSuccess = ({
-  name: 'alert-success',
-  extends: Alert,
-  props: {
-    message: {
-      type: String,
-      default: ''
-    }
-  }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-0afdb8a8","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/AlertSuccess.vue
-var AlertSuccess_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.form.successful)?_c('div',{staticClass:"alert alert-success alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),_vm._t("default",[_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})])],2):_vm._e()}
-var AlertSuccess_staticRenderFns = []
-
-// CONCATENATED MODULE: ./src/components/AlertSuccess.vue
-/* script */
-
-
-/* template */
-
-/* template functional */
-var AlertSuccess___vue_template_functional__ = false
-/* styles */
-var AlertSuccess___vue_styles__ = null
-/* scopeId */
-var AlertSuccess___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var AlertSuccess___vue_module_identifier__ = null
-
-var AlertSuccess_Component = normalizeComponent(
-  AlertSuccess,
-  AlertSuccess_render,
-  AlertSuccess_staticRenderFns,
-  AlertSuccess___vue_template_functional__,
-  AlertSuccess___vue_styles__,
-  AlertSuccess___vue_scopeId__,
-  AlertSuccess___vue_module_identifier__
-)
-
-/* harmony default export */ var components_AlertSuccess = (AlertSuccess_Component.exports);
-
-// CONCATENATED MODULE: ./src/index.js
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "Form", function() { return src_Form; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "Errors", function() { return Errors_Errors; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "HasError", function() { return components_HasError; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "AlertError", function() { return components_AlertError; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "AlertErrors", function() { return components_AlertErrors; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "AlertSuccess", function() { return components_AlertSuccess; });
-/* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "default", function() { return src_Form; });
-
-
-
-
-
-
-
-
-/***/ })
-
-/******/ });
-
-/***/ }),
-
-/***/ 958:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(959)
+  __webpack_require__(961)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(961)
+var __vue_template__ = __webpack_require__(963)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2024,17 +1934,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 959:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(960);
+var content = __webpack_require__(962);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(954)("d26755d4", content, false, {});
+var update = __webpack_require__(956)("d26755d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -2051,7 +1961,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 960:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -2066,7 +1976,7 @@ exports.push([module.i, "\n.v-messages__message {\n  color: #e57373;\n}\n", ""])
 
 /***/ }),
 
-/***/ 961:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
