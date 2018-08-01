@@ -3,6 +3,7 @@ const CreateDsg = () => import("Pages/Dsg/CreateDsg.vue");
 const EditDsg = () => import("Pages/Dsg/EditDsg.vue");
 const ArchivedDsg = () => import("Pages/Dsg/ArchivedDsg.vue");
 const ViewArchived = () => import("Pages/Dsg/ViewArchived.vue");
+const ViewDsg = () => import("Pages/Dsg/ViewDsg.vue");
 export default [
   /* Start Users Routes */
   {
@@ -31,9 +32,16 @@ export default [
     meta: { auth: ["admin"] }
   },
   {
-    path: "/receiving/:id",
+    path: "/receiving/:id/edit",
     component: EditDsg,
     name: "edit-dsg",
+    meta: { auth: ["admin"] },
+    props: true
+  },
+  {
+    path: "/receiving/:id/view",
+    component: ViewDsg,
+    name: "view-dsg",
     meta: { auth: ["admin"] },
     props: true
   }

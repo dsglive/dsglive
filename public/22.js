@@ -1,6 +1,6 @@
 webpackJsonp([22],{
 
-/***/ 1162:
+/***/ 1164:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -217,21 +217,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -248,7 +233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Bin", value: "bin_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Bin", value: "bin_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
         text: "Description",
         value: "description",
         align: "left",
@@ -256,27 +241,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, { text: "Cube", value: "cube", align: "left", sortable: true }],
       items: [],
       customers: [],
-      clients: [],
       selected: [],
-      unknownClient: {
-        active: false,
-        address_1: null,
-        address_2: null,
-        city: null,
-        id: 1,
-        name: "Unknown Client",
-        state: null,
-        zip: null
-      },
       pagination: {
         sortBy: "name",
         rowPerPage: "all"
       },
       form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        customer_id: "",
-        customer_name: "",
-        client_name: "",
-        client_id: ""
+        customer_id: ""
       }),
       search: "",
       domain: window.location.hostname
@@ -296,62 +267,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       handler: function handler(newValue) {},
       deep: true
     },
-    "form.customer_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var customer_id = null;
-        var customer_name = null;
-
-        if (newValue != undefined) {
-          var customer = _.find(self.customers, function (c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients;
-          _.remove(self.clients, {
-            id: 1
-          });
-          self.clients.unshift(self.unknownClient);
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
-        } else {
-          self.clients = [];
-          self.clients.push(self.unknownClient);
-          self.form.customer_id = null;
-          self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function handler(newName) {
-        var self = this;
-        var client_id = null;
-        var client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            var client = _.find(self.clients, function (c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-              self.fetchPackages();
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-      },
-      deep: false
+    "form.customer_id": function formCustomer_id() {
+      this.fetchPackages();
     }
   },
   mounted: function mounted() {
@@ -361,7 +278,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     viewPDF: function viewPDF() {
-      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/client-report/" + this.form.customer_id + "/" + this.form.client_id;
+      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/customer-report/" + this.form.customer_id;
       window.open(url);
     },
     getCustomers: function getCustomers() {
@@ -389,7 +306,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportByClient"), self.form);
+                return axios.post(route("api.report.reportByCustomer"), self.form);
 
               case 5:
                 payload = _context.sent;
@@ -437,7 +354,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1163:
+/***/ 1165:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -463,7 +380,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Client Report")
+                        _vm._v("Customer Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -504,45 +421,6 @@ var render = function() {
                             _vm.$set(_vm.form, "customer_id", $$v)
                           },
                           expression: "form.customer_id"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", md6: "", "offset-md3": "" } },
-                    [
-                      _c("v-autocomplete", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        class: { "error--text": _vm.hasErrors("client") },
-                        attrs: {
-                          items: _vm.clients,
-                          "error-messages": _vm.errorMessages("client"),
-                          "item-text": "name",
-                          "item-value": "name",
-                          required: "",
-                          label: "Choose Client",
-                          light: "",
-                          "prepend-icon": "fa-users",
-                          "data-vv-name": "client",
-                          hint: "Choose Customer",
-                          "persistent-hint": ""
-                        },
-                        model: {
-                          value: _vm.form.client_name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "client_name", $$v)
-                          },
-                          expression: "form.client_name"
                         }
                       })
                     ],
@@ -607,7 +485,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-container",
-        { staticStyle: { "margin-top": "-120px" }, attrs: { fluid: "" } },
+        { staticStyle: { "margin-top": "-190px" }, attrs: { fluid: "" } },
         [
           _c(
             "v-layout",
@@ -737,6 +615,26 @@ var render = function() {
                             _vm._v(
                               "\n            " +
                                 _vm._s(props.item.dsg_id) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass: "title text-xs-left",
+                            class: {
+                              "red--text":
+                                props.item.client_id === null ||
+                                props.item.client_id === 1,
+                              "accent--text": props.item.client_id > 1
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.client_name) +
                                 "\n          "
                             )
                           ]
@@ -901,21 +799,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7fefdc38", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0d6ca58b", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 945:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1162)
+var __vue_script__ = __webpack_require__(1164)
 /* template */
-var __vue_template__ = __webpack_require__(1163)
+var __vue_template__ = __webpack_require__(1165)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -932,7 +830,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/Client.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/Customer.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -941,9 +839,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7fefdc38", Component.options)
+    hotAPI.createRecord("data-v-0d6ca58b", Component.options)
   } else {
-    hotAPI.reload("data-v-7fefdc38", Component.options)
+    hotAPI.reload("data-v-0d6ca58b", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

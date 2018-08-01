@@ -660,7 +660,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -681,9 +681,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__ = __webpack_require__(1003);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__);
-//
-//
-//
 //
 //
 //
@@ -1220,6 +1217,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    openDateRepairedModal: function openDateRepairedModal() {
+      if (!this.readonly) {
+        this.date_repaired_modal = true;
+      }
+    },
     viewDamageImages: function viewDamageImages() {
       Bus.$emit("view-damaged-package-" + this.item.id + "-images");
     },
@@ -6409,7 +6411,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".bin_id"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "code",
                           "item-value": "id",
                           required: "",
@@ -6456,7 +6457,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".handling_type"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "name",
                           "item-value": "id",
                           required: "",
@@ -6504,7 +6504,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".store_at"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           required: "",
                           label: "Store At",
                           light: "",
@@ -6672,7 +6671,7 @@ var render = function() {
                     [
                       _c("v-switch", {
                         attrs: {
-                          disabled: _vm.readonly,
+                          readonly: _vm.readonly,
                           label: _vm.getDamageStatus(_vm.item.damaged)
                         },
                         model: {
@@ -6960,7 +6959,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("v-switch", {
                             attrs: {
-                              disabled: _vm.readonly,
+                              readonly: _vm.readonly,
                               label: _vm.getRepairedStatus(_vm.item.repaired)
                             },
                             model: {
@@ -6987,6 +6986,36 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
+                          _c("v-text-field", {
+                            class: {
+                              "error--text": _vm.hasErrors(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              )
+                            },
+                            attrs: {
+                              readonly: _vm.readonly,
+                              "error-messages": _vm.errorMessages(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              ),
+                              label: "Date Repaired",
+                              "prepend-icon": "event_note",
+                              "data-vv-name":
+                                "`packages.${iteration}.date_repaired`"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.openDateRepairedModal()
+                              }
+                            },
+                            model: {
+                              value: _vm.item.date_repaired,
+                              callback: function($$v) {
+                                _vm.$set(_vm.item, "date_repaired", $$v)
+                              },
+                              expression: "item.date_repaired"
+                            }
+                          }),
+                          _vm._v(" "),
                           _c(
                             "v-dialog",
                             {
@@ -7012,42 +7041,13 @@ var render = function() {
                               }
                             },
                             [
-                              _c("v-text-field", {
-                                class: {
-                                  "error--text": _vm.hasErrors(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  )
-                                },
-                                attrs: {
-                                  slot: "activator",
-                                  disabled: _vm.readonly,
-                                  "error-messages": _vm.errorMessages(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  ),
-                                  label: "Date Repaired",
-                                  "prepend-icon": "event_note",
-                                  "data-vv-name":
-                                    "`packages.${iteration}.date_repaired`",
-                                  readonly: ""
-                                },
-                                slot: "activator",
-                                model: {
-                                  value: _vm.item.date_repaired,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "date_repaired", $$v)
-                                  },
-                                  expression: "item.date_repaired"
-                                }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "v-date-picker",
                                 {
-                                  attrs: { scrollable: "" },
+                                  attrs: {
+                                    disabled: _vm.readonly,
+                                    scrollable: ""
+                                  },
                                   model: {
                                     value: _vm.item.date_repaired,
                                     callback: function($$v) {
@@ -7130,7 +7130,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 1107:
+/***/ 1180:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7144,6 +7144,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages__ = __webpack_require__(1008);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages__);
+//
+//
+//
+//
 //
 //
 //
@@ -7821,7 +7825,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         totalCube = totalCube + Number(self.packages[i].cube);
       }
 
-      self.form.total_cube = Math.ceil(totalCube);
+      self.form.total_cube = totalCube;
     },
     getHandlingRates: function getHandlingRates() {
       var self = this;
@@ -7925,7 +7929,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
-      self.form.post(route("api.dsg.update", { dsg: self.id })).then(function (response) {
+      self.form.post(route("api.dsg.update", { dsg: self.id }), self.form).then(function (response) {
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -7957,7 +7961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "dsg" });
+        return self.$router.push({ name: "unknown-reports" });
       });
     },
     fetchDSG: function fetchDSG() {
@@ -8009,7 +8013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1108:
+/***/ 1181:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -8368,10 +8372,21 @@ var render = function() {
                 { attrs: { xs12: "", lg2: "" } },
                 [
                   _c("v-text-field", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: { required: true },
+                        expression: "{ required: true }"
+                      }
+                    ],
+                    class: { "error--text": _vm.hasErrors("po_no") },
                     attrs: {
+                      "error-messages": _vm.errorMessages("po_no"),
                       light: "",
                       label: "PO No.",
-                      "prepend-icon": "bookmark"
+                      "prepend-icon": "bookmark",
+                      "data-vv-name": "po_no"
                     },
                     model: {
                       value: _vm.po_no,
@@ -8731,21 +8746,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-42aa3a2a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-8ff0597a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 928:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1107)
+var __vue_script__ = __webpack_require__(1180)
 /* template */
-var __vue_template__ = __webpack_require__(1108)
+var __vue_template__ = __webpack_require__(1181)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -8762,7 +8777,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Dsg/EditDsg.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/EditUnknown.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -8771,9 +8786,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-42aa3a2a", Component.options)
+    hotAPI.createRecord("data-v-8ff0597a", Component.options)
   } else {
-    hotAPI.reload("data-v-42aa3a2a", Component.options)
+    hotAPI.reload("data-v-8ff0597a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

@@ -1,6 +1,323 @@
 webpackJsonp([4],{
 
-/***/ 1109:
+/***/ 1027:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1028)
+}
+var normalizeComponent = __webpack_require__(371)
+/* script */
+var __vue_script__ = __webpack_require__(1030)
+/* template */
+var __vue_template__ = __webpack_require__(1031)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dsg/Confirm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-308df882", Component.options)
+  } else {
+    hotAPI.reload("data-v-308df882", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 1028:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1029);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(956)("e0c2eb38", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1029:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1030:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    callback: {
+      type: Function,
+      required: true
+    },
+    message: {
+      type: String,
+      default: function _default() {
+        return 'Deleting This Dsg Record , Will Also Delete All Associated Data Attach To It Such As Images and Items. Also Note That Some Data In The System That Exist Which Reference To This Dsg Record Will Break its Functionality Such As Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!';
+      }
+    },
+    title: {
+      type: String,
+      default: function _default() {
+        return 'Are You Sure You Want To Delete This?';
+      }
+    },
+    action: {
+      type: String,
+      default: function _default() {
+        return 'Yes , I Understand';
+      }
+    }
+  },
+  data: function data() {
+    return {
+      dialog: false,
+      params: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    Bus.$on("open-confirmation", function (params) {
+      _this.dialog = true;
+      _this.params = params;
+    });
+  },
+
+  methods: {
+    closeDialog: function closeDialog() {
+      this.dialog = false;
+    },
+    confirm: function confirm() {
+      if (this.callback) {
+        if (this.params != undefined) {
+          this.dialog = false;
+
+          this.callback(this.params);
+        } else {
+          this.dialog = false;
+
+          this.callback();
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 1031:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { width: "500" },
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog"
+      }
+    },
+    [
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-card-title",
+            { staticClass: "headline primary", attrs: { dark: "" } },
+            [
+              _c("span", { staticClass: "white--text" }, [
+                _vm._v(_vm._s(_vm.title))
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("v-card-text", [
+            _vm._v("\n      " + _vm._s(_vm.message) + "\n    ")
+          ]),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: { flat: "", color: "secondary" },
+                  on: {
+                    click: function($event) {
+                      _vm.dialog = false
+                    }
+                  }
+                },
+                [
+                  _c("v-icon", { attrs: { left: "" } }, [_vm._v("arrow_left")]),
+                  _vm._v("\n        Back\n      ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "primary", flat: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.confirm()
+                    }
+                  }
+                },
+                [_vm._v("\n        " + _vm._s(_vm.action) + "\n      ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-308df882", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 1032:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: {
+        confirmed: function confirmed(cb) {
+            var self = this;
+            return function (params) {
+                cb(params);
+            };
+        },
+        openDialog: function openDialog(item) {
+            Bus.$emit("open-confirmation", item);
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 1125:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12,15 +329,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(971);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(958);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Mixins_confirmation__ = __webpack_require__(1110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vform__ = __webpack_require__(959);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_sweetalert2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Components_dsg_Confirm_vue__ = __webpack_require__(1111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Components_dsg_Confirm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_Components_dsg_Confirm_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue__ = __webpack_require__(1027);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Mixins_confirmation__ = __webpack_require__(1032);
 
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -202,32 +583,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     MainLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default.a,
-    Confirm: __WEBPACK_IMPORTED_MODULE_7_Components_dsg_Confirm_vue___default.a
+    Confirm: __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4_Mixins_confirmation__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7_Mixins_confirmation__["a" /* default */]],
   data: function data() {
     return {
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "Actions", value: "actions", align: "center", sortable: false }, { text: "DSG#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "center", sortable: false }],
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }],
       items: [],
       selected: [],
       pagination: {
         sortBy: "name"
       },
-      dsgForm: new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({}),
-      toggleForm: new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({
+      dsgForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
         toggle: false,
         dsg_id: null
       }),
       search: "",
-      deleteDsgForm: new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({
+      deleteDsgForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
         dsg_id: null
       }),
       domain: window.location.hostname
@@ -242,33 +623,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var self = this;
     self.fetchDsg();
-    if (self.$auth.check("warehouse")) {
-      self.$delete(self.headers, 7);
-    }
   },
 
   methods: {
-    restoreDsg: function restoreDsg(dsg) {
+    viewPdf: function viewPdf(dsg) {
+      var type = "warehouse";
+      if (dsg.active) {
+        type = "receiving";
+      }
+      var id = dsg.id;
+      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
+      window.open(url);
+    },
+    viewWarehouse: function viewWarehouse(dsg) {
+      vm.$router.push({ name: "view-warehouse", params: { id: "" + dsg.id } });
+    },
+    editWarehouse: function editWarehouse(dsg) {
+      vm.$router.push({ name: "edit-warehouse", params: { id: "" + dsg.id } });
+    },
+    createWarehouse: function createWarehouse() {
+      vm.$router.push({ name: "create-warehouse" });
+    },
+    moveToReceiving: function moveToReceiving(dsg) {
       var self = this;
-      self.toggleForm.toggle = false;
+      self.toggleForm.toggle = true;
       self.toggleForm.dsg_id = dsg.id;
       var index = _.findIndex(self.items, { id: dsg.id });
-      axios.post(route("api.dsg.restoreArchived"), self.toggleForm).then(function (response) {
-        if (response.data.status === true) {
-          self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success!",
-            html: '<p class="title">DSG Has Been Restored To Receiving.,</p>',
-            type: "success",
-            confirmButtonText: "Back"
-          });
-        }
+      axios.post(route("api.dsg.toggleStatus"), self.toggleForm).then(function (response) {
+        console.log(response.data);
+        self.$delete(self.items, index);
       }).catch(function (errors) {
-        var toggleModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
+        var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
@@ -278,12 +663,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "warning",
           confirmButtonText: "Back"
         });
-      });
-    },
-    viewArchived: function viewArchived(dsg) {
-      vm.$router.push({
-        name: "view-archived-dsg",
-        params: { id: "" + dsg.id }
       });
     },
     fetchDsg: function () {
@@ -298,13 +677,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.dsgForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.dsg.indexArchived"), self.dsgForm);
+                return axios.post(route("api.warehouse.index"), self.dsgForm);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.dsgForm = new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({});
+                self.dsgForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
                 _context.next = 17;
                 break;
 
@@ -341,19 +720,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post(route("api.dsg.forceDelete"), self.deleteDsgForm).then(function (response) {
         if (response.data.status === true) {
           self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
+          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
           });
           toggleModal({
             title: "Success",
-            html: "<p class=\"title\">Dsg Removed From The Database!</p>",
+            html: "<p class=\"title\">Dsg Deleted!</p>",
             type: "success",
             confirmButtonText: "Back"
           });
         }
       }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
+        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
@@ -364,141 +743,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           confirmButtonText: "Back"
         });
       });
-    },
-    massRestore: function () {
-      var _ref3 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({
-                  selected: selected
-                });
-                _context2.prev = 3;
-                _context2.next = 6;
-                return axios.post(route("api.dsg.massRestore"), toggleStatusForm);
-
-              case 6:
-                payload = _context2.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = false;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context2.next = 20;
-                break;
-
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](3);
-                errors = _context2.t0.errors;
-                message = _context2.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 14]]);
-      }));
-
-      function massRestore() {
-        return _ref3.apply(this, arguments);
-      }
-
-      return massRestore;
-    }(),
-    massForceDelete: function () {
-      var _ref5 = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
-        var self, selected, toggleStatusForm, payload, updated, toggleModal, errors, message;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                self = this;
-                selected = _.map(self.selected, "id");
-                toggleStatusForm = new __WEBPACK_IMPORTED_MODULE_5_vform__["Form"]({
-                  selected: selected
-                });
-                _context3.prev = 3;
-                _context3.next = 6;
-                return axios.post(route("api.dsg.massForceDelete"), toggleStatusForm);
-
-              case 6:
-                payload = _context3.sent;
-                updated = payload.data.updated;
-
-                console.log(updated);
-                _.map(updated, function (id) {
-                  var index = _.findIndex(self.items, { id: id });
-                  self.items[index].active = true;
-                });
-                toggleModal = __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.mixin({
-                  confirmButtonClass: "v-btn blue-grey  subheading white--text",
-                  buttonsStyling: false
-                });
-
-                toggleModal({
-                  title: "Success",
-                  html: "<p class=\"title\">" + payload.data.message + "</p>",
-                  type: "success",
-                  confirmButtonText: "Back"
-                });
-                _context3.next = 20;
-                break;
-
-              case 14:
-                _context3.prev = 14;
-                _context3.t0 = _context3["catch"](3);
-                errors = _context3.t0.errors;
-                message = _context3.t0.message;
-
-                if (errors) {
-                  console.log(errors);
-                }
-                if (message) {
-                  console.log(message);
-                }
-
-              case 20:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[3, 14]]);
-      }));
-
-      function massForceDelete() {
-        return _ref5.apply(this, arguments);
-      }
-
-      return massForceDelete;
-    }(),
-    toggleAll: function toggleAll() {
-      if (this.selected.length) this.selected = [];else this.selected = this.items.slice();
     },
     changeSort: function changeSort(column) {
       if (this.pagination.sortBy === column) {
@@ -513,95 +757,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1110:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    methods: {
-        confirmed: function confirmed(cb) {
-            var self = this;
-            return function (params) {
-                cb(params);
-            };
-        },
-        openDialog: function openDialog(item) {
-            Bus.$emit("open-confirmation", item);
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 1111:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(1112)
-}
-var normalizeComponent = __webpack_require__(371)
-/* script */
-var __vue_script__ = __webpack_require__(1114)
-/* template */
-var __vue_template__ = __webpack_require__(1115)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/dsg/Confirm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-308df882", Component.options)
-  } else {
-    hotAPI.reload("data-v-308df882", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 1112:
+/***/ 1187:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1113);
+var content = __webpack_require__(1188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(956)("e0c2eb38", content, false, {});
+var update = __webpack_require__(956)("759bcddf", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-72c0dc8e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-72c0dc8e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -612,7 +784,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1113:
+/***/ 1188:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -620,217 +792,14 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.compress--icon[data-v-72c0dc8e]{\n    margin-left: -5px;\n    margin-right: -5px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1114:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    callback: {
-      type: Function,
-      required: true
-    },
-    message: {
-      type: String,
-      default: function _default() {
-        return 'Deleting This Dsg Record , Will Also Delete All Associated Data Attach To It Such As Images and Items. Also Note That Some Data In The System That Exist Which Reference To This Dsg Record Will Break its Functionality Such As Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!';
-      }
-    },
-    title: {
-      type: String,
-      default: function _default() {
-        return 'Are You Sure You Want To Delete This?';
-      }
-    },
-    action: {
-      type: String,
-      default: function _default() {
-        return 'Yes , I Understand';
-      }
-    }
-  },
-  data: function data() {
-    return {
-      dialog: false,
-      params: null
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    Bus.$on("open-confirmation", function (params) {
-      _this.dialog = true;
-      _this.params = params;
-    });
-  },
-
-  methods: {
-    closeDialog: function closeDialog() {
-      this.dialog = false;
-    },
-    confirm: function confirm() {
-      if (this.callback) {
-        if (this.params != undefined) {
-          this.dialog = false;
-
-          this.callback(this.params);
-        } else {
-          this.dialog = false;
-
-          this.callback();
-        }
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 1115:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-dialog",
-    {
-      attrs: { width: "500" },
-      model: {
-        value: _vm.dialog,
-        callback: function($$v) {
-          _vm.dialog = $$v
-        },
-        expression: "dialog"
-      }
-    },
-    [
-      _c(
-        "v-card",
-        [
-          _c(
-            "v-card-title",
-            { staticClass: "headline primary", attrs: { dark: "" } },
-            [
-              _c("span", { staticClass: "white--text" }, [
-                _vm._v(_vm._s(_vm.title))
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("v-card-text", [
-            _vm._v("\n      " + _vm._s(_vm.message) + "\n    ")
-          ]),
-          _vm._v(" "),
-          _c("v-divider"),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: { flat: "", color: "secondary" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialog = false
-                    }
-                  }
-                },
-                [
-                  _c("v-icon", { attrs: { left: "" } }, [_vm._v("arrow_left")]),
-                  _vm._v("\n        Back\n      ")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "primary", flat: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.confirm()
-                    }
-                  }
-                },
-                [_vm._v("\n        " + _vm._s(_vm.action) + "\n      ")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-308df882", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 1116:
+/***/ 1189:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -850,31 +819,109 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { attrs: { xs12: "" } },
+                { attrs: { "d-flex": "", xs12: "", sm7: "" } },
                 [
                   _c(
-                    "v-card",
-                    { attrs: { light: "", flat: "" } },
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
                     [
                       _c(
-                        "v-card-title",
+                        "v-flex",
+                        { attrs: { "d-flex": "" } },
                         [
-                          _c("v-text-field", {
-                            attrs: {
-                              "append-icon": "search",
-                              label: "Search Receiving",
-                              "single-line": "",
-                              "hide-details": "",
-                              light: ""
-                            },
-                            model: {
-                              value: _vm.search,
-                              callback: function($$v) {
-                                _vm.search = $$v
+                          _c(
+                            "v-card",
+                            { attrs: { light: "", flat: "" } },
+                            [
+                              _c(
+                                "v-card-title",
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      "append-icon": "search",
+                                      label: "Search Warehouse",
+                                      "single-line": "",
+                                      "hide-details": "",
+                                      light: ""
+                                    },
+                                    model: {
+                                      value: _vm.search,
+                                      callback: function($$v) {
+                                        _vm.search = $$v
+                                      },
+                                      expression: "search"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                {
+                  attrs: { "d-flex": "", xs12: "", sm5: "", "child-flex": "" }
+                },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        {
+                          staticClass: "white",
+                          attrs: { xs12: "", "d-flex": "" }
+                        },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                block: "",
+                                color: "accent",
+                                dark: "",
+                                flat: ""
                               },
-                              expression: "search"
-                            }
-                          })
+                              on: { click: _vm.createWarehouse }
+                            },
+                            [
+                              _vm._v(
+                                "\n              Create New DSG\n              "
+                              ),
+                              _c(
+                                "v-icon",
+                                { attrs: { right: "", color: "accent" } },
+                                [
+                                  _vm._v(
+                                    "\n                receipt\n              "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-icon",
+                                { attrs: { right: "", color: "accent" } },
+                                [
+                                  _vm._v(
+                                    "\n                fa-plus-circle\n              "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -912,70 +959,46 @@ var render = function() {
                     return [
                       _c(
                         "tr",
-                        [
-                          _c(
+                        _vm._l(props.headers, function(header) {
+                          return _c(
                             "th",
-                            [
-                              _c("v-checkbox", {
-                                attrs: {
-                                  "input-value": props.all,
-                                  indeterminate: props.indeterminate,
-                                  primary: "",
-                                  "hide-details": ""
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
                                 },
-                                nativeOn: {
-                                  click: function($event) {
-                                    return _vm.toggleAll($event)
-                                  }
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(props.headers, function(header) {
-                            return _c(
-                              "th",
-                              {
-                                key: header.text,
-                                class: [
-                                  "column sortable",
-                                  _vm.pagination.descending ? "desc" : "asc",
-                                  header.value === _vm.pagination.sortBy
-                                    ? "name"
-                                    : "",
-                                  {
-                                    "text-xs-left": header.align === "left",
-                                    "text-xs-right": header.align === "right",
-                                    "text-xs-center": header.align === "center"
-                                  },
-                                  _vm.$vuetify.breakpoint.width >= 600 &&
-                                    "title"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
                                 ],
-                                on: {
-                                  click: function($event) {
-                                    _vm.changeSort(header.value)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  [
-                                    _c("v-icon", [_vm._v("arrow_upward")]),
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(header.text) +
-                                        "\n            "
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                1
+                              )
+                            ]
+                          )
+                        })
                       )
                     ]
                   }
@@ -987,19 +1010,109 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left" },
+                          {
+                            staticClass: "title text-xs-center",
+                            staticStyle: {
+                              width: "25%",
+                              "margin-left": "0px",
+                              "margin-right": "0px",
+                              "padding-left": "0px",
+                              "padding-right": "0px"
+                            }
+                          },
                           [
-                            _c("v-checkbox", {
-                              attrs: {
-                                active: props.selected,
-                                "input-value": props.selected
-                              },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "compress--icon",
+                                attrs: { flat: "", icon: "", color: "indigo" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewWarehouse(props.item)
+                                  }
                                 }
-                              }
-                            })
+                              },
+                              [_c("v-icon", [_vm._v("search")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            !props.item.active
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "blue"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.editWarehouse(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-pencil")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "compress--icon",
+                                attrs: { flat: "", icon: "", color: "purple" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewPdf(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("picture_as_pdf")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _vm.$auth.check("admin")
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "green"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.moveToReceiving(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("forward")])],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !props.item.active
+                              ? _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.openDialog(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
+                                )
+                              : _vm._e()
                           ],
                           1
                         ),
@@ -1078,69 +1191,26 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-center" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
-                            _vm.$auth.check(["warehouse", "admin"])
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "indigo"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.viewArchived(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("search")])],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.$auth.check("admin")
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "orange"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.restoreDsg(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("restore")])],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.$auth.check("admin")
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.openDialog(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              : _vm._e()
-                          ],
-                          1
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total_pieces) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total_cube) +
+                                "\n          "
+                            )
+                          ]
                         )
                       ])
                     ]
@@ -1186,10 +1256,23 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v(
-                        "\n          Opps! No Dsg has been Archived Yet! \n        "
+                      _vm._v("\n          Opps! No Dsg Yet!, \n          "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "white", flat: "", dark: "" },
+                          on: { click: _vm.createWarehouse }
+                        },
+                        [
+                          _vm._v("\n            Create New DSG\n            "),
+                          _c("v-icon", { attrs: { right: "" } }, [
+                            _vm._v("\n              receipt\n            ")
+                          ])
+                        ],
+                        1
                       )
-                    ]
+                    ],
+                    1
                   )
                 ],
                 1
@@ -1232,27 +1315,31 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4966295c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-72c0dc8e", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 929:
+/***/ 934:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1187)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1109)
+var __vue_script__ = __webpack_require__(1125)
 /* template */
-var __vue_template__ = __webpack_require__(1116)
+var __vue_template__ = __webpack_require__(1189)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-72c0dc8e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1263,7 +1350,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Dsg/ArchivedDsg.vue"
+Component.options.__file = "resources/assets/js/pages/Warehouse/Index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1272,9 +1359,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4966295c", Component.options)
+    hotAPI.createRecord("data-v-72c0dc8e", Component.options)
   } else {
-    hotAPI.reload("data-v-4966295c", Component.options)
+    hotAPI.reload("data-v-72c0dc8e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

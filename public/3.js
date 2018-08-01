@@ -1,15 +1,15 @@
 webpackJsonp([3],{
 
-/***/ 1047:
+/***/ 1053:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue__ = __webpack_require__(971);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Components_settings_Account_vue__ = __webpack_require__(1048);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Components_settings_Account_vue__ = __webpack_require__(1054);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Components_settings_Account_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_Components_settings_Account_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Components_settings_Profile_vue__ = __webpack_require__(1051);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Components_settings_Profile_vue__ = __webpack_require__(1057);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Components_settings_Profile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Components_settings_Profile_vue__);
 //
 //
@@ -79,15 +79,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1048:
+/***/ 1054:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1049)
+var __vue_script__ = __webpack_require__(1055)
 /* template */
-var __vue_template__ = __webpack_require__(1050)
+var __vue_template__ = __webpack_require__(1056)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -127,7 +127,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1049:
+/***/ 1055:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -321,7 +321,7 @@ var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* cre
 
 /***/ }),
 
-/***/ 1050:
+/***/ 1056:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -536,19 +536,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 1051:
+/***/ 1057:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(1052)
+  __webpack_require__(1058)
 }
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1054)
+var __vue_script__ = __webpack_require__(1060)
 /* template */
-var __vue_template__ = __webpack_require__(1055)
+var __vue_template__ = __webpack_require__(1061)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -588,13 +588,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1052:
+/***/ 1058:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1053);
+var content = __webpack_require__(1059);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -615,7 +615,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 1053:
+/***/ 1059:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -630,7 +630,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 1054:
+/***/ 1060:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -967,7 +967,7 @@ var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* cre
 
 /***/ }),
 
-/***/ 1055:
+/***/ 1061:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1356,7 +1356,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 1056:
+/***/ 1062:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1445,9 +1445,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1047)
+var __vue_script__ = __webpack_require__(1053)
 /* template */
-var __vue_template__ = __webpack_require__(1056)
+var __vue_template__ = __webpack_require__(1062)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */

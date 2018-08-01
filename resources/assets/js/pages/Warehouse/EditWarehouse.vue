@@ -992,12 +992,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          if (self.$auth.check(["admin"])) {
-            self.$nextTick(() => self.$router.push({ name: "dsg" }));
-          }
-          if (self.$auth.check(["warehouse"])) {
-            self.$nextTick(() => self.$router.push({ name: "warehouse" }));
-          }
+          self.$nextTick(() => self.$router.push({ name: "warehouse" }));
         })
         .catch(errors => {
           const failedModal = swal.mixin({
@@ -1039,12 +1034,7 @@ export default {
     },
     redirectBack() {
       let self = this;
-      if (self.$auth.check(["admin"])) {
-        self.$nextTick(() => self.$router.push({ name: "dsg" }));
-      }
-      if (self.$auth.check(["warehouse"])) {
-        self.$nextTick(() => self.$router.push({ name: "warehouse" }));
-      }
+      self.$nextTick(() => self.$router.push({ name: "warehouse" }));
     },
     fetchDSG() {
       let id = this.id;

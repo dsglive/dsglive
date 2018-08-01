@@ -660,7 +660,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -681,9 +681,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__ = __webpack_require__(1003);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__);
-//
-//
-//
 //
 //
 //
@@ -1220,6 +1217,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    openDateRepairedModal: function openDateRepairedModal() {
+      if (!this.readonly) {
+        this.date_repaired_modal = true;
+      }
+    },
     viewDamageImages: function viewDamageImages() {
       Bus.$emit("view-damaged-package-" + this.item.id + "-images");
     },
@@ -6409,7 +6411,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".bin_id"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "code",
                           "item-value": "id",
                           required: "",
@@ -6456,7 +6457,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".handling_type"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "name",
                           "item-value": "id",
                           required: "",
@@ -6504,7 +6504,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".store_at"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           required: "",
                           label: "Store At",
                           light: "",
@@ -6672,7 +6671,7 @@ var render = function() {
                     [
                       _c("v-switch", {
                         attrs: {
-                          disabled: _vm.readonly,
+                          readonly: _vm.readonly,
                           label: _vm.getDamageStatus(_vm.item.damaged)
                         },
                         model: {
@@ -6960,7 +6959,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("v-switch", {
                             attrs: {
-                              disabled: _vm.readonly,
+                              readonly: _vm.readonly,
                               label: _vm.getRepairedStatus(_vm.item.repaired)
                             },
                             model: {
@@ -6987,6 +6986,36 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
+                          _c("v-text-field", {
+                            class: {
+                              "error--text": _vm.hasErrors(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              )
+                            },
+                            attrs: {
+                              readonly: _vm.readonly,
+                              "error-messages": _vm.errorMessages(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              ),
+                              label: "Date Repaired",
+                              "prepend-icon": "event_note",
+                              "data-vv-name":
+                                "`packages.${iteration}.date_repaired`"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.openDateRepairedModal()
+                              }
+                            },
+                            model: {
+                              value: _vm.item.date_repaired,
+                              callback: function($$v) {
+                                _vm.$set(_vm.item, "date_repaired", $$v)
+                              },
+                              expression: "item.date_repaired"
+                            }
+                          }),
+                          _vm._v(" "),
                           _c(
                             "v-dialog",
                             {
@@ -7012,42 +7041,13 @@ var render = function() {
                               }
                             },
                             [
-                              _c("v-text-field", {
-                                class: {
-                                  "error--text": _vm.hasErrors(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  )
-                                },
-                                attrs: {
-                                  slot: "activator",
-                                  disabled: _vm.readonly,
-                                  "error-messages": _vm.errorMessages(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  ),
-                                  label: "Date Repaired",
-                                  "prepend-icon": "event_note",
-                                  "data-vv-name":
-                                    "`packages.${iteration}.date_repaired`",
-                                  readonly: ""
-                                },
-                                slot: "activator",
-                                model: {
-                                  value: _vm.item.date_repaired,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "date_repaired", $$v)
-                                  },
-                                  expression: "item.date_repaired"
-                                }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "v-date-picker",
                                 {
-                                  attrs: { scrollable: "" },
+                                  attrs: {
+                                    disabled: _vm.readonly,
+                                    scrollable: ""
+                                  },
                                   model: {
                                     value: _vm.item.date_repaired,
                                     callback: function($$v) {
@@ -7130,7 +7130,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 1117:
+/***/ 1127:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7409,6 +7409,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7421,17 +7481,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Packages: __WEBPACK_IMPORTED_MODULE_4_Components_dsg_Packages___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
   data: function data() {
     return {
       /* Always Declare Your Form Object */
       form: new __WEBPACK_IMPORTED_MODULE_2_vform__["Form"]({
-        dsg_id: null,
         active: false,
         client_id: null,
         client_name: null,
@@ -7458,45 +7511,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       date_received_modal: false,
       date_processed: null,
       date_processed_modal: false,
-      customers: [],
-      clients: [],
-      shippers: [],
       employees: [],
       packages: [],
       handling_rates: [],
-      storage_rates: [],
-      client_id: null,
-      client_name: null
+      storage_rates: []
     };
-  },
-  computed: {
-    customerHint: function customerHint() {
-      if (this.form.customer_id === null) {
-        return "Please Create Or Search Customer";
-      } else if (this.form.customer_id === 1001) {
-        return "Mark as Unknown Until Further Notice";
-      } else {
-        return "Customer Acccount Verified";
-      }
-    },
-    clientHint: function clientHint() {
-      if (this.form.client_id === null) {
-        return "Please Create Or Search Client";
-      } else if (this.form.client_id === 1) {
-        return "Mark as Unknown Until Further Notice";
-      } else {
-        return "Client Acccount Verified";
-      }
-    },
-    shipperHint: function shipperHint() {
-      if (this.form.shipper_id === null) {
-        return "Please Create Or Search  Shipper";
-      } else if (this.form.shipper_id === 1) {
-        return "Mark as Unknown Until Further Notice";
-      } else {
-        return "Shipper Acccount Verified";
-      }
-    }
   },
   watch: {
     po_no: {
@@ -7533,18 +7552,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       handler: function handler(newValue) {},
       deep: true
     },
-    customers: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
-    shippers: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
-    employees: {
-      handler: function handler(newValue) {},
-      deep: true
-    },
     packages: {
       handler: function handler(newValue) {
         var self = this;
@@ -7553,89 +7560,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         self.updateReceivingAmount();
       },
       deep: true
-    },
-    "form.customer_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var total = this.packages.length;
-        var customer_id = null;
-        var customer_name = null;
-
-        if (newValue != undefined) {
-          var customer = _.find(self.customers, function (c) {
-            return c.id === newValue;
-          });
-          self.clients = customer.clients;
-          self.form.customer_name = customer.name;
-          self.form.client_name = null;
-          self.form.client_id = null;
-          customer_id = newValue;
-          customer_name = customer.name;
-        } else {
-          self.clients = [];
-          self.form.customer_id = null;
-          self.form.customer_name = null;
-          self.form.client_name = null;
-          self.form.client_id = null;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].customer_id = customer_id;
-          self.packages[i].customer_name = customer_name;
-        }
-      },
-      deep: false
-    },
-    "form.shipper_id": {
-      handler: function handler(newValue) {
-        var self = this;
-        var total = this.packages.length;
-        var shipper_id = null;
-        var shipper_name = null;
-
-        if (newValue != undefined) {
-          var shipper = _.find(self.shippers, function (c) {
-            return c.id === newValue;
-          });
-          self.form.shipper_name = shipper.name;
-          shipper_id = shipper.id;
-          shipper_name = shipper.name;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].shipper_id = shipper_id;
-          self.packages[i].shipper_name = shipper_name;
-        }
-      },
-      deep: false
-    },
-    "form.client_name": {
-      handler: function handler(newName) {
-        var self = this;
-        var total = this.packages.length;
-        var client_id = null;
-        var client_name = newName;
-
-        if (newName != null || newName != undefined) {
-          if (self.clients.length > 0) {
-            var client = _.find(self.clients, function (c) {
-              return c.name == newName;
-            });
-            if (client != undefined) {
-              self.form.client_name = client.name;
-              self.form.client_id = client.id;
-              client_id = client.id;
-              client_name = client.name;
-            }
-          }
-        } else {
-          self.form.client_id = null;
-          self.form.client_name = null;
-        }
-        for (var i = 0; i < total; i++) {
-          self.packages[i].client_id = client_id;
-          self.packages[i].client_name = client_name;
-        }
-      },
-      deep: false
     },
     "form.received_by": {
       handler: function handler(newID) {
@@ -7722,16 +7646,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       deep: false
     }
   },
-  created: function created() {
-    this.getCustomers();
-    this.getShippers();
+  mounted: function mounted() {
     this.getEmployees();
     this.getBins();
     this.getHandlingRates();
     this.getStorageRates();
     this.date_received = moment().format("YYYY-MM-DD");
     this.date_processed = moment().format("YYYY-MM-DD");
-    this.fetchDSG();
   },
 
   methods: {
@@ -7836,7 +7757,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$validator.validateAll().then(function (result) {
         if (result) {
           // eslint-disable-next-line
-          self.updateDsg();
+          self.createDsg();
         } else {
           var validationModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -7851,11 +7772,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    updateDsg: function updateDsg() {
+    createDsg: function createDsg() {
       var self = this;
       self.form.busy = true;
       self.form.packages = self.packages;
-      self.form.post(route("api.dsg.update", { dsg: self.form.dsg_id }), self.form).then(function (response) {
+      self.form.date_processed = self.date_processed;
+      self.form.post(route("api.dsg.create")).then(function (response) {
+        console.log(response.data);
         self.$validator.reset();
         var successModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -7863,7 +7786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         successModal({
           title: "Success!",
-          html: "<p class=\"title\">Receiving Has Been Updated!</p>",
+          html: "<p class=\"title\">DSG Has Been Created!</p>",
           type: "success",
           confirmButtonText: "Ok"
         });
@@ -7871,6 +7794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return self.$router.push({ name: "warehouse" });
         });
       }).catch(function (errors) {
+        console.log(errors.response.data);
         var failedModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
@@ -7881,7 +7805,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "error",
           confirmButtonText: "Ok"
         });
-        self.form.busy = false;
       });
     },
     resetForm: function resetForm() {
@@ -7911,53 +7834,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "archived-dsg" });
+        return self.$router.push({ name: "warehouse" });
       });
-    },
-    fetchDSG: function fetchDSG() {
-      var id = this.id;
-      var self = this;
-      axios.post(route("api.dsg.viewArchived", { dsg_id: id })).then(function (response) {
-        var dsg = response.data.data;
-        self.form.dsg_id = dsg.id;
-        self.form.active = dsg.active;
-        self.form.client_id = dsg.client_id;
-        self.form.client_name = dsg.client_name;
-        self.form.customer_id = dsg.customer_id;
-        self.form.customer_name = dsg.customer_name;
-        self.form.shipper_id = dsg.shipper_id;
-        self.form.shipper_name = dsg.shipper_name;
-        self.form.received_by = dsg.received_by;
-        self.form.received_by_name = dsg.received_by_name;
-        self.form.written_by = dsg.written_by;
-        self.form.written_by_name = dsg.written_by_name;
-        self.form.inspected_by = dsg.inspected_by;
-        self.form.inspected_by_name = dsg.inspected_by_name;
-        self.form.located_by = dsg.located_by;
-        self.form.located_by_name = dsg.located_by_name;
-        self.form.total_pieces = dsg.total_pieces;
-        self.form.total_cube = dsg.total_cube;
-        self.form.receiving_amount = dsg.receiving_amount;
-        self.client_id = dsg.client_id;
-        self.client_name = dsg.client_name;
-        self.po_no = dsg.packages[0]["po_no"];
-        self.date_received = dsg.packages[0]["date_received"];
-        self.date_processed = dsg.packages[0]["date_processed"];
-        self.packages = dsg.packages;
-        self.client_name = dsg.client_name;
-        self.client_id = dsg.client_id;
-      });
-      setTimeout(function () {
-        self.form.client_name = self.client_name;
-        self.form.client_id = self.client_id;
-      }, 1000);
     }
   }
 });
 
 /***/ }),
 
-/***/ 1118:
+/***/ 1128:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -7995,10 +7880,38 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Viewing DSG# " + _vm._s(_vm.id))]
+                [_vm._v("Create New DSG")]
               ),
               _vm._v(" "),
-              _c("v-spacer")
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-toolbar-items",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        loading: _vm.form.busy,
+                        disabled: _vm.errors.any() || _vm.form.busy,
+                        flat: "",
+                        color: "white"
+                      },
+                      nativeOn: {
+                        click: function($event) {
+                          _vm.submit()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n          Save\n          "),
+                      _c("v-icon", { attrs: { right: "" } }, [_vm._v("save")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           ),
@@ -8020,7 +7933,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-autocomplete", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -8031,26 +7944,18 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("customer") },
                     attrs: {
-                      items: _vm.customers,
                       "error-messages": _vm.errorMessages("customer"),
-                      hint: _vm.customerHint,
-                      "item-text": "name",
-                      "item-value": "id",
-                      readonly: "",
                       required: "",
-                      label: "Choose Customer",
-                      light: "",
-                      chips: "",
+                      label: "Type Customer Name",
                       "prepend-icon": "supervised_user_circle",
-                      "data-vv-name": "customer",
-                      "persistent-hint": ""
+                      "data-vv-name": "customer"
                     },
                     model: {
-                      value: _vm.form.customer_id,
+                      value: _vm.form.customer_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "customer_id", $$v)
+                        _vm.$set(_vm.form, "customer_name", $$v)
                       },
-                      expression: "form.customer_id"
+                      expression: "form.customer_name"
                     }
                   })
                 ],
@@ -8061,7 +7966,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-combobox", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -8072,21 +7977,11 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("client") },
                     attrs: {
-                      items: _vm.clients,
                       "error-messages": _vm.errorMessages("client"),
-                      error: _vm.form.client_id === null,
-                      hint: _vm.clientHint,
-                      "item-text": "name",
-                      "item-value": "name",
-                      chips: "",
-                      light: "",
-                      dense: "",
                       required: "",
-                      readonly: "",
-                      label: "Choose Client or Type Name",
+                      label: "Type Client Name",
                       "prepend-icon": "fa-users",
-                      "data-vv-name": "client",
-                      "persistent-hint": ""
+                      "data-vv-name": "client"
                     },
                     model: {
                       value: _vm.form.client_name,
@@ -8104,7 +7999,7 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg4: "" } },
                 [
-                  _c("v-autocomplete", {
+                  _c("v-text-field", {
                     directives: [
                       {
                         name: "validate",
@@ -8115,26 +8010,18 @@ var render = function() {
                     ],
                     class: { "error--text": _vm.hasErrors("shipper") },
                     attrs: {
-                      items: _vm.shippers,
                       "error-messages": _vm.errorMessages("shipper"),
-                      hint: _vm.shipperHint,
-                      "item-text": "name",
-                      "item-value": "id",
                       required: "",
-                      readonly: "",
-                      label: "Choose Shipper",
-                      light: "",
-                      chips: "",
+                      label: "Type Shipper Name",
                       "prepend-icon": "fa-ship",
-                      "data-vv-name": "shipper",
-                      "persistent-hint": ""
+                      "data-vv-name": "shipper"
                     },
                     model: {
-                      value: _vm.form.shipper_id,
+                      value: _vm.form.shipper_name,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "shipper_id", $$v)
+                        _vm.$set(_vm.form, "shipper_name", $$v)
                       },
-                      expression: "form.shipper_id"
+                      expression: "form.shipper_name"
                     }
                   })
                 ],
@@ -8161,7 +8048,6 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
-                      readonly: "",
                       label: "Received By",
                       light: "",
                       chips: "",
@@ -8200,7 +8086,6 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
-                      readonly: "",
                       label: "Written By",
                       light: "",
                       chips: "",
@@ -8239,7 +8124,6 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
-                      readonly: "",
                       label: "Inspected By",
                       light: "",
                       chips: "",
@@ -8278,7 +8162,6 @@ var render = function() {
                       "item-text": "name",
                       "item-value": "id",
                       required: "",
-                      readonly: "",
                       label: "Located By",
                       light: "",
                       chips: "",
@@ -8302,22 +8185,10 @@ var render = function() {
                 { attrs: { xs12: "", lg2: "" } },
                 [
                   _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: { required: true },
-                        expression: "{ required: true }"
-                      }
-                    ],
-                    class: { "error--text": _vm.hasErrors("po_no") },
                     attrs: {
-                      "error-messages": _vm.errorMessages("po_no"),
                       light: "",
-                      readonly: "",
                       label: "PO No.",
-                      "prepend-icon": "bookmark",
-                      "data-vv-name": "po_no"
+                      "prepend-icon": "bookmark"
                     },
                     model: {
                       value: _vm.po_no,
@@ -8335,20 +8206,96 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg2: "" } },
                 [
-                  _c("v-text-field", {
-                    attrs: {
-                      label: "Date Received",
-                      "prepend-icon": "event_available",
-                      readonly: ""
-                    },
-                    model: {
-                      value: _vm.date_received,
-                      callback: function($$v) {
-                        _vm.date_received = $$v
+                  _c(
+                    "v-dialog",
+                    {
+                      ref: "date_received",
+                      attrs: {
+                        "return-value": _vm.date_received,
+                        persistent: "",
+                        lazy: "",
+                        "full-width": "",
+                        width: "290px"
                       },
-                      expression: "date_received"
-                    }
-                  })
+                      on: {
+                        "update:returnValue": function($event) {
+                          _vm.date_received = $event
+                        }
+                      },
+                      model: {
+                        value: _vm.date_received_modal,
+                        callback: function($$v) {
+                          _vm.date_received_modal = $$v
+                        },
+                        expression: "date_received_modal"
+                      }
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          slot: "activator",
+                          label: "Date Received",
+                          "prepend-icon": "event_available",
+                          readonly: ""
+                        },
+                        slot: "activator",
+                        model: {
+                          value: _vm.date_received,
+                          callback: function($$v) {
+                            _vm.date_received = $$v
+                          },
+                          expression: "date_received"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-date-picker",
+                        {
+                          attrs: { scrollable: "" },
+                          model: {
+                            value: _vm.date_received,
+                            callback: function($$v) {
+                              _vm.date_received = $$v
+                            },
+                            expression: "date_received"
+                          }
+                        },
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.date_received_modal = false
+                                }
+                              }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.$refs.date_received.save(
+                                    _vm.date_received
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("OK")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               ),
@@ -8357,22 +8304,96 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "", lg2: "" } },
                 [
-                  _c("v-text-field", {
-                    attrs: {
-                      slot: "activator",
-                      label: "Date Processed",
-                      "prepend-icon": "event_note",
-                      readonly: ""
-                    },
-                    slot: "activator",
-                    model: {
-                      value: _vm.date_processed,
-                      callback: function($$v) {
-                        _vm.date_processed = $$v
+                  _c(
+                    "v-dialog",
+                    {
+                      ref: "date_processed",
+                      attrs: {
+                        "return-value": _vm.date_processed,
+                        persistent: "",
+                        lazy: "",
+                        "full-width": "",
+                        width: "290px"
                       },
-                      expression: "date_processed"
-                    }
-                  })
+                      on: {
+                        "update:returnValue": function($event) {
+                          _vm.date_processed = $event
+                        }
+                      },
+                      model: {
+                        value: _vm.date_processed_modal,
+                        callback: function($$v) {
+                          _vm.date_processed_modal = $$v
+                        },
+                        expression: "date_processed_modal"
+                      }
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          slot: "activator",
+                          label: "Date Processed",
+                          "prepend-icon": "event_note",
+                          readonly: ""
+                        },
+                        slot: "activator",
+                        model: {
+                          value: _vm.date_processed,
+                          callback: function($$v) {
+                            _vm.date_processed = $$v
+                          },
+                          expression: "date_processed"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-date-picker",
+                        {
+                          attrs: { scrollable: "" },
+                          model: {
+                            value: _vm.date_processed,
+                            callback: function($$v) {
+                              _vm.date_processed = $$v
+                            },
+                            expression: "date_processed"
+                          }
+                        },
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.date_processed_modal = false
+                                }
+                              }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.$refs.date_processed.save(
+                                    _vm.date_processed
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("OK")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               ),
@@ -8380,7 +8401,7 @@ var render = function() {
               _vm.packages.length > 0
                 ? _c(
                     "v-flex",
-                    { attrs: { xs12: "", lg3: "" } },
+                    { attrs: { xs12: "", lg2: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
@@ -8404,7 +8425,7 @@ var render = function() {
               _vm.packages.length > 0
                 ? _c(
                     "v-flex",
-                    { attrs: { xs12: "", lg3: "" } },
+                    { attrs: { xs12: "", lg2: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
@@ -8424,6 +8445,76 @@ var render = function() {
                     ],
                     1
                   )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.packages.length > 0
+                ? _c(
+                    "v-flex",
+                    { attrs: { xs12: "", lg2: "" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          readonly: "",
+                          "prepend-icon": "attach_money",
+                          label: "Receiving Amount",
+                          suffix: "USD"
+                        },
+                        model: {
+                          value: _vm.form.receiving_amount,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "receiving_amount", $$v)
+                          },
+                          expression: "form.receiving_amount"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-layout",
+            {
+              attrs: {
+                row: "",
+                wrap: "",
+                "my-0": "",
+                "py-0": "",
+                "mx-3": "",
+                "px-3": ""
+              }
+            },
+            [
+              !_vm.packages.length > 0
+                ? _c(
+                    "v-flex",
+                    { attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: {
+                            disabled: _vm.errors.any(),
+                            color: "blue-grey",
+                            block: ""
+                          },
+                          on: { click: _vm.addNewPackage }
+                        },
+                        [
+                          _vm._v("\n          Add New Package "),
+                          _c("v-icon", { attrs: { right: "" } }, [
+                            _vm._v("library_add")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ],
             1
@@ -8434,12 +8525,12 @@ var render = function() {
               key: key,
               attrs: {
                 item: item,
+                index: key + 1,
                 packages: _vm.packages,
                 bins: _vm.bins,
                 "handling-rates": _vm.handling_rates,
                 "storage-rates": _vm.storage_rates,
-                form: _vm.form,
-                readonly: true
+                form: _vm.form
               }
             })
           })
@@ -8456,21 +8547,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-26d0dffb", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4aabb4ce", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 930:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1117)
+var __vue_script__ = __webpack_require__(1127)
 /* template */
-var __vue_template__ = __webpack_require__(1118)
+var __vue_template__ = __webpack_require__(1128)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -8487,7 +8578,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Dsg/ViewArchived.vue"
+Component.options.__file = "resources/assets/js/pages/Warehouse/CreateWarehouse.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -8496,9 +8587,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26d0dffb", Component.options)
+    hotAPI.createRecord("data-v-4aabb4ce", Component.options)
   } else {
-    hotAPI.reload("data-v-26d0dffb", Component.options)
+    hotAPI.reload("data-v-4aabb4ce", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

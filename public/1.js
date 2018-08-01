@@ -660,7 +660,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -681,9 +681,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Components_packages_Images_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__ = __webpack_require__(1003);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Components_packages_DamageImages_vue__);
-//
-//
-//
 //
 //
 //
@@ -1220,6 +1217,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    openDateRepairedModal: function openDateRepairedModal() {
+      if (!this.readonly) {
+        this.date_repaired_modal = true;
+      }
+    },
     viewDamageImages: function viewDamageImages() {
       Bus.$emit("view-damaged-package-" + this.item.id + "-images");
     },
@@ -6409,7 +6411,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".bin_id"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "code",
                           "item-value": "id",
                           required: "",
@@ -6456,7 +6457,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".handling_type"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           "item-text": "name",
                           "item-value": "id",
                           required: "",
@@ -6504,7 +6504,6 @@ var render = function() {
                             "packages." + _vm.iteration + ".store_at"
                           ),
                           readonly: _vm.readonly,
-                          disabled: _vm.readonly,
                           required: "",
                           label: "Store At",
                           light: "",
@@ -6672,7 +6671,7 @@ var render = function() {
                     [
                       _c("v-switch", {
                         attrs: {
-                          disabled: _vm.readonly,
+                          readonly: _vm.readonly,
                           label: _vm.getDamageStatus(_vm.item.damaged)
                         },
                         model: {
@@ -6960,7 +6959,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("v-switch", {
                             attrs: {
-                              disabled: _vm.readonly,
+                              readonly: _vm.readonly,
                               label: _vm.getRepairedStatus(_vm.item.repaired)
                             },
                             model: {
@@ -6987,6 +6986,36 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
+                          _c("v-text-field", {
+                            class: {
+                              "error--text": _vm.hasErrors(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              )
+                            },
+                            attrs: {
+                              readonly: _vm.readonly,
+                              "error-messages": _vm.errorMessages(
+                                "packages." + _vm.iteration + ".date_repaired"
+                              ),
+                              label: "Date Repaired",
+                              "prepend-icon": "event_note",
+                              "data-vv-name":
+                                "`packages.${iteration}.date_repaired`"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.openDateRepairedModal()
+                              }
+                            },
+                            model: {
+                              value: _vm.item.date_repaired,
+                              callback: function($$v) {
+                                _vm.$set(_vm.item, "date_repaired", $$v)
+                              },
+                              expression: "item.date_repaired"
+                            }
+                          }),
+                          _vm._v(" "),
                           _c(
                             "v-dialog",
                             {
@@ -7012,42 +7041,13 @@ var render = function() {
                               }
                             },
                             [
-                              _c("v-text-field", {
-                                class: {
-                                  "error--text": _vm.hasErrors(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  )
-                                },
-                                attrs: {
-                                  slot: "activator",
-                                  disabled: _vm.readonly,
-                                  "error-messages": _vm.errorMessages(
-                                    "packages." +
-                                      _vm.iteration +
-                                      ".date_repaired"
-                                  ),
-                                  label: "Date Repaired",
-                                  "prepend-icon": "event_note",
-                                  "data-vv-name":
-                                    "`packages.${iteration}.date_repaired`",
-                                  readonly: ""
-                                },
-                                slot: "activator",
-                                model: {
-                                  value: _vm.item.date_repaired,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "date_repaired", $$v)
-                                  },
-                                  expression: "item.date_repaired"
-                                }
-                              }),
-                              _vm._v(" "),
                               _c(
                                 "v-date-picker",
                                 {
-                                  attrs: { scrollable: "" },
+                                  attrs: {
+                                    disabled: _vm.readonly,
+                                    scrollable: ""
+                                  },
                                   model: {
                                     value: _vm.item.date_repaired,
                                     callback: function($$v) {
@@ -8151,16 +8151,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: "success",
           confirmButtonText: "Ok"
         });
-        if (self.$auth.check(["admin"])) {
-          self.$nextTick(function () {
-            return self.$router.push({ name: "dsg" });
-          });
-        }
-        if (self.$auth.check(["warehouse"])) {
-          self.$nextTick(function () {
-            return self.$router.push({ name: "warehouse" });
-          });
-        }
+        self.$nextTick(function () {
+          return self.$router.push({ name: "warehouse" });
+        });
       }).catch(function (errors) {
         var failedModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -8201,16 +8194,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     redirectBack: function redirectBack() {
       var self = this;
-      if (self.$auth.check(["admin"])) {
-        self.$nextTick(function () {
-          return self.$router.push({ name: "dsg" });
-        });
-      }
-      if (self.$auth.check(["warehouse"])) {
-        self.$nextTick(function () {
-          return self.$router.push({ name: "warehouse" });
-        });
-      }
+      self.$nextTick(function () {
+        return self.$router.push({ name: "warehouse" });
+      });
     },
     fetchDSG: function fetchDSG() {
       var id = this.id;

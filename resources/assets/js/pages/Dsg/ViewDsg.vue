@@ -15,7 +15,7 @@
           <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-spacer/>
-        <v-toolbar-title class="text-xs-center white--text">Viewing DSG# {{ id }}</v-toolbar-title>
+        <v-toolbar-title class="text-xs-center white--text">Viewing Received DSG# {{ id }}</v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <v-layout 
@@ -123,8 +123,8 @@
           <v-text-field
             v-model="po_no"
             :error="po_no === null"
-            readonly
             light
+            readonly
             label="PO No."
             prepend-icon="bookmark"
             data-vv-name="po_no"
@@ -153,7 +153,7 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg3>
+          lg2>
           <v-text-field
             v-model="form.total_pieces"
             readonly
@@ -164,13 +164,25 @@
         <v-flex 
           v-if="packages.length>0"
           xs12 
-          lg3>
+          lg2>
           <v-text-field
             v-model="form.total_cube"
             readonly
             label="Total Cube"
             prepend-icon="fa-cubes"
             suffix="ft³"
+          />
+        </v-flex>
+        <v-flex 
+          v-if="packages.length>0"
+          xs12 
+          lg2>
+          <v-text-field
+            v-model="form.receiving_amount"
+            readonly
+            prepend-icon="attach_money"
+            label="Receiving Amount"
+            suffix="USD"
           />
         </v-flex>
       </v-layout>
@@ -382,8 +394,10 @@ export default {
               return c.name == newName;
             });
             if (client != undefined) {
+              self.form.client_name = client.name;
               self.form.client_id = client.id;
             } else {
+              self.form.client_name = newName;
               self.form.client_id = null;
             }
           }
@@ -487,7 +501,7 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+      self.$nextTick(() => self.$router.push({ name: "dsg" }));
     },
     fetchDSG() {
       let id = this.id;

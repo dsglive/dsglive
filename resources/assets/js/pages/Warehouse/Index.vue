@@ -49,7 +49,7 @@
                 dark
                 flat
                 @click="createWarehouse">
-                Create New Warehouse
+                Create New DSG
                 <v-icon
                   right
                   color="accent" 
@@ -111,12 +111,22 @@
           <tr>
             <td 
               class="title text-xs-center" 
-              style="width:25%;">
+              style="width:25%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;">
+              <v-btn
+                flat 
+                icon 
+                color="indigo" 
+                class="compress--icon"
+                @click="viewWarehouse(props.item)"
+              >
+                <v-icon>search</v-icon>
+              </v-btn>
               <v-btn 
                 v-if="!props.item.active"
                 flat 
                 icon 
                 color="blue" 
+                class="compress--icon"
                 @click="editWarehouse(props.item)"
               >
                 <v-icon>fa-pencil</v-icon>
@@ -125,38 +135,30 @@
                 flat 
                 icon 
                 color="purple" 
+                class="compress--icon"
                 @click="viewPdf(props.item)"
               >
                 <v-icon>picture_as_pdf</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="green" 
+                class="compress--icon"
+                @click="moveToReceiving(props.item)"
+              >
+                <v-icon>forward</v-icon>
               </v-btn>
               <v-btn 
                 v-if="!props.item.active"
                 flat 
                 icon 
                 color="error" 
+                class="compress--icon"
                 @click="openDialog(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
-              </v-btn>
-              <!--
-              <v-btn git
-                v-if="!props.item.active"
-                flat 
-                icon 
-                color="secondary" 
-                @click="archivedDsg(props.item)"
-              >
-                <v-icon>archive</v-icon>
-              </v-btn>
-              -->
-              <v-btn 
-                v-if="$auth.check('admin')"
-                flat 
-                icon 
-                color="green" 
-                @click="moveToReceiving(props.item)"
-              >
-                <v-icon>forward</v-icon>
               </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
@@ -206,7 +208,7 @@
               flat
               dark
               @click="createWarehouse">
-              Create New Receiving
+              Create New DSG
               <v-icon
                 right
               >
@@ -352,40 +354,6 @@ export default {
         self.dsgForm.busy = false;
       }
     },
-    archivedDsg(dsg) {
-      let self = this;
-      self.deleteDsgForm.dsg_id = dsg.id;
-      let index = _.findIndex(self.items, { id: dsg.id });
-      axios
-        .post(route("api.dsg.archived"), self.deleteDsgForm)
-        .then(response => {
-          if (response.data.status === true) {
-            self.$delete(self.items, index);
-            let toggleModal = swal.mixin({
-              confirmButtonClass: "v-btn blue-grey  subheading white--text",
-              buttonsStyling: false
-            });
-            toggleModal({
-              title: "Success",
-              html: `<p class="title">Dsg Archived!</p>`,
-              type: "success",
-              confirmButtonText: "Back"
-            });
-          }
-        })
-        .catch(errors => {
-          const deleteModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          deleteModal({
-            title: "Oops! Forbidden Action!",
-            html: '<p class="title">' + errors.response.data.message + "</p>",
-            type: "warning",
-            confirmButtonText: "Back"
-          });
-        });
-    },
     forceDelete(dsg) {
       let self = this;
       self.deleteDsgForm.dsg_id = dsg.id;
@@ -431,4 +399,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.compress--icon{
+    margin-left: -5px;
+    margin-right: -5px;
+}
+</style>
+
 

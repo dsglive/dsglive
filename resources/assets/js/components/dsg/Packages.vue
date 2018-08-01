@@ -93,7 +93,6 @@
               :error-messages="errorMessages(`packages.${iteration}.bin_id`)"
               :class="{ 'error--text': hasErrors(`packages.${iteration}.bin_id`) }"
               :readonly="readonly"
-              :disabled="readonly"
               item-text="code"
               item-value="id"
               required
@@ -116,7 +115,6 @@
               :error-messages="errorMessages(`packages.${iteration}.handling_type`)"
               :class="{ 'error--text': hasErrors(`packages.${iteration}.handling_type`) }"
               :readonly="readonly"
-              :disabled="readonly"
               item-text="name"
               item-value="id"
               required
@@ -139,7 +137,6 @@
               :error-messages="errorMessages(`packages.${iteration}.store_at`)"
               :class="{ 'error--text': hasErrors(`packages.${iteration}.store_at`) }"
               :readonly="readonly"
-              :disabled="readonly"
               required
               label="Store At"
               light
@@ -227,7 +224,7 @@
             md2
           >
             <v-switch
-              :disabled="readonly"
+              :readonly="readonly"
               v-model="item.damaged"
               :label="getDamageStatus(item.damaged)"
             />
@@ -366,7 +363,7 @@
               Is Item Repaired?
             </v-subheader>
             <v-switch
-              :disabled="readonly"
+              :readonly="readonly"
               v-model="item.repaired"
               :label="getRepairedStatus(item.repaired)"
             />
@@ -379,6 +376,16 @@
             <v-subheader>
               When is it Repaired?
             </v-subheader>
+            <v-text-field
+                :readonly="readonly"
+                :error-messages="errorMessages(`packages.${iteration}.date_repaired`)"
+                :class="{ 'error--text': hasErrors(`packages.${iteration}.date_repaired`) }"
+                v-model="item.date_repaired"
+                label="Date Repaired"
+                prepend-icon="event_note"
+                data-vv-name="`packages.${iteration}.date_repaired`"
+                @click="openDateRepairedModal()"
+              />
             <v-dialog
               :ref="`date_repaired_${item.id}`"
               v-model="date_repaired_modal"
@@ -388,18 +395,8 @@
               full-width
               width="290px"
             >
-              <v-text-field
-                slot="activator"
-                :disabled="readonly"
-                :error-messages="errorMessages(`packages.${iteration}.date_repaired`)"
-                :class="{ 'error--text': hasErrors(`packages.${iteration}.date_repaired`) }"
-                v-model="item.date_repaired"
-                label="Date Repaired"
-                prepend-icon="event_note"
-                data-vv-name="`packages.${iteration}.date_repaired`"
-                readonly
-              />
               <v-date-picker 
+                :disabled="readonly"
                 v-model="item.date_repaired" 
                 scrollable>
                 <v-spacer/>
@@ -534,6 +531,11 @@ export default {
     }
   },
   methods: {
+      openDateRepairedModal(){
+          if(!this.readonly){
+          this.date_repaired_modal = true
+          }
+      },
     viewDamageImages() {
       Bus.$emit(`view-damaged-package-${this.item.id}-images`);
     },

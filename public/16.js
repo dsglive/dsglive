@@ -1,6 +1,6 @@
 webpackJsonp([16],{
 
-/***/ 1168:
+/***/ 1172:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -184,7 +184,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -201,12 +200,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
-        text: "Customer",
-        value: "customer_name",
-        align: "left",
-        sortable: true
-      }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, { text: "Shipper", value: "shipper_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
         text: "Amount($)",
         value: "receiving_amount",
         align: "left",
@@ -292,19 +286,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.dsgForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportUnknownCustomer"), self.dsgForm);
+                return axios.post(route("api.report.reportUnknownShipper"), self.dsgForm);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                console.log(self.items);
                 self.dsgForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
-                _context.next = 18;
+                _context.next = 17;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](2);
                 errors = _context.t0.errors;
                 message = _context.t0.message;
@@ -315,12 +308,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (message) {}
                 self.dsgForm.busy = false;
 
-              case 18:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 11]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function fetchDsg() {
@@ -376,7 +369,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1169:
+/***/ 1173:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -402,7 +395,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Unknown Customer Report")
+                        _vm._v("Unknown Shipper Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -441,7 +434,7 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "append-icon": "search",
-                              label: "Search Unknown Customer",
+                              label: "Search Unknown Shipper",
                               "single-line": "",
                               "hide-details": "",
                               light: ""
@@ -562,15 +555,15 @@ var render = function() {
                             staticClass: "title text-xs-left",
                             class: {
                               "red--text":
-                                props.item.customer_id === null ||
-                                props.item.customer_id === 1001,
-                              "accent--text": props.item.customer_id > 1001
+                                props.item.shipper_id === null ||
+                                props.item.shipper_id === 1,
+                              "accent--text": props.item.shipper_id > 1
                             }
                           },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.customer_name) +
+                                _vm._s(props.item.shipper_name) +
                                 "\n          "
                             )
                           ]
@@ -772,21 +765,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-01f65daa", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-30932f24", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 948:
+/***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1168)
+var __vue_script__ = __webpack_require__(1172)
 /* template */
-var __vue_template__ = __webpack_require__(1169)
+var __vue_template__ = __webpack_require__(1173)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -803,7 +796,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/UnknownCustomer.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/UnknownShipper.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -812,9 +805,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-01f65daa", Component.options)
+    hotAPI.createRecord("data-v-30932f24", Component.options)
   } else {
-    hotAPI.reload("data-v-01f65daa", Component.options)
+    hotAPI.reload("data-v-30932f24", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

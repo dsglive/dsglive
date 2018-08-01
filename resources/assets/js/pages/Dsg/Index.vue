@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Receiving"
+                    label="Search Received DSG"
                     single-line
                     hide-details
                     light
@@ -50,7 +50,7 @@
                 dark
                 flat
                 @click="createDsg">
-                Create New Receiving
+                Create New DSG
                 <v-icon
                   right
                   color="accent" 
@@ -168,13 +168,25 @@
             </td>
             <td 
               class="title text-xs-center" 
+              style="width:25%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
             >
               <v-btn 
-                v-if="$auth.check('warehouse')"
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="orange" 
+                class="compress--icon"
+                @click="moveToWarehouse(props.item)"
+              >
+                <v-icon>reply</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check(['warehouse','admin'])"
                 flat 
                 icon 
                 color="indigo" 
-                @click="viewWarehouse(props.item)"
+                class="compress--icon"
+                @click="viewReceiving(props.item)"
               >
                 <v-icon>search</v-icon>
               </v-btn>
@@ -182,16 +194,8 @@
                 v-if="$auth.check('admin')"
                 flat 
                 icon 
-                color="blue" 
-                @click="editDsg(props.item)"
-              >
-                <v-icon>fa-pencil</v-icon>
-              </v-btn>
-              <v-btn 
-                v-if="$auth.check('admin')"
-                flat 
-                icon 
-                color="purple" 
+                color="purple"
+                class="compress--icon"
                 @click="viewPdf(props.item)"
               >
                 <v-icon>picture_as_pdf</v-icon>
@@ -200,19 +204,31 @@
                 v-if="$auth.check('admin')"
                 flat 
                 icon 
-                color="error" 
-                @click="deleteDsg(props.item)"
+                color="blue" 
+                class="compress--icon"
+                @click="editDsg(props.item)"
               >
-                <v-icon>fa-trash</v-icon>
+                <v-icon>fa-pencil</v-icon>
               </v-btn>
               <v-btn 
                 v-if="$auth.check('admin')"
                 flat 
                 icon 
-                color="orange" 
-                @click="moveToWarehouse(props.item)"
+                color="secondary" 
+                class="compress--icon"
+                @click="archivedDsg(props.item)"
               >
-                <v-icon>location_city</v-icon>
+                <v-icon>archive</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="red darken-4" 
+                class="compress--icon"
+                @click="forceDelete(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
               </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
@@ -270,7 +286,7 @@
               flat
               dark
               @click="createDsg">
-              Create New Receiving
+              Create New DSG
               <v-icon
                 right
               >
@@ -288,6 +304,9 @@
           Your search for "{{ search }}" found no results.
         </v-alert>
       </v-data-table>
+      <confirm 
+        :callback="confirmed(forceDelete)" 
+      />
     </v-container>
   </main-layout>
 </template>
@@ -297,12 +316,15 @@ import MainLayout from "Layouts/Main.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
+import Confirm from "Components/dsg/Confirm.vue";
+import confirmation from "Mixins/confirmation";
 
 export default {
   components: {
-    MainLayout
+    MainLayout,
+    Confirm
   },
-  mixins: [validationError],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -353,11 +375,79 @@ export default {
   mounted() {
     let self = this;
     self.fetchDsg();
-    if(self.$auth.check('warehouse')){
-        self.$delete(self.headers,7)
+    if (self.$auth.check("warehouse")) {
+      self.$delete(self.headers, 7);
     }
   },
   methods: {
+    forceDelete(dsg) {
+      let self = this;
+      self.deleteDsgForm.dsg_id = dsg.id;
+      let index = _.findIndex(self.items, { id: dsg.id });
+      axios
+        .post(route("api.dsg.forceDelete"), self.deleteDsgForm)
+        .then(response => {
+          if (response.data.status === true) {
+            self.$delete(self.items, index);
+            let toggleModal = swal.mixin({
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">Dsg Deleted!</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
+          }
+        })
+        .catch(errors => {
+          const deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        });
+    },
+    archivedDsg(dsg) {
+      let self = this;
+      self.deleteDsgForm.dsg_id = dsg.id;
+      let index = _.findIndex(self.items, { id: dsg.id });
+      axios
+        .post(route("api.dsg.archived"), self.deleteDsgForm)
+        .then(response => {
+          if (response.data.status === true) {
+            self.$delete(self.items, index);
+            let toggleModal = swal.mixin({
+              confirmButtonClass: "v-btn blue-grey  subheading white--text",
+              buttonsStyling: false
+            });
+            toggleModal({
+              title: "Success",
+              html: `<p class="title">Dsg Archived!</p>`,
+              type: "success",
+              confirmButtonText: "Back"
+            });
+          }
+        })
+        .catch(errors => {
+          const deleteModal = swal.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          deleteModal({
+            title: "Oops! Forbidden Action!",
+            html: '<p class="title">' + errors.response.data.message + "</p>",
+            type: "warning",
+            confirmButtonText: "Back"
+          });
+        });
+    },
     moveToWarehouse(dsg) {
       let self = this;
       self.toggleForm.toggle = false;
@@ -366,7 +456,7 @@ export default {
       axios
         .post(route("api.dsg.toggleStatus"), self.toggleForm)
         .then(response => {
-          if(response.data.status === false){
+          if (response.data.status === false) {
             self.$delete(self.items, index);
           }
         })
@@ -383,8 +473,8 @@ export default {
           });
         });
     },
-    viewWarehouse(dsg) {
-      vm.$router.push({ name: "view-warehouse", params: { id: `${dsg.id}` } });
+    viewReceiving(dsg) {
+      vm.$router.push({ name: "view-dsg", params: { id: `${dsg.id}` } });
     },
     viewPdf(dsg) {
       let type = "warehouse";
@@ -408,7 +498,7 @@ export default {
       }
     },
     createDsg() {
-      vm.$router.push({ name: "create-dsg" });
+      vm.$router.push({ name: "create-warehouse" });
     },
     async fetchDsg() {
       let self = this;
@@ -550,3 +640,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>

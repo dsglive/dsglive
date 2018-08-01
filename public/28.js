@@ -1,17 +1,98 @@
 webpackJsonp([28],{
 
-/***/ 1154:
+/***/ 1119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue__ = __webpack_require__(971);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__ = __webpack_require__(958);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform__ = __webpack_require__(959);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__ = __webpack_require__(971);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -239,47 +320,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    MainLayout: __WEBPACK_IMPORTED_MODULE_0_Layouts_Main_vue___default.a
+    MainLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_Main_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1_Mixins_validation_error__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
   data: function data() {
     return {
       rowsPerPageItems: [1, 2],
-      contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{
-        text: "ID",
-        value: "id",
-        align: "left",
-        sortable: true
-      }, {
+      headers: [{ text: "Ticket#", value: "id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Type", value: "type", align: "left", sortable: true }, {
+        text: "Delivery Date",
+        value: "date_delivered",
+        align: "left",
+        sortable: true
       }, {
-        text: "Started At",
-        value: "date_started",
+        text: "Delivery Fee",
+        value: "total_charges",
         align: "left",
         sortable: true
-      }, { text: "Ended At", value: "date_ended", align: "left", sortable: true }, {
-        text: "Receiving",
-        value: "receiving_fee",
-        align: "left",
-        sortable: true
-      }, { text: "Storage", value: "storage_fee", align: "left", sortable: true }, {
-        text: "Delivery",
-        value: "delivery_fee",
-        align: "left",
-        sortable: true
-      }, { text: "Misc", value: "misc_fee", align: "left", sortable: true }, { text: "Total", value: "total", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "left", sortable: false }],
+      }, { text: "Actions", value: "actions", align: "center", sortable: false }],
       items: [],
       selected: [],
       pagination: {
         sortBy: "name"
       },
+      iteratorPagination: {
+        rowsPerPage: 2
+      },
+      ticketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       search: "",
+      deleteTicketForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        logistics_id: null
+      }),
       domain: window.location.hostname
     };
   },
@@ -291,57 +368,125 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchInvoices();
+    self.fetchTickets();
   },
 
   methods: {
-    viewInvoice: function viewInvoice(invoice) {
-      var self = this;
-      self.$nextTick(function () {
-        return self.$router.push({ name: "view-invoice", params: { id: "" + invoice.id } });
+    titleCase: function titleCase(key) {
+      var newStr = key.replace(/_/g, " ");
+      return newStr.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     },
-    deleteInvoice: function deleteInvoice(invoice) {
+    kebabCase: function kebabCase(string) {
+      var result = string;
+
+      // Convert camelCase capitals to kebab-case.
+      result = result.replace(/([a-z][A-Z])/g, function (match) {
+        return match.substr(0, 1) + "-" + match.substr(1, 1).toLowerCase();
+      });
+
+      // Convert non-camelCase capitals to lowercase.
+      result = result.toLowerCase();
+
+      // Convert non-alphanumeric characters to hyphens
+      result = result.replace(/[^-a-z0-9]+/g, "-");
+
+      // Remove hyphens from both ends
+      result = result.replace(/^-+/, "").replace(/-$/, "");
+
+      return result;
+    },
+    viewPdf: function viewPdf(ticket) {
+      var type = this.kebabCase(ticket.type);
+      var id = ticket.id;
+      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/" + type + "/" + id;
+      window.open(url);
+    },
+    editTicket: function editTicket(logistics) {
+      vm.$router.push({
+        name: "edit-logistics",
+        params: { id: "" + logistics.id }
+      });
+    },
+    createTicket: function createTicket() {
+      vm.$router.push({ name: "create-logistics" });
+    },
+    fetchTickets: function () {
+      var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        var self, payload, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+
+                self.ticketForm.busy = true;
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.post(route("api.logistics.index"), self.ticketForm);
+
+              case 5:
+                payload = _context.sent;
+
+                self.items = payload.data.data;
+                self.ticketForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                _context.next = 17;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
+                errors = _context.t0.errors;
+                message = _context.t0.message;
+
+                if (errors) {
+                  self.ticketForm.errors.set(errors);
+                }
+                if (message) {}
+                self.ticketForm.busy = false;
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 10]]);
+      }));
+
+      function fetchTickets() {
+        return _ref.apply(this, arguments);
+      }
+
+      return fetchTickets;
+    }(),
+    deleteTicket: function deleteTicket(logistics) {
       var self = this;
-      var id = invoice.id;
-      var index = _.findIndex(self.items, { id: invoice.id });
-      axios.get(route("api.invoice.delete", { id: id })).then(function (response) {
-        if (response.status === 200) {
-          self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success",
-            html: "<p class=\"title\">" + response.data.message + "</p>",
-            type: "success",
-            confirmButtonText: "Back"
-          });
-        }
-      }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
+      self.deleteTicketForm.logistics_id = logistics.id;
+      var index = _.findIndex(self.items, { id: logistics.id });
+      axios.post(route("api.logistics.delete", { logistic: logistics.id }), self.deleteTicketForm).then(function (response) {
+        self.$delete(self.items, index);
+        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false
         });
         deleteModal({
-          title: "Oops! Something Went Wrong...",
-          html: "<p class=\"title\">" + errors.response.data.message + "</p>",
-          type: "error",
+          title: "Success",
+          html: "<p class=\"title\">Ticket Deleted!</p>",
+          type: "success",
           confirmButtonText: "Back"
         });
-      });
-    },
-    goToGenerateInvoice: function goToGenerateInvoice() {
-      var self = this;
-      self.$nextTick(function () {
-        return self.$router.push({ name: "generate-invoices" });
-      });
-    },
-    fetchInvoices: function fetchInvoices() {
-      var self = this;
-      axios.post(route("api.invoice.index")).then(function (response) {
-        self.items = response.data.data;
+      }).catch(function (errors) {
+        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        deleteModal({
+          title: "Oops! Forbidden Action!",
+          html: '<p class="title">' + errors.response.data.message + "</p>",
+          type: "warning",
+          confirmButtonText: "Back"
+        });
       });
     },
     toggleAll: function toggleAll() {
@@ -360,7 +505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1155:
+/***/ 1120:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -380,7 +525,7 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { attrs: { "d-flex": "", xs12: "" } },
+                { attrs: { "d-flex": "", xs12: "", sm7: "" } },
                 [
                   _c(
                     "v-layout",
@@ -400,7 +545,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       "append-icon": "search",
-                                      label: "Search Customer",
+                                      label: "Search Ticket",
                                       "single-line": "",
                                       "hide-details": "",
                                       light: ""
@@ -415,6 +560,71 @@ var render = function() {
                                   })
                                 ],
                                 1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                {
+                  attrs: { "d-flex": "", xs12: "", sm5: "", "child-flex": "" }
+                },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        {
+                          staticClass: "white",
+                          attrs: { xs12: "", "d-flex": "" }
+                        },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                disabled: !_vm.$auth.check("admin"),
+                                block: "",
+                                color: "accent",
+                                dark: "",
+                                flat: ""
+                              },
+                              on: { click: _vm.createTicket }
+                            },
+                            [
+                              _vm._v(
+                                "\n              Create New Ticket\n              "
+                              ),
+                              _c(
+                                "v-icon",
+                                { attrs: { right: "", color: "accent" } },
+                                [
+                                  _vm._v(
+                                    "\n                confirmation_number\n              "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-icon",
+                                { attrs: { right: "", color: "accent" } },
+                                [
+                                  _vm._v(
+                                    "\n                fa-plus-circle\n              "
+                                  )
+                                ]
                               )
                             ],
                             1
@@ -519,7 +729,15 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          {
+                            staticClass: "title text-xs-left",
+                            class: {
+                              "red--text":
+                                props.item.customer_id === null ||
+                                props.item.customer_id === 1001,
+                              "accent--text": props.item.customer_id > 1001
+                            }
+                          },
                           [
                             _vm._v(
                               "\n            " +
@@ -531,11 +749,19 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          {
+                            staticClass: "title text-xs-left",
+                            class: {
+                              "red--text":
+                                props.item.client_id === null ||
+                                props.item.client_id === 1,
+                              "accent--text": props.item.client_id > 1
+                            }
+                          },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.date_started) +
+                                _vm._s(props.item.client_name) +
                                 "\n          "
                             )
                           ]
@@ -547,7 +773,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.date_ended) +
+                                _vm._s(_vm.titleCase(props.item.type)) +
                                 "\n          "
                             )
                           ]
@@ -555,129 +781,450 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
-                            props.item.receiving_fee
-                              ? _c("span", [
-                                  _vm._v(
-                                    _vm._s(props.item.receiving_fee.toFixed(4))
-                                  )
-                                ])
-                              : _vm._e()
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.date_delivered) +
+                                "\n          "
+                            )
                           ]
                         ),
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          { staticClass: "title text-xs-center accent--text" },
                           [
-                            props.item.storage_fee
-                              ? _c("span", [
-                                  _vm._v(
-                                    _vm._s(props.item.storage_fee.toFixed(4))
-                                  )
-                                ])
-                              : _vm._e()
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.total_charges) +
+                                "\n          "
+                            )
                           ]
                         ),
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "title text-xs-left accent--text" },
+                          {
+                            staticClass: "title text-xs-center",
+                            staticStyle: { width: "25%" }
+                          },
                           [
-                            props.item.delivery_fee
-                              ? _c("span", [
-                                  _vm._v(
-                                    _vm._s(props.item.delivery_fee.toFixed(4))
-                                  )
-                                ])
-                              : _vm._e()
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            props.item.misc_fee
-                              ? _c("span", [
-                                  _vm._v(_vm._s(props.item.misc_fee.toFixed(4)))
-                                ])
-                              : _vm._e()
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            props.item.total
-                              ? _c("span", [
-                                  _vm._v(_vm._s(props.item.total.toFixed(4)))
-                                ])
-                              : _vm._e()
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-center" },
-                          [
-                            _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
+                            props.item.type === "delivery_ticket" &&
+                            props.item.items.length > 0
+                              ? _c(
                                   "v-btn",
                                   {
+                                    class: {
+                                      "amber--text": props.expanded,
+                                      amber: props.expanded,
+                                      teal: !props.expanded,
+                                      "teal--text": !props.expanded
+                                    },
                                     attrs: {
                                       disabled: !_vm.$auth.check("admin"),
+                                      light: "",
                                       flat: "",
-                                      icon: "",
-                                      color: "amber lighten-2"
+                                      icon: ""
                                     },
                                     on: {
                                       click: function($event) {
-                                        _vm.viewInvoice(props.item)
+                                        props.expanded = !props.expanded
                                       }
                                     }
                                   },
-                                  [_c("v-icon", [_vm._v("fa-eye")])],
+                                  [
+                                    !props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-expand")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-compress")])
+                                      : _vm._e()
+                                  ],
                                   1
                                 )
-                              ],
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "blue"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editTicket(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-pencil")])],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-flex",
-                              { staticClass: "xs12" },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      disabled: !_vm.$auth.check("admin"),
-                                      flat: "",
-                                      icon: "",
-                                      color: "error"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteInvoice(props.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("v-icon", [_vm._v("fa-trash")])],
-                                  1
-                                )
-                              ],
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "purple"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewPdf(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("picture_as_pdf")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("admin"),
+                                  flat: "",
+                                  icon: "",
+                                  color: "error"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteTicket(props.item)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
                           ],
                           1
                         )
                       ])
+                    ]
+                  }
+                },
+                {
+                  key: "expand",
+                  fn: function(props) {
+                    return [
+                      _c(
+                        "v-container",
+                        { attrs: { fluid: "" } },
+                        [
+                          _c(
+                            "v-card",
+                            {
+                              attrs: {
+                                light: "",
+                                flat: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-toolbar",
+                                { staticClass: "secondary" },
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-toolbar-title",
+                                    {
+                                      staticClass: "text-xs-center white--text"
+                                    },
+                                    [_vm._v("Delivered Items")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    { staticClass: "title white--text" },
+                                    [
+                                      _vm._v(
+                                        " Count: " +
+                                          _vm._s(props.item.items.length) +
+                                          " "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-container",
+                                { attrs: { fluid: "" } },
+                                [
+                                  _c("v-data-iterator", {
+                                    attrs: {
+                                      items: props.item.items,
+                                      "rows-per-page-items":
+                                        _vm.rowsPerPageItems,
+                                      pagination: _vm.iteratorPagination,
+                                      "content-tag": "v-layout",
+                                      row: "",
+                                      wrap: ""
+                                    },
+                                    on: {
+                                      "update:pagination": function($event) {
+                                        _vm.iteratorPagination = $event
+                                      }
+                                    },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "item",
+                                        fn: function(props) {
+                                          return _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "" } },
+                                            [
+                                              _c(
+                                                "v-card",
+                                                [
+                                                  _c("v-card-title", [
+                                                    _c("h4", [
+                                                      _vm._v(
+                                                        "Item ID#: " +
+                                                          _vm._s(props.item.id)
+                                                      )
+                                                    ])
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("v-divider"),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-list",
+                                                    { attrs: { dense: "" } },
+                                                    [
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [_vm._v("DSG #:")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .dsg_id
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [_vm._v("Style #:")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .style_no
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [
+                                                              _vm._v(
+                                                                "Description:"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .description
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [_vm._v("Bin:")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .bin_name
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [_vm._v("Cube:")]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .cube
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [
+                                                              _vm._v(
+                                                                "Date Processed:"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .date_processed
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-tile",
+                                                        [
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            [
+                                                              _vm._v(
+                                                                "Date Received:"
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-list-tile-content",
+                                                            {
+                                                              staticClass:
+                                                                "align-end"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .date_received
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        }
+                                      }
+                                    ])
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ]
                   }
                 },
@@ -721,7 +1268,9 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v("\n          Oops! No Invoices Yet!\n          "),
+                      _vm._v(
+                        "\n          Opps! No Ticket Created Yet!, \n          "
+                      ),
                       _c(
                         "v-btn",
                         {
@@ -731,11 +1280,11 @@ var render = function() {
                             flat: "",
                             dark: ""
                           },
-                          on: { click: _vm.goToGenerateInvoice }
+                          on: { click: _vm.createTicket }
                         },
                         [
                           _vm._v(
-                            "\n            Generate Invoice\n            "
+                            "\n            Create New Ticket\n            "
                           ),
                           _c("v-icon", { attrs: { right: "" } }, [
                             _vm._v(
@@ -787,21 +1336,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1c3b5063", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-ff6f65ee", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 941:
+/***/ 931:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1154)
+var __vue_script__ = __webpack_require__(1119)
 /* template */
-var __vue_template__ = __webpack_require__(1155)
+var __vue_template__ = __webpack_require__(1120)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -818,7 +1367,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Invoice/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Logistics/Index.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -827,9 +1376,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1c3b5063", Component.options)
+    hotAPI.createRecord("data-v-ff6f65ee", Component.options)
   } else {
-    hotAPI.reload("data-v-1c3b5063", Component.options)
+    hotAPI.reload("data-v-ff6f65ee", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

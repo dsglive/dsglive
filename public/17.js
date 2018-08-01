@@ -1,6 +1,6 @@
 webpackJsonp([17],{
 
-/***/ 1170:
+/***/ 1168:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -201,7 +201,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "id", align: "left", sortable: true }, {
+        text: "Customer",
+        value: "customer_name",
+        align: "left",
+        sortable: true
+      }, { text: "Pieces", value: "total_pieces", align: "left", sortable: true }, { text: "Cu.ft", value: "total_cube", align: "left", sortable: true }, {
         text: "Amount($)",
         value: "receiving_amount",
         align: "left",
@@ -287,7 +292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.dsgForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportUnknownClient"), self.dsgForm);
+                return axios.post(route("api.report.reportUnknownCustomer"), self.dsgForm);
 
               case 5:
                 payload = _context.sent;
@@ -371,7 +376,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1171:
+/***/ 1169:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -397,7 +402,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Unknown Client Report")
+                        _vm._v("Unknown Customer Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -436,7 +441,7 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "append-icon": "search",
-                              label: "Search Unknown Client",
+                              label: "Search Unknown Customer",
                               "single-line": "",
                               "hide-details": "",
                               light: ""
@@ -557,15 +562,15 @@ var render = function() {
                             staticClass: "title text-xs-left",
                             class: {
                               "red--text":
-                                props.item.client_id === null ||
-                                props.item.client_id === 1,
-                              "accent--text": props.item.client_id > 1
+                                props.item.customer_id === null ||
+                                props.item.customer_id === 1001,
+                              "accent--text": props.item.customer_id > 1001
                             }
                           },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.client_name) +
+                                _vm._s(props.item.customer_name) +
                                 "\n          "
                             )
                           ]
@@ -767,21 +772,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-72de6fd8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-01f65daa", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 949:
+/***/ 948:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1170)
+var __vue_script__ = __webpack_require__(1168)
 /* template */
-var __vue_template__ = __webpack_require__(1171)
+var __vue_template__ = __webpack_require__(1169)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -798,7 +803,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/UnknownClient.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/UnknownCustomer.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -807,9 +812,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-72de6fd8", Component.options)
+    hotAPI.createRecord("data-v-01f65daa", Component.options)
   } else {
-    hotAPI.reload("data-v-72de6fd8", Component.options)
+    hotAPI.reload("data-v-01f65daa", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

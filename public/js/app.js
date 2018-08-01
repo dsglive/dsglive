@@ -94814,7 +94814,7 @@ var Home = function Home() {
   return __webpack_require__.e/* import() */(0/* duplicate */).then(__webpack_require__.bind(null, 378));
 };
 var Tutorials = function Tutorials() {
-  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 904));
+  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 904));
 };
 /* harmony default export */ __webpack_exports__["a"] = ([
 /* Front End Routes */
@@ -94899,7 +94899,7 @@ var EditClient = function EditClient() {
 
 "use strict";
 var Users = function Users() {
-  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 910));
+  return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 910));
 };
 var CreateUser = function CreateUser() {
   return __webpack_require__.e/* import() */(49).then(__webpack_require__.bind(null, 911));
@@ -94973,7 +94973,7 @@ var CustomerEditClients = function CustomerEditClients() {
 
 "use strict";
 var Shippers = function Shippers() {
-  return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 916));
+  return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 916));
 };
 var CreateShipper = function CreateShipper() {
   return __webpack_require__.e/* import() */(40).then(__webpack_require__.bind(null, 917));
@@ -95009,7 +95009,7 @@ var EditShipper = function EditShipper() {
 
 "use strict";
 var Rates = function Rates() {
-  return __webpack_require__.e/* import() */(25).then(__webpack_require__.bind(null, 919));
+  return __webpack_require__.e/* import() */(26).then(__webpack_require__.bind(null, 919));
 };
 var CreateRate = function CreateRate() {
   return __webpack_require__.e/* import() */(42).then(__webpack_require__.bind(null, 920));
@@ -95106,19 +95106,22 @@ var NotFound = function NotFound() {
 
 "use strict";
 var Dsg = function Dsg() {
-  return __webpack_require__.e/* import() */(30).then(__webpack_require__.bind(null, 926));
+  return __webpack_require__.e/* import() */(55).then(__webpack_require__.bind(null, 926));
 };
 var CreateDsg = function CreateDsg() {
-  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 927));
+  return __webpack_require__.e/* import() */(59).then(__webpack_require__.bind(null, 927));
 };
 var EditDsg = function EditDsg() {
-  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 928));
+  return __webpack_require__.e/* import() */(58).then(__webpack_require__.bind(null, 928));
 };
 var ArchivedDsg = function ArchivedDsg() {
-  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 929));
+  return __webpack_require__.e/* import() */(56).then(__webpack_require__.bind(null, 929));
 };
 var ViewArchived = function ViewArchived() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 930));
+  return __webpack_require__.e/* import() */(57).then(__webpack_require__.bind(null, 930));
+};
+var ViewDsg = function ViewDsg() {
+  return __webpack_require__.e/* import() */(60).then(__webpack_require__.bind(null, 1193));
 };
 /* harmony default export */ __webpack_exports__["a"] = ([
 /* Start Users Routes */
@@ -95144,9 +95147,15 @@ var ViewArchived = function ViewArchived() {
   name: "create-dsg",
   meta: { auth: ["admin"] }
 }, {
-  path: "/receiving/:id",
+  path: "/receiving/:id/edit",
   component: EditDsg,
   name: "edit-dsg",
+  meta: { auth: ["admin"] },
+  props: true
+}, {
+  path: "/receiving/:id/view",
+  component: ViewDsg,
+  name: "view-dsg",
   meta: { auth: ["admin"] },
   props: true
   /* End Users Routes */
@@ -95158,7 +95167,7 @@ var ViewArchived = function ViewArchived() {
 
 "use strict";
 var Logistics = function Logistics() {
-  return __webpack_require__.e/* import() */(27).then(__webpack_require__.bind(null, 931));
+  return __webpack_require__.e/* import() */(28).then(__webpack_require__.bind(null, 931));
 };
 var CreateLogistics = function CreateLogistics() {
   return __webpack_require__.e/* import() */(46).then(__webpack_require__.bind(null, 932));
@@ -95194,16 +95203,16 @@ var EditLogistics = function EditLogistics() {
 
 "use strict";
 var Warehouse = function Warehouse() {
-  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 934));
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 934));
 };
 var CreateWarehouse = function CreateWarehouse() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 935));
+  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 935));
 };
 var EditWarehouse = function EditWarehouse() {
   return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 936));
 };
 var ViewWarehouse = function ViewWarehouse() {
-  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 937));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 937));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([
@@ -95239,7 +95248,7 @@ var ViewWarehouse = function ViewWarehouse() {
 
 "use strict";
 var Misc = function Misc() {
-  return __webpack_require__.e/* import() */(26).then(__webpack_require__.bind(null, 938));
+  return __webpack_require__.e/* import() */(27).then(__webpack_require__.bind(null, 938));
 };
 var CreateMisc = function CreateMisc() {
   return __webpack_require__.e/* import() */(44).then(__webpack_require__.bind(null, 939));
@@ -95275,10 +95284,10 @@ var EditMisc = function EditMisc() {
 
 "use strict";
 var Invoice = function Invoice() {
-  return __webpack_require__.e/* import() */(28).then(__webpack_require__.bind(null, 941));
+  return __webpack_require__.e/* import() */(29).then(__webpack_require__.bind(null, 941));
 };
 var GenerateInvoice = function GenerateInvoice() {
-  return __webpack_require__.e/* import() */(29).then(__webpack_require__.bind(null, 942));
+  return __webpack_require__.e/* import() */(30).then(__webpack_require__.bind(null, 942));
 };
 var ViewInvoice = function ViewInvoice() {
   return __webpack_require__.e/* import() */(53).then(__webpack_require__.bind(null, 943));
@@ -95311,37 +95320,37 @@ var ViewInvoice = function ViewInvoice() {
 
 "use strict";
 var Bin = function Bin() {
-  return __webpack_require__.e/* import() */(23).then(__webpack_require__.bind(null, 944));
+  return __webpack_require__.e/* import() */(24).then(__webpack_require__.bind(null, 944));
 };
 var Client = function Client() {
-  return __webpack_require__.e/* import() */(22).then(__webpack_require__.bind(null, 945));
+  return __webpack_require__.e/* import() */(23).then(__webpack_require__.bind(null, 945));
 };
 var Customer = function Customer() {
-  return __webpack_require__.e/* import() */(21).then(__webpack_require__.bind(null, 946));
+  return __webpack_require__.e/* import() */(22).then(__webpack_require__.bind(null, 946));
 };
 var AllUnknownReport = function AllUnknownReport() {
-  return __webpack_require__.e/* import() */(24).then(__webpack_require__.bind(null, 947));
+  return __webpack_require__.e/* import() */(25).then(__webpack_require__.bind(null, 947));
 };
 var UnknownCustomer = function UnknownCustomer() {
-  return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 948));
+  return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 948));
 };
 var UnknownClient = function UnknownClient() {
-  return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 949));
+  return __webpack_require__.e/* import() */(18).then(__webpack_require__.bind(null, 949));
 };
 var UnknownShipper = function UnknownShipper() {
-  return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 950));
+  return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 950));
 };
 var DamagedPackages = function DamagedPackages() {
-  return __webpack_require__.e/* import() */(20).then(__webpack_require__.bind(null, 951));
+  return __webpack_require__.e/* import() */(21).then(__webpack_require__.bind(null, 951));
 };
 var RepairedPackages = function RepairedPackages() {
-  return __webpack_require__.e/* import() */(19).then(__webpack_require__.bind(null, 952));
+  return __webpack_require__.e/* import() */(20).then(__webpack_require__.bind(null, 952));
 };
 var UndeliveredPackages = function UndeliveredPackages() {
-  return __webpack_require__.e/* import() */(18).then(__webpack_require__.bind(null, 953));
+  return __webpack_require__.e/* import() */(19).then(__webpack_require__.bind(null, 953));
 };
 var EditUnknown = function EditUnknown() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 954));
+  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 954));
 };
 var ViewPackage = function ViewPackage() {
   return __webpack_require__.e/* import() */(33).then(__webpack_require__.bind(null, 955));
