@@ -153,12 +153,63 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
+            <td 
+              class="title text-xs-left"
+              style="width:5%;"
+            >
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
+            </td>
+            <td 
+              class="title text-xs-left"
+              style="width:15%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
+            >
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                light 
+                flat 
+                icon 
+                class="compress--icon"
+                @click="props.expanded = !props.expanded"
+              >
+                <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                <v-icon v-if="props.expanded">fa-compress</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                class="compress--icon"
+                @click="editUser(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                class="compress--icon"
+                @click="deleteUser(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="props.item.roles[0] === 'customer'"
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="indigo lighten-2" 
+                class="compress--icon"
+                @click="viewClients(props.item)"
+              >
+                <v-icon>fa-users</v-icon>
+              </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.name }}
@@ -196,47 +247,6 @@
                 <span v-if="props.item.id < 1000">Super Admin</span>
                 <span v-else>{{ role }}</span>
               </v-chip>
-            </td>
-            <td class="title text-xs-center">
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                light 
-                flat 
-                icon 
-                @click="props.expanded = !props.expanded"
-              >
-                <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                <v-icon v-if="props.expanded">fa-compress</v-icon>
-              </v-btn>
-              <v-btn 
-                v-if="props.item.roles[0] === 'customer'"
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="indigo lighten-2" 
-                @click="viewClients(props.item)"
-              >
-                <v-icon>fa-users</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="blue" 
-                @click="editUser(props.item)"
-              >
-                <v-icon>fa-pencil</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="error" 
-                @click="deleteUser(props.item)"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
             </td>
           </tr>
         </template>
@@ -540,10 +550,10 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "left", sortable: false },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
       { text: "Roles", value: "roles", align: "left", sortable: false },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     selected: [],
@@ -805,3 +815,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>

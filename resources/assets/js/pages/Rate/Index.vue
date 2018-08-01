@@ -159,12 +159,40 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
+            <td 
+              class="title text-xs-left"
+              style="width:5%;"
+            >
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
+            </td>
+            <td 
+              class="title text-xs-center"
+              style="width:10%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
+            >
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="blue" 
+                class="compress--icon"
+                @click="editRate(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                flat 
+                icon 
+                color="error" 
+                class="compress--icon"
+                @click="deleteRate(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
             </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.name }}
@@ -182,26 +210,6 @@
                 :label="getStatus(props.item.active)"
                 @change="toggleStatus(props.item)"
               />
-            </td>
-            <td class="title text-xs-center">
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="blue" 
-                @click="editRate(props.item)"
-              >
-                <v-icon>fa-pencil</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="error" 
-                @click="deleteRate(props.item)"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
             </td>
           </tr>
         </template>
@@ -263,11 +271,11 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Amount", value: "amount", align: "left", sortable: true },
       { text: "Type", value: "type", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     selected: [],
@@ -474,3 +482,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>

@@ -101,34 +101,17 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left accent--text">
-              {{ props.item.id }}
-            </td>
             <td 
-              :class="{'red--text': props.item.customer_id === null || props.item.customer_id === 1001, 'accent--text': props.item.customer_id > 1001}" 
-              class="title text-xs-left"
+              class="title text-xs-center"
+              style="width:10%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
             >
-              {{ props.item.customer_name }}
-            </td>
-            <td 
-              :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
-              class="title text-xs-left"
-            >
-              {{ props.item.client_name }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.amount }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.invoice_date }}
-            </td>
-            <td class="title text-xs-center">
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
                 light 
                 flat 
                 icon 
+                class="compress--icon"
                 @click="props.expanded = !props.expanded"
               >
                 <v-icon v-if="!props.expanded">fa-expand</v-icon>
@@ -139,6 +122,7 @@
                 flat 
                 icon 
                 color="blue" 
+                class="compress--icon"
                 @click="editMisc(props.item)"
               >
                 <v-icon>fa-pencil</v-icon>
@@ -161,10 +145,32 @@
                 flat 
                 icon 
                 color="error" 
+                class="compress--icon"
                 @click="deleteMisc(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
               </v-btn>
+            </td>
+            <td class="title text-xs-left accent--text">
+              {{ props.item.id }}
+            </td>
+            <td 
+              :class="{'red--text': props.item.customer_id === null || props.item.customer_id === 1001, 'accent--text': props.item.customer_id > 1001}" 
+              class="title text-xs-left"
+            >
+              {{ props.item.customer_name }}
+            </td>
+            <td 
+              :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
+              class="title text-xs-left"
+            >
+              {{ props.item.client_name }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.amount }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.invoice_date }}
             </td>
           </tr>
         </template>
@@ -247,6 +253,7 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "ID#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
@@ -263,7 +270,6 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     pagination: {
@@ -361,3 +367,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>

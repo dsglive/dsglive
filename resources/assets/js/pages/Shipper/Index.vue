@@ -159,30 +159,27 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
+            <td 
+              class="title text-xs-left"
+              style="width:5%;"
+            >
               <v-checkbox
                 :active="props.selected"
                 :input-value="props.selected"
                 @click="props.selected = !props.selected"
               />
             </td>
-            <td class="title text-xs-left accent--text">
-              {{ props.item.name }}
-            </td>
-            <td class="title text-xs-left accent--text">
-              <v-switch
-                v-model="props.item.active"
-                :label="getStatus(props.item.active)"
-                @change="toggleStatus(props.item)"
-              />
-            </td>
-            <td class="title text-xs-center">
+            <td 
+              class="title text-xs-center"
+              style="width:10%;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;"
+            >
               <v-btn 
                 :disabled="!$auth.check('admin')" 
                 :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
                 light 
                 flat 
                 icon 
+                class="compress--icon"
                 @click="props.expanded = !props.expanded"
               >
                 <v-icon v-if="!props.expanded">fa-expand</v-icon>
@@ -193,6 +190,7 @@
                 flat 
                 icon 
                 color="blue" 
+                class="compress--icon"
                 @click="editShipper(props.item)"
               >
                 <v-icon>fa-pencil</v-icon>
@@ -202,10 +200,21 @@
                 flat 
                 icon 
                 color="error" 
+                class="compress--icon"
                 @click="deleteShipper(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
               </v-btn>
+            </td>
+            <td class="title text-xs-left accent--text">
+              {{ props.item.name }}
+            </td>
+            <td class="title text-xs-left accent--text">
+              <v-switch
+                v-model="props.item.active"
+                :label="getStatus(props.item.active)"
+                @change="toggleStatus(props.item)"
+              />
             </td>
           </tr>
         </template>
@@ -436,9 +445,9 @@ export default {
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Status", value: "active", align: "left", sortable: true },
-      { text: "Actions", value: "actions", align: "right", sortable: false }
     ],
     items: [],
     selected: [],
@@ -645,3 +654,9 @@ export default {
 };
 </script>
 
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>
