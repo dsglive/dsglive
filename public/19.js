@@ -127,21 +127,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       videos: [{
         title: "Tutorial #1",
-        href: "https://www.youtube.com/watch?v=xVbM50kL30Q",
+        href: "https://www.youtube.com/watch?v=sGKriF8cpSg",
         type: "text/html",
-        youtube: "xVbM50kL30Q",
-        poster: "/svg/video-play-svgrepo-com.svg"
-      }, {
-        title: "Coming Soon...",
-        href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
-        type: "text/html",
-        youtube: "SV1Z2kpzjQk",
-        poster: "/svg/video-play-svgrepo-com.svg"
-      }, {
-        title: "Coming Soon...",
-        href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
-        type: "text/html",
-        youtube: "SV1Z2kpzjQk",
+        youtube: "sGKriF8cpSg",
         poster: "/svg/video-play-svgrepo-com.svg"
       }],
       youtube_id: "xVbM50kL30Q",

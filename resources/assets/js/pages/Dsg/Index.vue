@@ -44,7 +44,7 @@
               class="white"
               d-flex>
               <v-btn 
-                :disabled="!$auth.check('admin')" 
+                :disabled="!$auth.check(['admin','warehouse'])" 
                 block 
                 color="accent" 
                 dark

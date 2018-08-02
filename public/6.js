@@ -1153,7 +1153,10 @@ var render = function() {
                             "v-btn",
                             {
                               attrs: {
-                                disabled: !_vm.$auth.check("admin"),
+                                disabled: !_vm.$auth.check([
+                                  "admin",
+                                  "warehouse"
+                                ]),
                                 block: "",
                                 color: "accent",
                                 dark: "",
