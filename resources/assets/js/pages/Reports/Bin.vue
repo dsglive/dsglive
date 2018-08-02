@@ -179,7 +179,7 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            Opps! There are No Packages At the Selected Bin!
+            Opps! There are No Items Yet At the Selected Bin!
           </v-alert>
         </template>
         <!-- No Search Result Section -->

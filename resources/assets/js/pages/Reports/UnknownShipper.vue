@@ -148,7 +148,7 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            Opps! There are No Unknown Customer and Client Yet!, 
+            Opps! There are No Unknown Shipper Yet!, 
           </v-alert>
         </template>
         <!-- No Search Result Section -->

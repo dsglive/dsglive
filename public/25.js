@@ -621,7 +621,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! There are No Damaged Packages Yet!, \n        "
+                        "\n          Opps! There are No Damaged Items Yet!, \n        "
                       )
                     ]
                   )

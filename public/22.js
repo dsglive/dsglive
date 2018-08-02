@@ -724,7 +724,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! There are No Unknown Customer and Client Yet!, \n        "
+                        "\n          Opps! There are No Unknown  Client Yet!, \n        "
                       )
                     ]
                   )

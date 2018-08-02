@@ -180,7 +180,7 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            Opps! There are No Packages At the Selected Customer!
+            Opps! There are No Items Yet At the Selected Customer!
           </v-alert>
         </template>
         <!-- No Search Result Section -->

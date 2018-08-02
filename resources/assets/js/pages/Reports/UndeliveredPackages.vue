@@ -139,7 +139,7 @@
             :value="true" 
             color="blue-grey" 
             icon="warning">
-            Opps! There are No Damaged Packages Yet!, 
+            Opps! There are No Items Undelivered Yet!, 
           </v-alert>
         </template>
         <!-- No Search Result Section -->

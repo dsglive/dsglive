@@ -776,7 +776,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! There are No Packages At the Selected Bin!\n        "
+                        "\n          Opps! There are No Items Yet At the Selected Bin!\n        "
                       )
                     ]
                   )
