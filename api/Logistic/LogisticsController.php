@@ -107,7 +107,7 @@ class LogisticsController extends Controller
 
     public function index()
     {
-        $logistics = Logistic::with('items')->get();
+        $logistics = Logistic::with('items')->orderBy('created_at', 'DESC')->get();
         return LogisticResource::collection($logistics);
     }
 

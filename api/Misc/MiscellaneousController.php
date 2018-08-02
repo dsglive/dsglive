@@ -84,7 +84,7 @@ class MiscellaneousController extends Controller
      */
     public function index(Request $request)
     {
-        $misc = Misc::all();
+        $misc = Misc::orderBy('created_at', 'DESC')->get();
         return MiscResource::collection($misc); // remove pagination
     }
 

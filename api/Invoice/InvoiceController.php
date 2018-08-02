@@ -76,7 +76,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with('customer.profile')->get();
+        $invoices = Invoice::with('customer.profile')->orderBy('created_at', 'DESC')->get();
 
         return InvoiceResource::collection($invoices);
     }
