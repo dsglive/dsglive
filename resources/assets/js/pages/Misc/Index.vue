@@ -146,7 +146,7 @@
                 icon 
                 color="error" 
                 class="compress--icon"
-                @click="deleteMisc(props.item)"
+                @click="openDialog(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
               </v-btn>
@@ -233,6 +233,10 @@
           Your search for "{{ search }}" found no results.
         </v-alert>
       </v-data-table>
+      <confirm
+        :callback="confirmed(deleteMisc)" 
+        :message="message"
+      />
     </v-container>
   </main-layout>
 </template>
@@ -242,12 +246,15 @@ import MainLayout from "Layouts/Main.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
+import Confirm from "Components/dsg/Confirm.vue";
+import confirmation from "Mixins/confirmation";
 
 export default {
   components: {
-    MainLayout
+    MainLayout,
+    Confirm
   },
-  mixins: [validationError],
+  mixins: [validationError,confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -280,7 +287,8 @@ export default {
     deleteMiscForm: new Form({
       misc_id: null
     }),
-    domain: window.location.hostname
+    domain: window.location.hostname,
+    message:"Warning! Deleting This Miscellaneous Record Has Some Repercusion To The Sytem, Some Features That Reference To This Miscellaneous Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
   }),
   watch: {
     items: {
