@@ -1,6 +1,6 @@
 webpackJsonp([28],{
 
-/***/ 1157:
+/***/ 1179:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -216,47 +216,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -273,51 +232,85 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Actions", value: "actions", align: "center", sortable: false }, { text: "ID#", value: "id", align: "left", sortable: true }, {
+      headers: [{ text: "DSG#", value: "dsg_id", align: "left", sortable: true }, {
         text: "Customer",
         value: "customer_name",
         align: "left",
         sortable: true
-      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "Amount($)", value: "amount", align: "left", sortable: true }, {
-        text: "Invoice Date",
-        value: "invoice_date",
+      }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
+        text: "Description",
+        value: "description",
         align: "left",
         sortable: true
-      }],
+      }, {
+        text: "Damaged Description",
+        value: "damage_description",
+        align: "left",
+        sortable: true
+      }, { text: "Cube", value: "cube", align: "left", sortable: true }],
       items: [],
+      bins: [],
+      selected: [],
       pagination: {
-        sortBy: "name"
+        sortBy: "name",
+        rowPerPage: "all"
       },
-      miscForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
-      search: "",
-      deleteMiscForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        misc_id: null
+      form: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        bin_name: "",
+        bin_id: ""
       }),
+      search: "",
       domain: window.location.hostname
     };
+  },
+  computed: {
+    total_cube: function total_cube() {
+      var total = 0;
+      this.items.forEach(function (item) {
+        total += item.cube;
+      });
+      return total.toFixed(4) + " cu.ft";
+    }
   },
   watch: {
     items: {
       handler: function handler(newValue) {},
       deep: true
+    },
+    "form.bin_name": {
+      handler: function handler(newValue) {
+        var bin = this.bins.find(function (bin) {
+          return bin.code === newValue;
+        });
+        this.form.bin_id = bin.id;
+        this.fetchPackages();
+      },
+      deep: true
     }
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchMisc();
+    self.getBins();
   },
 
   methods: {
-    viewPdf: function viewPdf() {
-      console.log("viewing PDF");
+    viewPDF: function viewPDF(id) {
+      var url = window.location.protocol + "//" + window.location.hostname + "/pdf/bin-report/" + id;
+      window.open(url);
     },
-    editMisc: function editMisc(misc) {
-      vm.$router.push({ name: "edit-misc", params: { id: "" + misc.id } });
+    getBins: function getBins() {
+      var self = this;
+      axios.post(route("api.bin.index")).then(function (response) {
+        self.bins = response.data.data;
+      });
     },
-    createMisc: function createMisc() {
-      vm.$router.push({ name: "create-misc" });
+    viewItem: function viewItem(id) {
+      this.$router.push({
+        name: "view-damaged-package",
+        params: { id: "" + id }
+      });
     },
-    fetchMisc: function () {
+    fetchPackages: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -326,76 +319,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               case 0:
                 self = this;
 
-                self.miscForm.busy = true;
+                self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.misc.index"), self.miscForm);
+                return axios.post(route("api.report.reportByBin"), self.form);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.miscForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
-                _context.next = 17;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](2);
                 errors = _context.t0.errors;
                 message = _context.t0.message;
 
                 if (errors) {
-                  self.miscForm.errors.set(errors);
+                  self.form.errors.set(errors);
                 }
                 if (message) {}
-                self.miscForm.busy = false;
+                self.form.busy = false;
 
-              case 17:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[2, 9]]);
       }));
 
-      function fetchMisc() {
+      function fetchPackages() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchMisc;
+      return fetchPackages;
     }(),
-    deleteMisc: function deleteMisc(misc) {
-      var self = this;
-      self.deleteMiscForm.misc_id = misc.id;
-      var index = _.findIndex(self.items, { id: misc.id });
-      axios.post(route("api.misc.delete"), self.deleteMiscForm).then(function (response) {
-        if (response.data.status === true) {
-          self.$delete(self.items, index);
-          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success",
-            html: "<p class=\"title\">Misc Deleted!</p>",
-            type: "success",
-            confirmButtonText: "Back"
-          });
-        }
-      }).catch(function (errors) {
-        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
-          confirmButtonClass: "v-btn blue-grey  subheading white--text",
-          buttonsStyling: false
-        });
-        deleteModal({
-          title: "Oops! Forbidden Action!",
-          html: '<p class="title">' + errors.response.data.message + "</p>",
-          type: "warning",
-          confirmButtonText: "Back"
-        });
-      });
-    },
     changeSort: function changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
@@ -409,49 +370,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1211:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1212);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(957)("c5c6b06a", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7339b768\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7339b768\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1212:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.compress--icon[data-v-7339b768] {\n  margin-left: -5px;\n  margin-right: -5px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1213:
+/***/ 1180:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -462,50 +381,98 @@ var render = function() {
     "main-layout",
     [
       _c(
-        "v-container",
-        { attrs: { fluid: "" } },
+        "v-jumbotron",
         [
           _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
+            "v-container",
+            { attrs: { fluid: "" } },
             [
               _c(
-                "v-flex",
-                { attrs: { "d-flex": "", xs12: "", sm7: "" } },
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
                 [
                   _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
+                    "v-flex",
+                    { attrs: { xs12: "", "text-xs-center": "" } },
                     [
-                      _c(
+                      _c("h2", { staticClass: "display-1" }, [
+                        _vm._v("Bin Report")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", md6: "", "offset-md3": "" } },
+                    [
+                      _c("v-autocomplete", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        class: { "error--text": _vm.hasErrors("bin_name") },
+                        attrs: {
+                          items: _vm.bins,
+                          "error-messages": _vm.errorMessages("bin_name"),
+                          "item-text": "code",
+                          "item-value": "code",
+                          required: "",
+                          label: "Choose Bin",
+                          light: "",
+                          "prepend-icon": "view_comfy",
+                          "data-vv-name": "bin_name",
+                          hint: "Choose Bin",
+                          "persistent-hint": ""
+                        },
+                        model: {
+                          value: _vm.form.bin_name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "bin_name", $$v)
+                          },
+                          expression: "form.bin_name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.items.length > 0
+                    ? _c(
                         "v-flex",
-                        { attrs: { "d-flex": "" } },
+                        { attrs: { xs12: "", md6: "", "offset-md3": "" } },
                         [
                           _c(
-                            "v-card",
-                            { attrs: { light: "", flat: "" } },
+                            "v-btn",
+                            {
+                              attrs: { color: "secondary", block: "" },
+                              on: {
+                                click: function($event) {
+                                  _vm.viewPDF(_vm.form.bin_id)
+                                }
+                              }
+                            },
                             [
+                              _vm._v("\n            View As PDF\n            "),
                               _c(
-                                "v-card-title",
+                                "v-icon",
+                                {
+                                  attrs: {
+                                    color: "indigo lighten-4",
+                                    right: ""
+                                  }
+                                },
                                 [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      "append-icon": "search",
-                                      label: "Search Miscellaneous",
-                                      "single-line": "",
-                                      "hide-details": "",
-                                      light: ""
-                                    },
-                                    model: {
-                                      value: _vm.search,
-                                      callback: function($$v) {
-                                        _vm.search = $$v
-                                      },
-                                      expression: "search"
-                                    }
-                                  })
-                                ],
-                                1
+                                  _vm._v(
+                                    "\n              picture_as_pdf\n            "
+                                  )
+                                ]
                               )
                             ],
                             1
@@ -513,58 +480,60 @@ var render = function() {
                         ],
                         1
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("v-flex", { attrs: { xs12: "", "text-xs-center": "" } }, [
+                    _c("h2", [
+                      _vm._v("Total Items: " + _vm._s(_vm.items.length))
+                    ]),
+                    _vm._v(" "),
+                    _c("h2", [_vm._v("Total Cube: " + _vm._s(_vm.total_cube))])
+                  ])
                 ],
                 1
-              ),
-              _vm._v(" "),
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { staticStyle: { "margin-top": "-190px" }, attrs: { fluid: "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
               _c(
                 "v-flex",
-                {
-                  attrs: { "d-flex": "", xs12: "", sm5: "", "child-flex": "" }
-                },
+                { attrs: { xs12: "" } },
                 [
                   _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
+                    "v-card",
+                    { attrs: { light: "", flat: "" } },
                     [
                       _c(
-                        "v-flex",
-                        {
-                          staticClass: "white",
-                          attrs: { xs12: "", "d-flex": "" }
-                        },
+                        "v-card-title",
                         [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                disabled: !_vm.$auth.check("admin"),
-                                block: "",
-                                color: "accent",
-                                dark: "",
-                                flat: ""
-                              },
-                              on: { click: _vm.createMisc }
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "search",
+                              label: "Search Packages",
+                              "single-line": "",
+                              "hide-details": "",
+                              light: ""
                             },
-                            [
-                              _vm._v(
-                                "\n              Create New Miscellaneous\n              "
-                              ),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                note_add\n              "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
                         ],
                         1
                       )
@@ -586,8 +555,13 @@ var render = function() {
                 items: _vm.items,
                 search: _vm.search,
                 pagination: _vm.pagination,
+                "rows-per-page-items": [
+                  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
+                ],
+                "select-all": "",
                 "item-key": "id",
-                expand: ""
+                expand: "",
+                "hide-actions": ""
               },
               on: {
                 "update:pagination": function($event) {
@@ -652,101 +626,11 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          {
-                            staticClass: "title text-xs-center",
-                            staticStyle: {
-                              width: "10%",
-                              "margin-left": "0px",
-                              "margin-right": "0px",
-                              "padding-left": "0px",
-                              "padding-right": "0px"
-                            }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "compress--icon",
-                                class: {
-                                  "amber--text": props.expanded,
-                                  amber: props.expanded,
-                                  teal: !props.expanded,
-                                  "teal--text": !props.expanded
-                                },
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  light: "",
-                                  flat: "",
-                                  icon: ""
-                                },
-                                on: {
-                                  click: function($event) {
-                                    props.expanded = !props.expanded
-                                  }
-                                }
-                              },
-                              [
-                                !props.expanded
-                                  ? _c("v-icon", [_vm._v("fa-expand")])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                props.expanded
-                                  ? _c("v-icon", [_vm._v("fa-compress")])
-                                  : _vm._e()
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "compress--icon",
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  flat: "",
-                                  icon: "",
-                                  color: "blue"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.editMisc(props.item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("fa-pencil")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "compress--icon",
-                                attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
-                                  flat: "",
-                                  icon: "",
-                                  color: "error"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.deleteMisc(props.item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("fa-trash")])],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
                           { staticClass: "title text-xs-left accent--text" },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.id) +
+                                _vm._s(props.item.dsg_id) +
                                 "\n          "
                             )
                           ]
@@ -792,13 +676,21 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
+                        _c("td", { staticClass: "title text-xs-left" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(props.item.po_no) +
+                              "\n          "
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "td",
                           { staticClass: "title text-xs-center accent--text" },
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.amount) +
+                                _vm._s(props.item.style_no) +
                                 "\n          "
                             )
                           ]
@@ -810,7 +702,31 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.invoice_date) +
+                                _vm._s(props.item.description) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.damage_description) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.cube) +
                                 "\n          "
                             )
                           ]
@@ -834,48 +750,15 @@ var render = function() {
                       )
                     ]
                   }
-                },
-                {
-                  key: "expand",
-                  fn: function(props) {
-                    return [
-                      props.item.notes
-                        ? _c(
-                            "v-alert",
-                            {
-                              attrs: {
-                                value: true,
-                                color: "blue lighten-4",
-                                icon: "info"
-                              }
-                            },
-                            [
-                              _c("v-subheader", [
-                                _vm._v("Notes: " + _vm._s(props.item.notes))
-                              ])
-                            ],
-                            1
-                          )
-                        : _c(
-                            "v-alert",
-                            {
-                              attrs: {
-                                value: true,
-                                color: "red lighten-4",
-                                icon: "warning"
-                              }
-                            },
-                            [
-                              _c("v-subheader", [
-                                _vm._v("No Miscellaneous Notes.")
-                              ])
-                            ],
-                            1
-                          )
-                    ]
-                  }
                 }
-              ])
+              ]),
+              model: {
+                value: _vm.selected,
+                callback: function($$v) {
+                  _vm.selected = $$v
+                },
+                expression: "selected"
+              }
             },
             [
               _c(
@@ -893,31 +776,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! No Miscellaneous Yet!, \n          "
-                      ),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            disabled: !_vm.$auth.check("admin"),
-                            color: "white",
-                            flat: "",
-                            dark: ""
-                          },
-                          on: { click: _vm.createMisc }
-                        },
-                        [
-                          _vm._v(
-                            "\n            Create New Miscellaneous\n            "
-                          ),
-                          _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v("\n              note_add\n            ")
-                          ])
-                        ],
-                        1
+                        "\n          Opps! There are No Packages At the Selected Bin!\n        "
                       )
-                    ],
-                    1
+                    ]
                   )
                 ],
                 1
@@ -958,31 +819,27 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7339b768", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-3a4dee2c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 939:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(1211)
-}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1157)
+var __vue_script__ = __webpack_require__(1179)
 /* template */
-var __vue_template__ = __webpack_require__(1213)
+var __vue_template__ = __webpack_require__(1180)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-7339b768"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -993,7 +850,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Misc/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/Bin.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1002,9 +859,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7339b768", Component.options)
+    hotAPI.createRecord("data-v-3a4dee2c", Component.options)
   } else {
-    hotAPI.reload("data-v-7339b768", Component.options)
+    hotAPI.reload("data-v-3a4dee2c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

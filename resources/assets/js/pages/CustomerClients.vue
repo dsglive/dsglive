@@ -213,7 +213,7 @@
                   icon 
                   color="error" 
                   class="compress--icon"
-                  @click="deleteClient(props.item)"
+                  @click="openDialog(props.item)"
                 >
                   <v-icon>fa-trash</v-icon>
                 </v-btn>
@@ -423,6 +423,10 @@
             Your search for "{{ search }}" found no results.
           </v-alert>
         </v-data-table>
+        <confirm 
+          :callback="confirmed(deleteClient)" 
+          :message="message"
+        />
       </v-container>
     </v-card>
 
@@ -434,11 +438,15 @@ import ModalLayout from "Layouts/ModalLayout.vue";
 import validationError from "Mixins/validation-error";
 import { Form } from "vform";
 import swal from "sweetalert2";
+import Confirm from "Components/dsg/Confirm.vue";
+import confirmation from "Mixins/confirmation";
+
 export default {
   components: {
-    ModalLayout
+    ModalLayout,
+    Confirm
   },
-  mixins: [validationError],
+  mixins: [validationError,confirmation],
   props: {
     customer: {
       type: String,
@@ -468,7 +476,10 @@ export default {
     deleteClientForm: new Form({
       client_id: null
     }),
-    domain: window.location.hostname
+    domain: window.location.hostname,
+    message:
+      "Warning! Deleting This Client Record Has Some Repercusion To The Sytem, Some Features That Reference To This Client Record Will Break its Functionality Such As DSG, Logistics, Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
+
   }),
   watch: {
     items: {

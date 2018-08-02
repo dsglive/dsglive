@@ -1,6 +1,6 @@
 webpackJsonp([33],{
 
-/***/ 1115:
+/***/ 1079:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -268,6 +268,180 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -284,20 +458,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       contentClass: { grey: true, "lighten-4": true, "accent--text": true },
       dialog: false,
       /* table */
-      headers: [{ text: "Actions", value: "actions", align: "right", sortable: false }, { text: "Bin #", value: "code", align: "left", sortable: true }, { text: "Status", value: "active", align: "left", sortable: true }],
+      headers: [
+      //   { text: "ID", value: "id", align: "left", sortable: true },
+      { text: "Name", value: "name", align: "left", sortable: true }, { text: "Email", value: "email", align: "left", sortable: true }, { text: "Actions", value: "actions", align: "center", sortable: false }],
       items: [],
       selected: [],
       pagination: {
         sortBy: "name"
       },
-      binsForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      clientsForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
       toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
         toggle: false,
-        bin_id: null
+        client_id: null
       }),
       search: "",
-      deleteBinForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
-        bin_id: null
+      deleteClientForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        client_id: null
       }),
       domain: window.location.hostname
     };
@@ -310,21 +486,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var self = this;
-    self.fetchBins();
+    self.fetchClients();
   },
 
   methods: {
-    editBin: function editBin(bin) {
-      vm.$router.push({ name: "edit-bin", params: { id: "" + bin.id } });
+    editClient: function editClient(client) {
+      vm.$router.push({ name: "edit-client", params: { id: "" + client.id } });
     },
-    createBin: function createBin() {
-      vm.$router.push({ name: "create-bin" });
+    createClient: function createClient() {
+      vm.$router.push({ name: "create-client" });
     },
-    toggleStatus: function toggleStatus(bin) {
+    toggleStatus: function toggleStatus(client) {
       var self = this;
-      self.toggleForm.toggle = bin.active;
-      self.toggleForm.bin_id = bin.id;
-      axios.post(route("api.bin.toggleStatus"), self.toggleForm).then(function (response) {
+      self.toggleForm.toggle = client.active;
+      self.toggleForm.client_id = client.id;
+      axios.post(route("api.client.toggleStatus"), self.toggleForm).then(function (response) {
         console.log(response.data);
       }).catch(function (errors) {
         var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
@@ -346,7 +522,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return "Inactive";
       }
     },
-    fetchBins: function () {
+    fetchClients: function () {
       var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var self, payload, errors, message;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -355,16 +531,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               case 0:
                 self = this;
 
-                self.binsForm.busy = true;
+                self.clientsForm.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.bin.index"), self.binsForm);
+                return axios.post(route("api.client.index"), self.clientsForm);
 
               case 5:
                 payload = _context.sent;
 
                 self.items = payload.data.data;
-                self.binsForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                self.clientsForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
                 _context.next = 17;
                 break;
 
@@ -375,10 +551,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 message = _context.t0.message;
 
                 if (errors) {
-                  self.binsForm.errors.set(errors);
+                  self.clientsForm.errors.set(errors);
                 }
                 if (message) {}
-                self.binsForm.busy = false;
+                self.clientsForm.busy = false;
 
               case 17:
               case "end":
@@ -388,17 +564,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, _callee, this, [[2, 10]]);
       }));
 
-      function fetchBins() {
+      function fetchClients() {
         return _ref.apply(this, arguments);
       }
 
-      return fetchBins;
+      return fetchClients;
     }(),
-    deleteBin: function deleteBin(bin) {
+    deleteClient: function deleteClient(client) {
       var self = this;
-      self.deleteBinForm.bin_id = bin.id;
-      var index = _.findIndex(self.items, { id: bin.id });
-      axios.post(route("api.bin.delete"), self.deleteBinForm).then(function (response) {
+      self.deleteClientForm.client_id = client.id;
+      var index = _.findIndex(self.items, { id: client.id });
+      axios.post(route("api.client.delete"), self.deleteClientForm).then(function (response) {
         if (response.data.status === true) {
           self.$delete(self.items, index);
           var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
@@ -407,7 +583,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           });
           toggleModal({
             title: "Success",
-            html: "<p class=\"title\">Bin Deleted!</p>",
+            html: "<p class=\"title\">Client Deleted!</p>",
             type: "success",
             confirmButtonText: "Back"
           });
@@ -439,7 +615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 _context2.prev = 3;
                 _context2.next = 6;
-                return axios.post(route("api.bin.massDeactivate"), toggleStatusForm);
+                return axios.post(route("api.client.massDeactivate"), toggleStatusForm);
 
               case 6:
                 payload = _context2.sent;
@@ -505,7 +681,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 _context3.prev = 3;
                 _context3.next = 6;
-                return axios.post(route("api.bin.massActivate"), toggleStatusForm);
+                return axios.post(route("api.client.massActivate"), toggleStatusForm);
 
               case 6:
                 payload = _context3.sent;
@@ -573,49 +749,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1208:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1209);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(957)("6a9ae890", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-813c1186\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-813c1186\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1209:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.compress--icon[data-v-813c1186] {\n  margin-left: -5px;\n  margin-right: -5px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1210:
+/***/ 1080:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -655,7 +789,7 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       "append-icon": "search",
-                                      label: "Search Bins",
+                                      label: "Search Clients",
                                       "single-line": "",
                                       "hide-details": "",
                                       light: ""
@@ -705,34 +839,24 @@ var render = function() {
                             "v-btn",
                             {
                               attrs: {
-                                disabled: !_vm.$auth.check("admin"),
+                                disabled: !_vm.$auth.check("customer"),
                                 block: "",
-                                color: "accent",
+                                color: "primary",
                                 dark: "",
                                 flat: ""
                               },
-                              on: { click: _vm.createBin }
+                              on: { click: _vm.createClient }
                             },
                             [
                               _vm._v(
-                                "\n              Create New Bin\n              "
+                                "\n              Create New Client\n              "
                               ),
                               _c(
                                 "v-icon",
-                                { attrs: { right: "", color: "accent" } },
+                                { attrs: { right: "", color: "primary" } },
                                 [
                                   _vm._v(
-                                    "\n                view_module\n              "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-icon",
-                                { attrs: { right: "", color: "accent" } },
-                                [
-                                  _vm._v(
-                                    "\n                fa-plus-circle\n              "
+                                    "\n                fa-user-plus\n              "
                                   )
                                 ]
                               )
@@ -756,7 +880,7 @@ var render = function() {
                                     "v-btn",
                                     {
                                       attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
+                                        disabled: !_vm.$auth.check("customer"),
                                         block: "",
                                         color: "blue darken-4",
                                         dark: "",
@@ -799,7 +923,7 @@ var render = function() {
                                     "v-btn",
                                     {
                                       attrs: {
-                                        disabled: !_vm.$auth.check("admin"),
+                                        disabled: !_vm.$auth.check("customer"),
                                         block: "",
                                         flat: "",
                                         color: "error",
@@ -866,70 +990,46 @@ var render = function() {
                     return [
                       _c(
                         "tr",
-                        [
-                          _c(
+                        _vm._l(props.headers, function(header) {
+                          return _c(
                             "th",
-                            [
-                              _c("v-checkbox", {
-                                attrs: {
-                                  "input-value": props.all,
-                                  indeterminate: props.indeterminate,
-                                  primary: "",
-                                  "hide-details": ""
+                            {
+                              key: header.text,
+                              class: [
+                                "column sortable",
+                                _vm.pagination.descending ? "desc" : "asc",
+                                header.value === _vm.pagination.sortBy
+                                  ? "name"
+                                  : "",
+                                {
+                                  "text-xs-left": header.align === "left",
+                                  "text-xs-right": header.align === "right",
+                                  "text-xs-center": header.align === "center"
                                 },
-                                nativeOn: {
-                                  click: function($event) {
-                                    return _vm.toggleAll($event)
-                                  }
+                                _vm.$vuetify.breakpoint.width >= 600 && "title"
+                              ],
+                              on: {
+                                click: function($event) {
+                                  _vm.changeSort(header.value)
                                 }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(props.headers, function(header) {
-                            return _c(
-                              "th",
-                              {
-                                key: header.text,
-                                class: [
-                                  "column sortable",
-                                  _vm.pagination.descending ? "desc" : "asc",
-                                  header.value === _vm.pagination.sortBy
-                                    ? "name"
-                                    : "",
-                                  {
-                                    "text-xs-left": header.align === "left",
-                                    "text-xs-right": header.align === "right",
-                                    "text-xs-center": header.align === "center"
-                                  },
-                                  _vm.$vuetify.breakpoint.width >= 600 &&
-                                    "title"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                [
+                                  _c("v-icon", [_vm._v("arrow_upward")]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(header.text) +
+                                      "\n            "
+                                  )
                                 ],
-                                on: {
-                                  click: function($event) {
-                                    _vm.changeSort(header.value)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  [
-                                    _c("v-icon", [_vm._v("arrow_upward")]),
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(header.text) +
-                                        "\n            "
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                1
+                              )
+                            ]
+                          )
+                        })
                       )
                     ]
                   }
@@ -941,52 +1041,77 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          {
-                            staticClass: "title text-xs-left",
-                            staticStyle: { width: "5%" }
-                          },
+                          { staticClass: "title text-xs-left accent--text" },
                           [
-                            _c("v-checkbox", {
-                              attrs: {
-                                active: props.selected,
-                                "input-value": props.selected
-                              },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
-                                }
-                              }
-                            })
-                          ],
-                          1
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.name) +
+                                "\n          "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
                           "td",
-                          {
-                            staticClass: "title text-xs-center",
-                            staticStyle: {
-                              width: "10%",
-                              "margin-left": "0px",
-                              "margin-right": "0px",
-                              "padding-left": "0px",
-                              "padding-right": "0px"
-                            }
-                          },
+                          { staticClass: "title text-xs-left accent--text" },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(props.item.email) +
+                                "\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "title text-xs-center" },
                           [
                             _c(
                               "v-btn",
                               {
-                                staticClass: "compress--icon",
+                                class: {
+                                  "amber--text": props.expanded,
+                                  amber: props.expanded,
+                                  teal: !props.expanded,
+                                  "teal--text": !props.expanded
+                                },
                                 attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
+                                  disabled: !_vm.$auth.check("customer"),
+                                  light: "",
+                                  flat: "",
+                                  icon: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    props.expanded = !props.expanded
+                                  }
+                                }
+                              },
+                              [
+                                !props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-expand")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                props.expanded
+                                  ? _c("v-icon", [_vm._v("fa-compress")])
+                                  : _vm._e()
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  disabled: !_vm.$auth.check("customer"),
                                   flat: "",
                                   icon: "",
                                   color: "blue"
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.editBin(props.item)
+                                    _vm.editClient(props.item)
                                   }
                                 }
                               },
@@ -997,59 +1122,21 @@ var render = function() {
                             _c(
                               "v-btn",
                               {
-                                staticClass: "compress--icon",
                                 attrs: {
-                                  disabled: !_vm.$auth.check("admin"),
+                                  disabled: !_vm.$auth.check("customer"),
                                   flat: "",
                                   icon: "",
                                   color: "error"
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.deleteBin(props.item)
+                                    _vm.deleteClient(props.item)
                                   }
                                 }
                               },
                               [_c("v-icon", [_vm._v("fa-trash")])],
                               1
                             )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(props.item.code) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "title text-xs-left accent--text" },
-                          [
-                            _c("v-switch", {
-                              attrs: {
-                                label: _vm.getStatus(props.item.active)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.toggleStatus(props.item)
-                                }
-                              },
-                              model: {
-                                value: props.item.active,
-                                callback: function($$v) {
-                                  _vm.$set(props.item, "active", $$v)
-                                },
-                                expression: "props.item.active"
-                              }
-                            })
                           ],
                           1
                         )
@@ -1072,6 +1159,348 @@ var render = function() {
                       )
                     ]
                   }
+                },
+                {
+                  key: "expand",
+                  fn: function(props) {
+                    return [
+                      _c(
+                        "v-container",
+                        { attrs: { fluid: "" } },
+                        [
+                          _c(
+                            "v-card",
+                            {
+                              attrs: {
+                                light: "",
+                                flat: "",
+                                "text-xs-center": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-card-media",
+                                {
+                                  staticClass: "white--text blue-grey",
+                                  attrs: { height: "75px" }
+                                },
+                                [
+                                  _c(
+                                    "v-container",
+                                    { attrs: { "fill-height": "", fluid: "" } },
+                                    [
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { "fill-height": "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                "align-end": "",
+                                                flexbox: ""
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                { staticClass: "headline" },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(props.item.name)
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-title",
+                                [
+                                  _c(
+                                    "v-container",
+                                    { attrs: { fluid: "" } },
+                                    [
+                                      _c(
+                                        "p",
+                                        { staticClass: "title accent--text" },
+                                        [
+                                          _vm._v(
+                                            "\n                  Account Details\n                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { row: "", wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Email",
+                                                  "prepend-icon": "fa-envelope",
+                                                  light: "",
+                                                  readonly: ""
+                                                },
+                                                model: {
+                                                  value: props.item.email,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      props.item,
+                                                      "email",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "props.item.email"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Phone",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "phone"
+                                                },
+                                                model: {
+                                                  value: props.item.phone,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      props.item,
+                                                      "phone",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "props.item.phone"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.address_1,
+                                                  label: "Address 1",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "looks_one"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.address_2,
+                                                  label: "Address 2",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "looks_two"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.city,
+                                                  label: "City",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon":
+                                                    "location_city"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.state,
+                                                  label: "State",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "map"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.zip,
+                                                  label: "Zip",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon":
+                                                    "markunread_mailbox"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs6: "", "px-1": "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: props.item.country,
+                                                  label: "Country",
+                                                  light: "",
+                                                  readonly: "",
+                                                  "prepend-icon": "flag"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { row: "", wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "" } },
+                                            [
+                                              _c("v-switch", {
+                                                attrs: {
+                                                  label: _vm.getStatus(
+                                                    props.item.active
+                                                  ),
+                                                  readonly: ""
+                                                },
+                                                model: {
+                                                  value: props.item.active,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      props.item,
+                                                      "active",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "props.item.active"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "" } },
+                                            [
+                                              _c(
+                                                "v-textarea",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    readonly: ""
+                                                  },
+                                                  model: {
+                                                    value: props.item.notes,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        props.item,
+                                                        "notes",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "props.item.notes"
+                                                  }
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      attrs: { slot: "label" },
+                                                      slot: "label"
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass: "title"
+                                                        },
+                                                        [_vm._v("Notes: ")]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  }
                 }
               ]),
               model: {
@@ -1089,31 +1518,33 @@ var render = function() {
                 [
                   _c(
                     "v-alert",
-                    {
-                      attrs: {
-                        value: true,
-                        color: "blue-grey",
-                        icon: "warning"
-                      }
-                    },
+                    { attrs: { value: true, color: "error", icon: "warning" } },
                     [
-                      _vm._v("\n          Opps! No Bin Yet!, \n          "),
+                      _vm._v("\n          Opps! No Client Yet!, \n          "),
                       _c(
                         "v-btn",
                         {
                           attrs: {
-                            disabled: !_vm.$auth.check("admin"),
-                            color: "white",
+                            disabled: !_vm.$auth.check("customer"),
+                            color: "primary",
                             flat: "",
                             dark: ""
                           },
-                          on: { click: _vm.createBin }
+                          on: { click: _vm.createClient }
                         },
                         [
-                          _vm._v("\n            Create New Bin\n            "),
-                          _c("v-icon", { attrs: { right: "" } }, [
-                            _vm._v("\n              fa-user-plus\n            ")
-                          ])
+                          _vm._v(
+                            "\n            Create New Client\n            "
+                          ),
+                          _c(
+                            "v-icon",
+                            { attrs: { right: "", color: "primary" } },
+                            [
+                              _vm._v(
+                                "\n              fa-user-plus\n            "
+                              )
+                            ]
+                          )
                         ],
                         1
                       )
@@ -1159,31 +1590,27 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-813c1186", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-8f52f14a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 922:
+/***/ 907:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(1208)
-}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1115)
+var __vue_script__ = __webpack_require__(1079)
 /* template */
-var __vue_template__ = __webpack_require__(1210)
+var __vue_template__ = __webpack_require__(1080)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-813c1186"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1194,7 +1621,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Bin/Index.vue"
+Component.options.__file = "resources/assets/js/pages/Clients.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1203,9 +1630,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-813c1186", Component.options)
+    hotAPI.createRecord("data-v-8f52f14a", Component.options)
   } else {
-    hotAPI.reload("data-v-813c1186", Component.options)
+    hotAPI.reload("data-v-8f52f14a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

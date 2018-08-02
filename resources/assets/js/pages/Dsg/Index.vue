@@ -229,7 +229,7 @@
                 icon 
                 color="red darken-4" 
                 class="compress--icon"
-                @click="forceDelete(props.item)"
+                @click="openDialog(props.item)"
               >
                 <v-icon>fa-trash</v-icon>
               </v-btn>
@@ -307,7 +307,7 @@
           Your search for "{{ search }}" found no results.
         </v-alert>
       </v-data-table>
-      <confirm 
+      <confirm
         :callback="confirmed(forceDelete)" 
       />
     </v-container>
