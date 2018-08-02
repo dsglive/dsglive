@@ -163,7 +163,7 @@ class DsgController extends Controller
      */
     public function index(Request $request)
     {
-        $dsg = Dsg::active()->orderBy('created_at', 'ASC')->get();
+        $dsg = Dsg::active()->orderBy('created_at', 'DESC')->get();
         return DsgResource::collection($dsg); // remove pagination
     }
 
@@ -172,7 +172,7 @@ class DsgController extends Controller
      */
     public function indexArchived(Request $request)
     {
-        $dsg = Dsg::onlyTrashed()->active()->orderBy('created_at', 'ASC')->get();
+        $dsg = Dsg::onlyTrashed()->active()->orderBy('created_at', 'DESC')->get();
         return DsgResource::collection($dsg); // remove pagination
     }
 
@@ -307,7 +307,7 @@ class DsgController extends Controller
      */
     public function warehouse(Request $request)
     {
-        $dsg = Dsg::warehouse()->orderBy('created_at', 'ASC')->get();
+        $dsg = Dsg::warehouse()->orderBy('created_at', 'DESC')->get();
         return DsgResource::collection($dsg); // remove pagination
     }
 
