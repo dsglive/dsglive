@@ -231,6 +231,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Logistic::class, 'customer_id');
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'customer_id');
+    }
+
     /**
      * @param  $id
      * @param  $pathToImage
