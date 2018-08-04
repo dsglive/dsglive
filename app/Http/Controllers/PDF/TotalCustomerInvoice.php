@@ -11,45 +11,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
-class AllCustomerInvoice extends Controller
+class TotalCustomerInvoice extends Controller
 {
-    //! filter the customers by unique customer id
-    //! aggregate total , sum , combine array(merge) to a new $customer variable the array of customer we filter
-    //! filter clients by unique clients_id
-    //! aggreatea total , sum and combined array to new client element in the clients array 
     /**
      * @param  Logistic $logistic
      * @return mixed
      */
     public function __invoke(Request $request)
     {
-        $invoices  = Invoice::with('customer.profile')->whereBetween('date_started', [$request->date_started, $request->date_ended])->orderBy('created_at', 'DESC')->get();
+        $invoices = Invoice::with('customer.profile')->whereBetween('date_started', [$request->date_started, $request->date_ended])->orderBy('created_at', 'DESC')->get();
         $customers = collect([]);
 
         foreach ($invoices as $invoice) {
-            //this return the customer with clients for that specific invoice
-
-            //! we need to merge customers with the same id, customer_name
-
-            //! we need to sum up receiving_fee, delivery_fee, misc_fee, storage_fee,total
-
-            // we need to merge clients with the same id and client_name
-
-            // we need to sum up receiving_fee, delivery_fee, storage_fee, misc_fee
-            // we need to merge array of the following: receinving_ids, logistics_id, packages_ids, misc_ids
             $customers[] = $this->getUsers($invoice);
         }
 
         $unique_customers = collect($customers->unique('customer_id')->pluck('customer_id'));
-        $unique_clients   = $customers->flatMap(function ($customer, $key) {
+        $unique_clients = $customers->flatMap(function ($customer, $key) {
             return $customer['clients']->unique('client_id')->pluck('client_id')->flatten();
         })->unique();
         $unique_customers = $unique_customers->map(function ($item, $key) use ($customers, $unique_clients) {
-            $name          = '';
+            $name = '';
             $receiving_fee = 0;
-            $delivery_fee  = 0;
-            $storage_fee   = 0;
-            $misc_fee      = 0;
+            $delivery_fee = 0;
+            $storage_fee = 0;
+            $misc_fee = 0;
 
             foreach ($customers as $customer) {
                 if ($item === $customer['customer_id']) {
@@ -59,65 +45,25 @@ class AllCustomerInvoice extends Controller
                     $storage_fee += $customer['storage_fee'];
                     $misc_fee += $customer['misc_fee'];
                 }
-
-                // this should be inside an array , so we can have many clients
-                $client_id            = null;
-                $client_name          = null;
-                $client_receiving_fee = 0;
-                $client_delivery_fee  = 0;
-                $client_storage_fee   = 0;
-                $client_misc_fee      = 0;
-                $clients              = collect([]);
-
-                foreach ($customer['clients'] as $client) {
-                    if ($unique_clients->contains($client['client_id'])) {
-                        $client_id            = $client['client_id'];
-                        $client_name          = $client['client_name'][0];
-                        $client_receiving_fee = $client_receiving_fee += $client['receiving_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_delivery_fee = $client_delivery_fee += $client['delivery_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_storage_fee = $client_storage_fee += $client['storage_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_misc_fee = $client_misc_fee += $client['misc_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                    }
-                }
-
-                // we need to check if this client belongs to the customer before we push it on the array
             }
 
-            $push_client = [
-                'client_id'     => $client_id,
-                'client_name'   => $client_name,
-                'receiving_fee' => $client_receiving_fee,
-                'delivery_fee'  => $client_delivery_fee,
-                'storage_fee'   => $client_storage_fee,
-                'misc_fee'      => $client_misc_fee
-            ];
-
-            $clients->push($push_client);
             return [
-                'customer_id'   => $item,
+                'customer_id' => $item,
                 'customer_name' => $name,
                 'receiving_fee' => $receiving_fee,
-                'delivery_fee'  => $delivery_fee,
-                'storage_fee'   => $storage_fee,
-                'misc_fee'      => $misc_fee,
-                'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
-                'clients'       => $clients
+                'delivery_fee' => $delivery_fee,
+                'storage_fee' => $storage_fee,
+                'misc_fee' => $misc_fee,
+                'total' => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
             ];
         });
-        //! $customers  have the breakdown per clients
-        //! $unique_customers  already have total for customer invoice
-        return $customers;
+        $data['date_started'] = $request->date_started;
+        $data['date_ended']    = $request->date_ended;
+        $data['customers'] = $unique_customers;
 
-        // id, company_name , clients -> receiving
-        $pdf = PDF::loadView('pdf.all-customer-invoice', ['customers' => $customers])
+        // return $data;
+
+        $pdf = PDF::loadView('pdf.total-customer-invoice', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
             ->setOption('footer-font-size', 8);
@@ -133,9 +79,9 @@ class AllCustomerInvoice extends Controller
 
         $misc = $misc->map(function ($item, $key) {
             return [
-                'misc_id'   => $item['id'],
+                'misc_id' => $item['id'],
                 'client_id' => $item['client_id'],
-                'misc_fee'  => $item['amount']
+                'misc_fee' => $item['amount']
             ];
         });
 
@@ -145,8 +91,8 @@ class AllCustomerInvoice extends Controller
 
         $receiving = $receiving->map(function ($item, $key) {
             return [
-                'dsg_id'        => $item['id'],
-                'client_id'     => $item['client_id'],
+                'dsg_id' => $item['id'],
+                'client_id' => $item['client_id'],
                 'receiving_fee' => $item['receiving_amount']
             ];
         });
@@ -157,8 +103,8 @@ class AllCustomerInvoice extends Controller
 
         $delivery = $delivery->map(function ($item, $key) {
             return [
-                'logistic_id'  => $item['id'],
-                'client_id'    => $item['client_id'],
+                'logistic_id' => $item['id'],
+                'client_id' => $item['client_id'],
                 'delivery_fee' => $item['total_charges']
             ];
         });
@@ -172,27 +118,27 @@ class AllCustomerInvoice extends Controller
             $days = Carbon::parse($item['date_delivered'])->diffInDays($item['date_received']);
 
             return [
-                'package_id'  => $item['id'],
-                'client_id'   => $item['client_id'],
+                'package_id' => $item['id'],
+                'client_id' => $item['client_id'],
                 'storage_fee' => $rate * $days
             ];
         });
 
-        $d     = $storage->unique('client_id')->pluck('client_id')->toArray();
+        $d = $storage->unique('client_id')->pluck('client_id')->toArray();
         $merge = collect($this->getClientIds($a, $b, $c, $d));
 
         $clients = $merge->map(function ($item, $key) {
             return [
-                'client_id'     => $item,
-                'client_name'   => collect([]),
+                'client_id' => $item,
+                'client_name' => collect([]),
                 'receiving_fee' => collect([]),
-                'delivery_fee'  => collect([]),
-                'storage_fee'   => collect([]),
-                'misc_fee'      => collect([]),
+                'delivery_fee' => collect([]),
+                'storage_fee' => collect([]),
+                'misc_fee' => collect([]),
                 'receiving_ids' => collect([]),
-                'logistic_ids'  => collect([]),
-                'packages_ids'  => collect([]),
-                'misc_ids'      => collect([])
+                'logistic_ids' => collect([]),
+                'packages_ids' => collect([]),
+                'misc_ids' => collect([])
             ];
         });
 
@@ -229,10 +175,10 @@ class AllCustomerInvoice extends Controller
             }
         }
 
-        $user       = User::with('profile')->find($invoice->customer_id);
+        $user = User::with('profile')->find($invoice->customer_id);
         $first_name = optional($user->profile)->first_name;
-        $last_name  = optional($user->profile)->last_name;
-        $name       = optional($user->profile)->company_name;
+        $last_name = optional($user->profile)->last_name;
+        $name = optional($user->profile)->company_name;
 
         if (!$name) {
             if ($first_name) {
@@ -240,20 +186,20 @@ class AllCustomerInvoice extends Controller
             }
 
             if ($last_name) {
-                $name = $first_name.' '.$last_name;
+                $name = $first_name . ' ' . $last_name;
             }
         }
 
         $customer = [
-            'customer_id'   => $invoice->customer_id,
+            'customer_id' => $invoice->customer_id,
             'customer_name' => $name,
             'receiving_fee' => $invoice->receiving_fee ?? 0,
-            'delivery_fee'  => $invoice->delivery_fee ?? 0,
-            'storage_fee'   => $invoice->storage_fee ?? 0,
-            'misc_fee'      => $invoice->misc_fee ?? 0,
-            'clients'       => collect([])
+            'delivery_fee' => $invoice->delivery_fee ?? 0,
+            'storage_fee' => $invoice->storage_fee ?? 0,
+            'misc_fee' => $invoice->misc_fee ?? 0,
+            'clients' => collect([])
         ];
-        $customer['total']   = $customer['receiving_fee'] + $customer['delivery_fee'] + $customer['storage_fee'] + $customer['misc_fee'];
+        $customer['total'] = $customer['receiving_fee'] + $customer['delivery_fee'] + $customer['storage_fee'] + $customer['misc_fee'];
         $customer['clients'] = $clients;
         return $customer;
     }

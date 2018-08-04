@@ -32,6 +32,10 @@ Route::get('/pdf/client-report/{user}/{client}', 'PDF\ClientPDF@viewClient')
     ->name('home.pdf.client');
 Route::get('/pdf/all-customer-invoice-total', 'PDF\AllCustomerInvoice')
     ->name('home.pdf.all-customer-invoice');
+Route::get('/pdf/total-customer-invoice', 'PDF\TotalCustomerInvoice')
+    ->name('home.pdf.total-customer-invoice');
+Route::get('/pdf/customer-breakdown-invoice/{invoice}', 'PDF\CustomerBreakDownInvoice')
+    ->name('home.pdf.customer-breakdown-invoice');
 
 
 /* Set Vue Front End Endpoint */
