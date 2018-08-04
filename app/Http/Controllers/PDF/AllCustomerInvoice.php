@@ -136,9 +136,8 @@ class AllCustomerInvoice extends Controller
 
                 
                 $unique_clients = $customer['clients']->unique('client_id')->pluck('client_id')->toArray();
-                foreach ($customer['clients'] as $clients_id => $clients) {
-                    $merge_clients[$clients['client_id']][] = 
-                    $customer['clients']->whereIn('client_id', $clients['client_id'])->values();
+                foreach ($customer['clients'] as $client) {
+                    $merge_clients[] = $customer['clients']->whereIn('client_id', $client['client_id'])->values()->collapse();
                 }
                 // $client_list = [];
                 // foreach($merge_clients as $merge_clients_key => $merge_client_value){
@@ -164,7 +163,6 @@ class AllCustomerInvoice extends Controller
         }
 
         return $aggregated_customers;
-        return 'power';
         // id, company_name , clients -> receiving
         $pdf = PDF::loadView('pdf.all-customer-invoice', ['customers' => $customers])
             ->setOption('footer-right', 'Page [page] of [toPage]')
