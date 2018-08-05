@@ -89,37 +89,49 @@ class AllCustomerInvoice extends Controller
                 if ($unique_clients->contains($value['client_id'])) {
 
                     if (!isset($clients[$value['client_id']])) {
+                        $receiving_fee = $value['receiving_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $delivery_fee = $value['delivery_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $storage_fee= $value['storage_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $misc_fee = $value['misc_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
                         $clients[$value['client_id']] = [
                             'client_id'     => $value['client_id'],
                             'client_name'   => $value['client_name'][0],
-                            'receiving_fee' => $value['receiving_fee']->reduce(function ($carry, $item) {
-                                return $carry + $item;
-                            }),
-                            'delivery_fee'  => $value['delivery_fee']->reduce(function ($carry, $item) {
-                                return $carry + $item;
-                            }),
-                            'storage_fee'   => $value['storage_fee']->reduce(function ($carry, $item) {
-                                return $carry + $item;
-                            }),
-                            'misc_fee'      => $value['misc_fee']->reduce(function ($carry, $item) {
-                                return $carry + $item;
-                            }),
-                            'dsg_records'   => $value['receiving_ids']
+                            'receiving_fee' => $receiving_fee,
+                            'delivery_fee'  => $delivery_fee,
+                            'storage_fee'   => $storage_fee,
+                            'misc_fee'      => $misc_fee,
+                            'dsg_records'   => $value['receiving_ids'],
+                            'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee
                         ];
                     } else {
-                        $clients[$value['client_id']]['receiving_fee'] = $clients[$value['client_id']]['receiving_fee'] += $value['receiving_fee']->reduce(function ($carry, $item) {
+                        $receiving_fee = $clients[$value['client_id']]['receiving_fee'] += $value['receiving_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
-                        $clients[$value['client_id']]['delivery_fee'] = $clients[$value['client_id']]['delivery_fee'] += $value['delivery_fee']->reduce(function ($carry, $item) {
+                        $delivery_fee = $clients[$value['client_id']]['delivery_fee'] += $value['delivery_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
-                        $clients[$value['client_id']]['storage_fee'] = $clients[$value['client_id']]['storage_fee'] += $value['storage_fee']->reduce(function ($carry, $item) {
+                        $storage_fee = $clients[$value['client_id']]['storage_fee'] += $value['storage_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
-                        $clients[$value['client_id']]['misc_fee'] = $clients[$value['client_id']]['misc_fee'] += $value['misc_fee']->reduce(function ($carry, $item) {
+                        $misc_fee = $clients[$value['client_id']]['misc_fee'] += $value['misc_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
+                        $clients[$value['client_id']]['receiving_fee'] = $receiving_fee;
+                        $clients[$value['client_id']]['delivery_fee'] = $delivery_fee;
+                        $clients[$value['client_id']]['storage_fee'] = $storage_fee;
+                        $clients[$value['client_id']]['misc_fee'] = $misc_fee;
                         $clients[$value['client_id']]['dsg_records'] = collect($clients[$value['client_id']]['dsg_records'])->concat($value['receiving_ids']);
+
+                        $clients[$value['client_id']]['total'] = $receiving_fee + $delivery_fee + $storage_fee + $misc_fee;
+
                     }
                 }
             }
