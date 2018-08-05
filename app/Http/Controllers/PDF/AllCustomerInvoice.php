@@ -30,92 +30,17 @@ class AllCustomerInvoice extends Controller
         $customers = collect([]);
 
         foreach ($invoices as $invoice) {
-//this return the customer with clients for that specific invoice
 
-//! we need to merge customers with the same id, customer_name
-
-//! we need to sum up receiving_fee, delivery_fee, misc_fee, storage_fee,total
-
-// we need to merge clients with the same id and client_name
-
-// we need to sum up receiving_fee, delivery_fee, storage_fee, misc_fee
-            // we need to merge array of the following: receinving_ids, logistics_id, packages_ids, misc_ids
             $customers[] = $this->getUsers($invoice);
         }
 
         $unique_customers = collect($customers->unique('customer_id')->pluck('customer_id'));
-        $unique_clients   = $customers->flatMap(function ($customer, $key) {
-            return $customer['clients']->unique('client_id')->pluck('client_id')->flatten();
-        })->unique();
-        $customer_total = $unique_customers->map(function ($item, $key) use ($customers, $unique_clients) {
-            $name          = '';
-            $receiving_fee = 0;
-            $delivery_fee  = 0;
-            $storage_fee   = 0;
-            $misc_fee      = 0;
-
-            foreach ($customers as $customer) {
-                if ($item === $customer['customer_id']) {
-                    $name = $customer['customer_name'];
-                    $receiving_fee += $customer['receiving_fee'];
-                    $delivery_fee += $customer['delivery_fee'];
-                    $storage_fee += $customer['storage_fee'];
-                    $misc_fee += $customer['misc_fee'];
-                }
-
-                // this should be inside an array , so we can have many clients
-                $client_id            = null;
-                $client_name          = null;
-                $client_receiving_fee = 0;
-                $client_delivery_fee  = 0;
-                $client_storage_fee   = 0;
-                $client_misc_fee      = 0;
-                $clients              = collect([]);
-
-                foreach ($customer['clients'] as $client) {
-                    if ($unique_clients->contains($client['client_id'])) {
-                        $client_id            = $client['client_id'];
-                        $client_name          = $client['client_name'][0];
-                        $client_receiving_fee = $client_receiving_fee += $client['receiving_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_delivery_fee = $client_delivery_fee += $client['delivery_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_storage_fee = $client_storage_fee += $client['storage_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                        $client_misc_fee = $client_misc_fee += $client['misc_fee']->reduce(function ($carry, $item) {
-                            return $carry + $item;
-                        });
-                    }
-                }
-
-                // we need to check if this client belongs to the customer before we push it on the array
-            }
-
-            return [
-                'customer_id'   => $item,
-                'customer_name' => $name,
-                'receiving_fee' => $receiving_fee,
-                'delivery_fee'  => $delivery_fee,
-                'storage_fee'   => $storage_fee,
-                'misc_fee'      => $misc_fee,
-                'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
-                'clients'       => $clients
-            ];
-        });
-
-//! $customers  have the breakdown per clients
-        //! $unique_customers  already have total for customer invoice
 
         $merge_customers = [];
 
         foreach ($unique_customers as $id) {
             $merge_customers[$id] = $customers->whereIn('customer_id', $id)->values();
         }
-
-        //! we can access the mergecustomer by customer id
         $aggregated_customers = [];
 
         foreach ($unique_customers as $id) {
@@ -140,21 +65,6 @@ class AllCustomerInvoice extends Controller
                 foreach ($customer['clients'] as $client) {
                     $merge_clients[] = $customer['clients']->whereIn('client_id', $client['client_id'])->values()->collapse();
                 }
-
-// $client_list = [];
-
-// foreach($merge_clients as $merge_clients_key => $merge_client_value){
-
-//     dd($merge_client_value);
-
-// }
-
-//! sum receiving_fee
-
-//! sum delivery_fee
-
-//! sum storage_fee
-                //! sum misc_fee
                 $aggregated_customers[$customer['customer_id']] = [
                     'customer_id'   => $customer['customer_id'],
                     'customer_name' => $customer['customer_name'],
@@ -167,54 +77,64 @@ class AllCustomerInvoice extends Controller
 
                 ];
             }
-
-            // $aggregated_customers[$id][clients]
         }
 
         $customers = array_values($aggregated_customers);
-        
-        foreach ($customers as $customer) {
-
+        foreach ($customers as $customer_key => $customer) {
             $client_id            = null;
             $client_name          = null;
             $client_receiving_fee = 0;
             $client_delivery_fee  = 0;
             $client_storage_fee   = 0;
             $client_misc_fee      = 0;
-            $dsg_records = collect([]);
-            $clients              = collect([]);
-            $unique_clients = collect($customers)->flatMap(function ($customer, $key) {
+            $dsg_records          = collect([]);
+            $clients              = [];
+            $unique_clients       = collect($customers)->flatMap(function ($customer, $key) {
                 return collect($customer['clients'])->unique('client_id')->pluck('client_id')->flatten();
             });
+
             foreach ($customer['clients'] as $key => $value) {
                 if ($unique_clients->contains($value['client_id'])) {
-                    // check if array key exist or not
-                    // if not we populate it like so
-                    // if yes we aggreate the fields
-                    $clients[$value['client_id']] = [
-                    'client_id'     => $value['client_id'],
-                    'client_name'   => $value['client_name'][0],
-                    //! something went wrong here... its adding up 3 array instead of filtering it
-                    'receiving_fee' => $client_receiving_fee += $value['receiving_fee']->reduce(function ($carry, $item) {
-                        return $carry + $item;
-                    }),
-                    'delivery_fee'  => $client_delivery_fee += $value['delivery_fee']->reduce(function ($carry, $item) {
-                        return $carry + $item;
-                    }),
-                    'storage_fee'   => $client_storage_fee += $value['storage_fee']->reduce(function ($carry, $item) {
-                        return $carry + $item;
-                    }),
-                    'misc_fee'      => $client_misc_fee += $value['misc_fee']->reduce(function ($carry, $item) {
-                        return $carry + $item;
-                    }),
-                    'dsg_records' => $dsg_records->push($value['receiving_ids'])
-                ];
-            }
-            }
 
-            return $clients;
+                    if (!isset($clients[$value['client_id']])) {
+                        $clients[$value['client_id']] = [
+                            'client_id'     => $value['client_id'],
+                            'client_name'   => $value['client_name'][0],
+                            //! something went wrong here... its adding up 3 array instead of filtering it
+                            'receiving_fee' => $value['receiving_fee']->reduce(function ($carry, $item) {
+                                return $carry + $item;
+                            }),
+                            'delivery_fee'  => $value['delivery_fee']->reduce(function ($carry, $item) {
+                                return $carry + $item;
+                            }),
+                            'storage_fee'   => $value['storage_fee']->reduce(function ($carry, $item) {
+                                return $carry + $item;
+                            }),
+                            'misc_fee'      => $value['misc_fee']->reduce(function ($carry, $item) {
+                                return $carry + $item;
+                            }),
+                            'dsg_records'   => $value['receiving_ids']
+                        ];
+                    } else {
+                        $clients[$value['client_id']]['receiving_fee'] = $clients[$value['client_id']]['receiving_fee'] += $value['receiving_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $clients[$value['client_id']]['delivery_fee'] = $clients[$value['client_id']]['delivery_fee'] += $value['delivery_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $clients[$value['client_id']]['storage_fee'] = $clients[$value['client_id']]['storage_fee'] += $value['storage_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $clients[$value['client_id']]['misc_fee'] = $clients[$value['client_id']]['misc_fee'] += $value['misc_fee']->reduce(function ($carry, $item) {
+                            return $carry + $item;
+                        });
+                        $clients[$value['client_id']]['dsg_records'] = collect($clients[$value['client_id']]['dsg_records'])->concat($value['receiving_ids']);
+                    }
+                }
+            }
+            $customers[$customer_key]['clients'] = array_values($clients);
         }
-
+        return $customers;
         // id, company_name , clients -> receiving
         $pdf = PDF::loadView('pdf.all-customer-invoice', ['customers' => $customers])
             ->setOption('footer-right', 'Page [page] of [toPage]')
