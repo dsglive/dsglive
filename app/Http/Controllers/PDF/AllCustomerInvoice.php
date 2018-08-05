@@ -13,13 +13,6 @@ use App\Http\Controllers\Controller;
 
 class AllCustomerInvoice extends Controller
 {
-//! filter the customers by unique customer id
-
-//! aggregate total , sum , combine array(merge) to a new $customer variable the array of customer we filter
-
-//! filter clients by unique clients_id
-
-//! aggreatea total , sum and combined array to new client element in the clients array
     /**
      * @param  Logistic $logistic
      * @return mixed
@@ -73,8 +66,7 @@ class AllCustomerInvoice extends Controller
                     'storage_fee'   => $storage_fee,
                     'misc_fee'      => $misc_fee,
                     'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
-                    'clients'       => $merge_clients //! go backwards!
-
+                    'clients'       => $merge_clients
                 ];
             }
         }
@@ -100,7 +92,6 @@ class AllCustomerInvoice extends Controller
                         $clients[$value['client_id']] = [
                             'client_id'     => $value['client_id'],
                             'client_name'   => $value['client_name'][0],
-                            //! something went wrong here... its adding up 3 array instead of filtering it
                             'receiving_fee' => $value['receiving_fee']->reduce(function ($carry, $item) {
                                 return $carry + $item;
                             }),
