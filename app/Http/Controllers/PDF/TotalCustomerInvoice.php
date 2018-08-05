@@ -61,7 +61,7 @@ class TotalCustomerInvoice extends Controller
         $data['date_ended']    = $request->date_ended;
         $data['customers'] = $unique_customers;
 
-        // return $data;
+        return $data;
 
         $pdf = PDF::loadView('pdf.total-customer-invoice', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
