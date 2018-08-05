@@ -23,7 +23,6 @@ class AllCustomerInvoice extends Controller
         $customers = collect([]);
 
         foreach ($invoices as $invoice) {
-
             $customers[] = $this->getUsers($invoice);
         }
 
@@ -34,6 +33,7 @@ class AllCustomerInvoice extends Controller
         foreach ($unique_customers as $id) {
             $merge_customers[$id] = $customers->whereIn('customer_id', $id)->values();
         }
+
         $aggregated_customers = [];
 
         foreach ($unique_customers as $id) {
@@ -58,6 +58,7 @@ class AllCustomerInvoice extends Controller
                 foreach ($customer['clients'] as $client) {
                     $merge_clients[] = $customer['clients']->whereIn('client_id', $client['client_id'])->values()->collapse();
                 }
+
                 $aggregated_customers[$customer['customer_id']] = [
                     'customer_id'   => $customer['customer_id'],
                     'customer_name' => $customer['customer_name'],
@@ -72,6 +73,7 @@ class AllCustomerInvoice extends Controller
         }
 
         $customers = array_values($aggregated_customers);
+
         foreach ($customers as $customer_key => $customer) {
             $client_id            = null;
             $client_name          = null;
@@ -87,7 +89,6 @@ class AllCustomerInvoice extends Controller
 
             foreach ($customer['clients'] as $key => $value) {
                 if ($unique_clients->contains($value['client_id'])) {
-
                     if (!isset($clients[$value['client_id']])) {
                         $receiving_fee = $value['receiving_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
@@ -95,7 +96,7 @@ class AllCustomerInvoice extends Controller
                         $delivery_fee = $value['delivery_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
-                        $storage_fee= $value['storage_fee']->reduce(function ($carry, $item) {
+                        $storage_fee = $value['storage_fee']->reduce(function ($carry, $item) {
                             return $carry + $item;
                         });
                         $misc_fee = $value['misc_fee']->reduce(function ($carry, $item) {
@@ -125,18 +126,19 @@ class AllCustomerInvoice extends Controller
                             return $carry + $item;
                         });
                         $clients[$value['client_id']]['receiving_fee'] = $receiving_fee;
-                        $clients[$value['client_id']]['delivery_fee'] = $delivery_fee;
-                        $clients[$value['client_id']]['storage_fee'] = $storage_fee;
-                        $clients[$value['client_id']]['misc_fee'] = $misc_fee;
-                        $clients[$value['client_id']]['dsg_records'] = collect($clients[$value['client_id']]['dsg_records'])->concat($value['receiving_ids']);
+                        $clients[$value['client_id']]['delivery_fee']  = $delivery_fee;
+                        $clients[$value['client_id']]['storage_fee']   = $storage_fee;
+                        $clients[$value['client_id']]['misc_fee']      = $misc_fee;
+                        $clients[$value['client_id']]['dsg_records']   = collect($clients[$value['client_id']]['dsg_records'])->concat($value['receiving_ids']);
 
                         $clients[$value['client_id']]['total'] = $receiving_fee + $delivery_fee + $storage_fee + $misc_fee;
-
                     }
                 }
             }
+
             $customers[$customer_key]['clients'] = array_values($clients);
         }
+
         return $customers;
         // id, company_name , clients -> receiving
         $pdf = PDF::loadView('pdf.all-customer-invoice', ['customers' => $customers])
