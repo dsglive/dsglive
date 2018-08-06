@@ -23,6 +23,7 @@ class AllCustomerInvoice extends Controller
         $customers = collect([]);
 
         foreach ($invoices as $invoice) {
+            //! Add A Way to Include Total Current Balance For Each Customer
             $customers[] = $this->getUsers($invoice);
         }
 
@@ -67,7 +68,9 @@ class AllCustomerInvoice extends Controller
                     'storage_fee'   => $storage_fee,
                     'misc_fee'      => $misc_fee,
                     'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
-                    'clients'       => $merge_clients
+                    'clients'       => $merge_clients,
+                    //! This Feature Will Be Added Soon!
+                    'balance'       => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee
                 ];
             }
         }
@@ -138,10 +141,10 @@ class AllCustomerInvoice extends Controller
 
             $customers[$customer_key]['clients'] = array_values($clients);
         }
-
-        return $customers;
-        // id, company_name , clients -> receiving
-        $pdf = PDF::loadView('pdf.all-customer-invoice', ['customers' => $customers])
+        $data['date_started'] = Carbon::parse($request->date_started)->format('m/d/Y');
+        $data['date_ended'] = Carbon::parse($request->date_ended)->format('m/d/Y');
+        $data['customers'] = $customers;
+        $pdf = PDF::loadView('pdf.all-customer-invoice', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
             ->setOption('footer-font-size', 8);
