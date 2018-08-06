@@ -449,7 +449,7 @@ export default {
   mixins: [validationError,confirmation],
   props: {
     customer: {
-      type: String,
+      type: [Number,String],
       required: true
     }
   },

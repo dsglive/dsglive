@@ -248,11 +248,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */]],
   props: {
     customer: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     client: {
-      type: String,
+      type: [String, Number],
       required: true
     }
   },

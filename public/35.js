@@ -779,7 +779,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7_Mixins_confirmation__["a" /* default */]],
   props: {
     customer: {
-      type: String,
+      type: [Number, String],
       required: true
     }
   },
