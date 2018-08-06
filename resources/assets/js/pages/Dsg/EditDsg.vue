@@ -1046,7 +1046,7 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "warehouse" }));
+      self.$nextTick(() => self.$router.push({ name: "dsg" }));
     },
     fetchDSG() {
       let id = this.id;

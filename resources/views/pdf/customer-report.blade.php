@@ -116,8 +116,8 @@
                 </th>
             </tr>
             <tr>
-                <th>Bin</th>
                 <th>DSG #</th>
+                <th>Bin</th>
                 <th>Style #</th>
                 <th>Description</th>
                 <th>Shipper</th>
@@ -129,10 +129,10 @@
             @foreach($client['packages'] as $item)
             <tr style="page-break-inside: avoid;">
                 <td class="borders">
-                    {{ $item['bin_name'] }}
+                    {{ $item['dsg_id'] }}
                 </td>
                 <td class="borders">
-                    {{ $item['dsg_id'] }}
+                    {{ $item['bin_name'] }}
                 </td>
                 <td class="borders">
                     {{ $item['style_no'] }}

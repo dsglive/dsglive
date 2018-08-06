@@ -10910,7 +10910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     redirectBack: function redirectBack() {
       var self = this;
       self.$nextTick(function () {
-        return self.$router.push({ name: "warehouse" });
+        return self.$router.push({ name: "dsg" });
       });
     },
     fetchDSG: function fetchDSG() {
