@@ -30,12 +30,19 @@ Route::get('/pdf/customer-report/{user}', 'PDF\CustomerPDF@viewCustomer')
     ->name('home.pdf.customer');
 Route::get('/pdf/client-report/{user}/{client}', 'PDF\ClientPDF@viewClient')
     ->name('home.pdf.client');
+//! all customer total with client break down
 Route::get('/pdf/all-customer-invoice-total', 'PDF\AllCustomerInvoice')
     ->name('home.pdf.all-customer-invoice');
-Route::get('/pdf/total-customer-invoice', 'PDF\TotalCustomerInvoice')
-    ->name('home.pdf.total-customer-invoice');
+//! all customer total
+Route::get('/pdf/total-all-customer-invoice', 'PDF\TotalAllCustomerInvoice')
+    ->name('home.pdf.total-all-customer-invoice');
+//! customer total with client break down
 Route::get('/pdf/customer-breakdown-invoice/{invoice}', 'PDF\CustomerBreakDownInvoice')
     ->name('home.pdf.customer-breakdown-invoice');
+//! customer total
+Route::get('/pdf/customer-total-invoice/{invoice}', 'PDF\CustomerTotalInvoice')
+    ->name('home.pdf.customer-total-invoice');
+
 
 
 /* Set Vue Front End Endpoint */

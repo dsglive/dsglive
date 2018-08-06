@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
-class TotalCustomerInvoice extends Controller
+class TotalAllCustomerInvoice extends Controller
 {
     /**
      * @param  Logistic $logistic
@@ -58,7 +58,7 @@ class TotalCustomerInvoice extends Controller
             ];
         });
         $data['date_started'] = $request->date_started;
-        $data['date_ended']    = $request->date_ended;
+        $data['date_ended'] = $request->date_ended;
         $data['customers'] = $unique_customers;
 
         return $data;
