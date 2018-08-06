@@ -1230,7 +1230,7 @@ var render = function() {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            !props.item.active
+                            _vm.$auth.check("admin")
                               ? _c(
                                   "v-btn",
                                   {

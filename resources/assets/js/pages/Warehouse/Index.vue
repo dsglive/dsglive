@@ -187,7 +187,7 @@
                 <v-icon>forward</v-icon>
               </v-btn>
               <v-btn 
-                v-if="!props.item.active"
+                v-if="$auth.check('admin')"
                 flat 
                 icon 
                 color="error" 
