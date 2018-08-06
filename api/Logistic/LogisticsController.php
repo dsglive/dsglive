@@ -151,25 +151,32 @@ class LogisticsController extends Controller
             'start_time'     => 'nullable',
             'end_time'       => 'nullable',
             'prep_time'      => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'travel_time'    => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'clean_up_time'  => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'total_time'     => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'rate'           => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'surcharge'      => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'total_charges'  => [
-                new RateMustBeAFloat
+                new RateMustBeAFloat,
+                'nullable'
             ],
             'notes'          => 'nullable',
 

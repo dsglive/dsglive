@@ -124,14 +124,15 @@
                     Hourly Rate:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $rate }} USD</span>
+                    @if($rate)<span style="padding-left:25px;">${{ number_format((float)$rate, 2, '.', '') }}
+                    </span>@endif
                 </td>
 
                 <td style="width: 15%; color: darkblue; text-align: right; padding-left: 10px; padding: 3px 0 3px; vertical-align: bottom;">
                     Prep:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; border-bottom: 1px solid darkblue; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $prep_time }} hrs</span>
+                    @if($prep_time)<span style="padding-left:25px;">{{ $prep_time }} hrs</span>@endif
                 </td>
             </tr>
             <!-- row 3 of 5 -->
@@ -142,14 +143,14 @@
                     Start:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; border-bottom: 1px solid darkblue; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $start_time }}H</span>
+                    @if($start_time)<span style="padding-left:25px;">{{ $start_time }}H</span>@endif
                 </td>
 
                 <td style="width: 15%; color: darkblue; text-align: right; padding: 3px 0 3px; vertical-align: bottom;">
                     Travel:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; border-bottom: 1px solid darkblue; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $travel_time }} hrs</span>
+                    @if($travel_time)<span style="padding-left:25px;">{{ $travel_time }} hrs</span>@endif
                 </td>
             </tr>
 
@@ -159,14 +160,14 @@
                     End:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; border-bottom: 1px solid darkblue; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $end_time }}H</span>
+                    @if($end_time)<span style="padding-left:25px;">{{ $end_time }}H</span>@endif
                 </td>
 
                 <td style="width: 15%; color: darkblue; text-align: right; padding: 3px 0 3px; vertical-align: bottom;">
                     Clean Up:
                 </td>
                 <td style="width: 25%; color: darkblue; text-align: left; padding-left: 10px; padding: 3px 0 3px; border-bottom: 1px solid darkblue; vertical-align: bottom;">
-                    <span style="padding-left:25px;">{{ $clean_up_time }} hrs</span>
+                    @if($clean_up_time)<span style="padding-left:25px;">{{ $clean_up_time }} hrs</span>@endif
                 </td>
             </tr>
         </table>

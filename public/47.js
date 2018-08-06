@@ -598,7 +598,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         travel_time: 0,
         clean_up_time: 0,
         total_time: 0,
-        rate: "",
+        rate: 0,
         surcharge: 0,
         total_charges: "",
         notes: null,

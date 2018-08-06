@@ -817,7 +817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         self.form.travel_time = ticket.travel_time;
         self.form.clean_up_time = ticket.clean_up_time;
         self.form.total_time = ticket.total_time;
-        self.form.rate = ticket.rate;
+        self.form.rate = ticket.rate ? ticket.rate : 0;
         self.form.surcharge = ticket.surcharge;
         self.form.total_charges = ticket.total_charges;
         self.form.notes = ticket.notes;

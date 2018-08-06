@@ -3,7 +3,7 @@
 namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\User\WithClientResource;
+use App\Http\Resources\User\ClientResource;
 
 class CustomerResource extends Resource
 {
@@ -38,7 +38,7 @@ class CustomerResource extends Resource
             'name'    => $this->whenLoaded('profile', function () use ($name) {
                 return $name;
             }),
-            'clients' => WithClientResource::collection($this->whenLoaded('clients'))
+            'clients' => ClientResource::collection($this->whenLoaded('clients'))
         ];
     }
 }
