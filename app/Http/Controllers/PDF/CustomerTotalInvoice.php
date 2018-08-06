@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
-class TotalAllCustomerInvoice extends Controller
+class CustomerTotalInvoice extends Controller
 {
     /**
      * @param  Logistic $logistic

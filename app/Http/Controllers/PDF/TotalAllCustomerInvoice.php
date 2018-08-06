@@ -60,10 +60,7 @@ class TotalAllCustomerInvoice extends Controller
         $data['date_started'] = $request->date_started;
         $data['date_ended']    = $request->date_ended;
         $data['customers'] = $unique_customers;
-
-        return $data;
-
-        $pdf = PDF::loadView('pdf.total-customer-invoice', $data)
+        $pdf = PDF::loadView('pdf.total-all-customer-invoice', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
             ->setOption('footer-font-size', 8);

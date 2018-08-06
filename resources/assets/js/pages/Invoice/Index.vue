@@ -102,19 +102,24 @@
               {{ props.item.date_ended }}
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.receiving_fee">{{ props.item.receiving_fee.toFixed(4) }}</span>
+              <span v-if="props.item.receiving_fee">${{ props.item.receiving_fee.toFixed(2) }}</span>
+              <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.storage_fee">{{ props.item.storage_fee.toFixed(4) }}</span>
+              <span v-if="props.item.storage_fee">${{ props.item.storage_fee.toFixed(2) }}</span>
+              <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.delivery_fee">{{ props.item.delivery_fee.toFixed(4) }}</span>
+              <span v-if="props.item.delivery_fee">${{ props.item.delivery_fee.toFixed(2) }}</span>
+              <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.misc_fee">{{ props.item.misc_fee.toFixed(4) }}</span>
+              <span v-if="props.item.misc_fee">${{ props.item.misc_fee.toFixed(2) }}</span>
+              <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.total">{{ props.item.total.toFixed(4) }}</span>
+              <span v-if="props.item.total">${{ props.item.total.toFixed(2) }}</span>
+              <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-center">
               <!-- <v-flex 

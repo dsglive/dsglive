@@ -4,8 +4,11 @@ namespace Api\Report;
 
 use Api\Controller;
 use App\Models\Dsg;
+use App\Models\User;
+use App\Models\Invoice;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Resources\Dsg\DsgResource;
 use App\Http\Resources\Dsg\PackageResource;
 
@@ -18,6 +21,40 @@ class ReportController extends Controller
                 'reportAllRepaired', 'reportAllUndelivered', 'reportAllDamaged'
             ]
         ]);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @return mixed
+     */
+    private function getUsers(Invoice $invoice)
+    {
+        $user       = User::with('profile')->find($invoice->customer_id);
+        $first_name = optional($user->profile)->first_name;
+        $last_name  = optional($user->profile)->last_name;
+        $name       = optional($user->profile)->company_name;
+
+        if (!$name) {
+            if ($first_name) {
+                $name = $first_name;
+            }
+
+            if ($last_name) {
+                $name = $first_name.' '.$last_name;
+            }
+        }
+
+        $customer = [
+            'customer_id'   => $invoice->customer_id,
+            'customer_name' => $name,
+            'receiving_fee' => $invoice->receiving_fee ?? 0,
+            'delivery_fee'  => $invoice->delivery_fee ?? 0,
+            'storage_fee'   => $invoice->storage_fee ?? 0,
+            'misc_fee'      => $invoice->misc_fee ?? 0,
+            'clients'       => collect([])
+        ];
+        $customer['total']   = $customer['receiving_fee'] + $customer['delivery_fee'] + $customer['storage_fee'] + $customer['misc_fee'];
+        return $customer;
     }
 
     /**
@@ -145,6 +182,60 @@ class ReportController extends Controller
         }
 
         return DsgResource::collection($dsg);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function totalAllCustomerInvoice(Request $request)
+    {
+        $invoices  = Invoice::with('customer.profile')->whereBetween('date_started', [$request->date_started, $request->date_ended])->orderBy('created_at', 'DESC')->get();
+        $customers = collect([]);
+
+        foreach ($invoices as $invoice) {
+            //! Add A Way to Include Total Current Balance For Each Customer
+            $customers[] = $this->getUsers($invoice);
+        }
+
+        $unique_customers = collect($customers->unique('customer_id')->pluck('customer_id'));
+
+        $merge_customers = [];
+
+        foreach ($unique_customers as $id) {
+            $merge_customers[$id] = $customers->whereIn('customer_id', $id)->values();
+        }
+
+        $aggregated_customers = [];
+
+        foreach ($unique_customers as $id) {
+            $name          = '';
+            $receiving_fee = 0;
+            $delivery_fee  = 0;
+            $storage_fee   = 0;
+            $misc_fee      = 0;
+
+            foreach ($merge_customers[$id] as $key => $customer) {
+                $name = $customer['customer_name'];
+                $receiving_fee += $customer['receiving_fee'];
+                $delivery_fee += $customer['delivery_fee'];
+                $storage_fee += $customer['storage_fee'];
+                $misc_fee += $customer['misc_fee'];
+
+                $aggregated_customers[$customer['customer_id']] = [
+                    'customer_id'   => $customer['customer_id'],
+                    'customer_name' => $customer['customer_name'],
+                    'receiving_fee' => $receiving_fee,
+                    'delivery_fee'  => $delivery_fee,
+                    'storage_fee'   => $storage_fee,
+                    'misc_fee'      => $misc_fee,
+                    'total'         => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee,
+                    'balance'       => $receiving_fee + $delivery_fee + $storage_fee + $misc_fee
+                ];
+            }
+        }
+
+        $customers = array_values($aggregated_customers);
+        return response()->json(['customers' => $customers] , 200);
     }
 
     /**

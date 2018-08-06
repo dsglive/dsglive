@@ -1,6 +1,6 @@
 webpackJsonp([25],{
 
-/***/ 1193:
+/***/ 1197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -198,8 +198,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         align: "left",
         sortable: true
       }, { text: "Client", value: "client_name", align: "left", sortable: true }, { text: "PO#", value: "po_no", align: "left", sortable: true }, { text: "Style#", value: "style_no", align: "left", sortable: true }, {
-        text: "Damaged Description",
-        value: "damage_description",
+        text: "Decription",
+        value: "description",
         align: "left",
         sortable: true
       }, { text: "Actions", value: "actions", align: "right", sortable: false }],
@@ -240,7 +240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.form.busy = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post(route("api.report.reportAllDamaged"), self.form);
+                return axios.post(route("api.report.undelivered"), self.form);
 
               case 5:
                 payload = _context.sent;
@@ -292,7 +292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 1194:
+/***/ 1198:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -318,7 +318,7 @@ var render = function() {
                     { attrs: { xs12: "", "text-xs-center": "" } },
                     [
                       _c("h2", { staticClass: "display-1" }, [
-                        _vm._v("Damaged Items Report")
+                        _vm._v("Undelivered Items Report")
                       ]),
                       _vm._v(" "),
                       _c("v-divider")
@@ -538,7 +538,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.damage_description) +
+                                _vm._s(props.item.description) +
                                 "\n          "
                             )
                           ]
@@ -621,7 +621,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          Opps! There are No Damaged Items Yet!, \n        "
+                        "\n          Opps! There are No Items Undelivered Yet!, \n        "
                       )
                     ]
                   )
@@ -664,21 +664,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3bb37676", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f8785d0a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 952:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1193)
+var __vue_script__ = __webpack_require__(1197)
 /* template */
-var __vue_template__ = __webpack_require__(1194)
+var __vue_template__ = __webpack_require__(1198)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -695,7 +695,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Reports/DamagedPackages.vue"
+Component.options.__file = "resources/assets/js/pages/Reports/UndeliveredPackages.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -704,9 +704,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3bb37676", Component.options)
+    hotAPI.createRecord("data-v-f8785d0a", Component.options)
   } else {
-    hotAPI.reload("data-v-3bb37676", Component.options)
+    hotAPI.reload("data-v-f8785d0a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -3475,7 +3475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [{
         action: "card_membership",
         title: "Invoices",
-        items: [{ title: "Generate Invoice", href: "/invoices/generate", action: "schedule" }, { title: "Invoices", href: "/invoices", action: "all_inbox" }]
+        items: [{ title: "Generate Invoice", href: "/invoices/generate", action: "schedule" }, { title: "Invoices", href: "/invoices", action: "all_inbox" }, { title: "Weekly Report", href: "/reports/total-all-customer-invoice", action: "picture_as_pdf" }]
       }]
     };
   },

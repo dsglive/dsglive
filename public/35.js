@@ -1,17 +1,332 @@
 webpackJsonp([35],{
 
-/***/ 1051:
+/***/ 1000:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1001);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(957)("e0c2eb38", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-308df882\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Confirm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1001:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1002:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__ = __webpack_require__(965);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Layouts_ModalLayout_vue__ = __webpack_require__(961);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_Layouts_ModalLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vform__ = __webpack_require__(960);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vform__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    callback: {
+      type: Function,
+      required: true
+    },
+    message: {
+      type: String,
+      default: function _default() {
+        return 'Deleting This Dsg Record , Will Also Delete All Associated Data Attach To It Such As Images and Items. Also Note That Some Data In The System That Exist Which Reference To This Dsg Record Will Break its Functionality Such As Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!';
+      }
+    },
+    title: {
+      type: String,
+      default: function _default() {
+        return 'Are You Sure You Want To Delete This?';
+      }
+    },
+    action: {
+      type: String,
+      default: function _default() {
+        return 'Yes , I Understand';
+      }
+    }
+  },
+  data: function data() {
+    return {
+      dialog: false,
+      params: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    Bus.$on("open-confirmation", function (params) {
+      _this.dialog = true;
+      _this.params = params;
+    });
+  },
+
+  methods: {
+    closeDialog: function closeDialog() {
+      this.dialog = false;
+    },
+    confirm: function confirm() {
+      if (this.callback) {
+        if (this.params != undefined) {
+          this.dialog = false;
+
+          this.callback(this.params);
+        } else {
+          this.dialog = false;
+
+          this.callback();
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 1003:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { width: "500" },
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog"
+      }
+    },
+    [
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-card-title",
+            { staticClass: "headline primary", attrs: { dark: "" } },
+            [
+              _c("span", { staticClass: "white--text" }, [
+                _vm._v(_vm._s(_vm.title))
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("v-card-text", [
+            _vm._v("\n      " + _vm._s(_vm.message) + "\n    ")
+          ]),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: { flat: "", color: "secondary" },
+                  on: {
+                    click: function($event) {
+                      _vm.dialog = false
+                    }
+                  }
+                },
+                [
+                  _c("v-icon", { attrs: { left: "" } }, [_vm._v("arrow_left")]),
+                  _vm._v("\n        Back\n      ")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "primary", flat: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.confirm()
+                    }
+                  }
+                },
+                [_vm._v("\n        " + _vm._s(_vm.action) + "\n      ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-308df882", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 1004:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: {
+        confirmed: function confirmed(cb) {
+            var self = this;
+            return function (params) {
+                cb(params);
+            };
+        },
+        openDialog: function openDialog(item) {
+            Bus.$emit("open-confirmation", item);
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 1093:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1094);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(957)("5548a42b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-553c64c6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomerClients.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-553c64c6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CustomerClients.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1094:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.compress--icon[data-v-553c64c6] {\n  margin-left: -5px;\n  margin-right: -5px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1095:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__ = __webpack_require__(961);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform__ = __webpack_require__(960);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vform__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue__ = __webpack_require__(999);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_Mixins_confirmation__ = __webpack_require__(1004);
+
 
 //
 //
@@ -136,54 +451,477 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
-var _createNamespacedHelp = Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* createNamespacedHelpers */])("auth"),
-    mapActions = _createNamespacedHelp.mapActions;
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ModalLayout: __WEBPACK_IMPORTED_MODULE_1_Layouts_ModalLayout_vue___default.a
+    ModalLayout: __WEBPACK_IMPORTED_MODULE_2_Layouts_ModalLayout_vue___default.a,
+    Confirm: __WEBPACK_IMPORTED_MODULE_6_Components_dsg_Confirm_vue___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_3_Mixins_validation_error__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7_Mixins_confirmation__["a" /* default */]],
+  props: {
+    customer: {
+      type: String,
+      required: true
+    }
   },
   data: function data() {
     return {
-      tile: false,
-      avatarSize: "200px",
-      form: new __WEBPACK_IMPORTED_MODULE_3_vform__["Form"]({
-        submit: true
+      contentClass: { grey: true, "lighten-4": true, "accent--text": true },
+      dialog: false,
+      /* table */
+      headers: [
+      //   { text: "ID", value: "id", align: "left", sortable: true },
+      { text: "Actions", value: "actions", align: "center", sortable: false }, { text: "Name", value: "name", align: "left", sortable: true }],
+      items: [],
+      selected: [],
+      pagination: {
+        sortBy: "name"
+      },
+      clientsForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({}),
+      toggleForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        toggle: false,
+        client_id: null
       }),
-      visible: false,
-      isAuthenticated: !!vm.$auth.token(),
-      user: vm.$auth.user()
+      search: "",
+      deleteClientForm: new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({
+        client_id: null
+      }),
+      domain: window.location.hostname,
+      message: "Warning! Deleting This Client Record Has Some Repercusion To The Sytem, Some Features That Reference To This Client Record Will Break its Functionality Such As DSG, Logistics, Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
+
     };
   },
-  mounted: function mounted() {},
+  watch: {
+    items: {
+      handler: function handler(newValue) {},
+      deep: true
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+    self.fetchClients();
+  },
 
-  methods: __WEBPACK_IMPORTED_MODULE_0__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_extends___default()({
+  methods: {
     redirectBack: function redirectBack() {
       var self = this;
-      return self.$nextTick(function () {
-        return self.$router.go(-1);
+      self.$nextTick(function () {
+        return self.$router.push({ name: "users" });
       });
     },
-    logout: function logout() {
+    editClient: function editClient(client) {
+      vm.$router.push({
+        name: "customer-clients-edit",
+        params: { customer: this.customer, client: client.id }
+      });
+    },
+    createClient: function createClient() {
+      vm.$router.push({ name: "customer-clients-create" });
+    },
+    fetchClients: function () {
+      var _ref = __WEBPACK_IMPORTED_MODULE_1__home_uriah_Sites_dsglive_node_modules_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        var self, payload, errors, message;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+
+                self.clientsForm.busy = true;
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.post(route("api.client.index", { customer: self.customer }), self.clientsForm);
+
+              case 5:
+                payload = _context.sent;
+
+                self.items = payload.data.data;
+                self.clientsForm = new __WEBPACK_IMPORTED_MODULE_4_vform__["Form"]({});
+                _context.next = 17;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
+                errors = _context.t0.errors;
+                message = _context.t0.message;
+
+                if (errors) {
+                  self.clientsForm.errors.set(errors);
+                }
+                if (message) {}
+                self.clientsForm.busy = false;
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 10]]);
+      }));
+
+      function fetchClients() {
+        return _ref.apply(this, arguments);
+      }
+
+      return fetchClients;
+    }(),
+    deleteClient: function deleteClient(client) {
       var self = this;
-      return self.$nextTick(function () {
-        return self.submit(self.form);
+      self.deleteClientForm.client_id = client.id;
+      var index = _.findIndex(self.items, { id: client.id });
+      axios.post(route("api.client.delete"), self.deleteClientForm).then(function (response) {
+        if (response.data.status === true) {
+          self.$delete(self.items, index);
+          var toggleModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+            confirmButtonClass: "v-btn blue-grey  subheading white--text",
+            buttonsStyling: false
+          });
+          toggleModal({
+            title: "Success",
+            html: "<p class=\"title\">Client Deleted!</p>",
+            type: "success",
+            confirmButtonText: "Back"
+          });
+        }
+      }).catch(function (errors) {
+        var deleteModal = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        deleteModal({
+          title: "Oops! Forbidden Action!",
+          html: '<p class="title">' + errors.response.data.message + "</p>",
+          type: "warning",
+          confirmButtonText: "Back"
+        });
       });
     }
-  }, mapActions({
-    submit: "logout"
-  }))
+  }
 });
 
 /***/ }),
 
-/***/ 1052:
+/***/ 1096:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -200,7 +938,7 @@ var render = function() {
         [
           _c(
             "v-toolbar",
-            { staticClass: "primary" },
+            { staticClass: "primary", attrs: { fixed: "", app: "" } },
             [
               _c(
                 "v-btn",
@@ -221,238 +959,866 @@ var render = function() {
               _c(
                 "v-toolbar-title",
                 { staticClass: "text-xs-center white--text" },
-                [_vm._v("Are You Sure You Want To Log Out?")]
+                [_vm._v("Customer Clients")]
               ),
               _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-toolbar-items",
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { flat: "", color: "white" },
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.logout()
-                        }
-                      }
-                    },
-                    [
-                      _c("v-icon", { attrs: { right: "" } }, [
-                        _vm._v("fa-power-off")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
+              _c("v-spacer")
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "v-card-text",
+            "v-container",
+            { attrs: { fluid: "" } },
             [
-              _c("v-container", { attrs: { fluid: "" } }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        _vm.logout()
+              _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { "d-flex": "", xs12: "", sm7: "" } },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { "d-flex": "" } },
+                            [
+                              _c(
+                                "v-card",
+                                { attrs: { light: "", flat: "" } },
+                                [
+                                  _c(
+                                    "v-card-title",
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          "append-icon": "search",
+                                          label: "Search Clients",
+                                          "single-line": "",
+                                          "hide-details": "",
+                                          light: ""
+                                        },
+                                        model: {
+                                          value: _vm.search,
+                                          callback: function($$v) {
+                                            _vm.search = $$v
+                                          },
+                                          expression: "search"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    {
+                      attrs: {
+                        "d-flex": "",
+                        xs12: "",
+                        sm5: "",
+                        "child-flex": ""
                       }
+                    },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        [
+                          _c(
+                            "v-flex",
+                            {
+                              staticClass: "white",
+                              attrs: { xs12: "", "d-flex": "" }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    disabled: !_vm.$auth.check("admin"),
+                                    block: "",
+                                    color: "primary",
+                                    dark: "",
+                                    flat: ""
+                                  },
+                                  on: { click: _vm.createClient }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                Add New Client\n                "
+                                  ),
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { right: "", color: "primary" } },
+                                    [
+                                      _vm._v(
+                                        "\n                  fa-user-plus\n                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "", "d-flex": "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                { staticClass: "xs6 white" },
+                                [
+                                  _vm.selected.length > 0
+                                    ? _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            disabled: !_vm.$auth.check("admin"),
+                                            block: "",
+                                            color: "blue darken-4",
+                                            dark: "",
+                                            flat: ""
+                                          },
+                                          on: { click: _vm.massActivate }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: {
+                                                large: "",
+                                                color: "blue darken-4"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    link\n                  "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                  Activate Selected\n                "
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { staticClass: "xs6 white" },
+                                [
+                                  _vm.selected.length > 0
+                                    ? _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            disabled: !_vm.$auth.check("admin"),
+                                            block: "",
+                                            flat: "",
+                                            color: "error",
+                                            dark: ""
+                                          },
+                                          on: { click: _vm.massDeactivate }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: {
+                                                large: "",
+                                                color: "error"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    link_off\n                  "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                  Deactivate Selected\n                "
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-data-table",
+                {
+                  attrs: {
+                    headers: _vm.headers,
+                    items: _vm.items,
+                    search: _vm.search,
+                    pagination: _vm.pagination,
+                    "select-all": "",
+                    "item-key": "id",
+                    expand: ""
+                  },
+                  on: {
+                    "update:pagination": function($event) {
+                      _vm.pagination = $event
                     }
                   },
-                  [
-                    _vm.user
-                      ? _c(
-                          "v-layout",
-                          { attrs: { row: "" } },
-                          [
+                  scopedSlots: _vm._u([
+                    {
+                      key: "headers",
+                      fn: function(props) {
+                        return [
+                          _c(
+                            "tr",
+                            _vm._l(props.headers, function(header) {
+                              return _c(
+                                "th",
+                                {
+                                  key: header.text,
+                                  class: [
+                                    "column sortable",
+                                    _vm.pagination.descending ? "desc" : "asc",
+                                    header.value === _vm.pagination.sortBy
+                                      ? "name"
+                                      : "",
+                                    {
+                                      "text-xs-left": header.align === "left",
+                                      "text-xs-right": header.align === "right",
+                                      "text-xs-center":
+                                        header.align === "center"
+                                    },
+                                    _vm.$vuetify.breakpoint.width >= 600 &&
+                                      "title"
+                                  ],
+                                  on: {
+                                    click: function($event) {
+                                      _vm.changeSort(header.value)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    [
+                                      _c("v-icon", [_vm._v("arrow_upward")]),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(header.text) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ]
+                      }
+                    },
+                    {
+                      key: "items",
+                      fn: function(props) {
+                        return [
+                          _c("tr", [
                             _c(
-                              "v-flex",
+                              "td",
                               {
-                                attrs: {
-                                  x12: "",
-                                  sm12: "",
-                                  md4: "",
-                                  "offset-md4": "",
-                                  lg4: "",
-                                  "offset-lg4": "",
-                                  xl4: "",
-                                  "offset-xl4": ""
+                                staticClass: "title text-xs-center",
+                                staticStyle: {
+                                  width: "10%",
+                                  "margin-left": "0px",
+                                  "margin-right": "0px",
+                                  "padding-left": "0px",
+                                  "padding-right": "0px"
                                 }
                               },
                               [
                                 _c(
-                                  "v-card",
-                                  { attrs: { flat: "" } },
-                                  [
-                                    _c(
-                                      "v-container",
-                                      {
-                                        attrs: { "fill-height": "", fluid: "" }
-                                      },
-                                      [
-                                        _c(
-                                          "v-layout",
-                                          { attrs: { "fill-height": "" } },
-                                          [
-                                            _c(
-                                              "v-flex",
-                                              {
-                                                attrs: {
-                                                  xs12: "",
-                                                  "text-xs-center": "",
-                                                  flexbox: ""
-                                                }
-                                              },
-                                              [
-                                                _c(
-                                                  "v-avatar",
-                                                  {
-                                                    staticClass:
-                                                      "grey lighten-4",
-                                                    attrs: {
-                                                      tile: _vm.tile,
-                                                      size: _vm.avatarSize,
-                                                      "fill-height": "",
-                                                      fluid: ""
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("img", {
-                                                      attrs: {
-                                                        src: _vm.user.avatar,
-                                                        alt:
-                                                          _vm.user.company_name
-                                                      }
-                                                    })
-                                                  ]
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-layout",
-                                      [
-                                        _c(
-                                          "v-flex",
-                                          {
-                                            attrs: {
-                                              xs12: "",
-                                              "text-xs-center": "",
-                                              flexbox: ""
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "h5",
-                                              {
-                                                staticClass:
-                                                  "primary--text title"
-                                              },
-                                              [_vm._v(_vm._s(_vm.user.name))]
-                                            )
-                                          ]
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "v-layout",
-                      { attrs: { row: "" } },
-                      [
-                        _c(
-                          "v-flex",
-                          {
-                            attrs: {
-                              xs12: "",
-                              sm12: "",
-                              md4: "",
-                              "offset-md4": "",
-                              lg4: "",
-                              "offset-lg4": "",
-                              xl4: "",
-                              "offset-xl4": ""
-                            }
-                          },
-                          [
-                            _c(
-                              "v-card-actions",
-                              [
-                                _c(
                                   "v-btn",
                                   {
-                                    staticClass: "white--text",
-                                    attrs: {
-                                      block: "",
-                                      flat: "",
-                                      color: "info"
+                                    staticClass: "compress--icon",
+                                    class: {
+                                      "amber--text": props.expanded,
+                                      amber: props.expanded,
+                                      teal: !props.expanded,
+                                      "teal--text": !props.expanded
                                     },
-                                    nativeOn: {
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      light: "",
+                                      flat: "",
+                                      icon: ""
+                                    },
+                                    on: {
                                       click: function($event) {
-                                        _vm.redirectBack()
+                                        props.expanded = !props.expanded
                                       }
                                     }
                                   },
                                   [
-                                    _vm._v(
-                                      "\n                  No, I Want To Stay\n                "
-                                    )
-                                  ]
+                                    !props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-expand")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.expanded
+                                      ? _c("v-icon", [_vm._v("fa-compress")])
+                                      : _vm._e()
+                                  ],
+                                  1
                                 ),
                                 _vm._v(" "),
                                 _c(
                                   "v-btn",
                                   {
-                                    staticClass: "white--text",
+                                    staticClass: "compress--icon",
                                     attrs: {
-                                      loading: _vm.form.busy,
-                                      disabled: _vm.form.busy,
-                                      block: "",
+                                      disabled: !_vm.$auth.check("admin"),
                                       flat: "",
-                                      color: "primary",
-                                      type: "submit"
+                                      icon: "",
+                                      color: "blue"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.editClient(props.item)
+                                      }
                                     }
                                   },
-                                  [_vm._v("Yes, Log Me Out")]
+                                  [_c("v-icon", [_vm._v("fa-pencil")])],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "compress--icon",
+                                    attrs: {
+                                      disabled: !_vm.$auth.check("admin"),
+                                      flat: "",
+                                      icon: "",
+                                      color: "error"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.openDialog(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("v-icon", [_vm._v("fa-trash")])],
+                                  1
                                 )
                               ],
                               1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "title text-xs-left accent--text"
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(props.item.name) +
+                                    "\n            "
+                                )
+                              ]
                             )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ])
+                          ])
+                        ]
+                      }
+                    },
+                    {
+                      key: "pageText",
+                      fn: function(ref) {
+                        var pageStart = ref.pageStart
+                        var pageStop = ref.pageStop
+                        return [
+                          _vm._v(
+                            "\n          From " +
+                              _vm._s(pageStart) +
+                              " to " +
+                              _vm._s(pageStop) +
+                              "\n        "
+                          )
+                        ]
+                      }
+                    },
+                    {
+                      key: "expand",
+                      fn: function(props) {
+                        return [
+                          _c(
+                            "v-container",
+                            { attrs: { fluid: "" } },
+                            [
+                              _c(
+                                "v-card",
+                                {
+                                  attrs: {
+                                    light: "",
+                                    flat: "",
+                                    "text-xs-center": ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-card-media",
+                                    {
+                                      staticClass: "white--text blue-grey",
+                                      attrs: { height: "75px" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-container",
+                                        {
+                                          attrs: {
+                                            "fill-height": "",
+                                            fluid: ""
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { "fill-height": "" } },
+                                            [
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: {
+                                                    xs12: "",
+                                                    "align-end": "",
+                                                    flexbox: ""
+                                                  }
+                                                },
+                                                [
+                                                  _c(
+                                                    "span",
+                                                    { staticClass: "headline" },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(props.item.name)
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-card-title",
+                                    [
+                                      _c(
+                                        "v-container",
+                                        { attrs: { fluid: "" } },
+                                        [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "title accent--text"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                    Account Details\n                  "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
+                                            [
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "Email",
+                                                      "prepend-icon":
+                                                        "fa-envelope",
+                                                      light: "",
+                                                      readonly: ""
+                                                    },
+                                                    model: {
+                                                      value: props.item.email,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          props.item,
+                                                          "email",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "props.item.email"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "Phone",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon": "phone"
+                                                    },
+                                                    model: {
+                                                      value: props.item.phone,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          props.item,
+                                                          "phone",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "props.item.phone"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value:
+                                                        props.item.address_1,
+                                                      label: "Address 1",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon":
+                                                        "looks_one"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value:
+                                                        props.item.address_2,
+                                                      label: "Address 2",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon":
+                                                        "looks_two"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value: props.item.city,
+                                                      label: "City",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon":
+                                                        "location_city"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value: props.item.state,
+                                                      label: "State",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon": "map"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value: props.item.zip,
+                                                      label: "Zip",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon":
+                                                        "markunread_mailbox"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-flex",
+                                                {
+                                                  attrs: { xs6: "", "px-1": "" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      value: props.item.country,
+                                                      label: "Country",
+                                                      light: "",
+                                                      readonly: "",
+                                                      "prepend-icon": "flag"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
+                                            [
+                                              _c(
+                                                "v-flex",
+                                                { attrs: { xs12: "" } },
+                                                [
+                                                  _c(
+                                                    "v-textarea",
+                                                    {
+                                                      attrs: {
+                                                        color: "primary",
+                                                        readonly: ""
+                                                      },
+                                                      model: {
+                                                        value: props.item.notes,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            props.item,
+                                                            "notes",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "props.item.notes"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          attrs: {
+                                                            slot: "label"
+                                                          },
+                                                          slot: "label"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "title"
+                                                            },
+                                                            [_vm._v("Notes: ")]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      }
+                    }
+                  ]),
+                  model: {
+                    value: _vm.selected,
+                    callback: function($$v) {
+                      _vm.selected = $$v
+                    },
+                    expression: "selected"
+                  }
+                },
+                [
+                  _c(
+                    "template",
+                    { slot: "no-data" },
+                    [
+                      _c(
+                        "v-alert",
+                        {
+                          attrs: {
+                            value: true,
+                            color: "error",
+                            icon: "warning"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n            Opps! No Client Yet!, \n            "
+                          ),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                disabled: !_vm.$auth.check("admin"),
+                                color: "white",
+                                flat: "",
+                                dark: ""
+                              },
+                              on: { click: _vm.createClient }
+                            },
+                            [
+                              _vm._v(
+                                "\n              Create New Client\n              "
+                              ),
+                              _c(
+                                "v-icon",
+                                { attrs: { right: "", color: "white" } },
+                                [
+                                  _vm._v(
+                                    "\n                fa-user-plus\n              "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-alert",
+                    {
+                      attrs: {
+                        slot: "no-results",
+                        value: true,
+                        color: "blue-grey",
+                        icon: "warning"
+                      },
+                      slot: "no-results"
+                    },
+                    [
+                      _vm._v(
+                        '\n          Your search for "' +
+                          _vm._s(_vm.search) +
+                          '" found no results.\n        '
+                      )
+                    ]
+                  )
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("confirm", {
+                attrs: {
+                  callback: _vm.confirmed(_vm.deleteClient),
+                  message: _vm.message
+                }
+              })
             ],
             1
           )
@@ -469,27 +1835,31 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-64539d07", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-553c64c6", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 903:
+/***/ 913:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1093)
+}
 var normalizeComponent = __webpack_require__(371)
 /* script */
-var __vue_script__ = __webpack_require__(1051)
+var __vue_script__ = __webpack_require__(1095)
 /* template */
-var __vue_template__ = __webpack_require__(1052)
+var __vue_template__ = __webpack_require__(1096)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-553c64c6"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -500,7 +1870,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/pages/Logout.vue"
+Component.options.__file = "resources/assets/js/pages/CustomerClients.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -509,9 +1879,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-64539d07", Component.options)
+    hotAPI.createRecord("data-v-553c64c6", Component.options)
   } else {
-    hotAPI.reload("data-v-64539d07", Component.options)
+    hotAPI.reload("data-v-553c64c6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -783,6 +2153,30 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+
+/***/ 959:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  /* this mixins is responsible for concatinating error messages from vform and vee-validate  */
+  methods: {
+    /* errorBag is relataed to veeValidate config name*/
+    /* form is related to vform */
+    errorMessages: function errorMessages(field) {
+      return this.errors.collect(field).concat(this.form.errors.only(field));
+    },
+    hasErrors: function hasErrors(field) {
+      var errors = this.errors.collect(field).concat(this.form.errors.only(field));
+      if (errors.length > 0) {
+        return true;
+      }
+      return false;
+    }
+  }
+});
 
 /***/ }),
 
@@ -1916,117 +3310,54 @@ if (false) {
 
 /***/ }),
 
-/***/ 965:
+/***/ 999:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(1000)
+}
+var normalizeComponent = __webpack_require__(371)
+/* script */
+var __vue_script__ = __webpack_require__(1002)
+/* template */
+var __vue_template__ = __webpack_require__(1003)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dsg/Confirm.vue"
 
-
-exports.__esModule = true;
-
-var _assign = __webpack_require__(966);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _assign2.default || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-308df882", Component.options)
+  } else {
+    hotAPI.reload("data-v-308df882", Component.options)
   }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
-  return target;
-};
-
-/***/ }),
-
-/***/ 966:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(967), __esModule: true };
-
-/***/ }),
-
-/***/ 967:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(968);
-module.exports = __webpack_require__(45).Object.assign;
-
-
-/***/ }),
-
-/***/ 968:
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(76);
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(969) });
-
-
-/***/ }),
-
-/***/ 969:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(375);
-var gOPS = __webpack_require__(970);
-var pIE = __webpack_require__(971);
-var toObject = __webpack_require__(377);
-var IObject = __webpack_require__(376);
-var $assign = Object.assign;
-
-// should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(155)(function () {
-  var A = {};
-  var B = {};
-  // eslint-disable-next-line no-undef
-  var S = Symbol();
-  var K = 'abcdefghijklmnopqrst';
-  A[S] = 7;
-  K.split('').forEach(function (k) { B[k] = k; });
-  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-  var T = toObject(target);
-  var aLen = arguments.length;
-  var index = 1;
-  var getSymbols = gOPS.f;
-  var isEnum = pIE.f;
-  while (aLen > index) {
-    var S = IObject(arguments[index++]);
-    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
-    var length = keys.length;
-    var j = 0;
-    var key;
-    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
-  } return T;
-} : $assign;
-
-
-/***/ }),
-
-/***/ 970:
-/***/ (function(module, exports) {
-
-exports.f = Object.getOwnPropertySymbols;
-
-
-/***/ }),
-
-/***/ 971:
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
+module.exports = Component.exports
 
 
 /***/ })

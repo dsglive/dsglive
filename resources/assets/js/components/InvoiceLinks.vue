@@ -51,6 +51,7 @@ export default {
           items: [
             { title: "Generate Invoice", href: "/invoices/generate", action: "schedule" },
             { title: "Invoices", href: "/invoices", action: "all_inbox" },
+            { title: "Weekly Report", href: "/reports/total-all-customer-invoice", action: "picture_as_pdf" },
           ]
         }
       ]

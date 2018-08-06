@@ -86,12 +86,13 @@
             color="blue darken-4" 
             dark
             flat
-            @click="generateInvoice">
-            Fetch Billables
+            @click="generateWeeklyReport">
+            Generate Customer Weekly Invoice
             <v-icon
+              right
               color="blue darken-4"
             >
-              attach_money
+              assessment
             </v-icon>
           </v-btn>
         </v-flex>
@@ -102,32 +103,6 @@
           <v-layout 
             row 
             wrap>
-            <v-flex 
-              v-if="form.date_started && form.date_ended"
-              xs12
-            >
-              <v-alert 
-                v-if="selected.length < 1"
-                :value="items.length > 0" 
-                color="secondary" 
-                icon="warning">
-                Note: Check An Item/s On The Table To Generate An Invoice
-              </v-alert>
-              <v-btn
-                v-else
-                :loading="mass_create_invoices.busy"
-                :disabled="mass_create_invoices.busy"
-                color="teal lighten-2"
-                block
-                class="white--text"
-                @click.native="massCreateInvoice"
-              >
-                Generate Invoices
-                <v-icon 
-                  right 
-                  dark>schedule</v-icon>
-              </v-btn>
-            </v-flex>
             <v-flex 
               xs12
             >
@@ -147,20 +122,38 @@
                 </v-card-title>
               </v-card>
             </v-flex>
-            
+            <v-flex 
+              xs12
+            >
+              <v-btn 
+                v-if="items.length>0"
+                style="margin-top:25px;" 
+                block 
+                color="indigo darken-2" 
+                dark
+                flat
+                @click="viewPDF">
+                View All Customer Invoice PDF
+                <v-icon
+                  right
+                  color="blue darken-4"
+                >
+                  picture_as_pdf
+                </v-icon>
+              </v-btn>
+            </v-flex>   
           </v-layout>
         </v-flex>
         
       </v-layout>
       <!-- User Data Table -->
       <v-data-table
-        v-model="selected"
         :headers="headers"
         :items="items"
         :search="search"
         :pagination.sync="pagination"
-        select-all
         item-key="customer_name"
+        hide-actions
       >
         <!-- Header Section -->
         <template
@@ -168,15 +161,6 @@
           slot-scope="props"
         >
           <tr>
-            <th>
-              <v-checkbox
-                :input-value="props.all"
-                :indeterminate="props.indeterminate"
-                primary
-                hide-details
-                @click.native="toggleAll"
-              />
-            </th>
             <th 
               v-for="header in props.headers" 
               :key="header.text"
@@ -201,13 +185,6 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left">
-              <v-checkbox
-                :active="props.selected"
-                :input-value="props.selected"
-                @click.native="props.selected = !props.selected"
-              />
-            </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.customer_name }}
             </td>
@@ -253,12 +230,12 @@
               color="white" 
               flat
               dark
-              @click="generateInvoice">
-              Fetch Billables
+              @click="generateWeeklyReport">
+              Generate Customer Weekly Invoice
               <v-icon
                 right
               >
-                attach_money
+                picture_as_pdf
               </v-icon>
             </v-btn>
           </v-alert>
@@ -315,77 +292,44 @@ export default {
       { text: "Total", value: "total", align: "left", sortable: true }
     ],
     items: [],
-    selected: [],
-    mass_create_invoices: new Form({}),
     pagination: {
-      sortBy: "name"
+      sortBy: "name",
+      rowPerPage: "all"
     },
-    toggleForm: new Form({}),
     search: "",
-    domain: window.location.hostname,
     form: new Form({
       date_started: "",
       date_ended: ""
     }),
     date_started_modal: "",
-    date_ended_modal: ""
+    date_ended_modal: "",
+    domain: window.location.hostname
   }),
   watch: {
     items: {
       handler: function(newValue) {},
       deep: true
-    },
-    selected: {
-      handler: function(newValue) {},
-      deep: true
     }
   },
   methods: {
-    massCreateInvoice() {
-      let self = this;
-      let customers = [];
-      for (let index = 0; index < self.selected.length; index++) {
-        customers.push(self.selected[index]["customer_id"]);
-      }
-      self.mass_create_invoices = self.selected;
-      axios
-        .post(route("api.invoice.massCreateInvoice"), self.mass_create_invoices)
-        .then(response => {
-          let toggleModal = swal.mixin({
-            confirmButtonClass: "v-btn blue-grey  subheading white--text",
-            buttonsStyling: false
-          });
-          toggleModal({
-            title: "Success!",
-            html: '<p class="title">Invoice Generated!</p>',
-            type: "success",
-            confirmButtonText: "Ok"
-          });
-          self.$nextTick(() => self.$router.push({ name: "invoices" }));
-        });
-    },
-    async generateInvoice() {
+      viewPDF(){
+          let url = `${window.location.protocol}//${this.domain}/pdf/total-all-customer-invoice?date_started=${this.form.date_started}&date_ended=${this.form.date_ended}`
+          let win = window.open(url, '_blank');
+              win.focus();
+      },
+    async generateWeeklyReport() {
       let self = this;
       self.form.busy = true;
       try {
         const payload = await axios.post(
-          route("api.invoice.generate"),
+          route("api.report.total-all-customer-invoice"),
           self.form
         );
-        let items = payload.data.data;
-        for (let index = 0; index < items.length; index++) {
-          items[index]["total"] =
-            items[index]["receiving_fee"] +
-            items[index]["delivery_fee"] +
-            items[index]["misc_fee"] +
-            items[index]["storage_fee"];
-          if (items[index]["total"] > 0) {
-            self.items.push(items[index]);
-          }
-        }
-        let message = "You Successfully Fetch Billable Customers.";
+        let items = payload.data.customers;
+        self.items = items
+        let message = `All Customer Invoice Report Generated!`;
         if (self.items.length < 1) {
-          message = "No Billable Customer Yet.";
+          message = "No Invoice For that Billing Cycle.";
         }
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -394,7 +338,7 @@ export default {
         toggleModal({
           title: "Success!",
           html: `<p class="title">${message}</p>`,
-          type: "warning",
+          type: "success",
           confirmButtonText: "Back"
         });
       } catch (errors) {
@@ -410,10 +354,6 @@ export default {
           confirmButtonText: "Back"
         });
       }
-    },
-    toggleAll() {
-      if (this.selected.length) this.selected = [];
-      else this.selected = this.items.slice();
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
