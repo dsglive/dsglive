@@ -38,7 +38,7 @@
 ## Installation
 
 1.  `git clone https://github.com/dsglive/dsglive dsglive`
-2.  `cd dglive`
+2.  `cd dsglive`
 3.  `composer install`
 4.  `yarn`
 5.  `cp env.example .env`
