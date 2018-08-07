@@ -1,6 +1,6 @@
 # DSGLive Official Repository
 
-## Built With Laravel , Vuetified (Real Time Application Ready)
+## Built With Laravel + [Vuetified](https://github.com/codeitlikemiley/vuetified) (Real Time App)
 
 # Table of Contents
 
