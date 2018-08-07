@@ -19,9 +19,9 @@
 - PHP 7.2+
 - Composer
 - Node JS
-- NPM
+- NPM/Yarn
+- Webpack
 - Redis
-- VS Code
 - NGINX
 - Supervisord
 - Beanstalkd
