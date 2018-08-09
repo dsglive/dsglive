@@ -30,7 +30,20 @@ mix.webpackConfig({
     }
   }
 });
-
+mix.options({
+  extractVueStyles: false,
+  processCssUrls: true,
+  purifyCss: false,
+  uglify: {
+    uglifyOptions: {
+      // fixes error on sweetalert2
+      compress: {
+        unused: false
+      }
+    }
+  },
+  postCss: []
+});
 mix.js("resources/assets/js/app.js", "public/js");
 mix.sass("resources/assets/sass/app.scss", "public/css");
 // mix.sourceMaps();
