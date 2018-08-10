@@ -16,7 +16,9 @@ class CustomerPDF extends Controller
      */
     public function viewCustomer(User $user)
     {
-        $packages   = Package::where('customer_id', $user->id)->active()->get();
+        $sortBy     = request()->sortBy;
+        $orderBy    = request()->orderBy;
+        $packages   = Package::where('customer_id', $user->id)->active()->undelivered()->get();
         $client_ids = $packages->pluck('client_id')->unique();
         $ids        = [];
 
@@ -25,10 +27,10 @@ class CustomerPDF extends Controller
         }
 
         $user->load(['profile', 'clients.packages']);
-        $data                   = $user->toArray();
-        $data['profile']        = $user->profile;
+        $data            = $user->toArray();
+        $data['profile'] = $user->profile;
         $data['clients'] = Client::findMany($ids);
-        $clients = $data['clients'];
+        $clients         = $data['clients'];
 
         foreach ($clients as $index => $client) {
             foreach ($client['packages'] as $key => $package) {
@@ -49,6 +51,22 @@ class CustomerPDF extends Controller
                 }
 
                 $data['clients'][$index]['total_cube'] = $total;
+            }
+        }
+        $data['clients'] = $data['clients']->sortBy('name')->values()->all();
+
+        if ('client_name' === $sortBy) {
+            $sortBy = 'name';
+        }
+        if($sortBy !== 'name') {
+            foreach ($data['clients'] as $index => $client) {
+                $data['clients'][$index]['packages'] = $data['clients'][$index]['packages']
+                    ->when($sortBy, function ($collection) use ($sortBy) {
+                        return $collection->sortBy($sortBy);
+                    })
+                    ->when('DESC' === $orderBy, function ($collection) use ($sortBy) {
+                        return $collection->sortByDesc($sortBy);
+                    })->values()->all();
             }
         }
 

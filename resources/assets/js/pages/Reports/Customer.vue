@@ -231,7 +231,7 @@ export default {
     customers: [],
     selected: [],
     pagination: {
-      sortBy: "name",
+      sortBy: "client_name",
       rowPerPage: "all"
     },
     form: new Form({
@@ -266,7 +266,7 @@ export default {
     viewPDF() {
       let url = `${window.location.protocol}//${
         window.location.hostname
-      }/pdf/customer-report/${this.form.customer_id}`;
+      }/pdf/customer-report/${this.form.customer_id}?sortBy=${this.pagination.sortBy}&orderBy=${this.pagination.descending ? 'DESC' : 'ASC'}`;
       window.open(url);
     },
     getCustomers() {

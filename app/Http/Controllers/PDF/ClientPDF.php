@@ -16,15 +16,28 @@ class ClientPDF extends Controller
      */
     public function viewClient(User $user, Client $client)
     {
-        $data = $client;
+        $sortBy           = request()->sortBy;
+        $orderBy          = request()->orderBy;
+        $data             = $client;
         $data['customer'] = $user->profile;
-        $data['packages'] = Package::where('client_id', $client->id)->where('customer_id', $user->id)->get();
-        $total = 0;
+        $data['packages'] = Package::where('client_id', $client->id)->where('customer_id', $user->id)
+        ->undelivered()->get();
+        $total            = 0;
+
         foreach ($data['packages'] as $key => $package) {
             $total += $package['cube'];
         }
+
         $data['total_cube'] = $total;
-        $pdf  = PDF::loadView('pdf.client-report', $data)
+        $data['packages']   = $data['packages']
+            ->when($sortBy, function ($collection) use ($sortBy) {
+                return $collection->sortBy($sortBy);
+            })
+            ->when('DESC' === $orderBy, function ($collection) use ($sortBy) {
+                return $collection->sortByDesc($sortBy);
+            })->values()->all();
+
+        $pdf = PDF::loadView('pdf.client-report', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))
             ->setOption('footer-font-size', 8);

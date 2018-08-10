@@ -129,7 +129,7 @@ class ReportController extends Controller
     public function reportByClient(Request $request)
     {
         $packages = Package::where('client_id', $request->input('client_id'))
-            ->where('customer_id', $request->input('customer_id'))->active()->get();
+            ->where('customer_id', $request->input('customer_id'))->active()->undelivered()->get();
         return PackageResource::collection($packages);
     }
 
@@ -138,7 +138,7 @@ class ReportController extends Controller
      */
     public function reportByCustomer(Request $request)
     {
-        $packages = Package::where('customer_id', request()->input('customer_id'))->active()->get();
+        $packages = Package::where('customer_id', request()->input('customer_id'))->active()->undelivered()->get();
         return PackageResource::collection($packages);
     }
 
