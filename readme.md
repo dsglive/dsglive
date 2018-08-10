@@ -26,14 +26,15 @@
 - Supervisord
 - Beanstalkd
 
-## VS Code for Linting and Formatting
+## VS Code Settings (Laravel/Vue - Auto Lint and Fix)
 
-- HTML CSS Support
-- Fantastic PHP/Laravel Pack
-- Intellisense For CSS Class names in HTML
-- Super charged Vuejs Extension Pack
-- vuetify-vscode
-- Vue.js Extension Pack
+- install Vs code plugin "Settings Sync" or `ctrl + shift + x`
+- press: `ctrl + shift + P`
+- search/type: `Sync: Advance Option`
+- Choose: `Download Settings From Public Gist`
+- Enter Gist ID: `bb232eb1abd0734a815b658a91b9cba5`
+- Additional Installation:
+  - [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer)
 
 ## Installation
 
