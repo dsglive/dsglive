@@ -608,7 +608,7 @@ export default {
       let self = this;
       self.toggleForm.toggle = user.active;
       self.toggleForm.user_id = user.id;
-      if (user.id === 1) {
+      if (user.id <= 1000) {
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
           buttonsStyling: false

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Logistic;
 use Illuminate\Support\Facades\DB;
 
 /* Log SQL Querries */
