@@ -53,12 +53,14 @@ class CustomerPDF extends Controller
                 $data['clients'][$index]['total_cube'] = $total;
             }
         }
+
         $data['clients'] = $data['clients']->sortBy('name')->values()->all();
 
         if ('client_name' === $sortBy) {
             $sortBy = 'name';
         }
-        if($sortBy !== 'name') {
+
+        if ('name' !== $sortBy) {
             foreach ($data['clients'] as $index => $client) {
                 $data['clients'][$index]['packages'] = $data['clients'][$index]['packages']
                     ->when($sortBy, function ($collection) use ($sortBy) {
