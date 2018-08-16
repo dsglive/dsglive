@@ -177,7 +177,6 @@
         <thead>
             <tr>
                 <th>DSG #</th>
-                <th>Bin</th>
                 <th>Style</th>
                 <th>Item Description</th>
                 <th>Shipper</th>
@@ -190,9 +189,6 @@
         <tr style="page-break-inside: avoid;">
             <td class="borders">
                 {{ $item['dsg_id'] }}
-            </td>
-            <td class="borders">
-                {{ $item['bin_name'] }}
             </td>
             <td class="borders">
                 {{ $item['style_no'] }}
