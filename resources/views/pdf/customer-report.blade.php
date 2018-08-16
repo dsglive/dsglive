@@ -127,6 +127,7 @@
         </thead>
         <tbody>
             @foreach($client['packages'] as $item)
+            @if(!$item['delivered'])
             <tr style="page-break-inside: avoid;">
                 <td class="borders">
                     {{ $item['dsg_id'] }}
@@ -154,6 +155,7 @@
                     {{ $item['cube'] }}
                 </td>
             </tr>
+            @endif
             @endforeach
         </tbody>
     </table>
