@@ -128,22 +128,22 @@
             @foreach($client['packages'] as $item)
             @if(!$item['delivered'])
             <tr style="page-break-inside: avoid;">
-                <td class="borders">
+                <td class="borders" style="width:10%;">
                     {{ $item['dsg_id'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:10%;">
                     {{ $item['style_no'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:30%;">
                     {{ $item['description'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:15%;">
                     {{ $item['shipper_name'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:30%;">
                     @if($item['damaged']) {{ $item['damage_description'] }}@endif
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:5%;">
                     {{ $item['cube'] }}
                 </td>
             </tr>
