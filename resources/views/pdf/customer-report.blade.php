@@ -109,10 +109,10 @@
         <thead>
             <tr>
                 <th colspan="3" style="border-right: thin solid white">
-                    Client: {{ $client['name'] }}
+                    {{ $client['name'] }}
                 </th>
                 <th colspan="4" style="border-left:thin solid white; text-align:right">
-                    Total items: {{ count($client['packages']) }} | Total Cube: {{ $client['total_cube'] }} cf
+                    Total items: {{ count($client['packages']) }} | Total Cube: {{ $client['total_cube'] }}
                 </th>
             </tr>
             <tr>
@@ -141,11 +141,7 @@
                     {{ $item['shipper_name'] }}
                 </td>
                 <td class="borders">
-                    @if($item['damaged']) 
-                    {{ $item['damage_description'] }}
-                    @else 
-                    None 
-                    @endif
+                    @if($item['damaged']) {{ $item['damage_description'] }}@endif
                 </td>
                 <td class="borders">
                     {{ $item['cube'] }}

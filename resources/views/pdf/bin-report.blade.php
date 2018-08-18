@@ -62,7 +62,7 @@
             <td style="width: 50%; color: darkblue; text-align: center;">
                 <h2>Current Bin List</h2>
                 <h3 style="margin-top:-25px; font-style: italic">Bin: {{ $code }} <br> Total items: {{ count($packages) }}
-                    <br> Total Cube: {{ $total_cube }} cf</h3>
+                    <br> Total Cube: {{ $total_cube }}</h3>
             </td>
     
             <td style="width: 25%; color: darkblue; text-align: right;">

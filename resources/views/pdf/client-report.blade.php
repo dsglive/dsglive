@@ -155,7 +155,7 @@
             <h2 style="padding-top:-20px;">Current Inventory List</h2>
             <h3 style="padding-top:-10px; font-style: italic">
                 Customer: {{ $customer['company_name'] }}<br>Client: {{ $name }}<br> Total Items: {{ count($packages) }}
-                <br> Total Cube: {{ $total_cube }} cf
+                <br> Total Cube: {{ $total_cube }}
             </h3>
         </div>
 

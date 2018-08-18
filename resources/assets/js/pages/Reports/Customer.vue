@@ -131,14 +131,20 @@
           slot-scope="props"
         >
           <tr>
-            <td class="title text-xs-left accent--text">
-              {{ props.item.dsg_id }}
-            </td>
             <td 
               :class="{'red--text': props.item.client_id === null || props.item.client_id === 1, 'accent--text': props.item.client_id > 1}" 
               class="title text-xs-left"
             >
               {{ props.item.client_name }}
+            </td>
+            <td class="title text-xs-left accent--text">
+              {{ props.item.dsg_id }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.style_no }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.description }}
             </td>
             <td 
               :class="{'red--text': props.item.shipper_id === null || props.item.shipper_id === 1, 'accent--text': props.item.shipper_id > 1}" 
@@ -147,20 +153,9 @@
               {{ props.item.shipper_name }}
             </td>
             <td 
-              class="title text-xs-left"
+              class="title text-xs-left accent--text"
             >
-              {{ props.item.bin_name }}
-            </td>
-            <td 
-              class="title text-xs-left"
-            >
-              {{ props.item.po_no }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.style_no }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.description }}
+              {{ props.item.damage_description }}
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.cube }}
@@ -213,15 +208,18 @@ export default {
     dialog: false,
     /* table */
     headers: [
-      { text: "DSG#", value: "dsg_id", align: "left", sortable: true },
       { text: "Client", value: "client_name", align: "left", sortable: true },
-      { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
-      { text: "Bin", value: "bin_name", align: "left", sortable: true },
-      { text: "PO#", value: "po_no", align: "left", sortable: true },
+      { text: "DSG#", value: "dsg_id", align: "left", sortable: true },
       { text: "Style#", value: "style_no", align: "left", sortable: true },
       {
         text: "Description",
         value: "description",
+        align: "left",
+        sortable: true
+      },
+      {
+        text: "Damage",
+        value: "damage_description",
         align: "left",
         sortable: true
       },
