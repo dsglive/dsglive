@@ -856,7 +856,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getText: function getText(item) {
-      return "DSG# " + item.dsg_id + "|Style# " + item.style_no + "|Description: " + item.description;
+      return item.dsg_id + " | " + item.style_no + " | " + item.description;
     },
     getInitialData: function getInitialData() {
       var _this = this;

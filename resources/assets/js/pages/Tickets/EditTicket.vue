@@ -901,7 +901,7 @@ export default {
       this.form.total_charges = total.toFixed(4);
     },
     getText: function getText(item) {
-      return `DSG# ${item.dsg_id}|Style# ${item.style_no}|Description: ${
+      return `${item.dsg_id} | ${item.style_no} | ${
         item.description
       }`;
     },
