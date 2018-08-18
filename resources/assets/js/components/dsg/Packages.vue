@@ -48,104 +48,6 @@
           pa-2
         >
           <!-- 6flex tab-->
-
-          <v-flex 
-            sm12
-            md2
-          >
-            <v-text-field
-              v-model="item.po_no"
-              readonly
-              label="PO No."
-              prepend-icon="bookmark"
-            />
-          </v-flex>
-          <v-flex
-            sm12
-            md2
-          >
-            <v-text-field
-              v-model="item.date_received"
-              readonly
-              label="Date Received"
-              prepend-icon="event_available"
-            />
-          </v-flex>
-          <v-flex 
-            sm12
-            md2
-          >
-            <v-text-field
-              v-model="item.date_processed"
-              readonly
-              label="Date Processed"
-              prepend-icon="event_note"
-            />
-          </v-flex>
-          <v-flex 
-            sm12
-            md2
-          >
-            <v-autocomplete
-              v-validate="'required'"
-              :items="bins"
-              v-model="item.bin_id"
-              :error-messages="errorMessages(`packages.${iteration}.bin_id`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.bin_id`) }"
-              :readonly="readonly"
-              item-text="code"
-              item-value="id"
-              required
-              label="Choose Bin"
-              light
-              prepend-icon="view_comfy"
-              data-vv-name="`packages.${iteration}.bin_id`"
-              hint="Choose Bin"
-              persistent-hint
-            />
-          </v-flex>
-          <v-flex 
-            sm12
-            md2
-          >
-            <v-autocomplete
-              v-validate="'required'"
-              :items="handlingRates"
-              v-model="item.handling_type"
-              :error-messages="errorMessages(`packages.${iteration}.handling_type`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.handling_type`) }"
-              :readonly="readonly"
-              item-text="name"
-              item-value="id"
-              required
-              label="Choose Handling Note"
-              light
-              prepend-icon="receipt"
-              data-vv-name="`packages.${iteration}.handling_type`"
-              hint="Choose Handling Note"
-              persistent-hint
-            />
-          </v-flex>
-          <v-flex 
-            sm12
-            md2
-          >
-            <v-autocomplete
-              v-validate="'required'"
-              :items="store_at"
-              v-model="item.store_at"
-              :error-messages="errorMessages(`packages.${iteration}.store_at`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.store_at`) }"
-              :readonly="readonly"
-              required
-              label="Store At"
-              light
-              prepend-icon="dns"
-              data-vv-name="`packages.${iteration}.store_at`"
-              hint="Choose Store At"
-              persistent-hint
-            />
-          </v-flex>
           <v-flex 
             sm12
             md2
@@ -157,6 +59,22 @@
               prepend-icon="style"
               hint="Optional"
               persistent-hint
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-text-field
+              v-validate="'required'"
+              v-model="item.description"
+              :readonly="readonly"
+              :error-messages="errorMessages(`packages.${iteration}.description`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.description`) }"
+              data-vv-name="`packages.${index}.description`"
+              hint="Required"
+              persistent-hint
+              label="Item Description"
             />
           </v-flex>
           <v-flex 
@@ -223,14 +141,94 @@
             sm12
             md2
           >
+            <v-autocomplete
+              v-validate="'required'"
+              :items="bins"
+              v-model="item.bin_id"
+              :error-messages="errorMessages(`packages.${iteration}.bin_id`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.bin_id`) }"
+              :readonly="readonly"
+              item-text="code"
+              item-value="id"
+              required
+              label="Choose Bin"
+              light
+              prepend-icon="view_comfy"
+              data-vv-name="`packages.${iteration}.bin_id`"
+              hint="Choose Bin"
+              persistent-hint
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-autocomplete
+              v-validate="'required'"
+              :items="store_at"
+              v-model="item.store_at"
+              :error-messages="errorMessages(`packages.${iteration}.store_at`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.store_at`) }"
+              :readonly="readonly"
+              required
+              label="Store At"
+              light
+              prepend-icon="dns"
+              data-vv-name="`packages.${iteration}.store_at`"
+              hint="Choose Store At"
+              persistent-hint
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
+            <v-autocomplete
+              v-validate="'required'"
+              :items="handlingRates"
+              v-model="item.handling_type"
+              :error-messages="errorMessages(`packages.${iteration}.handling_type`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.handling_type`) }"
+              :readonly="readonly"
+              item-text="name"
+              item-value="id"
+              required
+              label="Choose Handling Note"
+              light
+              prepend-icon="receipt"
+              data-vv-name="`packages.${iteration}.handling_type`"
+              hint="Choose Handling Note"
+              persistent-hint
+            />
+          </v-flex>
+          <v-flex 
+            sm12
+            md2
+          >
             <v-switch
               :readonly="readonly"
               v-model="item.damaged"
               :label="getDamageStatus(item.damaged)"
             />
           </v-flex>
+          <v-flex 
+            v-if="item.damaged"
+            sm12
+            md4
+          >
+            <v-text-field
+              v-validate="'required: item.damaged'"
+              v-model="item.damage_description"
+              :readonly="readonly"
+              :error-messages="errorMessages(`packages.${iteration}.damage_description`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.damage_description`) }"
+              hint="Required If Marked As Damaged"
+              data-vv-name="`packages.${iteration}.damage_description`"
+              persistent-hint
+              label="Damaged Description"
+            />
+          </v-flex>
         </v-layout>
-            
         <v-layout
           row 
           wrap
@@ -241,39 +239,30 @@
             md6 
             px-3
           >
-            <v-subheader>
-              <v-spacer/>
-              <v-btn
-                flat 
-                icon
-                @click="viewImages()"
+            <v-btn
+              block
+              color="secondary"
+              dark
+              @click="viewImages()"
+            >
+              View Item Images
+              <v-icon 
+                right
               >
-                <v-icon 
-                  color="blue" 
-                >
-                  image
-                </v-icon>
-              </v-btn>
-            </v-subheader>
-            <v-text-field
-              v-validate="'required'"
-              v-model="item.description"
-              :readonly="readonly"
-              :error-messages="errorMessages(`packages.${iteration}.description`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.description`) }"
-              data-vv-name="`packages.${index}.description`"
-              hint="Required"
-              persistent-hint
-              label="Item Description"
-            />
+                image
+              </v-icon>
+            </v-btn>
             <v-btn 
               v-if="!readonly" 
               block
-              flat
               color="blue"
+              dark
               @click="openPackageImagesModal()"
             >
-              Upload Package Images <v-icon right>add_photo_alternate</v-icon>
+              Upload Package Images 
+              <v-icon 
+                right 
+              >add_photo_alternate</v-icon>
             </v-btn>
             <package-images-uploader 
               :id="item.id" 
@@ -286,36 +275,24 @@
             md6 
             px-3
           >
-            <v-subheader >
-              <v-spacer/>
-              <v-btn
-                flat 
-                icon
-                @click="viewDamageImages()"
+            <v-btn
+              block
+              dark
+              color="secondary"
+              @click="viewDamageImages()"
+            >
+              View Damage Images
+              <v-icon 
+                right
               >
-                <v-icon 
-                  color="error" 
-                >
-                  broken_image
-                </v-icon>
-              </v-btn>
-            </v-subheader>
-            <v-text-field
-              v-validate="'required: item.damaged'"
-              v-model="item.damage_description"
-              :readonly="readonly"
-              :error-messages="errorMessages(`packages.${iteration}.damage_description`)"
-              :class="{ 'error--text': hasErrors(`packages.${iteration}.damage_description`) }"
-              hint="Required If Marked As Damaged"
-              data-vv-name="`packages.${iteration}.damage_description`"
-              persistent-hint
-              label="Damaged Description"
-            />
+                broken_image
+              </v-icon>
+            </v-btn>
             <v-btn 
               v-if="!readonly" 
               block
-              flat
               color="error"
+              dark
               @click="openDamagedImagesModal()"
             >
               Upload Damaged Images <v-icon right>broken_image</v-icon>
