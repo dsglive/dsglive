@@ -156,25 +156,25 @@
             <td 
               class="title text-xs-left accent--text"
             >
-              <span v-if="props.item.receiving_fee">{{ props.item.receiving_fee.toFixed(4) }}</span>
+              <span v-if="props.item.receiving_fee">{{ props.item.receiving_fee.toFixed(2) }}</span>
               <span v-else>{{ props.item.receiving_fee }}</span>
             </td>
             <td 
               class="title text-xs-left accent--text"
             >
-              <span v-if="props.item.delivery_fee">{{ props.item.delivery_fee.toFixed(4) }}</span>
+              <span v-if="props.item.delivery_fee">{{ props.item.delivery_fee.toFixed(2) }}</span>
               <span v-else>{{ props.item.delivery_fee }}</span>
             </td>
             <td class="title text-xs-left accent--text">
-              <span v-if="props.item.storage_fee">{{ props.item.storage_fee.toFixed(4) }}</span>
+              <span v-if="props.item.storage_fee">{{ props.item.storage_fee.toFixed(2) }}</span>
               <span v-else>{{ props.item.storage_fee }}</span>
             </td>
             <td class="title text-xs-center accent--text">
-              <span v-if="props.item.misc_fee">{{ props.item.misc_fee.toFixed(4) }}</span>
+              <span v-if="props.item.misc_fee">{{ props.item.misc_fee.toFixed(2) }}</span>
               <span v-else>{{ props.item.misc_fee }}</span>
             </td>
             <td class="title text-xs-center accent--text">
-              {{ props.item.total.toFixed(4) }}
+              {{ props.item.total.toFixed(2) }}
             </td>
           </tr>
         </template>

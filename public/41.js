@@ -899,7 +899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (total < 0) {
         total = 0;
       }
-      this.form.total_time = total.toFixed(4);
+      this.form.total_time = total.toFixed(2);
       return total;
     },
     computeTotalCharge: function computeTotalCharge() {
@@ -912,7 +912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var total_rate = total_time * rate;
       var total = 0;
       total = total_rate + surcharge * total_rate;
-      this.form.total_charges = total.toFixed(4);
+      this.form.total_charges = total.toFixed(2);
     },
 
     getText: function getText(item) {

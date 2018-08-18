@@ -622,7 +622,7 @@ var render = function() {
                             props.item.receiving_fee
                               ? _c("span", [
                                   _vm._v(
-                                    _vm._s(props.item.receiving_fee.toFixed(4))
+                                    _vm._s(props.item.receiving_fee.toFixed(2))
                                   )
                                 ])
                               : _c("span", [
@@ -638,7 +638,7 @@ var render = function() {
                             props.item.delivery_fee
                               ? _c("span", [
                                   _vm._v(
-                                    _vm._s(props.item.delivery_fee.toFixed(4))
+                                    _vm._s(props.item.delivery_fee.toFixed(2))
                                   )
                                 ])
                               : _c("span", [
@@ -654,7 +654,7 @@ var render = function() {
                             props.item.storage_fee
                               ? _c("span", [
                                   _vm._v(
-                                    _vm._s(props.item.storage_fee.toFixed(4))
+                                    _vm._s(props.item.storage_fee.toFixed(2))
                                   )
                                 ])
                               : _c("span", [
@@ -669,7 +669,7 @@ var render = function() {
                           [
                             props.item.misc_fee
                               ? _c("span", [
-                                  _vm._v(_vm._s(props.item.misc_fee.toFixed(4)))
+                                  _vm._v(_vm._s(props.item.misc_fee.toFixed(2)))
                                 ])
                               : _c("span", [
                                   _vm._v(_vm._s(props.item.misc_fee))
@@ -683,7 +683,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n            " +
-                                _vm._s(props.item.total.toFixed(4)) +
+                                _vm._s(props.item.total.toFixed(2)) +
                                 "\n          "
                             )
                           ]

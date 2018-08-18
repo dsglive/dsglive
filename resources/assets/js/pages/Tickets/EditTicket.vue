@@ -885,7 +885,7 @@ export default {
       if (total < 0) {
         total = 0;
       }
-      this.form.total_time = total.toFixed(4);
+      this.form.total_time = total.toFixed(2);
       return total;
     },
     computeTotalCharge() {
@@ -898,7 +898,7 @@ export default {
       let total_rate = total_time * rate;
       let total = 0;
       total = total_rate + surcharge * total_rate;
-      this.form.total_charges = total.toFixed(4);
+      this.form.total_charges = total.toFixed(2);
     },
     getText: function getText(item) {
       return `${item.dsg_id} | ${item.style_no} | ${
