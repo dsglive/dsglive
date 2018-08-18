@@ -135,6 +135,12 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.dsg_id }}
             </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.style_no }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.description }}
+            </td>
             <td 
               :class="{'red--text': props.item.customer_id === null || props.item.customer_id === 1001, 'accent--text': props.item.customer_id > 1001}" 
               class="title text-xs-left"
@@ -146,17 +152,6 @@
               class="title text-xs-left"
             >
               {{ props.item.client_name }}
-            </td>
-            <td 
-              class="title text-xs-left"
-            >
-              {{ props.item.po_no }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.style_no }}
-            </td>
-            <td class="title text-xs-center accent--text">
-              {{ props.item.description }}
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.damage_description }}
@@ -213,6 +208,13 @@ export default {
     /* table */
     headers: [
       { text: "DSG#", value: "dsg_id", align: "left", sortable: true },
+      { text: "Style#", value: "style_no", align: "left", sortable: true },
+        {
+        text: "Item Description",
+        value: "description",
+        align: "left",
+        sortable: true
+      },
       {
         text: "Customer",
         value: "customer_name",
@@ -220,16 +222,8 @@ export default {
         sortable: true
       },
       { text: "Client", value: "client_name", align: "left", sortable: true },
-      { text: "PO#", value: "po_no", align: "left", sortable: true },
-      { text: "Style#", value: "style_no", align: "left", sortable: true },
       {
-        text: "Description",
-        value: "description",
-        align: "left",
-        sortable: true
-      },
-      {
-        text: "Damaged Description",
+        text: "Damage",
         value: "damage_description",
         align: "left",
         sortable: true
