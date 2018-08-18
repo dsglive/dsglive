@@ -78,29 +78,29 @@
                 <th>Style#</th>
                 <th>Item Description</th>
                 <th>Customer &amp; Client</th>
-                <th>Damage Description</th>
+                <th>Damage(if any)</th>
                 <th>Item Cube</th>
             </tr>
         </thead>
         <tbody style="margin-top:10px;">
             @foreach($packages as $item)
             <tr style="page-break-inside: avoid;">
-                <td class="borders">
+                <td class="borders" style="width:10%;">
                     {{ $item['dsg_id'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:10%;">
                     {{ $item['style_no'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:25%;">
                     {{ $item['description'] }}
                 </td>
-                <td class="borders">
-                    {{ $item['customer']['profile']['company_name'] }} | {{ $item['client_name'] }}
+                <td class="borders" style="width:25%;">
+                    {{ $item['customer']['profile']['company_name'] }} </br> {{ $item['client_name'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:25%;">
                     {{ $item['damage_description'] }}
                 </td>
-                <td class="borders">
+                <td class="borders" style="width:5%;">
                     {{ $item['cube'] }}
                 </td>
             </tr>
