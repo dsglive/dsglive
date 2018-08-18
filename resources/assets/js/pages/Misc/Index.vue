@@ -254,7 +254,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -276,7 +276,7 @@ export default {
         value: "invoice_date",
         align: "left",
         sortable: true
-      },
+      }
     ],
     items: [],
     pagination: {
@@ -288,7 +288,8 @@ export default {
       misc_id: null
     }),
     domain: window.location.hostname,
-    message:"Warning! Deleting This Miscellaneous Record Has Some Repercusion To The Sytem, Some Features That Reference To This Miscellaneous Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
+    message:
+      "Warning! Deleting This Miscellaneous Record Has Some Repercusion To The Sytem, Some Features That Reference To This Miscellaneous Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
   }),
   watch: {
     items: {

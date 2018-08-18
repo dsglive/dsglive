@@ -272,9 +272,12 @@ export default {
       let self = this;
       self.dsgForm.busy = true;
       try {
-        const payload = await axios.post(route("api.report.reportUnknownCustomer"), self.dsgForm);
+        const payload = await axios.post(
+          route("api.report.reportUnknownCustomer"),
+          self.dsgForm
+        );
         self.items = payload.data.data;
-        console.log(self.items)
+        console.log(self.items);
         self.dsgForm = new Form({});
       } catch ({ errors, message }) {
         if (errors) {

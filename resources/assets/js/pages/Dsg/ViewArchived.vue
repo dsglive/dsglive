@@ -263,7 +263,7 @@ export default {
       active: false,
       id: 1,
       name: "Unknown Client"
-    },
+    }
   }),
   computed: {
     customerHint() {
@@ -433,7 +433,7 @@ export default {
         }
       },
       deep: false
-    },
+    }
   },
   created() {
     this.getCustomers();
@@ -506,32 +506,34 @@ export default {
     fetchDSG() {
       let id = this.id;
       let self = this;
-      axios.post(route("api.dsg.viewArchived", { dsg_id: id })).then(response => {
-        let dsg = response.data.data;
-        self.form.dsg_id = dsg.id;
-        self.form.active = dsg.active;
-        self.form.customer_id = dsg.customer_id;
-        self.form.customer_name = dsg.customer_name;
-        self.form.shipper_id = dsg.shipper_id;
-        self.form.shipper_name = dsg.shipper_name;
-        self.form.received_by = dsg.received_by;
-        self.form.received_by_name = dsg.received_by_name;
-        self.form.written_by = dsg.written_by;
-        self.form.written_by_name = dsg.written_by_name;
-        self.form.inspected_by = dsg.inspected_by;
-        self.form.inspected_by_name = dsg.inspected_by_name;
-        self.form.located_by = dsg.located_by;
-        self.form.located_by_name = dsg.located_by_name;
-        self.form.total_pieces = dsg.total_pieces;
-        self.form.total_cube = dsg.total_cube;
-        self.form.receiving_amount = dsg.receiving_amount;
-        self.form.client_id = dsg.client_id;
-        self.form.client_name = dsg.client_name;
-        self.po_no = dsg.packages[0]["po_no"];
-        self.date_received = dsg.packages[0]["date_received"];
-        self.date_processed = dsg.packages[0]["date_processed"];
-        self.packages = dsg.packages;
-      });
+      axios
+        .post(route("api.dsg.viewArchived", { dsg_id: id }))
+        .then(response => {
+          let dsg = response.data.data;
+          self.form.dsg_id = dsg.id;
+          self.form.active = dsg.active;
+          self.form.customer_id = dsg.customer_id;
+          self.form.customer_name = dsg.customer_name;
+          self.form.shipper_id = dsg.shipper_id;
+          self.form.shipper_name = dsg.shipper_name;
+          self.form.received_by = dsg.received_by;
+          self.form.received_by_name = dsg.received_by_name;
+          self.form.written_by = dsg.written_by;
+          self.form.written_by_name = dsg.written_by_name;
+          self.form.inspected_by = dsg.inspected_by;
+          self.form.inspected_by_name = dsg.inspected_by_name;
+          self.form.located_by = dsg.located_by;
+          self.form.located_by_name = dsg.located_by_name;
+          self.form.total_pieces = dsg.total_pieces;
+          self.form.total_cube = dsg.total_cube;
+          self.form.receiving_amount = dsg.receiving_amount;
+          self.form.client_id = dsg.client_id;
+          self.form.client_name = dsg.client_name;
+          self.po_no = dsg.packages[0]["po_no"];
+          self.date_received = dsg.packages[0]["date_received"];
+          self.date_processed = dsg.packages[0]["date_processed"];
+          self.packages = dsg.packages;
+        });
     }
   }
 };

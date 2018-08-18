@@ -48,21 +48,21 @@ export default {
     message: {
       type: String,
       default: function() {
-        return 'Deleting This Dsg Record , Will Also Delete All Associated Data Attach To It Such As Images and Items. Also Note That Some Data In The System That Exist Which Reference To This Dsg Record Will Break its Functionality Such As Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!';
+        return "Deleting This Dsg Record , Will Also Delete All Associated Data Attach To It Such As Images and Items. Also Note That Some Data In The System That Exist Which Reference To This Dsg Record Will Break its Functionality Such As Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!";
       }
     },
     title: {
       type: String,
       default: function() {
-        return 'Are You Sure You Want To Delete This?';
+        return "Are You Sure You Want To Delete This?";
       }
     },
     action: {
       type: String,
       default: function() {
-        return 'Yes , I Understand';
+        return "Yes , I Understand";
       }
-    },
+    }
   },
   data: () => ({
     dialog: false,
@@ -81,12 +81,11 @@ export default {
     confirm() {
       if (this.callback) {
         if (this.params != undefined) {
-          this.dialog = false
+          this.dialog = false;
 
           this.callback(this.params);
         } else {
-          this.dialog = false
-
+          this.dialog = false;
           this.callback();
         }
       }

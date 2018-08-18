@@ -348,7 +348,11 @@ export default {
     viewPDF() {
       let url = `${window.location.protocol}//${
         window.location.hostname
-      }/pdf/client-report/${this.form.customer_id}/${this.form.client_id}?sortBy=${this.pagination.sortBy}&orderBy=${this.pagination.descending ? 'DESC' : 'ASC'}`;
+      }/pdf/client-report/${this.form.customer_id}/${
+        this.form.client_id
+      }?sortBy=${this.pagination.sortBy}&orderBy=${
+        this.pagination.descending ? "DESC" : "ASC"
+      }`;
       window.open(url);
     },
     getCustomers() {

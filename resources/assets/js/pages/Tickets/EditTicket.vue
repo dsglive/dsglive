@@ -980,7 +980,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.$nextTick(() => self.$router.push({ name: "logistics" }));
+          self.$nextTick(() => self.$router.push({ name: "tickets" }));
         })
         .catch(errors => {
           console.log(errors.response.data);
@@ -1008,7 +1008,7 @@ export default {
     },
     redirectBack() {
       let self = this;
-      self.$nextTick(() => self.$router.push({ name: "logistics" }));
+      self.$nextTick(() => self.$router.push({ name: "tickets" }));
     }
   }
 };

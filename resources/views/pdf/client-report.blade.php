@@ -140,6 +140,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="horizontal" />
     <br>
@@ -153,11 +154,8 @@
         <div class="middle" style="width: 49%; color: darkblue;">
             <h2 style="padding-top:-20px;">Current Inventory List</h2>
             <h3 style="padding-top:-10px; font-style: italic">
-                Customer:
-               {{ $customer['company_name'] }}<br>Client:
-               {{ $name }}<br> Total Items:
-               {{ count($packages) }} <br> Total Cube:
-               {{ $total_cube }} cf
+                Customer: {{ $customer['company_name'] }}<br>Client: {{ $name }}<br> Total Items: {{ count($packages) }}
+                <br> Total Cube: {{ $total_cube }} cf
             </h3>
         </div>
 
@@ -185,29 +183,30 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($packages as $item)
-        <tr style="page-break-inside: avoid;">
-            <td class="borders">
-                {{ $item['dsg_id'] }}
-            </td>
-            <td class="borders">
-                {{ $item['style_no'] }}
-            </td>
-            <td class="borders">
-                {{ $item['description'] }}
-            </td>
-            <td class="borders">
-                {{ $item['shipper_name'] }}
-            </td>
-            <td class="borders">
-                @if($item['damaged']) {{ $item['damage_description'] }}@endif
-            </td>
-            <td class="borders">
-                {{ $item['cube'] }}
-            </td>
-        </tr>
-        @endforeach
+            @foreach($packages as $item)
+            <tr style="page-break-inside: avoid;">
+                <td class="borders">
+                    {{ $item['dsg_id'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['style_no'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['description'] }}
+                </td>
+                <td class="borders">
+                    {{ $item['shipper_name'] }}
+                </td>
+                <td class="borders">
+                    @if($item['damaged']) {{ $item['damage_description'] }}@endif
+                </td>
+                <td class="borders">
+                    {{ $item['cube'] }}
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </body>
+
 </html>

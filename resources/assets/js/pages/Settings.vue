@@ -47,18 +47,18 @@
 </template>
 
 <script>
-import MainLayout from 'Layouts/Main.vue';
-import Account from 'Components/settings/Account.vue';
-import Profile from 'Components/settings/Profile.vue';
+import MainLayout from "Layouts/Main.vue";
+import Account from "Components/settings/Account.vue";
+import Profile from "Components/settings/Profile.vue";
 
 export default {
-    components: {
-        MainLayout,
-        Account,
-        Profile,
-    },
-    data: () => ({
-        contentClass: { grey: true, 'lighten-4': true, 'accent--text': true }
-    })
+  components: {
+    MainLayout,
+    Account,
+    Profile
+  },
+  data: () => ({
+    contentClass: { grey: true, "lighten-4": true, "accent--text": true }
+  })
 };
 </script>

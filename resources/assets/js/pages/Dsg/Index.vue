@@ -534,7 +534,7 @@ export default {
         let updated = payload.data.updated;
         _.map(updated, id => {
           let index = _.findIndex(self.items, { id });
-          self.$delete(self.items,index)
+          self.$delete(self.items, index);
         });
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -570,7 +570,7 @@ export default {
         let updated = payload.data.updated;
         _.map(updated, id => {
           let index = _.findIndex(self.items, { id });
-          self.$delete(self.items,index)
+          self.$delete(self.items, index);
         });
         let toggleModal = swal.mixin({
           confirmButtonClass: "v-btn blue-grey  subheading white--text",
@@ -591,7 +591,7 @@ export default {
         }
       }
     },
-    
+
     toggleAll() {
       if (this.selected.length) this.selected = [];
       else this.selected = this.items.slice();

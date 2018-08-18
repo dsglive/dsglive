@@ -80,21 +80,21 @@ export default {
         type: "text/html",
         youtube: "sGKriF8cpSg",
         poster: "/svg/video-play-svgrepo-com.svg"
-      },
-    //   {
-    //     title: "Coming Soon...",
-    //     href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
-    //     type: "text/html",
-    //     youtube: "SV1Z2kpzjQk",
-    //     poster: "/svg/video-play-svgrepo-com.svg"
-    //   },
-    //   {
-    //     title: "Coming Soon...",
-    //     href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
-    //     type: "text/html",
-    //     youtube: "SV1Z2kpzjQk",
-    //     poster: "/svg/video-play-svgrepo-com.svg"
-    //   }
+      }
+      //   {
+      //     title: "Coming Soon...",
+      //     href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
+      //     type: "text/html",
+      //     youtube: "SV1Z2kpzjQk",
+      //     poster: "/svg/video-play-svgrepo-com.svg"
+      //   },
+      //   {
+      //     title: "Coming Soon...",
+      //     href: "https://www.youtube.com/watch?v=SV1Z2kpzjQk",
+      //     type: "text/html",
+      //     youtube: "SV1Z2kpzjQk",
+      //     poster: "/svg/video-play-svgrepo-com.svg"
+      //   }
     ],
     youtube_id: "xVbM50kL30Q",
     loaded: false
@@ -129,7 +129,7 @@ export default {
       }
     },
     youtubeWidth() {
-      let width = window.innerWidth - (window.innerWidth * .33 );
+      let width = window.innerWidth - window.innerWidth * 0.33;
 
       switch (this.$vuetify.breakpoint.name) {
         case "xs":

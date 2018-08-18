@@ -9,7 +9,7 @@ import rates from "Routes/rates";
 import bins from "Routes/bins";
 import errors from "Routes/errors";
 import dsg from "Routes/dsg";
-import logistics from "Routes/logistics";
+import tickets from "Routes/tickets";
 import warehouse from "Routes/warehouse";
 import misc from "Routes/misc";
 import invoices from "Routes/invoices";
@@ -28,7 +28,7 @@ const routes = routeFiles.concat(
   rates,
   bins,
   dsg,
-  logistics,
+    tickets,
   warehouse,
   misc,
   invoices,

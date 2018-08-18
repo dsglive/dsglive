@@ -577,7 +577,7 @@ export default {
         }
 
         if (newFile.success && !oldFile.success) {
-         //! PUSH TO ARRAY NEW IMAGES, We Can Use This TO Display at Package
+          //! PUSH TO ARRAY NEW IMAGES, We Can Use This TO Display at Package
           let link = newFile.response[this.fileKey];
           if (this.fileKey === "damaged_images") {
             if (this.item.damaged_images === null) {

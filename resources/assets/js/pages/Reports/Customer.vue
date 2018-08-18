@@ -266,7 +266,9 @@ export default {
     viewPDF() {
       let url = `${window.location.protocol}//${
         window.location.hostname
-      }/pdf/customer-report/${this.form.customer_id}?sortBy=${this.pagination.sortBy}&orderBy=${this.pagination.descending ? 'DESC' : 'ASC'}`;
+      }/pdf/customer-report/${this.form.customer_id}?sortBy=${
+        this.pagination.sortBy
+      }&orderBy=${this.pagination.descending ? "DESC" : "ASC"}`;
       window.open(url);
     },
     getCustomers() {

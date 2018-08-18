@@ -272,7 +272,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -282,7 +282,7 @@ export default {
       { text: "Name", value: "name", align: "left", sortable: true },
       { text: "Amount", value: "amount", align: "left", sortable: true },
       { text: "Type", value: "type", align: "left", sortable: true },
-      { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "Status", value: "active", align: "left", sortable: true }
     ],
     items: [],
     selected: [],

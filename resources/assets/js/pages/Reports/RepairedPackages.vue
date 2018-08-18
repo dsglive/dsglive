@@ -217,7 +217,10 @@ export default {
       let self = this;
       self.form.busy = true;
       try {
-        const payload = await axios.post(route("api.report.repaired"), self.form);
+        const payload = await axios.post(
+          route("api.report.repaired"),
+          self.form
+        );
         self.items = payload.data.data;
         self.form = new Form({});
       } catch ({ errors, message }) {

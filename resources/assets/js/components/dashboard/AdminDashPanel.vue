@@ -110,7 +110,7 @@
           >
             domain
           </v-icon> 
-          <v-subheader class="white--text">Dsg Warehouse</v-subheader>
+          <v-subheader class="white--text">Warehouse</v-subheader>
           {{ stats.dsg_warehouse }}
         </v-card-text>
       </v-card>
@@ -134,7 +134,7 @@
           >
             receipt
           </v-icon> 
-          <v-subheader class="white--text">Dsg Receiving</v-subheader>
+          <v-subheader class="white--text">Receiving</v-subheader>
           {{ stats.dsg_receiving }}
         </v-card-text>
       </v-card>
@@ -158,7 +158,7 @@
           >
             archive
           </v-icon> 
-          <v-subheader class="white--text">Archived DSG</v-subheader>
+          <v-subheader class="white--text">Archived Dsg</v-subheader>
           {{ stats.dsg_archived }}
         </v-card-text>
       </v-card>

@@ -186,11 +186,11 @@ export default {
   mixins: [validationError],
   props: {
     customer: {
-      type: [String,Number],
+      type: [String, Number],
       required: true
     },
     client: {
-      type: [String,Number],
+      type: [String, Number],
       required: true
     }
   },

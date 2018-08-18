@@ -263,7 +263,7 @@ export default {
       active: false,
       id: 1,
       name: "Unknown Client"
-    },
+    }
   }),
   computed: {
     customerHint() {
@@ -433,7 +433,7 @@ export default {
         }
       },
       deep: false
-    },
+    }
   },
   created() {
     this.getCustomers();

@@ -239,7 +239,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     rowsPerPageItems: [1, 2],
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
@@ -289,7 +289,8 @@ export default {
     },
     search: "",
     domain: window.location.hostname,
-    message:"Warning! Deleting This Invoicing Record Has Some Repercusion To The Sytem, Some Features That Reference To This Invoicing Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
+    message:
+      "Warning! Deleting This Invoicing Record Has Some Repercusion To The Sytem, Some Features That Reference To This Invoicing Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
   }),
   watch: {
     items: {
@@ -302,9 +303,14 @@ export default {
     self.fetchInvoices();
   },
   methods: {
-    viewInvoice(invoice){
-        let self = this
-        self.$nextTick(() => self.$router.push({ name: "view-invoice", params: { id: `${invoice.id}` }}));
+    viewInvoice(invoice) {
+      let self = this;
+      self.$nextTick(() =>
+        self.$router.push({
+          name: "view-invoice",
+          params: { id: `${invoice.id}` }
+        })
+      );
     },
     deleteInvoice(invoice) {
       let self = this;

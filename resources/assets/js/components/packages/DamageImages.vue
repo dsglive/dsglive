@@ -70,8 +70,8 @@ export default {
     images: {
       type: Array,
       required: true,
-      default: function () {
-        return []
+      default: function() {
+        return [];
       }
     }
   },
@@ -88,8 +88,8 @@ export default {
     close() {
       this.modal = false;
     },
-    viewFullImage(image){
-        window.open(image)
+    viewFullImage(image) {
+      window.open(image);
     }
   }
 };

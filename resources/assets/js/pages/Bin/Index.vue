@@ -265,7 +265,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -273,7 +273,7 @@ export default {
     headers: [
       { text: "Actions", value: "actions", align: "right", sortable: false },
       { text: "Bin #", value: "code", align: "left", sortable: true },
-      { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "Status", value: "active", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
@@ -343,10 +343,7 @@ export default {
       let self = this;
       self.binsForm.busy = true;
       try {
-        const payload = await axios.post(
-          route("api.bin.index"),
-          self.binsForm
-        );
+        const payload = await axios.post(route("api.bin.index"), self.binsForm);
         self.items = payload.data.data;
         self.binsForm = new Form({});
       } catch ({ errors, message }) {

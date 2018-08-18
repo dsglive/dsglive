@@ -110,6 +110,53 @@
           slot-scope="props"
         >
           <tr>
+            <td 
+              class="title text-xs-center" 
+              style="width:14%;">
+              <v-btn 
+                v-if="props.item.type === 'delivery_ticket' && props.item.items.length > 0" 
+                :disabled="!$auth.check('admin')" 
+                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
+                class="compress--icon"
+                light 
+                flat 
+                icon 
+                @click="props.expanded = !props.expanded"
+              >
+                <v-icon v-if="!props.expanded">fa-expand</v-icon>
+                <v-icon v-if="props.expanded">fa-compress</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                class="compress--icon"
+                flat 
+                icon 
+                color="blue" 
+                @click="editTicket(props.item)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                class="compress--icon"
+                flat 
+                icon 
+                color="purple" 
+                @click="viewPdf(props.item)"
+              >
+                <v-icon>picture_as_pdf</v-icon>
+              </v-btn>
+              <v-btn 
+                :disabled="!$auth.check('admin')" 
+                class="compress--icon"
+                flat 
+                icon 
+                color="error" 
+                @click="openDialog(props.item)"
+              >
+                <v-icon>fa-trash</v-icon>
+              </v-btn>
+            </td>
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>
@@ -133,49 +180,6 @@
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.total_charges }}
-            </td>
-            <td 
-              class="title text-xs-center" 
-              style="width:25%;">
-              <v-btn 
-                v-if="props.item.type === 'delivery_ticket' && props.item.items.length > 0" 
-                :disabled="!$auth.check('admin')" 
-                :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                light 
-                flat 
-                icon 
-                @click="props.expanded = !props.expanded"
-              >
-                <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                <v-icon v-if="props.expanded">fa-compress</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="blue" 
-                @click="editTicket(props.item)"
-              >
-                <v-icon>fa-pencil</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="purple" 
-                @click="viewPdf(props.item)"
-              >
-                <v-icon>picture_as_pdf</v-icon>
-              </v-btn>
-              <v-btn 
-                :disabled="!$auth.check('admin')" 
-                flat 
-                icon 
-                color="error" 
-                @click="openDialog(props.item)"
-              >
-                <v-icon>fa-trash</v-icon>
-              </v-btn>
             </td>
           </tr>
         </template>
@@ -310,12 +314,13 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     rowsPerPageItems: [1, 2],
     dialog: false,
     /* table */
     headers: [
+      { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "Ticket#", value: "id", align: "left", sortable: true },
       {
         text: "Customer",
@@ -336,8 +341,7 @@ export default {
         value: "total_charges",
         align: "left",
         sortable: true
-      },
-      { text: "Actions", value: "actions", align: "center", sortable: false }
+      }
     ],
     items: [],
     selected: [],
@@ -353,7 +357,8 @@ export default {
       logistics_id: null
     }),
     domain: window.location.hostname,
-    message:"Warning! Deleting This Logistic Record Has Some Repercusion To The Sytem, Some Features That Reference To This Logistic Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
+    message:
+      "Warning! Deleting This Logistic Record Has Some Repercusion To The Sytem, Some Features That Reference To This Logistic Record Will Break its Functionality Such As  Invoicing. Only Proceed If You Think There Will Be No Side Effect Of What You Will Be Doing!"
   }),
   watch: {
     items: {
@@ -401,12 +406,12 @@ export default {
     },
     editTicket(logistics) {
       vm.$router.push({
-        name: "edit-logistics",
+        name: "edit-ticket",
         params: { id: `${logistics.id}` }
       });
     },
     createTicket() {
-      vm.$router.push({ name: "create-logistics" });
+      vm.$router.push({ name: "create-ticket" });
     },
     async fetchTickets() {
       let self = this;
@@ -477,4 +482,9 @@ export default {
   }
 };
 </script>
-
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>

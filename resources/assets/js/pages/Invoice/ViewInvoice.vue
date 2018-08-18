@@ -233,7 +233,12 @@ export default {
     },
     clients: [],
     headers: [
-      { text: "Client Name", value: "client_name[0]", align: "left", sortable: true },
+      {
+        text: "Client Name",
+        value: "client_name[0]",
+        align: "left",
+        sortable: true
+      },
       {
         text: "Receiving Fee",
         value: "receiving_fee",
@@ -260,7 +265,7 @@ export default {
     pagination: {
       sortBy: "name"
     },
-    search: "",
+    search: ""
   }),
   watch: {
     clients: {
@@ -289,12 +294,16 @@ export default {
         self.customer = data.customer;
         self.items = data.clients;
         self.items.forEach(element => {
-            console.log('element',element)
-            element.receiving_fee =  _.sum(element.receiving_fee)
-            element.delivery_fee =  _.sum(element.delivery_fee)
-            element.misc_fee =  _.sum(element.misc_fee)
-            element.storage_fee =  _.sum(element.storage_fee)
-            element.total = element.receiving_fee + element.delivery_fee + element.misc_fee + element.storage_fee
+          console.log("element", element);
+          element.receiving_fee = _.sum(element.receiving_fee);
+          element.delivery_fee = _.sum(element.delivery_fee);
+          element.misc_fee = _.sum(element.misc_fee);
+          element.storage_fee = _.sum(element.storage_fee);
+          element.total =
+            element.receiving_fee +
+            element.delivery_fee +
+            element.misc_fee +
+            element.storage_fee;
         });
       });
     }

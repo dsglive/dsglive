@@ -298,8 +298,8 @@ export default {
         this.form.amount = response.data.data.amount;
         this.form.notes = response.data.data.notes;
         setTimeout(() => {
-        this.form.client_name = response.data.data.client_name;
-      }, 1000);
+          this.form.client_name = response.data.data.client_name;
+        }, 1000);
       });
     },
     submit() {
@@ -326,7 +326,7 @@ export default {
       let self = this;
       self.form.busy = true;
       self.form
-        .post(route("api.misc.update",{ misc: self.id }), self.form)
+        .post(route("api.misc.update", { misc: self.id }), self.form)
         .then(response => {
           console.log(response.data);
           self.$validator.reset();

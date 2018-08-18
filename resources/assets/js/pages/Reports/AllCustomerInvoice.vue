@@ -312,11 +312,15 @@ export default {
     }
   },
   methods: {
-      viewPDF(){
-          let url = `${window.location.protocol}//${this.domain}/pdf/total-all-customer-invoice?date_started=${this.form.date_started}&date_ended=${this.form.date_ended}`
-          let win = window.open(url, '_blank');
-              win.focus();
-      },
+    viewPDF() {
+      let url = `${window.location.protocol}//${
+        this.domain
+      }/pdf/total-all-customer-invoice?date_started=${
+        this.form.date_started
+      }&date_ended=${this.form.date_ended}`;
+      let win = window.open(url, "_blank");
+      win.focus();
+    },
     async generateWeeklyReport() {
       let self = this;
       self.form.busy = true;
@@ -326,7 +330,7 @@ export default {
           self.form
         );
         let items = payload.data.customers;
-        self.items = items
+        self.items = items;
         let message = `All Customer Invoice Report Generated!`;
         if (self.items.length < 1) {
           message = "No Invoice For that Billing Cycle.";

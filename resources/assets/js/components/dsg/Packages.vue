@@ -377,15 +377,15 @@
               When is it Repaired?
             </v-subheader>
             <v-text-field
-                :readonly="readonly"
-                :error-messages="errorMessages(`packages.${iteration}.date_repaired`)"
-                :class="{ 'error--text': hasErrors(`packages.${iteration}.date_repaired`) }"
-                v-model="item.date_repaired"
-                label="Date Repaired"
-                prepend-icon="event_note"
-                data-vv-name="`packages.${iteration}.date_repaired`"
-                @click="openDateRepairedModal()"
-              />
+              :readonly="readonly"
+              :error-messages="errorMessages(`packages.${iteration}.date_repaired`)"
+              :class="{ 'error--text': hasErrors(`packages.${iteration}.date_repaired`) }"
+              v-model="item.date_repaired"
+              label="Date Repaired"
+              prepend-icon="event_note"
+              data-vv-name="`packages.${iteration}.date_repaired`"
+              @click="openDateRepairedModal()"
+            />
             <v-dialog
               :ref="`date_repaired_${item.id}`"
               v-model="date_repaired_modal"
@@ -531,11 +531,11 @@ export default {
     }
   },
   methods: {
-      openDateRepairedModal(){
-          if(!this.readonly){
-          this.date_repaired_modal = true
-          }
-      },
+    openDateRepairedModal() {
+      if (!this.readonly) {
+        this.date_repaired_modal = true;
+      }
+    },
     viewDamageImages() {
       Bus.$emit(`view-damaged-package-${this.item.id}-images`);
     },

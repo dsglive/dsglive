@@ -201,7 +201,7 @@
                     {{ $item['bin_name'] }}
                 </td>
                 <td style="border-bottom: 1px solid #ccc;">
-                    {{ $item['handling_fee'] }}
+                    {{ $item['handlingrate']['name'] }}
                 </td>
                 <td style="border-bottom: 1px solid #ccc; text-align: center;">
                     {{ $item['cube'] }}

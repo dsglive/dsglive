@@ -446,7 +446,7 @@ export default {
     MainLayout,
     Confirm
   },
-  mixins: [validationError,confirmation],
+  mixins: [validationError, confirmation],
   data: () => ({
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
@@ -454,7 +454,7 @@ export default {
     headers: [
       { text: "Actions", value: "actions", align: "center", sortable: false },
       { text: "Name", value: "name", align: "left", sortable: true },
-      { text: "Status", value: "active", align: "left", sortable: true },
+      { text: "Status", value: "active", align: "left", sortable: true }
     ],
     items: [],
     selected: [],
@@ -486,7 +486,10 @@ export default {
   },
   methods: {
     editShipper(shipper) {
-      vm.$router.push({ name: "edit-shipper", params: { id: `${shipper.id}` } });
+      vm.$router.push({
+        name: "edit-shipper",
+        params: { id: `${shipper.id}` }
+      });
     },
     createShipper() {
       vm.$router.push({ name: "create-shipper" });

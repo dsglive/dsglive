@@ -250,7 +250,7 @@ export default {
             type: "success",
             confirmButtonText: "Ok"
           });
-          self.resetForm()
+          self.resetForm();
         })
         .catch(errors => {});
     },
@@ -269,7 +269,7 @@ export default {
         country: null,
         notes: null
       });
-    },
+    }
   }
 };
 </script>

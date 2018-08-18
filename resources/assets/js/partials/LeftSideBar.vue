@@ -108,8 +108,8 @@
       <inventory-links/>
       <v-link 
         v-if="$auth.check('admin')"
-        title="Logistics" 
-        href="/logistics" 
+        title="Tickets" 
+        href="/tickets" 
         icon="confirmation_number"
         link-color="white"
         active-color="#4db6ac"
@@ -164,8 +164,8 @@
 import VLink from "../components/VLink.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("auth");
-import InventoryLinks from "../components/InventoryLinks"
-import InvoiceLinks from "../components/InvoiceLinks"
+import InventoryLinks from "../components/InventoryLinks";
+import InvoiceLinks from "../components/InvoiceLinks";
 export default {
   components: {
     VLink,

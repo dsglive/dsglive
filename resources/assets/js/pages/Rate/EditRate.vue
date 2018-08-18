@@ -131,9 +131,9 @@ export default {
       name: false,
       amount: null,
       type: null,
-      active: false,
+      active: false
     }),
-    types:['handling','storage']
+    types: ["handling", "storage"]
   }),
   mounted() {
     let self = this;

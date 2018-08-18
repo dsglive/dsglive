@@ -49,12 +49,20 @@ class Package extends Model implements HasMedia
         'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
-        'logistic_id', 'invoiced','notes'
+        'logistic_id', 'invoiced', 'notes'
     ];
 
     public static function archived()
     {
         return self::onlyTrashed()->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**
@@ -81,11 +89,6 @@ class Package extends Model implements HasMedia
     public function dsg()
     {
         return $this->belongsTo(Dsg::class, 'dsg_id');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(User::class, 'customer_id');
     }
 
     /**
@@ -116,6 +119,14 @@ class Package extends Model implements HasMedia
         return $this->getMedia('package_images')->map(function ($media) {
             return $media->getFullUrl();
         });
+    }
+
+    /**
+     * @return mixed
+     */
+    public function handlingrate()
+    {
+        return $this->belongsTo(Rate::class, 'handling_type');
     }
 
     public function registerMediaCollections()
@@ -172,11 +183,6 @@ class Package extends Model implements HasMedia
         return $query->where('client_id', '!=', 1);
     }
 
-    public function scopeUnknownClient($query)
-    {
-        return $query->where('client_id', '!=', 1)->orWhere('client_id', null);
-    }
-
     /**
      * @param  $query
      * @return mixed
@@ -223,6 +229,14 @@ class Package extends Model implements HasMedia
         return $query->where('delivered', 0);
     }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUnknownClient($query)
+    {
+        return $query->where('client_id', '!=', 1)->orWhere('client_id', null);
+    }
 
     /**
      * @param  $query

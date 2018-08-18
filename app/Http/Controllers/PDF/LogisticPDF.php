@@ -15,7 +15,7 @@ class LogiscticPDF extends Controller
      */
     public function viewLogistic(Logistic $logistic)
     {
-        $data = $logistic->load('packages')->toArray();
+        $data = $logistic->load('packages.handlingrate')->toArray();
         $data['customer'] = User::with('profile')->find($data['customer_id']);
         $pdf  = PDF::loadView('pdf.logistic', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')

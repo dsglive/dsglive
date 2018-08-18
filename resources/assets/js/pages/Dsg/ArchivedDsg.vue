@@ -8,7 +8,6 @@
         <v-flex 
           xs12 
         >
-
           <v-card 
             light 
             flat
@@ -419,8 +418,8 @@ export default {
 </script>
 
 <style scoped>
-.compress--icon{
-    margin-left: -5px;
-    margin-right: -5px;
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
 }
 </style>

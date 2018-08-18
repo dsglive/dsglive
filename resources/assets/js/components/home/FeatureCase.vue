@@ -198,8 +198,7 @@ export default {
       {
         show: true,
         title: "We Have Our Own Conveyor",
-        tagline:
-          "Easily Receive Incoming Packages",
+        tagline: "Easily Receive Incoming Packages",
         src: "/svg/conveyor.svg",
         xs: 12,
         sm: 12,
@@ -221,8 +220,7 @@ export default {
       {
         show: true,
         title: "We Have Sturdy Storage Area",
-        tagline:
-          "To Store Cargo For Long Period of Time",
+        tagline: "To Store Cargo For Long Period of Time",
         src: "/svg/stowage.svg",
         xs: 12,
         sm: 12,

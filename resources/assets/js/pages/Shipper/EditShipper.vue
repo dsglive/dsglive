@@ -220,7 +220,7 @@ export default {
       zip: null,
       country: null,
       notes: null
-    }),
+    })
   }),
   mounted() {
     let self = this;
@@ -294,8 +294,7 @@ export default {
         self.form.zip = payload.data.data.zip;
         self.form.country = payload.data.data.country;
         self.form.notes = payload.data.data.notes;
-        self.form.password = '',
-        self.form.password_confirmation = ''
+        (self.form.password = ""), (self.form.password_confirmation = "");
       } catch ({ errors, message }) {
         if (errors) {
           console.log("fetchShipper:errors", errors);

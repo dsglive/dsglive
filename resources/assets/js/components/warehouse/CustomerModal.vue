@@ -325,7 +325,7 @@ export default {
     self.fetchRoles();
   },
   methods: {
-      getStatus(status) {
+    getStatus(status) {
       if (status) {
         return "Status: Active";
       } else {
@@ -375,7 +375,7 @@ export default {
         .then(response => {
           self.resetForm();
           self.$validator.reset();
-          Bus.$emit('customer-created', response.data)
+          Bus.$emit("customer-created", response.data);
           const successModal = swal.mixin({
             confirmButtonClass: "v-btn blue-grey  subheading white--text",
             buttonsStyling: false
@@ -410,7 +410,7 @@ export default {
         country: null,
         notes: null
       });
-    },
+    }
   }
 };
 </script>
