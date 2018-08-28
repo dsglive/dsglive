@@ -5,35 +5,32 @@
       wrap
     >
       <v-spacer/>
-      <v-btn 
+
+      <file-upload
         v-if="!isOption" 
-        color="blue"
-        flat
+        ref="upload"
+        :post-action="postAction"
+        :put-action="putAction"
+        :name="fileKey"
+        :extensions="extensions"
+        :accept="accept"
+        :multiple="multiple"
+        :directory="directory"
+        :size="size || 0"
+        :thread="thread < 1 ? 1 : (thread > 5 ? 5 : thread)"
+        :headers="headers"
+        :data="data"
+        :drop="drop"
+        :drop-directory="dropDirectory"
+        :add-index="addIndex"
+        v-model="files"
+        class="v-btn v-btn--flat theme--dark blue--text mx-5 py-2"
+        style="cursor:pointer;"
+        @input-filter="inputFilter"
+        @input-file="inputFile"
       >
-        <file-upload
-          ref="upload"
-          :post-action="postAction"
-          :put-action="putAction"
-          :name="fileKey"
-          :extensions="extensions"
-          :accept="accept"
-          :multiple="multiple"
-          :directory="directory"
-          :size="size || 0"
-          :thread="thread < 1 ? 1 : (thread > 5 ? 5 : thread)"
-          :headers="headers"
-          :data="data"
-          :drop="drop"
-          :drop-directory="dropDirectory"
-          :add-index="addIndex"
-          v-model="files"
-          style="cursor:pointer;margin:10px;"
-          @input-filter="inputFilter"
-          @input-file="inputFile"
-        >
-          Choose Files
-        </file-upload>
-      </v-btn>
+        Choose Files
+      </file-upload>
       <v-btn 
         v-else
         flat 
