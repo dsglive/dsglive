@@ -2,6 +2,7 @@ let mix = require("laravel-mix");
 
 /* Allow Us To Compile Stylus in app.js */
 mix.webpackConfig({
+    // added support for inline source map
     devtool: "inline-source-map",
     module: {
         rules: [
@@ -47,11 +48,12 @@ mix.options({
 });
 mix.js("resources/assets/js/app.js", "public/js");
 mix.sass("resources/assets/sass/app.scss", "public/css");
+// turn on sourcemap for this feature branch for debugging purposes
 mix.sourceMaps();
 
 if (mix.inProduction()) {
     /* extract all vendor */
-    //! This Will Cause Error if You Are running 'npm run test'
+    //! This Will Cause Error if You Are running 'npm run dev'
     //! Only Use This For Production
     mix.extract(["axios", "vue", "vuetify"]);
     mix.version();
