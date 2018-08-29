@@ -193,15 +193,23 @@
                   class="mx-2"
                   vertical
                 />
-                <v-text-field
-                  v-model="searchForm.term"
-                  label="Search"
-                  append-icon="search"
-                  single-line
-                  hide-details
-                  px-2
-                />
-
+                <form 
+                  style="margin-top:20px;" 
+                  @submit.prevent="searchPackages()">
+                  <v-text-field
+                    v-validate="'required'"
+                    v-model="searchForm.search"
+                    :label="searchBy.title"
+                    :error-messages="errorMessages('search')"
+                    :class="{ 'error--text': hasErrors('search') }"
+                    class="primary--text"
+                    data-vv-name="search"
+                    append-icon="search"
+                    single-line
+                    px-2
+                    @click:append="() => searchPackages()"
+                  />
+                </form>
                 <v-divider
                   class="mx-2"
                   vertical
@@ -215,6 +223,7 @@
                 @click="toggleOrderBy">
                 <v-icon :color="orderColor">{{ sortIcon }}</v-icon>
               </v-btn>
+              Order By: {{ searchOrderBy }}
             </th>
           </tr>
           <tr>
@@ -316,14 +325,27 @@ export default {
   mixins: [validationError],
   data: () => ({
     filters: [
-      { text: "Filter By DSG#", value: "dsg_id" },
-      { text: "Filter By Style#", value: "style_no" },
-      { text: "Filter By Shipper", value: "shipper_name" },
-      { text: "Filter By Description", value: "description" }
+      { text: "Filter By DSG#", value: "dsg_id", title: "Search By DSG" },
+      {
+        text: "Filter By Style#",
+        value: "style_no",
+        title: "Search By Style No."
+      },
+      {
+        text: "Filter By Shipper",
+        value: "shipper_name",
+        title: "Search By Shipper"
+      },
+      {
+        text: "Filter By Description",
+        value: "description",
+        title: "Search By Description"
+      }
     ],
     searchBy: {
       text: "Filter By DSG#",
-      value: "dsg_id"
+      value: "dsg_id",
+      title: "Search By DSG"
     },
     searchOrderBy: "ASC",
     orderColor: "teal",
@@ -360,12 +382,20 @@ export default {
     form: new Form({
       customer_id: ""
     }),
+    // server side search packages
     searchForm: new Form({
+      customer_id: null,
       from: null,
       to: null,
-      searchBy: {},
-      term: null
+      searchBy: {
+        text: "Filter By DSG#",
+        value: "dsg_id",
+        title: "Search By DSG"
+      },
+      search: null,
+      orderBy: "ASC"
     }),
+    // local search client side
     search: "",
     domain: window.location.hostname
   }),
@@ -389,8 +419,15 @@ export default {
       handler: function(newValue) {},
       deep: true
     },
-    "form.customer_id"() {
+    "form.customer_id"(newValue) {
+      this.searchForm.customer_id = newValue;
       this.fetchPackages();
+    },
+    searchOrderBy(newValue) {
+      this.searchForm.orderBy = newValue;
+    },
+    searchBy(newValue){
+        this.searchForm.searchBy = newValue
     }
   },
   mounted() {
@@ -426,22 +463,21 @@ export default {
         params: { id: `${id}` }
       });
     },
-    async searchPackages() {
+    searchPackages() {
       let self = this;
-      self.form.busy = true;
-      try {
-        const payload = await axios.post(
-          route("api.report.searchCustomer"),
-          self.form
-        );
-        self.items = payload.data.data;
-      } catch ({ errors, message }) {
-        if (errors) {
-          self.form.errors.set(errors);
-        }
-        if (message) {
-        }
-        self.form.busy = false;
+      console.log("searching...");
+      self.searchForm.busy = true;
+      self.$validator.validateAll();
+      if (!self.errors.any()) {
+        axios
+          // create API Endpoint for searching
+          .post(route("api.report.reportByCustomer"), self.searchForm)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     async fetchPackages() {
