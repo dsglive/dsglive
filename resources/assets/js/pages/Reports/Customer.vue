@@ -64,7 +64,7 @@
       </v-container>
     </v-jumbotron>
     <v-container 
-      style="margin-top:-190px;"
+      style="margin-top:-170px;"
       fluid>
       <!-- Search and Action Buttons -->
       <v-layout 
@@ -106,6 +106,117 @@
           slot="headers" 
           slot-scope="props"
         >
+          <tr>
+            <th colspan="1">
+              <v-dialog
+                ref="from"
+                v-model="date_from"
+                :return-value.sync="searchForm.from"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  v-model="searchForm.from"
+                  label="Date Started"
+                  prepend-icon="event_available"
+                  style="margin-top:26px;"
+                  readonly
+                />
+                <v-date-picker 
+                  v-model="searchForm.from" 
+                  scrollable>
+                  <v-spacer/>
+                  <v-btn 
+                    flat 
+                    color="primary" 
+                    @click="date_from = false">Cancel</v-btn>
+                  <v-btn 
+                    flat 
+                    color="primary" 
+                    @click="$refs.from.save(searchForm.from)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </th>
+            <th colspan="1">
+              <v-dialog
+                ref="to"
+                v-model="date_to"
+                :return-value.sync="searchForm.to"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  v-model="searchForm.to"
+                  label="Date Ended"
+                  prepend-icon="event_available"
+                  style="margin-top:26px;"
+                  readonly
+                />
+                <v-date-picker 
+                  v-model="searchForm.to" 
+                  scrollable>
+                  <v-spacer/>
+                  <v-btn 
+                    flat 
+                    color="primary" 
+                    @click="date_to = false">Cancel</v-btn>
+                  <v-btn 
+                    flat 
+                    color="primary" 
+                    @click="$refs.to.save(searchForm.to)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </th>
+            <th colspan="3">
+              <v-toolbar 
+                flat
+                dense 
+                color="white">
+                <v-autocomplete
+                  v-model="searchBy"
+                  :items="filters"
+                  return-object
+                  editable
+                  flat
+                  label="Filter By"
+                  hide-details
+                  overflow
+                />
+
+                <v-divider
+                  class="mx-2"
+                  vertical
+                />
+                <v-text-field
+                  v-model="searchForm.term"
+                  label="Search"
+                  append-icon="search"
+                  single-line
+                  hide-details
+                  px-2
+                />
+
+                <v-divider
+                  class="mx-2"
+                  vertical
+                />
+              </v-toolbar>
+            </th>
+            <th colspan="1">
+              <v-btn 
+                icon
+                flat
+                @click="toggleOrderBy">
+                <v-icon :color="orderColor">{{ sortIcon }}</v-icon>
+              </v-btn>
+            </th>
+          </tr>
           <tr>
             <th 
               v-for="header in props.headers" 
@@ -204,6 +315,20 @@ export default {
   },
   mixins: [validationError],
   data: () => ({
+    filters: [
+      { text: "Filter By DSG#", value: "dsg_id" },
+      { text: "Filter By Style#", value: "style_no" },
+      { text: "Filter By Shipper", value: "shipper_name" },
+      { text: "Filter By Description", value: "description" }
+    ],
+    searchBy: {
+      text: "Filter By DSG#",
+      value: "dsg_id"
+    },
+    searchOrderBy: "ASC",
+    orderColor: "teal",
+    date_from: false,
+    date_to: false,
     contentClass: { grey: true, "lighten-4": true, "accent--text": true },
     dialog: false,
     /* table */
@@ -235,6 +360,12 @@ export default {
     form: new Form({
       customer_id: ""
     }),
+    searchForm: new Form({
+      from: null,
+      to: null,
+      searchBy: {},
+      term: null
+    }),
     search: "",
     domain: window.location.hostname
   }),
@@ -245,6 +376,12 @@ export default {
         total += item.cube;
       });
       return `${total.toFixed(4)} cu.ft`;
+    },
+    sortIcon() {
+      if (this.searchOrderBy === "ASC") {
+        return "fa-sort-amount-asc";
+      }
+      return "fa-sort-amount-desc";
     }
   },
   watch: {
@@ -261,6 +398,15 @@ export default {
     self.getCustomers();
   },
   methods: {
+    toggleOrderBy() {
+      if (this.searchOrderBy === "ASC") {
+        this.searchOrderBy = "DESC";
+        this.orderColor = "orange";
+      } else {
+        this.searchOrderBy = "ASC";
+        this.orderColor = "teal";
+      }
+    },
     viewPDF() {
       let url = `${window.location.protocol}//${
         window.location.hostname
@@ -279,6 +425,24 @@ export default {
         name: "view-damaged-package",
         params: { id: `${id}` }
       });
+    },
+    async searchPackages() {
+      let self = this;
+      self.form.busy = true;
+      try {
+        const payload = await axios.post(
+          route("api.report.searchCustomer"),
+          self.form
+        );
+        self.items = payload.data.data;
+      } catch ({ errors, message }) {
+        if (errors) {
+          self.form.errors.set(errors);
+        }
+        if (message) {
+        }
+        self.form.busy = false;
+      }
     },
     async fetchPackages() {
       let self = this;
