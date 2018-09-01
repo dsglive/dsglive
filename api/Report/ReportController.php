@@ -65,9 +65,9 @@ class ReportController extends Controller
         $user = $request->user();
 
         if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
-            $packages = Package::with('media')->damaged()->active()->get();
+            $packages = Package::with('media')->damaged()->exceptRepaired()->active()->get();
         } else {
-            $packages = Package::with('media')->where('customer_id', $user->id)->damaged()->active()->get();
+            $packages = Package::with('media')->where('customer_id', $user->id)->damaged()->exceptRepaired()->active()->get();
         }
 
         return PackageResource::collection($packages);
@@ -81,9 +81,9 @@ class ReportController extends Controller
         $user = $request->user();
 
         if ($user->hasRole('admin') || $user->hasRole('warehouse')) {
-            $packages = Package::with('media')->repaired()->active()->get();
+            $packages = Package::with('media')->repaired()->active()->exceptArchived()->get();
         } else {
-            $packages = Package::with('media')->where('customer_id', $user->id)->repaired()->active()->get();
+            $packages = Package::with('media')->where('customer_id', $user->id)->repaired()->active()->exceptArchived()->get();
         }
 
         return PackageResource::collection($packages);

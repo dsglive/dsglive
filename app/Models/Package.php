@@ -57,6 +57,19 @@ class Package extends Model implements HasMedia
         return self::onlyTrashed()->get();
     }
 
+    public function scopeExceptArchived($query)
+    {
+        return $query->whereNotNull('deleted_at');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
     /**
      * @return mixed
      */
@@ -89,6 +102,15 @@ class Package extends Model implements HasMedia
     public function dsg()
     {
         return $this->belongsTo(Dsg::class, 'dsg_id');
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeExceptRepaired($query)
+    {
+        return $query->where('repaired', 0);
     }
 
     /**
@@ -230,7 +252,7 @@ class Package extends Model implements HasMedia
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function scopeUnknownClient($query)
@@ -319,11 +341,6 @@ class Package extends Model implements HasMedia
     public function ticket()
     {
         return $this->belongsTo(Logistic::class, 'logistic_id');
-    }
-
-    public function client()
-    {
-        return $this->belongsTo(Client::class, 'client_id');
     }
 
     /**
