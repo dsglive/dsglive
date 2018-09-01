@@ -41,11 +41,26 @@
             offset-md3
           >
             <v-btn 
+              v-if="!toggle_items"
               color="secondary" 
               block
               @click="viewPDF()"
             >
               View As PDF
+              <v-icon 
+                color="indigo lighten-4" 
+                right>
+                picture_as_pdf
+              </v-icon>
+
+            </v-btn>
+            <v-btn 
+              v-else
+              color="secondary" 
+              block
+              @click="viewCustomPDF()"
+            >
+              View Custom PDF Report
               <v-icon 
                 color="indigo lighten-4" 
                 right>
@@ -107,77 +122,107 @@
           slot-scope="props"
         >
           <tr>
-            <th colspan="1">
-              <v-dialog
-                ref="from"
-                v-model="date_from"
-                :return-value.sync="searchForm.from"
-                persistent
-                lazy
-                full-width
-                width="290px"
+            <th colspan="3">
+              <v-toolbar 
+                flat
+                color="white"
               >
-                <v-text-field
-                  slot="activator"
-                  v-model="searchForm.from"
-                  label="Date Started"
-                  prepend-icon="event_available"
-                  style="margin-top:26px;"
-                  readonly
-                />
-                <v-date-picker 
-                  v-model="searchForm.from" 
-                  scrollable>
-                  <v-spacer/>
-                  <v-btn 
-                    flat 
-                    color="primary" 
-                    @click="date_from = false">Cancel</v-btn>
-                  <v-btn 
-                    flat 
-                    color="primary" 
-                    @click="$refs.from.save(searchForm.from)">OK</v-btn>
-                </v-date-picker>
-              </v-dialog>
+                <v-dialog
+                  ref="from"
+                  v-model="date_from"
+                  :return-value.sync="searchForm.from"
+                  persistent
+                  lazy
+                  full-width
+                  width="290px"
+                >
+                  <v-text-field
+                    slot="activator"
+                    v-model="searchForm.from"
+                    label="Date Received From"
+                    prepend-icon="event_available"
+                    style="margin-top:26px;"
+                    readonly
+                  />
+                  <v-date-picker 
+                    v-model="searchForm.from" 
+                    scrollable>
+                    <v-spacer/>
+                    <v-btn 
+                      flat 
+                      color="primary" 
+                      @click="date_from = false">Cancel</v-btn>
+                    <v-btn 
+                      flat 
+                      color="primary" 
+                      @click="$refs.from.save(searchForm.from)">OK</v-btn>
+                  </v-date-picker>
+                </v-dialog>
+              
+                <v-dialog
+                  ref="to"
+                  v-model="date_to"
+                  :return-value.sync="searchForm.to"
+                  persistent
+                  lazy
+                  full-width
+                  width="290px"
+                >
+                  <v-text-field
+                    slot="activator"
+                    v-model="searchForm.to"
+                    label="Date Received To"
+                    prepend-icon="event_available"
+                    style="margin-top:26px;"
+                    readonly
+                  />
+                  <v-date-picker 
+                    v-model="searchForm.to" 
+                    scrollable>
+                    <v-spacer/>
+                    <v-btn 
+                      flat 
+                      color="primary" 
+                      @click="date_to = false">Cancel</v-btn>
+                    <v-btn 
+                      flat 
+                      color="primary" 
+                      @click="$refs.to.save(searchForm.to)">OK</v-btn>
+                  </v-date-picker>
+                </v-dialog>
+              
+              </v-toolbar>
             </th>
-            <th colspan="1">
-              <v-dialog
-                ref="to"
-                v-model="date_to"
-                :return-value.sync="searchForm.to"
-                persistent
-                lazy
-                full-width
-                width="290px"
+            <th colspan="2">
+              <v-toolbar 
+                flat
+                color="white"
               >
-                <v-text-field
-                  slot="activator"
-                  v-model="searchForm.to"
-                  label="Date Ended"
-                  prepend-icon="event_available"
-                  style="margin-top:26px;"
-                  readonly
+                <v-autocomplete
+                  v-model="sortBy"
+                  :items="sorts"
+                  return-object
+                  editable
+                  flat
+                  label="Sort By"
+                  hide-details
+                  overflow
+                  style="margin-top:5px;"
                 />
-                <v-date-picker 
-                  v-model="searchForm.to" 
-                  scrollable>
-                  <v-spacer/>
-                  <v-btn 
-                    flat 
-                    color="primary" 
-                    @click="date_to = false">Cancel</v-btn>
-                  <v-btn 
-                    flat 
-                    color="primary" 
-                    @click="$refs.to.save(searchForm.to)">OK</v-btn>
-                </v-date-picker>
-              </v-dialog>
+                <v-btn 
+                  flat
+                  @click="toggleOrderBy"
+                >
+                  <v-icon :color="orderColor">{{ sortIcon }}</v-icon>
+                  Order By: {{ searchOrderBy }}
+                </v-btn>
+              </v-toolbar>
             </th>
             <th colspan="3">
               <v-toolbar 
                 flat
-                dense 
-                color="white">
+                color="white"
+              >
                 <v-autocomplete
                   v-model="searchBy"
                   :items="filters"
@@ -187,11 +232,7 @@
                   label="Filter By"
                   hide-details
                   overflow
-                />
-
-                <v-divider
-                  class="mx-2"
-                  vertical
+                  style="margin-top:5px;"
                 />
                 <form 
                   style="margin-top:20px;" 
@@ -207,23 +248,27 @@
                     append-icon="search"
                     single-line
                     px-2
+                    style="margin-top:5px;"
                     @click:append="() => searchPackages()"
                   />
                 </form>
-                <v-divider
-                  class="mx-2"
-                  vertical
-                />
+                <v-btn 
+                  v-if="!toggle_items"
+                  flat
+                  @click="searchPackages"
+                >
+                  <v-icon color="teal">search</v-icon>
+                  Search
+                </v-btn>
+                <v-btn 
+                  v-else
+                  flat
+                  @click="revertBack"
+                >
+                  <v-icon color="amber">arrow_back</v-icon>
+                  Back
+                </v-btn>
               </v-toolbar>
-            </th>
-            <th colspan="1">
-              <v-btn 
-                icon
-                flat
-                @click="toggleOrderBy">
-                <v-icon :color="orderColor">{{ sortIcon }}</v-icon>
-              </v-btn>
-              Order By: {{ searchOrderBy }}
             </th>
           </tr>
           <tr>
@@ -264,21 +309,22 @@
               {{ props.item.style_no }}
             </td>
             <td class="title text-xs-center accent--text">
+              {{ props.item.shipper_name }}
+            </td>
+            <td class="title text-xs-center accent--text">
               {{ props.item.description }}
             </td>
             <td 
               :class="{'red--text': props.item.shipper_id === null || props.item.shipper_id === 1, 'accent--text': props.item.shipper_id > 1}" 
               class="title text-xs-left"
             >
-              {{ props.item.shipper_name }}
-            </td>
-            <td 
-              class="title text-xs-left accent--text"
-            >
               {{ props.item.damage_description }}
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.cube }}
+            </td>
+            <td class="title text-xs-center accent--text">
+              {{ props.item.date_received }}
             </td>
           </tr>
         </template>
@@ -325,23 +371,46 @@ export default {
   mixins: [validationError],
   data: () => ({
     filters: [
-      { text: "Filter By DSG#", value: "dsg_id", title: "Search By DSG" },
+      { text: "Filter By DSG#", value: "dsg_id", title: "Search by DSG" },
       {
         text: "Filter By Style#",
         value: "style_no",
-        title: "Search By Style No."
+        title: "Search by Style No."
       },
       {
         text: "Filter By Shipper",
         value: "shipper_name",
-        title: "Search By Shipper"
+        title: "Search by Shipper"
       },
       {
         text: "Filter By Description",
         value: "description",
-        title: "Search By Description"
+        title: "Search by Description"
       }
     ],
+    sorts: [
+      { text: "Sort By DSG#", value: "dsg_id", title: "Sort By DSG" },
+      {
+        text: "Sort By Style#",
+        value: "style_no",
+        title: "Sort By Style No."
+      },
+      {
+        text: "Sort By Shipper",
+        value: "shipper_name",
+        title: "Sort By Shipper"
+      },
+      {
+        text: "Sort By Description",
+        value: "description",
+        title: "Sort By Description"
+      }
+    ],
+    sortBy: {
+      text: "Sorty By DSG#",
+      value: "dsg_id",
+      title: "Sort By DSG#"
+    },
     searchBy: {
       text: "Filter By DSG#",
       value: "dsg_id",
@@ -358,6 +427,7 @@ export default {
       { text: "Client", value: "client_name", align: "left", sortable: true },
       { text: "DSG#", value: "dsg_id", align: "left", sortable: true },
       { text: "Style#", value: "style_no", align: "left", sortable: true },
+      { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       {
         text: "Description",
         value: "description",
@@ -370,9 +440,17 @@ export default {
         align: "left",
         sortable: true
       },
-      { text: "Cube", value: "cube", align: "left", sortable: true }
+      { text: "Cube", value: "cube", align: "left", sortable: true },
+      {
+        text: "Date Received",
+        value: "date_received",
+        align: "left",
+        sortable: true
+      }
     ],
     items: [],
+    fetch_items: [],
+    toggle_items: false,
     customers: [],
     selected: [],
     pagination: {
@@ -391,6 +469,11 @@ export default {
         text: "Filter By DSG#",
         value: "dsg_id",
         title: "Search By DSG"
+      },
+      sortBy: {
+        text: "Sorty By DSG#",
+        value: "dsg_id",
+        title: "Sort By DSG#"
       },
       search: null,
       orderBy: "ASC"
@@ -419,6 +502,10 @@ export default {
       handler: function(newValue) {},
       deep: true
     },
+    fetch_items: {
+      handler: function(newValue) {},
+      deep: true
+    },
     "form.customer_id"(newValue) {
       this.searchForm.customer_id = newValue;
       this.fetchPackages();
@@ -426,8 +513,11 @@ export default {
     searchOrderBy(newValue) {
       this.searchForm.orderBy = newValue;
     },
-    searchBy(newValue){
-        this.searchForm.searchBy = newValue
+    searchBy(newValue) {
+      this.searchForm.searchBy = newValue;
+    },
+    sortBy(newValue) {
+      this.searchForm.sortBy = newValue;
     }
   },
   mounted() {
@@ -435,6 +525,34 @@ export default {
     self.getCustomers();
   },
   methods: {
+    viewCustomPDF() {
+      //! HERE NOW!!!
+      // Passed an Array of Packages ID
+      // Passed Customer ID
+      // Passed Sorty BY
+      // Passed OrderBy
+      // Create A Controller And Return Exactly The Same Data Structure For ViewPDF!
+      let packages = [];
+      this.items.forEach(item => {
+          packages.push(item.id)
+      });
+      console.log(packages)
+      let string = ''
+      packages.forEach(item => {
+          string+= `&packages[]=${item}`   
+      })
+      console.log(string)
+      let url = `${window.location.protocol}//${
+        window.location.hostname
+      }/pdf/custom-customer-report/${this.form.customer_id}?sortBy=${
+        this.pagination.sortBy
+      }&orderBy=${this.pagination.descending ? "DESC" : "ASC"}${string}`;
+      window.open(url);
+    },
+    revertBack() {
+      this.toggle_items = !this.toggle_items;
+      this.items = this.fetch_items;
+    },
     toggleOrderBy() {
       if (this.searchOrderBy === "ASC") {
         this.searchOrderBy = "DESC";
@@ -444,6 +562,7 @@ export default {
         this.orderColor = "teal";
       }
     },
+    //! rework viewPDF
     viewPDF() {
       let url = `${window.location.protocol}//${
         window.location.hostname
@@ -468,12 +587,37 @@ export default {
       console.log("searching...");
       self.searchForm.busy = true;
       self.$validator.validateAll();
+      if (
+        (self.searchForm.from && !self.searchForm.to) ||
+        (!self.searchForm.from && self.searchForm.to)
+      ) {
+        let toggleModal = swal.mixin({
+          confirmButtonClass: "v-btn blue-grey  subheading white--text",
+          buttonsStyling: false
+        });
+        let message = "";
+        if (!self.searchForm.from) {
+          message = "Please Filled Up Date Received From";
+        }
+        if (!self.searchForm.to) {
+          message = "Please Filled Up Date Received To";
+        }
+        toggleModal({
+          title: "Validation Error!",
+          html: '<p class="title">' + message + "</p>",
+          type: "warning",
+          confirmButtonText: "Back"
+        });
+      }
+
       if (!self.errors.any()) {
         axios
           // create API Endpoint for searching
-          .post(route("api.report.reportByCustomer"), self.searchForm)
+          .post(route("api.report.searchCustomerReport"), self.searchForm)
           .then(response => {
-            console.log(response);
+            console.log(response.data.data);
+            self.items = response.data.data;
+            self.toggle_items = true;
           })
           .catch(error => {
             console.log(error);
@@ -489,6 +633,7 @@ export default {
           self.form
         );
         self.items = payload.data.data;
+        self.fetch_items = payload.data.data;
       } catch ({ errors, message }) {
         if (errors) {
           self.form.errors.set(errors);

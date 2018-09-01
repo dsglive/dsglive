@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.report.reportByBin');
     Route::post('/reports/reportByCustomer', 'Report\ReportController@reportByCustomer')
         ->name('api.report.reportByCustomer');
+    Route::post('/reports/searchCustomerReport', 'Report\ReportController@searchCustomerReport')
+    ->name('api.report.searchCustomerReport');
     Route::post('/reports/reportByClient', 'Report\ReportController@reportByClient')
         ->name('api.report.reportByClient');
     Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')

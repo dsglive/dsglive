@@ -142,6 +142,32 @@ class ReportController extends Controller
         return PackageResource::collection($packages);
     }
 
+    public function searchCustomerReport(Request $request)
+    {
+        $packages = Package::where('customer_id', request()->input('customer_id'))
+        ->when($request->from && $request->to, function($query) use ($request){
+            return $query->whereBetween('date_received', [$request->from, $request->to]);
+        })
+        ->when($request->searchBy['value'] === 'style_no', function($query) use ($request){
+            return $query->where('style_no', 'like', '%' . $request->search . '%');
+        })
+        ->when($request->searchBy['value'] === 'description', function($query) use ($request){
+            return $query->where('description', 'like', '%' . $request->search . '%');
+        })
+        ->when($request->searchBy['value'] === 'dsg_id', function($query) use ($request){
+            return $query->where('dsg_id', $request->search);
+        })
+        ->when($request->searchBy['value'] === 'shipper_name', function($query) use ($request){
+            return $query->where('shipper_name', 'like', '%' . $request->search . '%');
+        })
+        ->active()
+        ->undelivered()
+        ->orderBy($request->sortBy['value'],$request->orderBy)
+        ->get();
+        return PackageResource::collection($packages);
+
+    }
+
     /**
      * @param Request $request
      */

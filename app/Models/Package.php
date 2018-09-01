@@ -321,6 +321,11 @@ class Package extends Model implements HasMedia
         return $this->belongsTo(Logistic::class, 'logistic_id');
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
     /**
      * @param  $id
      * @param  $key
