@@ -174,11 +174,12 @@
     <table>
         <thead>
             <tr>
-                <th>DSG #</th>
+                <th>DSG#</th>
                 <th>Style</th>
                 <th>Item Description</th>
                 <th>Shipper</th>
                 <th>Damage Description</th>
+                <th>Bin#</th>
                 <th>Item Cube</th>
             </tr>
         </thead>
@@ -191,14 +192,17 @@
                 <td class="borders" style="width:10%;">
                     {{ $item['style_no'] }}
                 </td>
-                <td class="borders" style="width:30%;">
+                <td class="borders" style="width:27.5%;">
                     {{ $item['description'] }}
                 </td>
                 <td class="borders" style="width:15%;">
                     {{ $item['shipper_name'] }}
                 </td>
-                <td class="borders" style="width:30%;">
+                <td class="borders" style="width:27.5%;">
                     @if($item['damaged']) {{ $item['damage_description'] }}@endif
+                </td>
+                <td class="borders" style="width:5%;">
+                    {{ $item['bin_name'] }}
                 </td>
                 <td class="borders" style="width:5%;">
                     {{ $item['cube'] }}

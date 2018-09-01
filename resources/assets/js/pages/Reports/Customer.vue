@@ -526,22 +526,14 @@ export default {
   },
   methods: {
     viewCustomPDF() {
-      //! HERE NOW!!!
-      // Passed an Array of Packages ID
-      // Passed Customer ID
-      // Passed Sorty BY
-      // Passed OrderBy
-      // Create A Controller And Return Exactly The Same Data Structure For ViewPDF!
       let packages = [];
       this.items.forEach(item => {
-          packages.push(item.id)
+        packages.push(item.id);
       });
-      console.log(packages)
-      let string = ''
+      let string = "";
       packages.forEach(item => {
-          string+= `&packages[]=${item}`   
-      })
-      console.log(string)
+        string += `&packages[]=${item}`;
+      });
       let url = `${window.location.protocol}//${
         window.location.hostname
       }/pdf/custom-customer-report/${this.form.customer_id}?sortBy=${

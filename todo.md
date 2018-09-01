@@ -8,7 +8,7 @@
 
 ## ***Client Report***
 ### Index and PDF
-- [  ] Client Inventory report add bin number/ must be sortable by bin #/ need PDF
+- [x] Client Inventory report add bin number/ must be sortable by bin #/ need PDF
   - Add bin number on the pdf
   - Add on The Controller For the Api to Add A Sort by bin #
 

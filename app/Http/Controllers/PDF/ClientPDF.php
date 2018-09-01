@@ -36,7 +36,6 @@ class ClientPDF extends Controller
             ->when('DESC' === $orderBy, function ($collection) use ($sortBy) {
                 return $collection->sortByDesc($sortBy);
             })->values()->all();
-
         $pdf = PDF::loadView('pdf.client-report', $data)
             ->setOption('footer-right', 'Page [page] of [toPage]')
             ->setOption('footer-left', \Carbon\Carbon::now()->format('D, M d Y'))

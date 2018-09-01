@@ -173,6 +173,9 @@
               {{ props.item.damage_description }}
             </td>
             <td class="title text-xs-center accent--text">
+              {{ props.item.bin_name }}
+            </td>
+            <td class="title text-xs-center accent--text">
               {{ props.item.cube }}
             </td>
           </tr>
@@ -233,6 +236,7 @@ export default {
       },
       { text: "Shipper", value: "shipper_name", align: "left", sortable: true },
       { text: "Damage Description", value: "damage_description", align: "left", sortable: true },
+      { text: "Bin#", value: "bin_name", align: "left", sortable: true },
       { text: "Cube", value: "cube", align: "left", sortable: true }
     ],
     items: [],
