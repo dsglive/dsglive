@@ -86,6 +86,7 @@ class InvoiceController extends Controller
         $customers = request()->all();
         $customers = collect($customers);
         $ids       = $customers->pluck('customer_id')->toArray();
+        $last_invoice_at = Carbon::parse(request()->date_ended);
 
         foreach ($customers as $index => $customer) {
             $dsg = collect($customers[$index]['receiving'])->pluck('id')->toArray();
@@ -95,7 +96,7 @@ class InvoiceController extends Controller
             $misc = collect($customers[$index]['misc'])->pluck('id')->toArray();
             Misc::whereIn('id', $misc)->update(['invoiced' => true]);
             $storage = collect($customers[$index]['storage'])->pluck('id')->toArray();
-            Package::whereIn('id', $storage)->update(['invoiced' => true]);
+            Package::whereIn('id', $storage)->update(['invoiced' => true, 'last_invoice_at' => $last_invoice_at]);
         }
 
         foreach ($customers as $customer) {
