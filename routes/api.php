@@ -3,12 +3,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
     //? Payment Api
-    //? Payment Api
-    Route::post('/payments', 'Rate\RatesController@index')->name('api.payment.index');
-    Route::post('/payments/create', 'Rate\RatesController@create')->name('api.payment.create');
-    Route::post('/payments/delete', 'Rate\RatesController@delete')->name('api.payment.delete');
-    Route::get('/payments/{payment}/edit', 'Rate\RatesController@edit')->name('api.payment.edit');
-    Route::post('/payments/{payment}/update', 'Rate\RatesController@update')->name('api.payment.update');
+    Route::post('/payments', 'Payment\PaymentController@index')->name('api.payment.index');
+    Route::post('/payments/create', 'Payment\PaymentController@create')->name('api.payment.create');
+    Route::post('/payments/delete', 'Payment\PaymentController@delete')->name('api.payment.delete');
+    Route::get('/payments/{payment}/edit', 'Payment\PaymentController@edit')->name('api.payment.edit');
+    Route::post('/payments/{payment}/update', 'Payment\PaymentController@update')->name('api.payment.update');
+    Route::get('/payments/getCustomers', 'Payment\PaymentController@getCustomers')->name('api.payment.getCustomers');
 
     //? Reports
     Route::post('/reports/total-all-customer-invoice', 'Report\ReportController@totalAllCustomerInvoice')

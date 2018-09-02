@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('type')->nullable(); // check,cash,paypal,credit_card , we will use underscorecase
             $table->timestamp('date_paid')->nullable();
             $table->json('payment_details')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

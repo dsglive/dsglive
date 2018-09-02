@@ -39,6 +39,21 @@ class Payment extends Model
      */
     public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function setTypeAttribute($type)
+    {
+        $this->attributes['type'] = strtolower(str_replace(' ', '_', $type));
+    }
+
+    public function setTransactionIdAttribute($value)
+    {
+        $this->attributes['transaction_id'] = str_replace(' ', '', $value);
+    }
+
+    public function getTypeAttribute()
+    {
+        return toTitleCase($this->attributes['type']);
     }
 }

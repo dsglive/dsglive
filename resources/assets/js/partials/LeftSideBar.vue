@@ -124,6 +124,15 @@
         active-color="#4db6ac"
         icon-color="#fafafa"
       />
+      <v-link 
+        v-if="$auth.check('admin')"
+        title="Payments" 
+        href="/payments" 
+        icon="attach_money"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <invoice-links/>
       
       <!-- Customer Account Type -->

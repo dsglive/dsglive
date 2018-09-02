@@ -14,26 +14,28 @@ import warehouse from "Routes/warehouse";
 import misc from "Routes/misc";
 import invoices from "Routes/invoices";
 import reports from "Routes/reports";
+import payments from "Routes/payments";
 
 let routeFiles = [];
 /* Multi Route Files */
 const routes = routeFiles.concat(
-  auth,
-  home,
-  profile,
-  errors,
-  clients,
-  users,
-  shippers,
-  rates,
-  bins,
-  dsg,
+    auth,
+    home,
+    profile,
+    errors,
+    clients,
+    users,
+    shippers,
+    rates,
+    bins,
+    dsg,
     tickets,
-  warehouse,
-  misc,
-  invoices,
-  reports,
-  customer
-  /* add here Other Routes File */
+    warehouse,
+    misc,
+    invoices,
+    reports,
+    customer,
+    payments
+    /* add here Other Routes File */
 );
 export default routes;
