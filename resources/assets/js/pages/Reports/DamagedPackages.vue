@@ -103,7 +103,7 @@
             <td 
               class="title text-xs-left"
             >
-              {{ props.item.po_no }}
+              {{ props.item.bin_name }}
             </td>
             <td class="title text-xs-center accent--text">
               {{ props.item.style_no }}
@@ -189,7 +189,7 @@ export default {
         sortable: true
       },
       { text: "Client", value: "client_name", align: "left", sortable: true },
-      { text: "PO#", value: "po_no", align: "left", sortable: true },
+      { text: "Bin#", value: "bin_name", align: "left", sortable: true },
       { text: "Style#", value: "style_no", align: "left", sortable: true },
       {
         text: "Damaged Description",
