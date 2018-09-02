@@ -26,11 +26,12 @@
 ## ***Invoicing***
 
 ### Controller Generate Invoice and Fetch Billables
-- [  ] Calculate Storage Fee Retroactive Even if it still not yet delivered, the current model is the Storage Fee is being calculated Only After it is delivered.
+- [x] Calculate Storage Fee Retroactive Even if it still not yet delivered, the current model is the Storage Fee is being calculated Only After it is delivered.
 
 ### Invoices
 - [  ] Add a Send Invoice To Customer Individual and Mass Mail
 - [  ] Show Invoices For Specific Customer on Their Dashboard
+***verify this, i think this is done already***
 - [  ] ALL fields that display money must be in $XXX.XX format. $535.50 
 
 ### Customer Invoice Report
@@ -50,16 +51,17 @@
     - [example.pdf](./z-resources/client-invoice-report.pdf) 
 
 ## ***Payments***
-- [ ] Create new Tables payments
-- [ ] Create New Model Payment
+- [x] Create new Tables payments
+- [x] Create New Model Payment
 - [ ] Add Controller To Create, Update, Delete Payments
   - On Delete We Need To Automatically Change The Current Balance of the User
 
 ## ***Balance***
-- [ ] Add Balance Table which Add new balance if there is a new Invoice, if The Invoice is Deleted We need to Also Delete The Associated Balance and Adjust The Total Accordingly
+- [x] Add Balance field on users table which will be updated and the transaction will be recorded using laravel event projector. which Add new balance if there is a new Invoice, if The Invoice is Deleted We need to subract Balance , And when payment is made the balance should be deducted also.
 - [ ] Add A new Link to Show All Customer Current Balance.
 
 ## ***Logistics***
+***verify this, i think this is done already***
 - [ ] Add A Way To Create Delivery PDF Without Charges
 
 
