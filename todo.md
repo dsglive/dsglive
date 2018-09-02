@@ -55,10 +55,11 @@
 - [x] Create New Model Payment
 - [x] Add Controller To Create, Update, Delete Payments
   - On Delete We Need To Automatically Change The Current Balance of the User
-- [ ] Add user Interface for Payments pages Index, Create, Edit
+- [X] Add user Interface for Payments pages Index, Create, Edit
 ## ***Balance***
 - [x] Add Balance field on users table which will be updated and the transaction will be recorded using laravel event projector. which Add new balance if there is a new Invoice, if The Invoice is Deleted We need to subract Balance , And when payment is made the balance should be deducted also.
 - [ ] Add A new Link to Show All Customer Current Balance.
+- [ ] Update Balance When We Create Invoice , Delete Invoice, Create Payments And Delete Payments
 
 ## ***Logistics***
 - [ ] Add A Way To Create Delivery PDF Without Charges ***verify this, i think this is done already***
