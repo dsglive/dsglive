@@ -59,7 +59,7 @@ class Package extends Model implements HasMedia
 
     public function scopeExceptArchived($query)
     {
-        return $query->whereNotNull('deleted_at');
+        return $query->whereNull('deleted_at');
     }
 
     /**

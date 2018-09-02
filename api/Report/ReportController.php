@@ -57,6 +57,20 @@ class ReportController extends Controller
         return $customer;
     }
 
+    public function toggleRepair(Request $request)
+    {
+        $package = Package::find($request->package_id);
+        if($request->date_repaired){
+            $package->repaired = true;
+            $package->date_repaired = $request->date_repaired;
+        }else{
+            $package->repaired = false;
+            $package->date_repaired = NULL;
+        }
+        $package->save();
+        return response()->json(['package' => $package, 'message' => 'Item Upated!'],200);
+    }
+
     /**
      * @param Request $request
      */

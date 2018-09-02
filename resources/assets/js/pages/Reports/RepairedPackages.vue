@@ -112,17 +112,26 @@
               {{ props.item.date_repaired }}
             </td>
             <td class="title text-xs-center">
-              <v-flex class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  flat 
-                  icon 
-                  color="amber lighten-2" 
-                  @click="viewItem(props.item.id)"
-                >
-                  <v-icon>fa-eye</v-icon>
-                </v-btn>
-              </v-flex>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="amber lighten-2" 
+                class="compress--icon"
+                @click="viewItem(props.item.id)"
+              >
+                <v-icon>fa-eye</v-icon>
+              </v-btn>
+              <v-btn 
+                v-if="$auth.check('admin')"
+                flat 
+                icon 
+                color="blue" 
+                class="compress--icon"
+                @click="editItem(props.item.id)"
+              >
+                <v-icon>fa-pencil</v-icon>
+              </v-btn>
             </td>
           </tr>
         </template>
@@ -213,6 +222,9 @@ export default {
     viewItem(id) {
       this.$router.push({ name: "view-package", params: { id: `${id}` } });
     },
+    editItem(id) {
+      this.$router.push({ name: "edit-package", params: { id: `${id}` } });
+    },
     async fetchDsg() {
       let self = this;
       self.form.busy = true;
@@ -247,4 +259,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.compress--icon {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+</style>
 

@@ -16,7 +16,7 @@
 ### Index
 - [x] If Damaged item is repaired is shouldnt show on the Damaged Report Already
 ### View
-- [  ] Damage item report needs completed status accessible from report currently have to go back to receiving to change repair status because repair status is locked from action page
+- [x] Damage item report needs completed status accessible from report currently have to go back to receiving to change repair status because repair status is locked from action page
   - make this link editable `http://dsglive.test/reports/package/2/view` 
   - add a status for repaired
 ### PDF

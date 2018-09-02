@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.report.reportByClient');
     Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')
         ->name('api.report.reportAllDamaged');
+    Route::post('/reports/toogleRepair', 'Report\ReportController@toggleRepair')->name('api.report.toggleRepair');
     Route::post('/reports/reportAllRepaired', 'Report\ReportController@reportAllRepaired')
         ->name('api.report.repaired');
 
