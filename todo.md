@@ -29,12 +29,12 @@
 - [x] Calculate Storage Fee Retroactive Even if it still not yet delivered, the current model is the Storage Fee is being calculated Only After it is delivered.
 
 ### Invoices
-- [  ] Add a Send Invoice To Customer Individual and Mass Mail
+- [  ] Add a Send Invoice To Customer Individual and Mass Mail , ***this is not a priority***
 - [  ] Show Invoices For Specific Customer on Their Dashboard
-***verify this, i think this is done already***
-- [  ] ALL fields that display money must be in $XXX.XX format. $535.50 
+- [  ] ALL fields that display money must be in $XXX.XX format. $535.50   ***verify this, i think this is done already***
 
-### Customer Invoice Report
+
+### Customer Invoice Report ***NEW***
 - Search by Customer Name then Show All Invoices
   - [  ] UI
   - [  ] Controller
@@ -42,7 +42,7 @@
   - https://dsglive.com/invoices/customer-invoice-report
   - [example.pdf](./z-resources/customer-invoice-report.pdf) 
 - [  ] Add A PDF Button on 
-### Client Invoice Report
+### Client Invoice Report ***NEW***
 - [  ] Search By Customer Name Then Search By Client Name
   - Add Ui
   - Add Controller
@@ -61,7 +61,6 @@
 - [ ] Add A new Link to Show All Customer Current Balance.
 
 ## ***Logistics***
-***verify this, i think this is done already***
-- [ ] Add A Way To Create Delivery PDF Without Charges
+- [ ] Add A Way To Create Delivery PDF Without Charges ***verify this, i think this is done already***
 
 
