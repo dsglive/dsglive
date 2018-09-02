@@ -20,7 +20,7 @@
   - make this link editable `http://dsglive.test/reports/package/2/view` 
   - add a status for repaired
 ### PDF
-- [  ] Damage item report does not need PO#/ Needs Bin #
+- [x] Damage item report does not need PO#/ Needs Bin #
 
 
 ## ***Invoicing***
