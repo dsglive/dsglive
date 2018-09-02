@@ -2,6 +2,14 @@
 Route::group(['middleware' => ['auth:api']], function () {
     //? Account Api
     Route::post('/@me', 'User\UsersController@me')->name('api.@me');
+    //? Payment Api
+    //? Payment Api
+    Route::post('/payments', 'Rate\RatesController@index')->name('api.payment.index');
+    Route::post('/payments/create', 'Rate\RatesController@create')->name('api.payment.create');
+    Route::post('/payments/delete', 'Rate\RatesController@delete')->name('api.payment.delete');
+    Route::get('/payments/{payment}/edit', 'Rate\RatesController@edit')->name('api.payment.edit');
+    Route::post('/payments/{payment}/update', 'Rate\RatesController@update')->name('api.payment.update');
+
     //? Reports
     Route::post('/reports/total-all-customer-invoice', 'Report\ReportController@totalAllCustomerInvoice')
         ->name('api.report.total-all-customer-invoice');
@@ -21,7 +29,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/reports/reportByCustomer', 'Report\ReportController@reportByCustomer')
         ->name('api.report.reportByCustomer');
     Route::post('/reports/searchCustomerReport', 'Report\ReportController@searchCustomerReport')
-    ->name('api.report.searchCustomerReport');
+        ->name('api.report.searchCustomerReport');
     Route::post('/reports/reportByClient', 'Report\ReportController@reportByClient')
         ->name('api.report.reportByClient');
     Route::post('/reports/reportAllDamaged', 'Report\ReportController@reportAllDamaged')
@@ -33,8 +41,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/reports/viewPackage/{package}', 'Report\ReportController@viewPackage')
         ->name('api.report.viewPackage');
     Route::post('/reports/reportAllUndelivered', 'Report\ReportController@reportAllUndelivered')
-    ->name('api.report.undelivered');
-
+        ->name('api.report.undelivered');
 
     //? Invoice Api
     Route::post('/generate/invoices', 'Invoice\InvoiceController@generateInvoice')->name('api.invoice.generate');
