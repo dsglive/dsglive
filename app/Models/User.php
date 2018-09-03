@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Events\MoneyAdded;
 use App\Traits\User\Scopes;
 use App\Traits\User\Methods;
 use App\Traits\User\Mutators;
+use App\Events\MoneySubtracted;
 use App\Traits\GenerateUniqueID;
 use App\Traits\User\Relationships;
 use Laravel\Passport\HasApiTokens;
@@ -56,7 +58,7 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'password', 'username'
+        'password', 'username', 'balance'
     ];
 
     /**
@@ -75,6 +77,14 @@ class User extends Authenticatable implements HasMedia
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * @param int $amount
+     */
+    public function addMoney(int $amount)
+    {
+        event(new MoneyAdded($this->id, $amount));
+    }
 
     /**
      * @return mixed
@@ -98,6 +108,14 @@ class User extends Authenticatable implements HasMedia
     public function dsg()
     {
         return $this->hasMany(Dsg::class, 'customer_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'customer_id');
     }
 
     /**
@@ -224,16 +242,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @param int $amount
+     */
+    public function subtractMoney(int $amount)
+    {
+        event(new MoneySubtracted($this->id, $amount));
+    }
+
+    /**
      * @return mixed
      */
     public function tickets()
     {
         return $this->hasMany(Logistic::class, 'customer_id');
-    }
-
-    public function invoices()
-    {
-        return $this->hasMany(Invoice::class, 'customer_id');
     }
 
     /**
