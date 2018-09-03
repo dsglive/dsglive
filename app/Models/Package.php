@@ -15,20 +15,22 @@ class Package extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
-        'handling_fee'   => 'float',
-        'cube'           => 'float',
-        'length'         => 'float',
-        'width'          => 'float',
-        'height'         => 'float',
-        'damaged'        => 'boolean',
-        'delivered'      => 'boolean',
-        'repaired'       => 'boolean',
-        'invoiced'       => 'boolean',
-        'storage_fee'    => 'float',
-        'date_delivered' => 'date:Y-m-d',
-        'date_repaired'  => 'date:Y-m-d',
-        'date_processed' => 'date:Y-m-d',
-        'date_received'  => 'date:Y-m-d'
+        'handling_fee'          => 'float',
+        'cube'                  => 'float',
+        'length'                => 'float',
+        'width'                 => 'float',
+        'height'                => 'float',
+        'damaged'               => 'boolean',
+        'delivered'             => 'boolean',
+        'repaired'              => 'boolean',
+        'invoiced'              => 'boolean',
+        'storage_fee'           => 'float',
+        'date_delivered'        => 'date:Y-m-d',
+        'date_repaired'         => 'date:Y-m-d',
+        'date_processed'        => 'date:Y-m-d',
+        'date_received'         => 'date:Y-m-d',
+        'last_invoice_at'       => 'date:Y-m-d',
+        'previous_invoice_date' => 'date:Y-m-d'
     ];
 
     /**
@@ -39,7 +41,9 @@ class Package extends Model implements HasMedia
         'date_repaired',
         'date_processed',
         'date_received',
-        'deleted_at'
+        'deleted_at',
+        'last_invoice_at',
+        'previous_invoice_date'
     ];
 
     /**
@@ -49,17 +53,12 @@ class Package extends Model implements HasMedia
         'shipper_name', 'bin_id', 'bin_name', 'description', 'date_received', 'date_processed',
         'po_no', 'style_no', 'length', 'width', 'height', 'cube', 'handling_type', 'handling_fee', 'store_at',
         'storage_fee', 'damaged', 'damage_description', 'repaired', 'date_repaired', 'delivered', 'date_delivered',
-        'logistic_id', 'invoiced', 'notes'
+        'logistic_id', 'invoiced', 'notes', 'last_invoice_at', 'previous_invoice_date'
     ];
 
     public static function archived()
     {
         return self::onlyTrashed()->get();
-    }
-
-    public function scopeExceptArchived($query)
-    {
-        return $query->whereNull('deleted_at');
     }
 
     /**
@@ -102,15 +101,6 @@ class Package extends Model implements HasMedia
     public function dsg()
     {
         return $this->belongsTo(Dsg::class, 'dsg_id');
-    }
-
-    /**
-     * @param $query
-     * @return mixed
-     */
-    public function scopeExceptRepaired($query)
-    {
-        return $query->where('repaired', 0);
     }
 
     /**
@@ -194,6 +184,24 @@ class Package extends Model implements HasMedia
     public function scopeDelivered($query)
     {
         return $query->where('delivered', 1);
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptArchived($query)
+    {
+        return $query->whereNull('deleted_at');
+    }
+
+    /**
+     * @param  $query
+     * @return mixed
+     */
+    public function scopeExceptRepaired($query)
+    {
+        return $query->where('repaired', 0);
     }
 
     /**
