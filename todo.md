@@ -36,18 +36,18 @@
 
 ### Customer Management Report ***NEW***
 - Search by Customer Name then Show All Invoices
-  - [ ] Search Customer Dropdown
-  - [ ] Filter by Date From To Date To Invoice
-  - [ ] Controller for the Api Response
+  - [x] Search Customer Dropdown
+  - [x] Filter by Date From To Date To Invoice
+  - [x] Controller for the Api Response
 - [ ]  Add button to Show Customer  Invoice Report PDF
   - https://dsglive.com/invoices/customer-invoice-report
   - [example.pdf](./z-resources/customer-invoice-report.pdf) 
-- [  ] web Controller For PDF
-- [ ] PDF Report Blade
+- [ ] web Controller For PDF
+- [x] PDF Report Blade
 ### Client Management Report ***NEW***
 - Search by Customer Name then Search By Client
-  - [ ] Search Customer Dropdown
-  - [ ] Search Client Dropdown
+  - [x] Search Customer Dropdown
+  - [x] Search Client Dropdown
   - [ ] Filter by Date From To Date To Invoice
   - [ ] Controller for the Api Response
 - [ ]  Add button to Show Customer  Invoice Report PDF
