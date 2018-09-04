@@ -32,11 +32,19 @@
       <v-card 
         color="blue-grey white--text" 
         class="ma-1" 
-        height="110px">
-        <v-card-text class="title pa-5">
+        height="110px"
+      >
+        <v-card-text 
+          class="title pa-5"
+          style="cursor:pointer;"
+          @click="$router.push({name:'invoices'})"
+        >
           <v-icon 
             large 
-            color="teal lighten-4">receipt</v-icon> Unpaid: ${{ stats.balance }}
+            color="teal lighten-4"
+          
+          >receipt
+          </v-icon> Balance: ${{ stats.balance }}
           <br>
           <span class="caption">(Unsettled Invoice)</span>
         </v-card-text>

@@ -146,7 +146,15 @@
         icon-color="#fafafa"
       />
       <!-- All User Types -->
-      
+      <v-link 
+        v-if="$auth.check(['customer'])"
+        title="Invoices" 
+        href="/invoices" 
+        icon="all_inbox"
+        link-color="white"
+        active-color="#4db6ac"
+        icon-color="#fafafa"
+      />
       <v-link 
         v-if="$auth.check()"
         title="Settings" 

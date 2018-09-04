@@ -24,12 +24,12 @@ class CustomerStatsController extends Controller
         $user                = $request->user();
         $data['clients']     = $user->clients()->count();
         $data['receiving']   = Dsg::where('customer_id', $user->id)->active()->count();
-        $data['damaged']     = Package::where('customer_id', $user->id)->damaged()->count();
-        $data['repaired'] = Package::where('customer_id', $user->id)->repaired()->count();
+        $data['damaged']     = Package::where('customer_id', $user->id)->damaged()->exceptRepaired()->active()->count();
+        $data['repaired'] = Package::where('customer_id', $user->id)->repaired()->active()->exceptArchived()->count();
         $data['unknown']     = Dsg::where('customer_id', $user->id)->unknownClient()->count();
         $data['undelivered'] = Package::where('customer_id', $user->id)->undelivered()->active()->count();
 
-        $data['balance'] = Invoice::where('customer_id', $user->id)->where('overdue', false)->sum('total');
+        $data['balance'] = $user->balance;
 
         return response()->json(['data' => $data]);
     }

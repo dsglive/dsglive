@@ -59,6 +59,16 @@ export default {
               title: "Weekly Report",
               href: "/reports/total-all-customer-invoice",
               action: "picture_as_pdf"
+            },
+            {
+              title: "Customer Invoice Report",
+              href: "/reports/customer-invoice-report",
+              action: "perm_contact_calendar"
+            },
+            {
+              title: "Client Invoice Report",
+              href: "/reports/client-invoice-report",
+              action: "perm_identity"
             }
           ]
         }

@@ -21,7 +21,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="search"
-                    label="Search Customer"
+                    label="Search Invoices"
                     single-line
                     hide-details
                     light
@@ -92,7 +92,9 @@
             <td class="title text-xs-left accent--text">
               {{ props.item.id }}
             </td>
-            <td class="title text-xs-left accent--text">
+            <td 
+              v-if="$auth.check('admin')" 
+              class="title text-xs-left accent--text">
               {{ props.item.customer_name }}
             </td>
             <td class="title text-xs-left accent--text">
@@ -122,23 +124,9 @@
               <span v-else>$0.00</span>
             </td>
             <td class="title text-xs-center">
-              <!-- <v-flex 
-                class="xs12">
-                <v-btn 
-                  :disabled="!$auth.check('admin')" 
-                  :class="{'amber--text': props.expanded, 'amber': props.expanded, 'teal': !props.expanded, 'teal--text': !props.expanded }" 
-                  light 
-                  flat 
-                  icon 
-                  @click="props.expanded = !props.expanded"
-                >
-                  <v-icon v-if="!props.expanded">fa-expand</v-icon>
-                  <v-icon v-if="props.expanded">fa-compress</v-icon>
-                </v-btn>
-              </v-flex> -->
               <v-flex class="xs12">
                 <v-btn 
-                  :disabled="!$auth.check('admin')" 
+                  v-if="$auth.check(['admin','customer'])"
                   flat 
                   icon 
                   color="amber lighten-2" 
@@ -149,7 +137,7 @@
               </v-flex>
               <v-flex class="xs12">
                 <v-btn 
-                  :disabled="!$auth.check('admin')" 
+                  v-if="$auth.check('admin')" 
                   flat 
                   icon 
                   color="error" 
@@ -161,26 +149,7 @@
             </td>
           </tr>
         </template>
-        <!-- Expand Section -->
-        <!-- <template 
-          slot="expand" 
-          slot-scope="props"
-        >
-          <v-container fluid>
-            <v-card 
-              light 
-              flat 
-              text-xs-center
-            >
-              <v-toolbar class="secondary">
-                <v-spacer/>
-                <v-toolbar-title class="text-xs-center white--text">Expanded Props</v-toolbar-title>
-                <v-spacer/>
-              </v-toolbar>
-            </v-card>
-          </v-container>
-        </template> -->
-        <!-- Pagination Section -->
+       
         <template 
           slot="pageText"
           slot-scope="{ pageStart, pageStop }"
@@ -195,7 +164,7 @@
             icon="warning">
             Oops! No Invoices Yet!
             <v-btn 
-              :disabled="!$auth.check('admin')" 
+              v-if="$auth.check('admin')" 
               color="white" 
               flat
               dark
@@ -296,6 +265,13 @@ export default {
     items: {
       handler: function(newValue) {},
       deep: true
+    },
+  },
+  created() {
+    let self = this;
+    if (self.$auth.check("customer")) {
+      let index = _.findIndex(self.headers, { value: "customer_name" });
+      self.$delete(self.headers, index);
     }
   },
   mounted() {
