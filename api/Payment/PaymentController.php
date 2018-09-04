@@ -5,7 +5,9 @@ namespace Api\Payment;
 use Api\Controller;
 use App\Models\User;
 use App\Models\Payment;
+use App\Events\MoneyAdded;
 use Illuminate\Http\Request;
+use App\Events\MoneySubtracted;
 use App\Exceptions\UpdatingRecordFailed;
 use App\Exceptions\PaymentCreationFailed;
 use App\Http\Resources\User\CustomerResource;
@@ -13,6 +15,7 @@ use App\Http\Resources\Payment\PaymentResource;
 
 class PaymentController extends Controller
 {
+    //! ADD EVENT TO LISTEN , THEN WE UPDATE THE BALANCE OF THE CUSTOMER
     public function __construct()
     {
         $this->middleware(['role:admin']);
@@ -30,6 +33,8 @@ class PaymentController extends Controller
             throw new PaymentCreationFailed;
         }
 
+        $this->subtractBalance($data['user_id'], $data['amount']);
+
         return response()->json(['message' => 'Payment Has Been Created!'], 200);
     }
 
@@ -45,6 +50,8 @@ class PaymentController extends Controller
             throw new UpdatingRecordFailed;
         }
 
+        $this->addBalance($payment->user_id, $payment->amount);
+
         return response()->json(['status' => $deleted], 200);
     }
 
@@ -57,7 +64,8 @@ class PaymentController extends Controller
         if (!$payment) {
             return response()->json(['message' => 'Cant Find Payment With ID of '.$request->id]);
         }
-        $payment->load('customer.profile','customer.roles','customer.media');
+
+        $payment->load('customer.profile', 'customer.roles', 'customer.media');
 
         return new PaymentResource($payment);
     }
@@ -75,7 +83,7 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
-        $payments = Payment::with('customer.profile','customer.roles','customer.media')->get();
+        $payments = Payment::with('customer.profile', 'customer.roles', 'customer.media')->get();
         return PaymentResource::collection($payments); // remove pagination
     }
 
@@ -88,7 +96,12 @@ class PaymentController extends Controller
             return response()->json(['message' => 'Cant Find Payment With ID of '.$request->id]);
         }
 
+        $user_id    = $payment->user_id;
+        $old_amount = $payment->amount;
+
         $data = $this->sanitizeData();
+
+        $new_amount = $data['amount'];
 
         $updated = $payment->update($data);
 
@@ -96,7 +109,24 @@ class PaymentController extends Controller
             throw new UpdatingRecordFailed;
         }
 
+        $difference = abs($new_amount - $old_amount);
+
+        if ($new_amount > $old_amount) {
+            $this->subtractBalance($user_id, $difference);
+        } elseif ($old_amount > $new_amount) {
+            $this->addBalance($user_id, $difference);
+        }
+
         return response()->json(['message' => 'Payment Details Updated!']);
+    }
+
+    /**
+     * @param $userID
+     * @param $amount
+     */
+    private function addBalance($userID, $amount)
+    {
+        event(new MoneyAdded($userID, $amount));
     }
 
     private function sanitizeData()
@@ -110,5 +140,13 @@ class PaymentController extends Controller
             'payment_details' => 'nullable', //! only available for api payments
             'notes'           => 'nullable'
         ]);
+    }
+
+    /**
+     * @param $data
+     */
+    private function subtractBalance($userID, $amount)
+    {
+        event(new MoneySubtracted($userID, $amount));
     }
 }

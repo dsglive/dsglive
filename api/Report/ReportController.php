@@ -22,6 +22,28 @@ class ReportController extends Controller
             ]
         ]);
     }
+    //! UNFINISHED TO FOLLOW!!!
+    public function fetchClientInvoice(Request $request)
+    {
+        $invoices = collect(Invoice::where('customer_id', $request->customer_id)->get());
+        // filter invoices by client_id 
+        // map to new collection
+        // created_at , receiving_fee, storage_fee,delivery_fee misc_fee, total
+        return response()->json(['invoices' => $invoices]);
+    }
+
+    public function searchCustomerInvoice(Request $request)
+    {
+        $invoices = Invoice::where('customer_id', $request->customer_id)
+        ->when($request->from, function($query) use ($request){
+            return $query->where('created_at', '>=', $request->from);
+        })
+        ->when($request->to, function($query) use ($request){
+            return $query->where('created_at', '<=', $request->to);
+        })
+        ->orderBy($request->sortBy,$request->orderBy)->get();
+        return response()->json(['invoices' => $invoices]);
+    }
 
     /**
      * @param Invoice $invoice

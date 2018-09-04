@@ -11,6 +11,8 @@ const UndeliveredPackages = () => import("Pages/Reports/UndeliveredPackages.vue"
 const EditUnknown = () => import("Pages/Reports/EditUnknown.vue");
 const EditPackage = () => import("Pages/Reports/EditPackage.vue");
 const ViewPackage = () => import("Pages/Reports/ViewPackage.vue");
+const CustomerInvoice = () => import("Pages/Reports/CustomerInvoice.vue");
+const ClientInvoice = () => import("Pages/Reports/ClientInvoice.vue");
 export default [
     /* Start Users Routes */
     {
@@ -94,6 +96,18 @@ export default [
         name: "edit-package",
         meta: { auth: ["admin", "warehouse", "customer"] },
         props: true
+    },
+    {
+        path: "/reports/customer-invoice-report",
+        component: CustomerInvoice,
+        name: "customer-invoice-report",
+        meta: { auth: ["admin"] },
+    },
+    {
+        path: "/reports/client-invoice-report",
+        component: ClientInvoice,
+        name: "client-invoice-report",
+        meta: { auth: ["admin"] },
     }
 
     /* End Users Routes */

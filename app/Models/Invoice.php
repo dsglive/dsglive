@@ -21,7 +21,8 @@ class Invoice extends Model
         'overdue'       => 'boolean',
         'date_started'  => 'date:Y-m-d',
         'date_ended'    => 'date:Y-m-d',
-        'due_date'      => 'date:Y-m-d'
+        'due_date'      => 'date:Y-m-d',
+        'created_at'    => 'date:Y-m-d'
     ];
 
     /**

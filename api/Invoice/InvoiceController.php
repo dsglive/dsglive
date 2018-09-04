@@ -18,7 +18,7 @@ class InvoiceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin'], ['except' => ['index','view']]);
     }
 
     /**
@@ -32,6 +32,7 @@ class InvoiceController extends Controller
         Logistic::whereIn('id', $delivery)->update(['invoiced' => false]);
         $storage = collect($invoice->storage)->pluck('id')->toArray();
         Package::whereIn('id', $storage)->update(['invoiced' => false]);
+        //! we need to revert back to the old last_invoice date prior to it, which we will get from laravel event projector table
         $misc = collect($invoice->misc)->pluck('id')->toArray();
         Misc::whereIn('id', $misc)->update(['invoiced' => false]);
         $invoice->delete();
@@ -64,8 +65,9 @@ class InvoiceController extends Controller
                          ->whereBetween('invoice_date', [$dates['date_started'], $dates['date_ended']])
                          ->whereDate('invoice_date', '<=', $dates['date_ended']);
         }, 'storage' => function ($query) use ($dates) {
-            return $query->where('invoiced', false)
-                         ->whereNotNull('date_delivered')
+            //? we remove here ->where('invoiced,false) 
+            //? we dont need this so we can compute or use the logic we made earlier
+            return $query->whereNotNull('date_delivered')
                          ->where('client_id', '!=', 1);
         }
 
@@ -76,7 +78,13 @@ class InvoiceController extends Controller
 
     public function index()
     {
+        $user = request()->user();
+        $invoices;
+        if($user->hasRole('customer')){
+            $invoices = Invoice::with('customer.profile')->where('customer_id', $user->id)->orderBy('created_at', 'DESC')->get();
+        }else{
         $invoices = Invoice::with('customer.profile')->orderBy('created_at', 'DESC')->get();
+        }
 
         return InvoiceResource::collection($invoices);
     }
@@ -96,6 +104,7 @@ class InvoiceController extends Controller
             $misc = collect($customers[$index]['misc'])->pluck('id')->toArray();
             Misc::whereIn('id', $misc)->update(['invoiced' => true]);
             $storage = collect($customers[$index]['storage'])->pluck('id')->toArray();
+            //! We Fire An Event So We Can Update Our Balance For That Specific Customer Balance Using laravel event projector
             Package::whereIn('id', $storage)->update(['invoiced' => true, 'last_invoice_at' => $last_invoice_at]);
         }
 
