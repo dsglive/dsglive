@@ -27,28 +27,34 @@
 
 ### Controller Generate Invoice and Fetch Billables
 - [x] Calculate Storage Fee Retroactive Even if it still not yet delivered, the current model is the Storage Fee is being calculated Only After it is delivered.
-
+- [ ] Add Event Hooks When Mass Creating Invoice , which will update previous_invoice_date , last_invoice_at and the invoiced filled
 ### Invoices
 - [  ] Add a Send Invoice To Customer Individual and Mass Mail , ***this is not a priority***
 - [  ] Show Invoices For Specific Customer on Their Dashboard
-- [  ] ALL fields that display money must be in $XXX.XX format. $535.50   ***verify this, i think this is done already***
+- [-] ALL fields that display money must be in $XXX.XX format. $535.50   ***verify this, i think this is done already***
 
 
-### Customer Invoice Report ***NEW***
+### Customer Management Report ***NEW***
 - Search by Customer Name then Show All Invoices
-  - [  ] UI
-  - [  ] Controller
-- [  ]  Add button to Show Customer Report Invoice Report
+  - [ ] Search Customer Dropdown
+  - [ ] Filter by Date From To Date To Invoice
+  - [ ] Controller for the Api Response
+- [ ]  Add button to Show Customer  Invoice Report PDF
   - https://dsglive.com/invoices/customer-invoice-report
   - [example.pdf](./z-resources/customer-invoice-report.pdf) 
-- [  ] Add A PDF Button on 
-### Client Invoice Report ***NEW***
-- [  ] Search By Customer Name Then Search By Client Name
-  - Add Ui
-  - Add Controller
-  - Add Button to Show Client Invoice Report
-    - https://dsglive.com/invoices/client-invoice-report
-    - [example.pdf](./z-resources/client-invoice-report.pdf) 
+- [  ] web Controller For PDF
+- [ ] PDF Report Blade
+### Client Management Report ***NEW***
+- Search by Customer Name then Search By Client
+  - [ ] Search Customer Dropdown
+  - [ ] Search Client Dropdown
+  - [ ] Filter by Date From To Date To Invoice
+  - [ ] Controller for the Api Response
+- [ ]  Add button to Show Customer  Invoice Report PDF
+  - https://dsglive.com/invoices/client-invoice-report
+  - [example.pdf](./z-resources/client-invoice-report.pdf) 
+- [  ] web Controller For PDF
+- [ ] PDF Report Blade
 
 ## ***Payments***
 - [x] Create new Tables payments
@@ -58,10 +64,13 @@
 - [X] Add user Interface for Payments pages Index, Create, Edit
 ## ***Balance***
 - [x] Add Balance field on users table which will be updated and the transaction will be recorded using laravel event projector. which Add new balance if there is a new Invoice, if The Invoice is Deleted We need to subract Balance , And when payment is made the balance should be deducted also.
-- [ ] Add A new Link to Show All Customer Current Balance.
-- [ ] Update Balance When We Create Invoice , Delete Invoice, Create Payments And Delete Payments
-
+- [x] Add Balance when Payment is Delete
+- [x] Subtract Balance When Payment is Created
+- [x] Add or Subtract Balance based on difference
+- [] Subtract Balance When Invoice Deleted
+- [] Add Balance When Invoice Created
+- [ ] Show Balance Amount on Customer Dashboard 
 ## ***Logistics***
-- [ ] Add A Way To Create Delivery PDF Without Charges ***verify this, i think this is done already***
+- [-] Add A Way To Create Delivery PDF Without Charges ***verify this, i think this is done already***
 
 
