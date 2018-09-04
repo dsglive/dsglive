@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         ->name('api.report.viewPackage');
     Route::post('/reports/reportAllUndelivered', 'Report\ReportController@reportAllUndelivered')
         ->name('api.report.undelivered');
+    Route::post('/customer-management-report', 'Report\ReportController@searchCustomerInvoice')->name('api.report.searchCustomerInvoice');
+    Route::post('/client-management-report', 'Report\ReportController@fetchClientInvoice')->name('api.report.fetchClientInvoice');
 
     //? Invoice Api
     Route::post('/generate/invoices', 'Invoice\InvoiceController@generateInvoice')->name('api.invoice.generate');
