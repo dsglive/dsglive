@@ -62,7 +62,7 @@
           </v-layout>
         </v-flex>
       </v-layout>
-      <!-- Misc Data Table -->
+      <!-- Payment Data Table -->
       <v-data-table
         :headers="headers"
         :items="items"
@@ -329,7 +329,7 @@ export default {
             });
             toggleModal({
               title: "Success",
-              html: `<p class="title">Misc Deleted!</p>`,
+              html: `<p class="title">Payment Deleted!</p>`,
               type: "success",
               confirmButtonText: "Back"
             });
