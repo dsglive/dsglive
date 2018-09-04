@@ -42,7 +42,8 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $casts = [
-        'active' => 'boolean'
+        'active'  => 'boolean',
+        'balance' => 'double'
     ];
 
     /**

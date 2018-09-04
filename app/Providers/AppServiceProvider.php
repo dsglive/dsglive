@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\Invoice;
+use App\Models\Package;
 use App\Observers\UserObserver;
+use App\Observers\InvoiceObserver;
+use App\Observers\PackageObserver;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
                 DB::rollBack();
             }
         });
+        Invoice::observe(InvoiceObserver::class);
+
     }
 
     /**

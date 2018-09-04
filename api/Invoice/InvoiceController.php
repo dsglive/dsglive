@@ -36,6 +36,7 @@ class InvoiceController extends Controller
         $misc = collect($invoice->misc)->pluck('id')->toArray();
         Misc::whereIn('id', $misc)->update(['invoiced' => false]);
         $invoice->delete();
+        //! we are observing deleted invoice will update last_invoice_at to previous_invoice_date
         return response()->json(['message' => 'Invoice Deleted!']);
     }
 
@@ -67,7 +68,7 @@ class InvoiceController extends Controller
         }, 'storage' => function ($query) use ($dates) {
             //? we remove here ->where('invoiced,false) 
             //? we dont need this so we can compute or use the logic we made earlier
-            return $query->whereNotNull('date_delivered')
+            return $query->where('invoiced',false)
                          ->where('client_id', '!=', 1);
         }
 
@@ -106,6 +107,7 @@ class InvoiceController extends Controller
             $storage = collect($customers[$index]['storage'])->pluck('id')->toArray();
             //! We Fire An Event So We Can Update Our Balance For That Specific Customer Balance Using laravel event projector
             Package::whereIn('id', $storage)->update(['invoiced' => true, 'last_invoice_at' => $last_invoice_at]);
+            //! we are observing created invoice will update last_invoice_at to previous_invoice_date
         }
 
         foreach ($customers as $customer) {
@@ -120,7 +122,7 @@ class InvoiceController extends Controller
                 ], $customer);
             }
         }
-
+        
         return response()->json(['message' => 'Mass Invoice Creation Done!']);
     }
 
